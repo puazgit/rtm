@@ -46,21 +46,26 @@
                 <h3 class="form-title font-green">Sign In</h3>
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
-                    <span> Enter any username and password. </span>
+                    <span class="invalid-feedback" role="alert">Enter any username and password.</span>
                 </div>
+                @error('email')
+                <div class="alert alert-danger">
+                    <button class="close" data-close="alert"></button>
+                    <span class="invalid-feedback" role="alert"> 
+                        {{ $message }}
+                    </span>
+                </div>
+                @enderror
+
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                     <label for="email" class="control-label visible-ie8 visible-ie9">{{ __('E-Mail Address') }}</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror form-control-solid placeholder-no-fix" type="text" placeholder="Username" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus/> 
-                    @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
+                    <input id="email" type="email" class="form-control form-control-solid placeholder-no-fix @error('email') is-invalid @enderror" placeholder="Username" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus/> 
+
                 </div>
                 <div class="form-group">
                     <label for="password" class="control-label visible-ie8 visible-ie9">{{ __('Password') }}</label>
-                    <input id="password" type="password" class="form-control  @error('password') is-invalid @enderror form-control-solid placeholder-no-fix" name="password" required autocomplete="current-password" /> 
+                    <input id="password" type="password" class="form-control form-control-solid placeholder-no-fix @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password" /> 
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
