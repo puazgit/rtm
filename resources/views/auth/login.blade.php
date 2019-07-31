@@ -24,7 +24,7 @@
         <link href="{{asset ('assets/css/plugins-md.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN PAGE LEVEL STYLES -->
-        <link href="{{asset ('assets/pages/css/login.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset ('assets/css/login.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
@@ -35,7 +35,7 @@
         <!-- BEGIN LOGO -->
         <div class="logo">
             <a href="index.html">
-                <img src="{{asset ('assets/pages/img/logo-big.png')}}" alt="" /> </a>
+                <img src="{{asset ('assets/img/logo-big.png')}}" alt="" /> </a>
         </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->
@@ -402,25 +402,25 @@
 <script src="assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
-        <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/js.cookie.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/bootstrap-hover-dropdown.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.blockui.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.uniform.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <script src="assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
-        <script src="assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.validate.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/additional-methods.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <script src="assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/app.min.js')}}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="assets/pages/scripts/login.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/login.min.js')}}" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <!-- END THEME LAYOUT SCRIPTS -->
