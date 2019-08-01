@@ -74,14 +74,11 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn green uppercase">{{ __('Login') }}</button>
-                    @if (Route::has('password.request'))
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        {{ __('Forgot Your Password?') }}
-                    </a>
-                    @endif
                     <label class="rememberme check">
                         <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>{{ __('Remember Me') }} </label>
-                    <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
+                        @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" id="forget-password" class="forget-password">{{ __('Forgot Password?') }}</a>
+                        @endif
                 </div>
                 <div class="login-options">
                     <h4>Or login with</h4>
@@ -401,7 +398,7 @@
             </form>
             <!-- END REGISTRATION FORM -->
         </div>
-        <div class="copyright"> 2014 © Metronic. Admin Dashboard Template. </div>
+        <div class="copyright"> 2019 © RTM. Perum Jasa Tirta II. </div>
         <!--[if lt IE 9]>
 <script src="assets/global/plugins/respond.min.js"></script>
 <script src="assets/global/plugins/excanvas.min.js"></script> 

@@ -1,23 +1,14 @@
-@extends('layouts.app')
+@extends('layouts/wrapper')
+{{-- @extends('layouts.app') --}}
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+                    <!-- BEGIN PAGE TITLE-->
+<h3 class="page-title"> Blank Page Layout
+    <small>blank page layout</small>
+</h3>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="note note-info">
+        <p> A black page template with a minimal dependency assets to use as a base for any custom page you create </p>
     </div>
-</div>
 @endsection
