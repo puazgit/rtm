@@ -23,6 +23,7 @@
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="{{asset ('assets/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset ('assets/css/darkblue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
+        {{-- <link href="{{asset ('assets/css/blue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" /> --}}
         <link href="{{asset ('assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <!-- START THEME CONTENT STYLES -->
@@ -649,6 +650,8 @@
         <script src="assets/js/demo.min.js" type="text/javascript"></script>
         <script src="assets/js/quick-sidebar.min.js" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
+        @yield('js')
+        @yield('script')
     </body>
 
 </html>

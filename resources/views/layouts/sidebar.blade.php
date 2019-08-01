@@ -37,35 +37,38 @@
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
-                <li class="nav-item start ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-home"></i>
-                        <span class="title">Dashboard</span>
-                        <span class="arrow"></span>
+                <?php
+                $menu_0 = \App\Menu::where('is_parent',0)->get();
+                foreach ($menu_0 as $key) {
+                  get_menu_child($key->id);
+                }
+                function get_menu_child($parent=0){
+                    $menu = \App\Menu::where('is_parent',$parent)->get();
+                    $parent = \App\Menu::where('id',$parent)->first();
+                ?>
+
+                <li class="nav-item {{ (request()->is($parent->link)) ? 'active' : '' }} start">
+                    <a href="{{ url($parent->link) }}" class="nav-link nav-toggle">
+                        <i class="{{ $parent->icon }}"></i>
+                        <span class="title">{{ $parent->name }}</span>
+                        @if(sizeof($menu)>0)
+                            <span class="arrow"></span>
+                        @endif
                     </a>
+                @if(sizeof($menu)>0)
                     <ul class="sub-menu">
-                        <li class="nav-item start ">
-                            <a href="index.html" class="nav-link ">
-                                <i class="icon-bar-chart"></i>
-                                <span class="title">Dashboard 1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="dashboard_2.html" class="nav-link ">
-                                <i class="icon-bulb"></i>
-                                <span class="title">Dashboard 2</span>
-                                <span class="badge badge-success">1</span>
-                            </a>
-                        </li>
-                        <li class="nav-item start ">
-                            <a href="dashboard_3.html" class="nav-link ">
-                                <i class="icon-graph"></i>
-                                <span class="title">Dashboard 3</span>
-                                <span class="badge badge-danger">5</span>
-                            </a>
-                        </li>
+
+                    <?php
+                        foreach ($menu as $key) {
+                            get_menu_child($key->id);
+                        }
+                    ?>
+
                     </ul>
+                @endif
                 </li>
+                <?php } ?>
+
             </ul>
             <!-- END SIDEBAR MENU -->
             <!-- END SIDEBAR MENU -->
