@@ -56,8 +56,11 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.model_has_roles: ~0 rows (approximately)
+-- Dumping data for table rtmdb.model_has_roles: ~1 rows (approximately)
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+	(1, 'App\\user', 1),
+	(2, 'App\\User', 2);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.password_resets
@@ -80,10 +83,14 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.permissions: ~0 rows (approximately)
+-- Dumping data for table rtmdb.permissions: ~2 rows (approximately)
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+	(1, 'view post', 'web', '2019-08-01 20:53:03', '2019-08-01 20:53:04'),
+	(2, 'edit post', 'web', '2019-08-01 20:53:14', '2019-08-01 20:53:16'),
+	(3, 'delete post', 'web', '2019-08-01 20:53:26', '2019-08-01 20:53:27');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.roles
@@ -94,10 +101,15 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.roles: ~0 rows (approximately)
+-- Dumping data for table rtmdb.roles: ~4 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+	(1, 'admin', 'web', '2019-08-01 20:51:35', '2019-08-01 20:51:38'),
+	(2, 'editor', 'web', '2019-08-01 20:52:03', '2019-08-01 20:52:04'),
+	(3, 'viewer', 'web', '2019-08-01 20:52:15', '2019-08-01 20:52:16'),
+	(4, 'writer', 'web', '2019-08-01 14:10:34', '2019-08-01 14:10:34');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.role_has_permissions
@@ -110,9 +122,34 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.role_has_permissions: ~0 rows (approximately)
+-- Dumping data for table rtmdb.role_has_permissions: ~6 rows (approximately)
 /*!40000 ALTER TABLE `role_has_permissions` DISABLE KEYS */;
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
+	(1, 1),
+	(2, 1),
+	(3, 1),
+	(1, 2),
+	(2, 2),
+	(1, 3);
 /*!40000 ALTER TABLE `role_has_permissions` ENABLE KEYS */;
+
+-- Dumping structure for table rtmdb.tb_menu
+CREATE TABLE IF NOT EXISTS `tb_menu` (
+  `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL DEFAULT '0',
+  `link` varchar(50) NOT NULL DEFAULT '0',
+  `icon` varchar(50) DEFAULT '0',
+  `is_parent` varchar(50) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table rtmdb.tb_menu: ~2 rows (approximately)
+/*!40000 ALTER TABLE `tb_menu` DISABLE KEYS */;
+INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`) VALUES
+	(1, 'Dashboard', '/', 'icon-home', '0'),
+	(2, 'User', 'user', 'icon-user', '1'),
+	(3, 'Dokumen', 'dokumen', 'icon-magnifier', '0');
+/*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -132,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(1, 'Puas Apriyampon', 'admin@gmail.com', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', '2019-07-29 16:42:00', '2019-07-29 16:42:00'),
-	(2, 'Pia Tiara Haryanti', 'TnDyOs97o7@gmail.com', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(2, 'Pia Tiara Haryanti', 'editor@gmail.com', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(3, 'Jindra Sabri Prabowo', '1PPVd71rwm@gmail.com', '2019-07-29 16:42:01', '$2y$10$W17ALurAVFYMD6KZNG5zpu.x/Em2OfLc0c9c2Ubfv2FMCNtrnMsYK', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(4, 'Tami Pudjiastuti S.Psi', 'MtNLAw09So@gmail.com', '2019-07-29 16:42:01', '$2y$10$ePMxDtGzMn/yCF3AMV4pS.wDAMGjJXevP8c9nhkcto2rG0gFc/6lq', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(5, 'Maimunah Mandasari', 'Bz8WdvwLGp@gmail.com', '2019-07-29 16:42:01', '$2y$10$rblgLvhOICWjAWYgVfmz2.Vmw4XZfftX0IMlIO9mJoJszZatx1CWW', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
