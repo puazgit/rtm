@@ -72,7 +72,7 @@
 					orderable:!1,
 					title:"aksi",
 					render:function(data){
-						return'<button type=\"button\" class=\"btn btn-icon rounded-circle btn-flat-primary mr-1 mb-1\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-icon rounded-circle btn-flat-warning mr-1 mb-1\"><i class=\"feather icon-edit\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-icon rounded-circle btn-flat-danger mr-1 mb-1\"><i class=\"feather icon-trash-2\"></i></button>@endrole'
+						return'<button type=\"button\" class=\"btn btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
 					}
 				}],
 	    });
