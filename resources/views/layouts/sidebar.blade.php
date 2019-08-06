@@ -47,23 +47,24 @@
                     $parent = \App\Menu::where('id',$parent)->first();
                 ?>
 
-                <li class="nav-item {{ (request()->is($parent->link)) ? 'active' : '' }} start">
-                    <a href="{{ url($parent->link) }}" class="nav-link nav-toggle">
+                <li class="nav-item{{ (request()->is($parent->link)) ? ' start active open' : '' }}">
+                    <a href="{{ url($parent->link) }}" class="nav-link @if(sizeof($menu)>0)nav-toggle @endif">
                         <i class="{{ $parent->icon }}"></i>
                         <span class="title">{{ $parent->name }}</span>
                         @if(sizeof($menu)>0)
-                            <span class="arrow"></span>
+                            <span class="arrow{{ (request()->is($parent->link)) ? ' open' : '' }}"></span>
+                        @endif
+                        @if(request()->is($parent->link))
+                        <span class="selected"></span>
                         @endif
                     </a>
                 @if(sizeof($menu)>0)
                     <ul class="sub-menu">
-
                     <?php
                         foreach ($menu as $key) {
                             get_menu_child($key->id);
                         }
                     ?>
-
                     </ul>
                 @endif
                 </li>

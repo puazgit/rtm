@@ -22,8 +22,8 @@
         <!-- END THEME GLOBAL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <link href="{{asset ('assets/css/layout.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset ('assets/css/darkblue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
-        {{-- <link href="{{asset ('assets/css/blue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" /> --}}
+        {{-- <link href="{{asset ('assets/css/darkblue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" /> --}}
+        <link href="{{asset ('assets/css/blue.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{asset ('assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <!-- START THEME CONTENT STYLES -->
@@ -633,22 +633,22 @@
 <script src="assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
         <!-- BEGIN CORE PLUGINS -->
-        <script src="assets/js/jquery.min.js" type="text/javascript"></script>
-        <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="assets/js/js.cookie.min.js" type="text/javascript"></script>
-        <script src="assets/js/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-        <script src="assets/js/jquery.slimscroll.min.js" type="text/javascript"></script>
-        <script src="assets/js/jquery.blockui.min.js" type="text/javascript"></script>
-        <script src="assets/js/jquery.uniform.min.js" type="text/javascript"></script>
-        <script src="assets/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/js.cookie.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/bootstrap-hover-dropdown.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.blockui.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/jquery.uniform.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <script src="assets/js/app.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/app.min.js')}}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
-        <script src="assets/js/layout.min.js" type="text/javascript"></script>
-        <script src="assets/js/demo.min.js" type="text/javascript"></script>
-        <script src="assets/js/quick-sidebar.min.js" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/layout.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/demo.min.js')}}" type="text/javascript"></script>
+        <script src="{{asset ('assets/js/quick-sidebar.min.js')}}" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
         @yield('js')
         @yield('script')
