@@ -6,8 +6,8 @@
 @endsection
 
 @section('content')
-<h3 class="page-title"> Buttons Datatable
-    <small>buttons extension demos</small>
+<h3 class="page-title">
+    <small>&nbsp;</small>
 </h3>
 <div class="row">
     <div class="col-md-12">
@@ -15,13 +15,14 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-dark">
-                    <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject bold uppercase">Buttons</span>
+                    <i class="icon-users font-dark"></i>
+                    <span class="caption-subject bold">List User</span>
                 </div>
                 <div class="tools"> </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover" id="sample_1">
+                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
+                    id="user-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -38,23 +39,32 @@
 @endsection
 
 @section('js')
-    <!-- BEGIN: Page Vendor JS-->
-    <script src="{{asset ('assets/js/datatable.js')}}" type="text/javascript"></script>
-    <script src="{{asset ('assets/js/datatables.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
-    {{-- <script src="{{asset ('assets/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script> --}}
-    <!-- END: Page Vendor JS-->
+<!-- BEGIN: Page Vendor JS-->
+<script src="{{asset ('assets/js/datatable.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/datatables.min.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
+{{-- <script src="{{asset ('assets/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script> --}}
+<!-- END: Page Vendor JS-->
 @endsection
 
 @section('script')
-	<script>
-	  $(function() {
-	    $('#sample_1').DataTable({
-		  dom: 'Blfrtip',
+<script>
+    $(function() {
+	    $('#user-table').DataTable({
+		                dom: 'Blfrtip',
           buttons: [
               {
+                text: 'Add +',
+                className:"btn btn-circle green btn-outline",
+                    action: function ( e, dt, node, config ) {
+                        window.location = '/user/create';
+                        // alert( 'Button activated' );
+                    }
+                },   
+              {
                 extend:"pdf",
-                className:"btn green btn-outline"
+                className:"btn btn-circle green btn-outline"
               }
           ],
 	    //   processing: true,
@@ -72,10 +82,10 @@
 					orderable:!1,
 					title:"aksi",
 					render:function(data){
-						return'<button type=\"button\" class=\"btn btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+						return'<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
 					}
 				}],
 	    });
 	  });
-	</script>
+</script>
 @endsection

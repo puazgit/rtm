@@ -1,16 +1,16 @@
 <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
-                <a href="index.html">Home</a>
-                <i class="fa fa-circle"></i>
+                <a href="/">Home</a>
             </li>
+            @for($i = 0; $i <= count(Request::segments()); $i++)
             <li>
-                <a href="#">Blank Page</a>
-                <i class="fa fa-circle"></i>
+               <a href="{{ URL::to( implode( '/', array_slice(Request::segments(), 0 ,$i, true)))}}">
+                  {{(Request::segment($i))}}
+               </a>
+               <i class="fa fa-circle"></i>
             </li>
-            <li>
-                <span>Page Layouts</span>
-            </li>
+         @endfor
         </ul>
         <div class="page-toolbar">
             <div class="btn-group pull-right">

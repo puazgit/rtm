@@ -47,7 +47,7 @@
                     $parent = \App\Menu::where('id',$parent)->first();
                 ?>
 
-                <li class="nav-item{{ (request()->is($parent->link)) ? ' start active open' : '' }}">
+                <li class="nav-item{{ (request()->is($parent->link)) ? ' start open' : '' }}">
                     <a href="{{ url($parent->link) }}" class="nav-link @if(sizeof($menu)>0)nav-toggle @endif">
                         <i class="{{ $parent->icon }}"></i>
                         <span class="title">{{ $parent->name }}</span>
