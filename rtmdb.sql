@@ -11,11 +11,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for rtmdb
-CREATE DATABASE IF NOT EXISTS `rtmdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `rtmdb`;
-
 -- Dumping structure for table rtmdb.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -56,11 +51,12 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.model_has_roles: ~1 rows (approximately)
+-- Dumping data for table rtmdb.model_has_roles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\user', 1),
-	(2, 'App\\User', 2);
+	(2, 'App\\User', 2),
+	(3, 'App\\User', 3);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.password_resets
@@ -85,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.permissions: ~2 rows (approximately)
+-- Dumping data for table rtmdb.permissions: ~3 rows (approximately)
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'view post', 'web', '2019-08-01 20:53:03', '2019-08-01 20:53:04'),
@@ -141,14 +137,15 @@ CREATE TABLE IF NOT EXISTS `tb_menu` (
   `icon` varchar(50) DEFAULT '0',
   `is_parent` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_menu: ~2 rows (approximately)
+-- Dumping data for table rtmdb.tb_menu: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tb_menu` DISABLE KEYS */;
 INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`) VALUES
-	(1, 'Dashboard', '/', 'icon-home', '0'),
-	(2, 'User', 'user', 'icon-user', '1'),
-	(3, 'Dokumen', 'dokumen', 'icon-magnifier', '0');
+	(1, 'Beranda', '/', 'icon-home', '0'),
+	(2, 'User', 'user', 'icon-users', '4'),
+	(3, 'Dokumen', 'dokumen', 'icon-docs', '0'),
+	(4, 'Menu Admin', '#', 'icon-user', '0');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users
@@ -168,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table rtmdb.users: ~50 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Puas Apriyampon', 'admin@gmail.com', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', '2019-07-29 16:42:00', '2019-07-29 16:42:00'),
+	(1, 'Puas Apriyampon', 'admin', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', '2019-07-29 16:42:00', '2019-07-29 16:42:00'),
 	(2, 'Pia Tiara Haryanti', 'editor@gmail.com', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(3, 'Jindra Sabri Prabowo', '1PPVd71rwm@gmail.com', '2019-07-29 16:42:01', '$2y$10$W17ALurAVFYMD6KZNG5zpu.x/Em2OfLc0c9c2Ubfv2FMCNtrnMsYK', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(4, 'Tami Pudjiastuti S.Psi', 'MtNLAw09So@gmail.com', '2019-07-29 16:42:01', '$2y$10$ePMxDtGzMn/yCF3AMV4pS.wDAMGjJXevP8c9nhkcto2rG0gFc/6lq', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
