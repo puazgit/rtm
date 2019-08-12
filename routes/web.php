@@ -21,5 +21,7 @@ Route::get('/user','UserController@index');
 Route::get('user/create','UserController@create')->middleware('role:admin|editor');
 Route::get('user/json','UserController@json');
 
+Route::get('/rtm','RtmController@index');
+
 Auth::routes();
 
