@@ -22,9 +22,14 @@
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                    id="user-table">
-                    <thead>
-                        <tr>
+                id="rtm-table">
+                <thead>
+                    <tr>
+                            <th>id</th>
+                            <th>Rtm Ke</th>
+                            <th>Tingkat</th>
+                            <th>RKT</th>
+                            <th>Tahun</th>
                             <th>Analisis</th>
                             <th>Uraian</th>
                             <th>Target</th>
@@ -34,9 +39,8 @@
                             <th>Realisasi</th>
                             <th>Status</th>
                             <th>Id RTM</th>
-                            <th>Tingkat</th>
                             <th>Id Index</th>
-                            <th>id</th>
+                            <th>Index Masalah</th>
                         </tr>
                     </thead>
                 </table>
@@ -60,7 +64,7 @@
 @section('script')
 <script>
     $(function() {
-	    $('#user-table').DataTable({
+	    $('#rtm-table').DataTable({
 		                dom: 'Blfrtip',
           buttons: [
               {
@@ -81,6 +85,11 @@
           order:[[0,"asc"]],    
 	      ajax: "{{route ('rtm.json')}}",
 	      columns: [
+	      { data: 'id', width: '15%'},
+	      { data: 'rtm_ke'},
+	      { data: 'tingkat'},
+	      { data: 'rkt'},
+	      { data: 'tahun'},
 	      { data: 'analisis'},
 	      { data: 'r_uraian'},
 	      { data: 'r_target'},
@@ -90,13 +99,12 @@
 	      { data: 'p_realisasi'},
 	      { data: 'status'},
 	      { data: 'rtm_id'},
-	      { data: 'tingkat'},
 	      { data: 'index_id'},
-	      { data: 'id', width: '15%'}
+	      { data: 'index_masalah'}
 	      ],
 	      columnDefs:[
 	      				{
-					targets:11,
+					targets:0,
 					orderable:!1,
 					title:"aksi",
 					render:function(data){

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use App\Uraian;
+use App\Rtm;
 use DataTables;
 
 class RtmController extends Controller
@@ -21,10 +19,8 @@ class RtmController extends Controller
     }
 
     public function json(){
-        
-        // $uraian = Uraian::select(['id','analisis','r_uraian','r_target','r_pic','tindak','p_rencana','p_realisasi','status','id_index','created_at','updated_at']);
-        // return Datatables::of($uraian)->make();
-        return Datatables::of(Uraian::all())->make(true);
+        $json = Rtm::select(['tb_rtm.id', 'rtm_ke', 'tingkat', 'rkt', 'tahun', 'analisis', 'r_uraian', 'r_target', 'r_pic', 'r_pic', 'p_rencana', 'p_realisasi', 'status', 'rtm_id', 'index_id', 'index_masalah'])->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id');
+        return Datatables::of($json)->make(true);
     }
     /**
      * Show the form for creating a new resource.

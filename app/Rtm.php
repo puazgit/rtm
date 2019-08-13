@@ -10,6 +10,6 @@ class Rtm extends Model
     
     public function uraian()
     {
-        return $this->hasMany('App\Uraian');
+        return $this->hasMany('App\Uraian', 'rtm_id', 'id');
     }
 }
