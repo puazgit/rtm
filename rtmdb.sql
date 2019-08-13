@@ -11,6 +11,11 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Dumping database structure for rtmdb
+CREATE DATABASE IF NOT EXISTS `rtmdb` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `rtmdb`;
+
 -- Dumping structure for table rtmdb.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -51,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.model_has_roles: ~2 rows (approximately)
+-- Dumping data for table rtmdb.model_has_roles: ~3 rows (approximately)
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\user', 1),
@@ -129,6 +134,63 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(1, 3);
 /*!40000 ALTER TABLE `role_has_permissions` ENABLE KEYS */;
 
+-- Dumping structure for table rtmdb.tb_drtm
+CREATE TABLE IF NOT EXISTS `tb_drtm` (
+  `id_rtm` int(5) NOT NULL,
+  `id_uraian` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table rtmdb.tb_drtm: ~3 rows (approximately)
+/*!40000 ALTER TABLE `tb_drtm` DISABLE KEYS */;
+INSERT INTO `tb_drtm` (`id_rtm`, `id_uraian`) VALUES
+	(4, 1),
+	(4, 2),
+	(4, 3);
+/*!40000 ALTER TABLE `tb_drtm` ENABLE KEYS */;
+
+-- Dumping structure for table rtmdb.tb_index
+CREATE TABLE IF NOT EXISTS `tb_index` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `index_masalah` text,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table rtmdb.tb_index: ~29 rows (approximately)
+/*!40000 ALTER TABLE `tb_index` DISABLE KEYS */;
+INSERT INTO `tb_index` (`id`, `index_masalah`, `created_at`, `updated_at`) VALUES
+	(1, 'Hasil Kuesioner/Indeks Kepuasan Pelanggan 7.2.a.1', '2019-08-13 10:11:34', '2019-08-13 10:11:35'),
+	(2, 'Indeks Keterikatan Karyawan 7.3.a.(3).3', '2019-08-13 10:11:58', '2019-08-13 10:11:58'),
+	(3, 'Indeks Kepuasan Karyawan (%) 7.3.a.3.1', '2019-08-13 10:15:47', '2019-08-13 10:15:49'),
+	(4, 'Indeks kepuasan pemasok 7.1.c.5', '2019-08-13 10:15:48', '2019-08-13 10:15:49'),
+	(5, 'Keuangan dan Pasar 7.4.b.(2).11.1', '2019-08-13 10:15:52', '2019-08-13 10:15:50'),
+	(6, 'Fokus Pelanggan 7.4.b.(2).11.2', '2019-08-13 10:15:51', '2019-08-13 10:15:51'),
+	(7, 'Efektifitas produk dan proses 7.4.b.(2).11.3', '2019-08-13 10:15:54', '2019-08-13 10:15:53'),
+	(8, 'Fokus tenaga kerja 7.4.b.(2).11.4', '2019-08-13 10:15:54', '2019-08-13 10:15:55'),
+	(9, 'Kepemimpinan 7.4.b.(2).11.5', '2019-08-13 10:15:56', '2019-08-13 10:15:55'),
+	(10, 'Layanan Penyaluran Listrik Total (PLTA + PLTMH) 7.1.a.(1).1', '2019-08-13 10:15:56', '2019-08-13 10:15:57'),
+	(11, 'Layanan Air Baku Total 7.1.a.(1).2', '2019-08-13 10:15:58', '2019-08-13 10:15:57'),
+	(12, 'Layanan Air Bersih / Spam Total 7.1.a.(1).3', '2019-08-13 10:15:59', '2019-08-13 10:15:59'),
+	(13, 'Layanan Air Minum Dalam Kemasan Galon 19Ltr  7.1.a.(1).4.1', '2019-08-13 10:16:00', '2019-08-13 10:16:00'),
+	(14, 'Layanan Air Minum Dalam Kemasan Botol 600ml 7.1.a.(1).4.2', '2019-08-13 10:16:02', '2019-08-13 10:16:02'),
+	(15, 'Layanan Air Minum Dalam Kemasan Botol 330ml 7.1.a.(1).4.3', '2019-08-13 10:16:03', '2019-08-13 10:16:04'),
+	(16, 'Layanan Air Minum Dalam Kemasan Gelas 240ml 7.1.a.(1).4.4', '2019-08-13 10:16:14', '2019-08-13 10:16:04'),
+	(17, 'Layanan Air Minum Dalam Kemasan Botol 1500ml 7.1.a.(1).4.5', '2019-08-13 10:16:13', '2019-08-13 10:16:05'),
+	(18, 'Pendapatan Jasa Listrik 7.5.a.(1).1.1', '2019-08-13 10:16:12', '2019-08-13 10:16:05'),
+	(19, 'Pendapatan Jasa Air 7.5.a.(1).1.2', '2019-08-13 10:16:14', '2019-08-13 10:16:06'),
+	(20, 'Pendapatan Air Bersih 7.5.a.(1).1.3', '2019-08-13 10:16:15', '2019-08-13 10:16:07'),
+	(21, 'Pendapatan AMDK 7.5.a.(1).1.4', '2019-08-13 10:16:16', '2019-08-13 10:16:09'),
+	(22, 'Tingkat Kesesuaian Penyaluran Air Baku Total 7.1.b.(1).2. (kesediaan air)', '2019-08-13 10:16:16', '2019-08-13 10:16:08'),
+	(23, 'Tingkat kehandalan PLTA 7.1.b.(1).5.2\r\n', '2019-08-13 10:16:17', '2019-08-13 10:16:10'),
+	(24, 'Temuan Audit Internal (SMM ISO 9001) yang ditindaklanjuti 7.4.a.(2).4\r\n', '2019-08-13 10:16:17', '2019-08-13 10:16:11'),
+	(25, 'Temuan Audit Eksternal (Survaillance) yang ditindaklanjuti 7.4.a.(2).6\r\n', '2019-08-13 10:16:23', '2019-08-13 10:16:12'),
+	(26, 'Temuan Audit Internal (SPI) yang ditindaklanjuti 7.4.a.(2).3\r\n', '2019-08-13 10:16:24', '2019-08-13 10:16:19'),
+	(27, 'Temuan Audit Eksternal (KAP) yang ditindaklanjuti 7.4.a.(2).5\r\n', '2019-08-13 10:16:22', '2019-08-13 10:16:19'),
+	(28, 'Tingkat Pencapaian Skor GCG 7.4.a.(2).1\r\n', '2019-08-13 10:16:25', '2019-08-13 10:16:20'),
+	(29, '7.1.c.4 Kinerja Pemasok\r\n', '2019-08-13 10:16:21', '2019-08-13 10:16:21');
+/*!40000 ALTER TABLE `tb_index` ENABLE KEYS */;
+
 -- Dumping structure for table rtmdb.tb_menu
 CREATE TABLE IF NOT EXISTS `tb_menu` (
   `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -137,16 +199,110 @@ CREATE TABLE IF NOT EXISTS `tb_menu` (
   `icon` varchar(50) DEFAULT '0',
   `is_parent` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_menu: ~3 rows (approximately)
+-- Dumping data for table rtmdb.tb_menu: ~5 rows (approximately)
 /*!40000 ALTER TABLE `tb_menu` DISABLE KEYS */;
 INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`) VALUES
 	(1, 'Beranda', '/', 'icon-home', '0'),
 	(2, 'User', 'user', 'icon-users', '4'),
 	(3, 'Dokumen', 'dokumen', 'icon-docs', '0'),
-	(4, 'Menu Admin', '#', 'icon-user', '0');
+	(4, 'Menu Admin', '#', 'icon-user', '0'),
+	(5, 'Rtm', '/rtm', 'icon-bar-chart', '0');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
+
+-- Dumping structure for table rtmdb.tb_progres
+CREATE TABLE IF NOT EXISTS `tb_progres` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `target` varchar(20) NOT NULL DEFAULT '',
+  `real` varchar(20) NOT NULL DEFAULT '',
+  `pjt1` varchar(20) NOT NULL DEFAULT '',
+  `id_uraian` varchar(20) NOT NULL DEFAULT '',
+  `tahun` varchar(20) NOT NULL DEFAULT '',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table rtmdb.tb_progres: ~20 rows (approximately)
+/*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
+INSERT INTO `tb_progres` (`id`, `target`, `real`, `pjt1`, `id_uraian`, `tahun`, `created_at`, `updated_at`) VALUES
+	(1, '77', '57', '74', '1', '2015', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(2, '75', '77', '96', '1', '2016', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(3, '82', '98', '52', '1', '2017', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(4, '61', '99', '80', '1', '2018', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(5, '100', '80', '50', '1', '2019', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(6, '59', '73', '95', '2', '2015', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(7, '77', '89', '74', '2', '2016', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(8, '71', '63', '62', '2', '2017', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(9, '84', '57', '80', '2', '2018', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(10, '69', '66', '79', '2', '2019', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(11, '52', '84', '67', '3', '2015', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(12, '62', '73', '98', '3', '2016', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(13, '96', '50', '82', '3', '2017', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(14, '90', '89', '95', '3', '2018', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(15, '73', '72', '96', '3', '2019', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(16, '80', '55', '65', '4', '2015', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(17, '99', '61', '74', '4', '2016', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(18, '64', '79', '52', '4', '2017', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(19, '90', '65', '59', '4', '2018', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
+	(20, '97', '81', '55', '4', '2019', '2019-08-13 03:26:19', '2019-08-13 03:26:19');
+/*!40000 ALTER TABLE `tb_progres` ENABLE KEYS */;
+
+-- Dumping structure for table rtmdb.tb_rtm
+CREATE TABLE IF NOT EXISTS `tb_rtm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rtm_ke` int(5) DEFAULT NULL,
+  `tingkat` varchar(20) DEFAULT NULL,
+  `rkt` int(5) DEFAULT NULL,
+  `tahun` int(5) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table rtmdb.tb_rtm: ~5 rows (approximately)
+/*!40000 ALTER TABLE `tb_rtm` DISABLE KEYS */;
+INSERT INTO `tb_rtm` (`id`, `rtm_ke`, `tingkat`, `rkt`, `tahun`, `created_at`, `updated_at`) VALUES
+	(1, 74, 'pusat', 1, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
+	(2, 74, 'pusat', 2, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
+	(3, 74, 'pusat', 3, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
+	(4, 74, 'pusat', 4, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
+	(5, 75, 'pusat', 1, 2019, '2019-08-13 02:59:51', '2019-08-13 02:59:51');
+/*!40000 ALTER TABLE `tb_rtm` ENABLE KEYS */;
+
+-- Dumping structure for table rtmdb.tb_uraian
+CREATE TABLE IF NOT EXISTS `tb_uraian` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `analisis` text,
+  `r_uraian` text,
+  `r_target` text,
+  `r_pic` text,
+  `tindak` text,
+  `p_rencana` text,
+  `p_realisasi` text,
+  `status` text,
+  `rtm_id` int(11) DEFAULT NULL,
+  `index_id` int(5) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table rtmdb.tb_uraian: ~10 rows (approximately)
+/*!40000 ALTER TABLE `tb_uraian` DISABLE KEYS */;
+INSERT INTO `tb_uraian` (`id`, `analisis`, `r_uraian`, `r_target`, `r_pic`, `tindak`, `p_rencana`, `p_realisasi`, `status`, `rtm_id`, `index_id`, `created_at`, `updated_at`) VALUES
+	(1, 'Aliquid ut nam neque tempora sit vel. Culpa nihil ex blanditiis qui at enim consequatur earum. Eius molestiae non ipsa eos. Enim corporis deleniti ut.', 'Iure molestiae aut dolores et. Sequi inventore maiores unde ducimus. Est voluptatem velit unde. Harum numquam beatae voluptas hic suscipit.', 'In ipsa est aperiam provident totam consequatur. Ex nesciunt odio dolorem rerum voluptatem nemo. Ut quod rerum cum.', 'Hj.', 'Labore nemo adipisci optio nam culpa sit modi. Cupiditate perferendis facere voluptas. Voluptatem sint praesentium et facere aut. Ducimus voluptate est quae beatae omnis. Voluptatem quasi ipsa reiciendis aut quidem recusandae.', 'Ut aut quaerat rerum aspernatur incidunt. Laudantium repellendus qui ad corrupti. Omnis et esse modi sapiente non quam odio.', 'Maxime minus et possimus voluptatibus. Ea a vel explicabo fugit inventore. Dolores assumenda quas iure omnis sapiente magni dolorem. Est qui numquam sunt quis et quisquam.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(2, 'Est et iure officiis. Eum tempora adipisci aut excepturi. Cum dicta voluptatum aut fuga qui.', 'Explicabo atque qui enim ut aut tenetur commodi. Et aspernatur beatae asperiores ab id. Enim voluptatem voluptatem voluptates eum hic sunt amet excepturi. Sequi ipsum nam corporis voluptatem harum.', 'Quis accusantium pariatur nihil ut saepe. Qui placeat omnis iusto adipisci. Ut enim nesciunt sit repellat et repellat vel. Omnis dolor necessitatibus est ipsum laudantium est.', 'Dr.', 'Nobis et debitis dolores temporibus culpa cupiditate voluptatum distinctio. Voluptas autem expedita provident earum sed dolorum. Assumenda tempora consequatur ad et corporis. Quae repellendus non numquam quae cupiditate error in. Nulla delectus distinctio placeat aliquid rem fuga.', 'Hic et veritatis nihil aliquam similique at. Sunt mollitia aut qui blanditiis iure eveniet beatae. Expedita nisi ut asperiores. Delectus ipsum totam nesciunt voluptas reprehenderit libero.', 'Est harum maxime laudantium nam ut voluptatem quas. Ipsa quia nobis aliquid suscipit. Et corrupti ab omnis tenetur. Doloribus quia ut maxime veritatis dignissimos omnis. Eligendi maxime vero cumque rem quod eum non.', '0', 4, 2, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(3, 'Quaerat laudantium libero doloribus exercitationem. Ab hic laborum corrupti commodi. Natus recusandae ut eos facere reprehenderit autem accusamus.', 'Voluptatibus consequuntur explicabo excepturi quaerat excepturi accusantium. Possimus quia sed sapiente ut incidunt libero quam voluptate. Incidunt eveniet et eius omnis doloribus autem sint.', 'Vero sint corrupti qui. Magni et vitae nam qui dolores neque. Et eum enim voluptas eum. Ea explicabo iste quia enim.', 'drg.', 'Quis nostrum corrupti magni repudiandae quas libero recusandae rem. Similique maiores qui sit. Qui aut architecto nostrum ut temporibus voluptas sequi. Tempore cum ut laborum officia dolorem qui cum.', 'Iusto quam officiis neque qui cupiditate adipisci sint. Autem provident aut dolorem expedita delectus iure. Vero sed molestiae pariatur nihil sint voluptate. Ut quam molestiae iusto et asperiores hic.', 'Quas nemo voluptatem aut nostrum quia. Accusantium sit aut reprehenderit necessitatibus ducimus. Laudantium ut facere omnis voluptas magnam sunt. Rerum nesciunt adipisci consequuntur.', '0', 4, 3, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(4, 'Maxime molestias praesentium dolor rerum rerum officia ut. Impedit quia aliquam autem ipsam voluptas. Dolorem neque necessitatibus blanditiis ea nemo alias velit est. Voluptas ut placeat sint tempora.', 'Quibusdam cumque sint ea est blanditiis sit qui. Dolore iusto neque ea. Facere id qui voluptate amet repellat adipisci et nemo. Fugit rerum minus porro dolorem. Delectus ut amet excepturi omnis accusamus illo aliquid.', 'Est et natus non provident vitae. Tenetur velit quae consequatur deserunt maiores quidem voluptates facilis. Nihil voluptatem consequatur aut error. Illo dolores amet ipsum quo.', 'H.', 'Soluta aut aliquam et vero aut dolores. Iusto cupiditate ut ad ipsam nulla id ut. Occaecati excepturi maiores quis error incidunt ea sapiente fugiat.', 'Quod quia aut sit qui maiores deserunt. Molestias tempora impedit in nobis quod a. Dicta eligendi est ut. Iusto vel non esse mollitia.', 'Tempore dolore eos consequuntur consequatur perferendis. Omnis animi fuga eos est in illo in. Et nobis occaecati quis repellendus quia libero. Sequi et enim occaecati vero.', '0', 0, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(5, 'Quo cupiditate unde exercitationem voluptatem non sapiente. Et blanditiis aliquid voluptas facere esse delectus. Eos quia provident quis voluptate debitis. Ratione quidem porro error.', 'Exercitationem reiciendis magnam maxime exercitationem aliquid soluta autem aliquam. Unde harum aut quidem ullam aut. Delectus possimus aliquam voluptatem voluptatem. Enim fugiat est vel enim quas natus.', 'Harum aut ut consequatur vitae expedita natus autem enim. Magnam sint perferendis officia autem. Autem dolor nesciunt voluptas unde quod aut.', 'Hj.', 'Ab consequatur tenetur quia enim quis nihil veniam. Perferendis aperiam doloribus repellendus nisi non tenetur. Est est ipsam amet blanditiis aut consequatur non. Nesciunt sint atque quos minima voluptates quia.', 'Vel id reiciendis quaerat harum at sint beatae. Praesentium quo omnis sunt ipsum aut. Accusantium dolor accusantium consectetur voluptas consequuntur maiores.', 'Aliquid tempora beatae pariatur adipisci explicabo. Non cumque est facilis officia veritatis doloribus facere. Laudantium at similique optio vel at suscipit. Ut quo incidunt voluptas dicta qui aut perferendis.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(6, 'Qui possimus illo dolore. Voluptas quo quo ut qui. Ratione hic doloremque fugit qui quam voluptas voluptatem. Enim id provident et.', 'Sed in minima expedita aut velit quis et et. Neque harum aut nesciunt perspiciatis aut. Nisi porro voluptas rerum dolorum commodi.', 'Quas minima amet officiis. Recusandae nihil eum ullam. Ut dolorem sint aut sed maiores.', 'Hj.', 'Voluptatem est qui similique inventore voluptate eos animi voluptate. Nobis labore et molestias impedit. Tempora quam ut molestiae quo perspiciatis iste quia est. Quia consequuntur voluptatum enim corrupti a.', 'Blanditiis nesciunt qui doloremque expedita odio. Est laboriosam incidunt qui sint maiores in. Maxime sequi maiores et possimus corporis autem. Quam dolor est molestiae aut distinctio. Veniam optio ad quo quod.', 'Quia tempora deserunt inventore illum. Et dolor voluptatem error deleniti et sit sunt.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(7, 'Dicta cupiditate culpa sit animi similique aliquid optio ut. Nemo atque error neque iusto qui nisi ut aperiam. Ut qui dolorum harum vel quasi autem.', 'Debitis tempora magni illo iste sed. Delectus similique error magni ut totam. Voluptate aut voluptatem nam voluptatibus. Nihil omnis est voluptates rerum beatae maiores.', 'Qui molestiae in ipsa. Molestiae consectetur a rerum distinctio distinctio quae nostrum eum. Eaque dolore asperiores ut sint perferendis.', 'Dr.', 'Aut sunt et saepe ut aperiam et dolore molestiae. Dolores placeat sit consequatur dicta. Nisi magnam at eius sed aut magnam iste.', 'Est autem in natus aut totam. Et error culpa ad rerum modi et ab. Culpa consequatur laudantium occaecati iusto id. Omnis sit labore molestiae quia.', 'Sint totam ut sit dolorem commodi qui. Dolorem qui ex voluptatibus eos nobis qui. Quae inventore est cum autem ipsam assumenda.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(8, 'Ipsam quidem nemo nam ut. Consequatur autem vero porro optio aliquam officiis. Nesciunt et eligendi exercitationem. Rerum aut provident dolorum ipsa sed necessitatibus dolores.', 'Minima voluptatem optio nisi quod aut nesciunt. Qui aut saepe et occaecati non id fuga. Non et ut ut repellendus et reprehenderit. Modi asperiores optio eum nostrum assumenda quidem enim. Provident libero voluptatibus omnis soluta dignissimos.', 'Ut doloremque reiciendis nemo ducimus sit. Eligendi nihil autem qui eos sed et. Optio quia est quo ut. Odio sit aut velit labore et.', 'Ir.', 'Ad rem odit non placeat dolorem molestiae. Dolore est perspiciatis qui saepe exercitationem unde consectetur. A exercitationem delectus et harum temporibus. Id beatae animi rerum a fuga numquam. Esse dolores excepturi impedit pariatur autem accusantium animi.', 'Est nemo quod quasi doloribus cumque nostrum. Illo vel est modi tempore. Quibusdam et error aut repellendus nesciunt temporibus velit. Temporibus in et laborum praesentium incidunt.', 'Amet sapiente asperiores id sint dolor debitis in. Nisi eius quia est doloremque. Enim aliquid reiciendis tenetur quis ducimus quidem. Similique modi nobis amet id eligendi quia.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(9, 'In vero libero sit. Perferendis quisquam provident ea sed ipsum velit corrupti. Facilis eum distinctio vel ducimus. Et qui recusandae necessitatibus aut dolor.', 'Mollitia dolorem sit molestias impedit quae incidunt. Expedita id in voluptatum optio odio. Atque numquam dolorem possimus odio beatae et doloribus. Qui id aspernatur nisi cumque.', 'Ratione quis harum voluptatum sunt et corporis. Ullam veritatis aliquam quo. Voluptatibus in ea sed. Ad nam error consequatur sit voluptate consequatur vero cumque.', 'H.', 'Dignissimos sapiente ex nostrum nam ipsum explicabo enim hic. Quia aut explicabo cumque quibusdam. Blanditiis consequatur quam id maiores consequatur repellat. Eius explicabo totam quia et qui. Ut nostrum accusantium consectetur sed.', 'Et esse cumque nihil qui. Enim iste nihil et atque est qui. Qui dicta dolor possimus quae molestias. Adipisci voluptas expedita rerum illum temporibus a.', 'Quis ea ad molestiae eligendi a nostrum. Tempore corrupti placeat excepturi. Neque dolore et sapiente et fuga voluptatem facere. Sit voluptas quis quidem maxime.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(10, 'Voluptas nisi ex fugiat minima in et qui. Pariatur deserunt quia architecto dolor est et dicta. Velit molestias culpa a. Iste velit voluptas possimus qui.', 'Eveniet debitis animi consequatur eveniet sunt. In quod quia voluptates aut quisquam repellat. Magnam numquam quo necessitatibus voluptatem ut impedit. Porro consequatur accusantium mollitia optio odio.', 'Ullam vel et maiores architecto et eveniet. Officia asperiores ipsa quidem voluptatum consequatur. Reiciendis quo in debitis enim adipisci. Unde quod perspiciatis soluta alias.', 'Hj.', 'Esse eligendi temporibus nihil. Qui velit velit quis. Iure et porro qui non nisi dicta. Et ipsam molestiae aliquid molestiae eaque commodi voluptatem qui.', 'Assumenda quidem delectus veritatis illo consequatur perferendis. Quisquam et cumque totam exercitationem tenetur qui qui. Eos excepturi cum eaque.', 'A minima id nulla qui qui tempore enim. Non in distinctio ea nulla quia. Autem esse quibusdam cum illum. Quia autem repellendus voluptates alias.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37');
+/*!40000 ALTER TABLE `tb_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users
 CREATE TABLE IF NOT EXISTS `users` (
