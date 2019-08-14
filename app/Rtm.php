@@ -8,7 +8,7 @@ class Rtm extends Model
 {
     protected $table = 'tb_rtm';
     
-    public function uraian()
+    public function index()
     {
         return $this->hasMany('App\Uraian', 'rtm_id', 'id');
     }

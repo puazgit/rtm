@@ -25,22 +25,29 @@
                 id="rtm-table">
                 <thead>
                     <tr>
-                            <th>id</th>
-                            <th>Rtm Ke</th>
-                            <th>Tingkat</th>
-                            <th>RKT</th>
-                            <th>Tahun</th>
-                            <th>Analisis</th>
+                            <th rowspan="2">Rtm Ke</th>
+                            <th rowspan="2">Tingkat</th>
+                            <th rowspan="2">RKT</th>
+                            <th rowspan="2">Tahun</th>
+                            <th rowspan="2">Uraian Bidang Permasalahan</th>
+                            <th rowspan="2">Analisis / Penyebab</th>
+                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                    </tr>
+                        <tr>    
                             <th>Uraian</th>
-                            <th>Target</th>
+                            <th>Target Waktu</th>
                             <th>PIC</th>
+                        </tr>    
+{{--                             
                             <th>Tindak Lanjut</th>
+
                             <th>Rencana</th>
                             <th>Realisasi</th>
+
                             <th>Status</th>
-                            <th>Id RTM</th>
+                            <th>Id Rtm</th>
                             <th>Id Index</th>
-                            <th>Index Masalah</th>
+                            <th>id</th> --}}
                         </tr>
                     </thead>
                 </table>
@@ -74,43 +81,52 @@
                         window.location = '/rtm/add';
                         // alert( 'Button activated' );
                     }
-                },   
-              {
-                extend:"pdf",
-                className:"btn btn-circle green btn-outline"
-              }
+                },
+                {
+					extend: "colvis",
+                    text: "Show",
+                    className: "btn btn-circle green btn-outline"
+                	// columns: ':not(.noVis)',
+				},  
+                {
+                    extend:"pdf",
+                    className:"btn btn-circle green btn-outline"
+                }
           ],
 	    //   processing: true,
           serverSide: true,
           order:[[0,"asc"]],    
 	      ajax: "{{route ('rtm.json')}}",
 	      columns: [
-	      { data: 'id', width: '15%'},
-	      { data: 'rtm_ke'},
-	      { data: 'tingkat'},
-	      { data: 'rkt'},
-	      { data: 'tahun'},
-	      { data: 'analisis'},
-	      { data: 'r_uraian'},
-	      { data: 'r_target'},
-	      { data: 'r_pic'},
-	      { data: 'tindak'},
-	      { data: 'p_rencana'},
-	      { data: 'p_realisasi'},
-	      { data: 'status'},
-	      { data: 'rtm_id'},
-	      { data: 'index_id'},
-	      { data: 'index_masalah'}
+              { data: 'rtm_ke', name: 'tb_rtm.rtm_ke'}, //0
+              { data: 'tingkat', name: 'tb_rtm.tingkat'}, //1
+              { data: 'rkt', name: 'tb_rtm.rkt'}, //2
+              { data: 'tahun', name: 'tb_rtm.tahun'}, //3
+              { data: 'index_masalah', name: 'tb_index.index_masalah'}, //4
+              { data: 'analisis', name: 'tb_uraian.analisis'}, //5
+              { data: 'r_uraian', name: 'tb_uraian.r_uraian'}, //6
+              { data: 'r_target', name: 'tb_uraian.r_target'}, //7
+              { data: 'r_pic', name: 'tb_uraian.r_pic'} //8
+            //   { data: 'tindak', name: 'tb_uraian.tindak'}, //9
+            //   { data: 'p_rencana', name: 'tb_uraian.p_rencana'}, //10
+            //   { data: 'p_realisasi', name: 'tb_uraian.p_realisasi'}, //11
+            //   { data: 'status', name: 'tb_uraian.status'}, //12
+            //   { data: 'rtm_id', name: 'tb_uraian.rtm_id'}, //13
+            //   { data: 'index_id', name: 'tb_uraian.index_id'}, //14
+            //   { data: 'id', name: 'tb_rtm.id', width: '15%'} //15
 	      ],
 	      columnDefs:[
-	      				{
-					targets:0,
-					orderable:!1,
-					title:"aksi",
-					render:function(data){
-						return'<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
-					}
-				}],
+                {targets:[0,1,2,3], visible:false, className: 'noVis'},
+
+                // {
+                //         targets:15,
+                //         orderable:!1,
+                //         title:"aksi",
+                //         render:function(data){
+                //         return'<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                //         }
+                // }
+            ],
 	    });
 	  });
 </script>
