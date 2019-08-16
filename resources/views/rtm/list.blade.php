@@ -32,12 +32,13 @@
                             <th rowspan="2">Uraian Bidang Permasalahan</th>
                             <th rowspan="2">Analisis / Penyebab</th>
                             <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                            <th rowspan="2" style="text-align: center;">Aksi</th>
                     </tr>
-                        <tr>    
+                    <tr>    
                             <th>Uraian</th>
                             <th>Target Waktu</th>
                             <th>PIC</th>
-                        </tr>    
+                    </tr>    
 {{--                             
                             <th>Tindak Lanjut</th>
 
@@ -106,26 +107,26 @@
               { data: 'analisis', name: 'tb_uraian.analisis'}, //5
               { data: 'r_uraian', name: 'tb_uraian.r_uraian'}, //6
               { data: 'r_target', name: 'tb_uraian.r_target'}, //7
-              { data: 'r_pic', name: 'tb_uraian.r_pic'} //8
+              { data: 'r_pic', name: 'tb_uraian.r_pic'}, //8
             //   { data: 'tindak', name: 'tb_uraian.tindak'}, //9
             //   { data: 'p_rencana', name: 'tb_uraian.p_rencana'}, //10
             //   { data: 'p_realisasi', name: 'tb_uraian.p_realisasi'}, //11
             //   { data: 'status', name: 'tb_uraian.status'}, //12
             //   { data: 'rtm_id', name: 'tb_uraian.rtm_id'}, //13
             //   { data: 'index_id', name: 'tb_uraian.index_id'}, //14
-            //   { data: 'id', name: 'tb_rtm.id', width: '15%'} //15
+              { data: 'id', name: 'tb_rtm.id', width: '15%'} //15
 	      ],
 	      columnDefs:[
                 {targets:[0,1,2,3], visible:false, className: 'noVis'},
 
-                // {
-                //         targets:15,
-                //         orderable:!1,
-                //         title:"aksi",
-                //         render:function(data){
-                //         return'<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
-                //         }
-                // }
+                {
+                        targets:9,
+                        orderable:!1,
+                        title:"aksi",
+                        render:function(data){
+                        return'<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                        }
+                }
             ],
 	    });
 	  });
