@@ -19,8 +19,14 @@ class RtmController extends Controller
         return view('rtm/list');
     }
 
+    public function modal()
+    {
+        return view('rtm/modal');
+    }
+
     public function json(){
         $json = Rtm::select(['tb_rtm.id AS idr', 'tb_rtm.rtm_ke AS rtm_ke', 'tb_rtm.tingkat AS tingkat', 'tb_rtm.rkt AS rkt', 'tb_rtm.tahun', 'tb_uraian.analisis', 'tb_uraian.r_uraian', 'tb_uraian.r_target', 'tb_uraian.r_pic', 'tb_uraian.r_pic', 'tb_uraian.tindak', 'tb_uraian.p_rencana', 'tb_uraian.p_realisasi', 'tb_uraian.status', 'tb_uraian.rtm_id', 'tb_uraian.index_id', 'tb_index.index_masalah'])->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id');
+
         return Datatables::of($json)->make(true);
     }
     /**
