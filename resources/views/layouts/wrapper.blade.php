@@ -645,13 +645,13 @@
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="{{asset ('assets/js/app.min.js')}}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
-        @yield('js')
-        @yield('script')
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="{{asset ('assets/js/layout.min.js')}}" type="text/javascript"></script>
         <script src="{{asset ('assets/js/demo.min.js')}}" type="text/javascript"></script>
         <script src="{{asset ('assets/js/quick-sidebar.min.js')}}" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
+        @yield('js')
+        @yield('script')
     </body>
-
-</html>
+    
+    </html>

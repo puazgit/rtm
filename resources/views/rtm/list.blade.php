@@ -20,14 +20,10 @@
                 </div>
                 <div class="tools"> </div>
             </div>
-            <td>
-                <a class="btn green btn-outline sbold" data-toggle="modal" href="#draggable"> View Demo </a>
-            </td>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                id="rtm-table">
-                <thead>
-                    <tr>
+                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="rtm-table">
+                    <thead>
+                        <tr>
                             <th rowspan="2">Rtm Ke</th>
                             <th rowspan="2">Tingkat</th>
                             <th rowspan="2">RKT</th>
@@ -36,13 +32,13 @@
                             <th rowspan="2">Analisis / Penyebab</th>
                             <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
                             <th rowspan="2" style="text-align: center;">Aksi</th>
-                    </tr>
-                    <tr>    
+                        </tr>
+                        <tr>
                             <th>Uraian</th>
                             <th>Target Waktu</th>
                             <th>PIC</th>
-                    </tr>    
-{{--                             
+                        </tr>
+                        {{--                             
                             <th>Tindak Lanjut</th>
 
                             <th>Rencana</th>
@@ -57,319 +53,49 @@
                 </table>
             </div>
         </div>
-
-        <div class="portlet-body">
-                <table class="table table-hover table-striped table-bordered">
-                    <tr>
-                        <td> Basic Example </td>
-                        <td>
-                            <a class="btn red btn-outline sbold" data-toggle="modal" href="#basic"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Draggable Modal Example </td>
-                        <td>
-                            <a class="btn green btn-outline sbold" data-toggle="modal" href="#draggable"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Large Width Example </td>
-                        <td>
-                            <a class="btn purple btn-outline sbold" data-toggle="modal" href="#large"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Small Width Example </td>
-                        <td>
-                            <a class="btn blue btn-outline sbold" data-toggle="modal" href="#small"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Full Width Example </td>
-                        <td>
-                            <a class="btn dark btn-outline sbold" data-toggle="modal" href="#full"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Responsive </td>
-                        <td>
-                            <a class="btn red btn-outline sbold" data-toggle="modal" href="#responsive"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> AJAX content loading </td>
-                        <td>
-                            <a class=" btn yellow btn-outline sbold" href="ui_modals_ajax_sample.html" data-target="#ajax" data-toggle="modal"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Stackable </td>
-                        <td>
-                            <a class=" btn green btn-outline sbold" data-target="#stack1" data-toggle="modal"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Static Background </td>
-                        <td>
-                            <a class=" btn purple btn-outline sbold" data-toggle="modal" href="#static"> View Demo </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Long Modals </td>
-                        <td>
-                            <a class=" btn dark btn-outline sbold" data-toggle="modal" href="#long"> View Demo </a>
-                        </td>
-                    </tr>
-                </table>
-                <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Modal Title</h4>
-                            </div>
-                            <div class="modal-body"> Modal body goes here </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-                <div class="modal fade" id="full" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-full">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Modal Title</h4>
-                            </div>
-                            <div class="modal-body"> Modal body goes here </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-                <div class="modal fade bs-modal-lg" id="large" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Modal Title</h4>
-                            </div>
-                            <div class="modal-body"> Modal body goes here </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-                <div class="modal fade bs-modal-sm" id="small" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Modal Title</h4>
-                            </div>
-                            <div class="modal-body"> Modal body goes here </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-                <div id="responsive" class="modal fade" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Responsive & Scrollable</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="scroller" style="height:300px" data-always-visible="1" data-rail-visible1="1">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h4>Some Input</h4>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h4>Some More Input</h4>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                            <p>
-                                                <input type="text" class="col-md-12 form-control"> </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--DOC: Aplly "modal-cached" class after "modal" class to enable ajax content caching-->
-                <div class="modal fade" id="ajax" role="basic" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <img src="assets/global/img/loading-spinner-grey.gif" alt="" class="loading">
-                                <span> &nbsp;&nbsp;Loading... </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.modal -->
-                <div id="stack1" class="modal fade" tabindex="-1" data-width="400">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Stack One</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>Some Input</h4>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                    </div>
-                                </div>
-                                <a class="btn green" data-toggle="modal" href="#stack2"> Launch modal </a>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                                <button type="button" class="btn red">Ok</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="stack2" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Stack Two</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>Some Input</h4>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                        <p>
-                                            <input type="text" class="col-md-12 form-control"> </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                                <button type="button" class="btn yellow">Ok</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Confirmation</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p> Would you like to continue with some arbitrary task? </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                                <button type="button" data-dismiss="modal" class="btn green">Continue Task</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="long" class="modal fade modal-scroll" tabindex="-1" data-replace="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">A Fairly Long Modal</h4>
-                            </div>
-                            <div class="modal-body">
-                                <img style="height: 800px" alt="" src="http://i.imgur.com/KwPYo.jpg"> </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade draggable-modal" id="draggable" tabindex="-1" role="basic" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                                <h4 class="modal-title">Start Dragging Here</h4>
-                            </div>
-                            <div class="modal-body"> Modal body goes here </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn green">Save changes</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-            </div>
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
+</div>
+
+<div class="modal fade draggable-modal" id="draggable" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="bu
+                tton" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                {{-- <h4 class="modal-title">Progress</h4> --}}
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- BEGIN CHART PORTLET-->
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-bar-chart font-green-haze"></i>
+                                    <span class="caption-subject bold uppercase font-green-haze"> Progress</span>
+                                    {{-- <span class="caption-helper">duration on value axis</span> --}}
+                                </div>
+                                <div class="tools">
+                                    <a href="javascript:;" class="collapse"> </a>
+                                    <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                    <a href="javascript:;" class="reload"> </a>
+                                    <a href="javascript:;" class="fullscreen"> </a>
+                                    <a href="javascript:;" class="remove"> </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div id="chart_2" class="chart" style="height: 400px;"> </div>
+                            </div>
+                        </div>
+                        <!-- END CHART PORTLET-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 @endsection
 
@@ -381,6 +107,22 @@
 <script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
 {{-- <script src="{{asset ('assets/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script> --}}
+<script src="{{asset ('assets/js/jquery-ui.min.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="{{asset ('assets/amcharts/amcharts/amcharts.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amcharts/serial.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amcharts/pie.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amcharts/radar.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amcharts/themes/light.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amcharts/themes/patterns.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amcharts/themes/chalk.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/ammap/ammap.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/ammap/maps/js/worldLow.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
+
+<script src="{{asset ('assets/js/charts-amcharts.min.js')}}" type="text/javascript"></script>
 <!-- END: Page Vendor JS-->
 @endsection
 
@@ -439,7 +181,7 @@
                         orderable:!1,
                         title:"aksi",
                         render:function(data){
-                        return'<a href="" data-toggle=""><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                        return'<a href=\"#draggable\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\"></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                         }
                 }
             ],
