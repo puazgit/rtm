@@ -29,6 +29,12 @@ class RtmController extends Controller
 
         return Datatables::of($json)->make(true);
     }
+
+    public function progresjson(){
+        $json = Rtm::select(['tb_progres.year AS year', 'tb_progres.realisasi AS realisasi', 'tb_progres.competitor AS competitor', 'tb_progres.target AS target');
+
+        return Datatables::of($json)->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -122,7 +122,7 @@
 <script src="{{asset ('assets/amcharts/ammap/maps/js/worldLow.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
 
-<script src="{{asset ('assets/js/charts-amcharts.min.js')}}" type="text/javascript"></script>
+{{-- <script src="{{asset ('assets/js/charts-amcharts.min.js')}}" type="text/javascript"></script> --}}
 <!-- END: Page Vendor JS-->
 @endsection
 
@@ -186,6 +186,120 @@
                 }
             ],
 	    });
-	  });
+      });
+
+    //   var chartdata =[{year: "2014",realisasi: 24.41,competitor: 22,target: 17},
+    //                   {year: "2015",realisasi: 15.67,competitor: 23.50,target: 26},
+    //                   {year: "2016",realisasi: 19.14,competitor: 18.50,target: 17},
+    //                   {year: "2017",realisasi: 21.16,competitor: 20,target: 17},
+    //                   {year: "2018",realisasi: 21.16,competitor: 20,target: 17},
+    //                   {year: "2019",realisasi: 21.16,competitor: 20,target: 17}];
+    var chartdata = <?php echo json_encode($cdata);?>
+var ChartsAmcharts = function () {
+    t = function () {
+        var e = AmCharts.makeChart(
+            "chart_2",
+            {
+                type: "serial",
+                theme: "light",
+                fontFamily: "Open Sans",
+                color: "#888888",
+                legend:
+                {
+                    equalWidths: !1,
+                    useGraphSettings: !0,
+                    valueAlign: "left",
+                    valueWidth: 120
+                },
+                dataProvider: chartdata,
+                valueAxes:
+                    [
+                        {
+                            axisAlpha: 0,
+                            position: "left"
+                        }
+                    ],
+                graphs:
+                    [
+                        {
+                            alphaField: "alpha",
+                            balloonText: "[[value]]",
+                            dashLengthField: "dashLength",
+                            fillAlphas: .7,
+                            legendPeriodValueText: "total: [[value.sum]]",
+                            legendValueText: "[[value]]",
+                            title: "realisasi",
+                            type: "column",
+                            valueField: "realisasi",
+                            valueAxis: "realisasiAxis"
+                        },
+                        {
+                            bullet: "square",
+                            bulletBorderAlpha: 1,
+                            bulletBorderThickness: 1,
+                            dashLengthField: "dashLength",
+                            legendValueText: "[[value]]",
+                            title: "target",
+                            fillAlphas: 0,
+                            legendPeriodValueText: "total: [[value.sum]]",
+                            valueField: "target",
+                            valueAxis: "targetAxis"
+                        },
+                        {
+                            balloonText: "competitor:[[value]]",
+                            bullet: "round",
+                            bulletBorderAlpha: 1,
+                            useLineColorForBulletBorder: !0,
+                            bulletColor: "#FFFFFF",
+                            dashLengthField: "dashLength",
+                            labelPosition: "right",
+                            legendValueText: "[[value]]",
+                            title: "competitor",
+                            fillAlphas: 0,
+                            legendPeriodValueText: "total: [[value.sum]]",
+                            valueField: "competitor",
+                            valueAxis: "competitorAxis"
+                        }
+                    ],
+                chartCursor:
+                {
+                    categoryBalloonDateFormat: "DD",
+                    cursorAlpha: .1,
+                    cursorColor: "#000000",
+                    fullWidth: !0,
+                    valueBalloonsEnabled: !1,
+                    zoomable: !1
+                },
+                categoryField: "year",
+                categoryAxis:
+                {
+                    gridPosition: "start",
+                    axisAlpha: 0, tickLength: 0
+                },
+                exportConfig:
+                {
+                    menuBottom: "20px",
+                    menuRight: "22px",
+                    menuItems:
+                        [
+                            {
+                                icon: App.getGlobalPluginsPath() + "amcharts/amcharts/images/export.png", format: "png"
+                            }
+                        ]
+                }
+            });
+        $("#chart_2").closest(".portlet").find(".fullscreen").click(function () {
+            e.invalidateSize()
+        })
+    };
+    return {
+        init: function () {
+            t()
+        }
+    }
+}();
+jQuery(document).ready(function () {
+    ChartsAmcharts.init() 
+});
 </script>
 @endsection
