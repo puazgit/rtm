@@ -215,9 +215,9 @@ INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`) VALUES
 CREATE TABLE IF NOT EXISTS `tb_progres` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `target` varchar(20) NOT NULL DEFAULT '',
-  `real` varchar(20) NOT NULL DEFAULT '',
-  `pjt1` varchar(20) NOT NULL DEFAULT '',
-  `tahun` varchar(20) NOT NULL DEFAULT '',
+  `realisasi` varchar(20) NOT NULL DEFAULT '',
+  `competitor` varchar(20) NOT NULL DEFAULT '',
+  `year` varchar(20) NOT NULL DEFAULT '',
   `uraian_id` varchar(20) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
 
 -- Dumping data for table rtmdb.tb_progres: ~20 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
-INSERT INTO `tb_progres` (`id`, `target`, `real`, `pjt1`, `tahun`, `uraian_id`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
 	(1, '77', '57', '74', '2015', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
 	(2, '75', '77', '96', '2016', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
 	(3, '82', '98', '52', '2017', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
