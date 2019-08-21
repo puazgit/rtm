@@ -121,6 +121,8 @@
 <script src="{{asset ('assets/amcharts/ammap/ammap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/ammap/maps/js/worldLow.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amstockcharts/plugins/dataloader/dataloader.min.js')}}" type="text/javascript"></script>
+{{-- assets\amcharts\amstockcharts\plugins\dataloader --}}
 
 {{-- <script src="{{asset ('assets/js/charts-amcharts.min.js')}}" type="text/javascript"></script> --}}
 <!-- END: Page Vendor JS-->
@@ -188,19 +190,16 @@
 	    });
       });
 
-    //   var chartdata =[{year: "2014",realisasi: 24.41,competitor: 22,target: 17},
-    //                   {year: "2015",realisasi: 15.67,competitor: 23.50,target: 26},
-    //                   {year: "2016",realisasi: 19.14,competitor: 18.50,target: 17},
-    //                   {year: "2017",realisasi: 21.16,competitor: 20,target: 17},
-    //                   {year: "2018",realisasi: 21.16,competitor: 20,target: 17},
-    //                   {year: "2019",realisasi: 21.16,competitor: 20,target: 17}];
-    var chartdata = <?php echo json_encode($cdata);?>
 var ChartsAmcharts = function () {
     t = function () {
         var e = AmCharts.makeChart(
             "chart_2",
             {
                 type: "serial",
+                dataLoader: {
+                    url: "{{route ('progres.json')}}",
+                    format: "json"
+                },
                 theme: "light",
                 fontFamily: "Open Sans",
                 color: "#888888",
@@ -211,7 +210,6 @@ var ChartsAmcharts = function () {
                     valueAlign: "left",
                     valueWidth: 120
                 },
-                dataProvider: chartdata,
                 valueAxes:
                     [
                         {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Rtm;
 use App\Uraian;
+use App\Progres;
 use DataTables;
 
 class RtmController extends Controller
@@ -31,9 +32,9 @@ class RtmController extends Controller
     }
 
     public function progresjson(){
-        $json = Rtm::select(['tb_progres.year AS year', 'tb_progres.realisasi AS realisasi', 'tb_progres.competitor AS competitor', 'tb_progres.target AS target');
+        $json = Progres::select(['tb_progres.year AS year', 'tb_progres.realisasi AS realisasi', 'tb_progres.competitor AS competitor', 'tb_progres.target AS target'])->where('uraian_id', '=', '1');
 
-        return Datatables::of($json)->make(true);
+        return $json->get();
     }
     /**
      * Show the form for creating a new resource.

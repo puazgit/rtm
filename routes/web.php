@@ -24,6 +24,7 @@ Route::get('user/json','UserController@json');
 Route::get('rtm','RtmController@index');
 Route::get('rtm/add','RtmController@add');
 Route::get('rtm/json','RtmController@json')->name('rtm.json');
+Route::get('rtm/progresjson','RtmController@progresjson')->name('progres.json');
 Route::get('rtm/modal','RtmController@modal')->name('rtm.modal');
 
 Auth::routes();
