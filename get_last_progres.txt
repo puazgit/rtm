@@ -1,0 +1,7 @@
+SELECT MAX(tb_progres.id) AS id,
+			MAX(tb_progres.target) AS target,
+			MAX(tb_progres.realisasi) AS realisasi,
+			MAX(tb_progres.competitor) AS competitor,
+			MAX(tb_progres.year) AS year,
+			MAX(tb_progres.created_at) AS created
+FROM tb_progres WHERE tb_progres.uraian_id = 2 GROUP BY tb_progres.year;
