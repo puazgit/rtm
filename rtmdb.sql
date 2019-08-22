@@ -198,17 +198,18 @@ CREATE TABLE IF NOT EXISTS `tb_menu` (
   `link` varchar(50) NOT NULL DEFAULT '0',
   `icon` varchar(50) DEFAULT '0',
   `is_parent` varchar(50) NOT NULL DEFAULT '0',
+  `role` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table rtmdb.tb_menu: ~5 rows (approximately)
 /*!40000 ALTER TABLE `tb_menu` DISABLE KEYS */;
-INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`) VALUES
-	(1, 'Beranda', '/', 'icon-home', '0'),
-	(2, 'User', 'user', 'icon-users', '4'),
-	(3, 'Dokumen', 'dokumen', 'icon-docs', '0'),
-	(4, 'Menu Admin', '#', 'icon-user', '0'),
-	(5, 'Rtm', '/rtm', 'icon-bar-chart', '0');
+INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`, `role`) VALUES
+	(1, 'Beranda', '/', 'icon-home', '0', 'admin,editor,viewer'),
+	(2, 'User', 'user', 'icon-users', '4', 'admin'),
+	(3, 'Dokumen', 'dokumen', 'icon-docs', '0', ''),
+	(4, 'Menu Admin', '#', 'icon-user', '0', 'admin'),
+	(5, 'Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_progres
@@ -222,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table rtmdb.tb_progres: ~20 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
@@ -246,7 +247,8 @@ INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `ur
 	(17, '99', '61', '74', '2016', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
 	(18, '64', '79', '52', '2017', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
 	(19, '90', '65', '59', '2018', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
-	(20, '97', '81', '55', '2019', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19');
+	(20, '97', '81', '55', '2019', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
+	(21, '100', '100', '50', '2019', '1', NULL, NULL);
 /*!40000 ALTER TABLE `tb_progres` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_rtm
@@ -322,8 +324,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(1, 'Administrator', 'admin', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', '2019-07-29 16:42:00', '2019-07-29 16:42:00'),
-	(2, 'Pia Tiara Haryanti', 'editor@gmail.com', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(3, 'Jindra Sabri Prabowo', '1PPVd71rwm@gmail.com', '2019-07-29 16:42:01', '$2y$10$W17ALurAVFYMD6KZNG5zpu.x/Em2OfLc0c9c2Ubfv2FMCNtrnMsYK', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(2, 'Pia Tiara Haryanti', 'editor', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(3, 'Jindra Sabri Prabowo', 'viewer', '2019-07-29 16:42:01', '$2y$10$W17ALurAVFYMD6KZNG5zpu.x/Em2OfLc0c9c2Ubfv2FMCNtrnMsYK', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(4, 'Tami Pudjiastuti S.Psi', 'MtNLAw09So@gmail.com', '2019-07-29 16:42:01', '$2y$10$ePMxDtGzMn/yCF3AMV4pS.wDAMGjJXevP8c9nhkcto2rG0gFc/6lq', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(5, 'Maimunah Mandasari', 'Bz8WdvwLGp@gmail.com', '2019-07-29 16:42:01', '$2y$10$rblgLvhOICWjAWYgVfmz2.Vmw4XZfftX0IMlIO9mJoJszZatx1CWW', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
 	(6, 'Elon Suwarno S.Pd', 's2n3uFrVPT@gmail.com', '2019-07-29 16:42:01', '$2y$10$Qw9sDg4QS6IP8etBz6ASSu5NUPaGAHjiWxPLeWO7E0rERq0UBjNKm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),

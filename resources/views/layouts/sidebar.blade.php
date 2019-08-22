@@ -38,7 +38,8 @@
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
                 </li>
                 <?php
-                $menu_0 = \App\Menu::where('is_parent',0)->get();
+                $role = auth()->user()->getRoleNames()->first();
+                $menu_0 = \App\Menu::where([['is_parent',0],['role', 'like', '%' . $role . '%']])->get();
                 foreach ($menu_0 as $key) {
                   get_menu_child($key->id);
                 }

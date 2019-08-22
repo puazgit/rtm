@@ -204,6 +204,7 @@ var ChartsAmcharts = function () {
                 fontFamily: "Open Sans",
                 color: "#888888",
                 legend:
+                
                 {
                     equalWidths: !1,
                     useGraphSettings: !0,
