@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Rtm;
 use App\Uraian;
 use App\Progres;
@@ -26,15 +27,22 @@ class RtmController extends Controller
     }
 
     public function json(){
-        $json = Rtm::select(['tb_rtm.id AS idr', 'tb_rtm.rtm_ke AS rtm_ke', 'tb_rtm.tingkat AS tingkat', 'tb_rtm.rkt AS rkt', 'tb_rtm.tahun', 'tb_uraian.analisis', 'tb_uraian.r_uraian', 'tb_uraian.r_target', 'tb_uraian.r_pic', 'tb_uraian.r_pic', 'tb_uraian.tindak', 'tb_uraian.p_rencana', 'tb_uraian.p_realisasi', 'tb_uraian.status', 'tb_uraian.rtm_id', 'tb_uraian.index_id', 'tb_index.index_masalah'])->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id');
+        $json = Rtm::select(['tb_rtm.id AS idr', 'tb_rtm.rtm_ke AS rtm_ke', 'tb_rtm.tingkat AS tingkat', 'tb_rtm.rkt AS rkt', 'tb_rtm.tahun', 'tb_uraian.id AS idu', 'tb_uraian.analisis', 'tb_uraian.r_uraian', 'tb_uraian.r_target', 'tb_uraian.r_pic', 'tb_uraian.r_pic', 'tb_uraian.tindak', 'tb_uraian.p_rencana', 'tb_uraian.p_realisasi', 'tb_uraian.status', 'tb_uraian.rtm_id', 'tb_uraian.index_id', 'tb_index.index_masalah'])->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id');
 
         return Datatables::of($json)->make(true);
     }
 
-    public function progresjson(){
-        $json = Progres::select(['tb_progres.year AS year', 'tb_progres.realisasi AS realisasi', 'tb_progres.competitor AS competitor', 'tb_progres.target AS target'])->where('uraian_id', '=', '1');
-
-        return $json->get();
+    public function progresjson($id = NULL){
+        $json = DB::table('tb_progres')
+                     ->select(
+                            DB::raw('MAX(year) as year'), 
+                            DB::raw('MAX(target) as target'), 
+                            DB::raw('MAX(realisasi) as realisasi'),
+                            DB::raw('MAX(competitor) as competitor'))
+                     ->where('uraian_id', '=', $id)
+                     ->groupBy('year')
+                     ->get();
+        return $json;
     }
     /**
      * Show the form for creating a new resource.
