@@ -136,16 +136,18 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 
 -- Dumping structure for table rtmdb.tb_drtm
 CREATE TABLE IF NOT EXISTS `tb_drtm` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
   `id_rtm` int(5) NOT NULL,
-  `id_uraian` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_uraian` int(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table rtmdb.tb_drtm: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tb_drtm` DISABLE KEYS */;
-INSERT INTO `tb_drtm` (`id_rtm`, `id_uraian`) VALUES
-	(4, 1),
-	(4, 2),
-	(4, 3);
+INSERT INTO `tb_drtm` (`id`, `id_rtm`, `id_uraian`) VALUES
+	(1, 4, 1),
+	(2, 4, 2),
+	(3, 4, 3);
 /*!40000 ALTER TABLE `tb_drtm` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_index
@@ -200,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `tb_menu` (
   `is_parent` varchar(50) NOT NULL DEFAULT '0',
   `role` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table rtmdb.tb_menu: ~5 rows (approximately)
 /*!40000 ALTER TABLE `tb_menu` DISABLE KEYS */;
@@ -209,15 +211,16 @@ INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`, `role`) VALUES
 	(2, 'User', 'user', 'icon-users', '4', 'admin'),
 	(3, 'Dokumen', 'dokumen', 'icon-docs', '0', ''),
 	(4, 'Menu Admin', '#', 'icon-user', '0', 'admin'),
-	(5, 'Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer');
+	(5, 'Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
+	(6, 'Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_progres
 CREATE TABLE IF NOT EXISTS `tb_progres` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `target` varchar(20) NOT NULL DEFAULT '',
-  `realisasi` varchar(20) NOT NULL DEFAULT '',
-  `competitor` varchar(20) NOT NULL DEFAULT '',
+  `target` float NOT NULL DEFAULT '0',
+  `realisasi` float NOT NULL DEFAULT '0',
+  `competitor` float NOT NULL DEFAULT '0',
   `year` varchar(20) NOT NULL DEFAULT '',
   `uraian_id` varchar(20) NOT NULL DEFAULT '',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -225,30 +228,30 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_progres: ~20 rows (approximately)
+-- Dumping data for table rtmdb.tb_progres: ~22 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
 INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
-	(1, '77', '57', '74', '2015', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(2, '75', '77', '96', '2016', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(3, '82', '98', '52', '2017', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(4, '61', '99', '80', '2018', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(5, '100', '80', '50', '2019', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(6, '59', '73', '95', '2015', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(7, '77', '89', '74', '2016', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(8, '71', '63', '62', '2017', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(9, '84', '57', '80', '2018', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(10, '69', '66', '79', '2019', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(11, '52', '84', '67', '2015', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(12, '62', '73', '98', '2016', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(13, '96', '50', '82', '2017', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(14, '90', '89', '95', '2018', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(15, '73', '72', '96', '2019', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(16, '80', '55', '65', '2015', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(17, '99', '61', '74', '2016', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(18, '64', '79', '52', '2017', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
-	(19, '90', '65', '59', '2018', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
-	(20, '97', '81', '55', '2019', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
-	(21, '100', '100', '50', '2019', '1', NULL, NULL);
+	(1, 0, 0, 0, '2014', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(2, 0, 0, 0, '2015', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(3, 70, 74.6, 82, '2016', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(4, 70, 73.7, 81.6, '2017', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(5, 0, 0, 0, '2018', '2', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(6, 78, 77.29, 75.66, '2014', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(7, 79, 78.2, 78.31, '2015', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(8, 80, 85.25, 79.25, '2016', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(9, 82, 82.2, 80.45, '2017', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(10, 82, 0, 0, '2018', '1', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(11, 52, 84, 67, '2015', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(12, 62, 73, 98, '2016', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(13, 96, 50, 82, '2017', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(14, 90, 89, 95, '2018', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(15, 73, 72, 96, '2019', '3', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(16, 80, 55, 65, '2015', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(17, 99, 61, 74, '2016', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(18, 64, 79, 52, '2017', '4', '2019-08-13 03:26:18', '2019-08-13 03:26:18'),
+	(19, 90, 65, 59, '2018', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
+	(20, 97, 81, 55, '2019', '4', '2019-08-13 03:26:19', '2019-08-13 03:26:19'),
+	(21, 82, 0, 0, '2019', '1', '2019-08-22 18:29:17', '2019-08-22 18:29:19');
 /*!40000 ALTER TABLE `tb_progres` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_rtm
@@ -294,16 +297,16 @@ CREATE TABLE IF NOT EXISTS `tb_uraian` (
 -- Dumping data for table rtmdb.tb_uraian: ~10 rows (approximately)
 /*!40000 ALTER TABLE `tb_uraian` DISABLE KEYS */;
 INSERT INTO `tb_uraian` (`id`, `analisis`, `r_uraian`, `r_target`, `r_pic`, `tindak`, `p_rencana`, `p_realisasi`, `status`, `rtm_id`, `index_id`, `created_at`, `updated_at`) VALUES
-	(1, 'Berdasarkan grafik  dapat disimpulkan bahwa Hasil Kuesioner/Indeks Kepuasan Pelanggan menunjukan trend/kecenderungan yang meningkat (positif)', 'Indeks kepuasan pelanggan untuk tahun 2017 masih menggunakan prognosa, menunggu laporan survey kepuasan pelanggan yang masih disusun, ', '', 'Divisi DPP', '', '', '', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(2, 'Est et iure officiis. Eum tempora adipisci aut excepturi. Cum dicta voluptatum aut fuga qui.', 'Explicabo atque qui enim ut aut tenetur commodi. Et aspernatur beatae asperiores ab id. Enim voluptatem voluptatem voluptates eum hic sunt amet excepturi. Sequi ipsum nam corporis voluptatem harum.', 'Quis accusantium pariatur nihil ut saepe. Qui placeat omnis iusto adipisci. Ut enim nesciunt sit repellat et repellat vel. Omnis dolor necessitatibus est ipsum laudantium est.', 'Dr.', 'Nobis et debitis dolores temporibus culpa cupiditate voluptatum distinctio. Voluptas autem expedita provident earum sed dolorum. Assumenda tempora consequatur ad et corporis. Quae repellendus non numquam quae cupiditate error in. Nulla delectus distinctio placeat aliquid rem fuga.', 'Hic et veritatis nihil aliquam similique at. Sunt mollitia aut qui blanditiis iure eveniet beatae. Expedita nisi ut asperiores. Delectus ipsum totam nesciunt voluptas reprehenderit libero.', 'Est harum maxime laudantium nam ut voluptatem quas. Ipsa quia nobis aliquid suscipit. Et corrupti ab omnis tenetur. Doloribus quia ut maxime veritatis dignissimos omnis. Eligendi maxime vero cumque rem quod eum non.', '0', 4, 2, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(1, 'Berdasarkan grafik  dapat disimpulkan bahwa Hasil Kuesioner/Indeks Kepuasan Pelanggan menunjukan trend/kecenderungan yang meningkat (positif)', 'Indeks kepuasan pelanggan untuk tahun 2017 masih menggunakan prognosa, menunggu laporan survey kepuasan pelanggan yang masih disusun, ', '', 'Divisi PPP', '', '', '', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(2, 'Berdasarkan grafik dapat disimpulkan bahwa Hasil Kuesioner/Indeks Keterikatan Karyawan menunjukan trend/kecenderungan yang menurun (Negatif)', 'Indeks keterikatan karyawan untuk tahun 2017 masih menggunakan data prognosa', '', 'Divisi SDM', '', '', '', '0', 4, 2, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
 	(3, 'Quaerat laudantium libero doloribus exercitationem. Ab hic laborum corrupti commodi. Natus recusandae ut eos facere reprehenderit autem accusamus.', 'Voluptatibus consequuntur explicabo excepturi quaerat excepturi accusantium. Possimus quia sed sapiente ut incidunt libero quam voluptate. Incidunt eveniet et eius omnis doloribus autem sint.', 'Vero sint corrupti qui. Magni et vitae nam qui dolores neque. Et eum enim voluptas eum. Ea explicabo iste quia enim.', 'drg.', 'Quis nostrum corrupti magni repudiandae quas libero recusandae rem. Similique maiores qui sit. Qui aut architecto nostrum ut temporibus voluptas sequi. Tempore cum ut laborum officia dolorem qui cum.', 'Iusto quam officiis neque qui cupiditate adipisci sint. Autem provident aut dolorem expedita delectus iure. Vero sed molestiae pariatur nihil sint voluptate. Ut quam molestiae iusto et asperiores hic.', 'Quas nemo voluptatem aut nostrum quia. Accusantium sit aut reprehenderit necessitatibus ducimus. Laudantium ut facere omnis voluptas magnam sunt. Rerum nesciunt adipisci consequuntur.', '0', 4, 3, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
 	(4, 'Maxime molestias praesentium dolor rerum rerum officia ut. Impedit quia aliquam autem ipsam voluptas. Dolorem neque necessitatibus blanditiis ea nemo alias velit est. Voluptas ut placeat sint tempora.', 'Quibusdam cumque sint ea est blanditiis sit qui. Dolore iusto neque ea. Facere id qui voluptate amet repellat adipisci et nemo. Fugit rerum minus porro dolorem. Delectus ut amet excepturi omnis accusamus illo aliquid.', 'Est et natus non provident vitae. Tenetur velit quae consequatur deserunt maiores quidem voluptates facilis. Nihil voluptatem consequatur aut error. Illo dolores amet ipsum quo.', 'H.', 'Soluta aut aliquam et vero aut dolores. Iusto cupiditate ut ad ipsam nulla id ut. Occaecati excepturi maiores quis error incidunt ea sapiente fugiat.', 'Quod quia aut sit qui maiores deserunt. Molestias tempora impedit in nobis quod a. Dicta eligendi est ut. Iusto vel non esse mollitia.', 'Tempore dolore eos consequuntur consequatur perferendis. Omnis animi fuga eos est in illo in. Et nobis occaecati quis repellendus quia libero. Sequi et enim occaecati vero.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(5, 'Quo cupiditate unde exercitationem voluptatem non sapiente. Et blanditiis aliquid voluptas facere esse delectus. Eos quia provident quis voluptate debitis. Ratione quidem porro error.', 'Exercitationem reiciendis magnam maxime exercitationem aliquid soluta autem aliquam. Unde harum aut quidem ullam aut. Delectus possimus aliquam voluptatem voluptatem. Enim fugiat est vel enim quas natus.', 'Harum aut ut consequatur vitae expedita natus autem enim. Magnam sint perferendis officia autem. Autem dolor nesciunt voluptas unde quod aut.', 'Hj.', 'Ab consequatur tenetur quia enim quis nihil veniam. Perferendis aperiam doloribus repellendus nisi non tenetur. Est est ipsam amet blanditiis aut consequatur non. Nesciunt sint atque quos minima voluptates quia.', 'Vel id reiciendis quaerat harum at sint beatae. Praesentium quo omnis sunt ipsum aut. Accusantium dolor accusantium consectetur voluptas consequuntur maiores.', 'Aliquid tempora beatae pariatur adipisci explicabo. Non cumque est facilis officia veritatis doloribus facere. Laudantium at similique optio vel at suscipit. Ut quo incidunt voluptas dicta qui aut perferendis.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(6, 'Qui possimus illo dolore. Voluptas quo quo ut qui. Ratione hic doloremque fugit qui quam voluptas voluptatem. Enim id provident et.', 'Sed in minima expedita aut velit quis et et. Neque harum aut nesciunt perspiciatis aut. Nisi porro voluptas rerum dolorum commodi.', 'Quas minima amet officiis. Recusandae nihil eum ullam. Ut dolorem sint aut sed maiores.', 'Hj.', 'Voluptatem est qui similique inventore voluptate eos animi voluptate. Nobis labore et molestias impedit. Tempora quam ut molestiae quo perspiciatis iste quia est. Quia consequuntur voluptatum enim corrupti a.', 'Blanditiis nesciunt qui doloremque expedita odio. Est laboriosam incidunt qui sint maiores in. Maxime sequi maiores et possimus corporis autem. Quam dolor est molestiae aut distinctio. Veniam optio ad quo quod.', 'Quia tempora deserunt inventore illum. Et dolor voluptatem error deleniti et sit sunt.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(7, 'Dicta cupiditate culpa sit animi similique aliquid optio ut. Nemo atque error neque iusto qui nisi ut aperiam. Ut qui dolorum harum vel quasi autem.', 'Debitis tempora magni illo iste sed. Delectus similique error magni ut totam. Voluptate aut voluptatem nam voluptatibus. Nihil omnis est voluptates rerum beatae maiores.', 'Qui molestiae in ipsa. Molestiae consectetur a rerum distinctio distinctio quae nostrum eum. Eaque dolore asperiores ut sint perferendis.', 'Dr.', 'Aut sunt et saepe ut aperiam et dolore molestiae. Dolores placeat sit consequatur dicta. Nisi magnam at eius sed aut magnam iste.', 'Est autem in natus aut totam. Et error culpa ad rerum modi et ab. Culpa consequatur laudantium occaecati iusto id. Omnis sit labore molestiae quia.', 'Sint totam ut sit dolorem commodi qui. Dolorem qui ex voluptatibus eos nobis qui. Quae inventore est cum autem ipsam assumenda.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(8, 'Ipsam quidem nemo nam ut. Consequatur autem vero porro optio aliquam officiis. Nesciunt et eligendi exercitationem. Rerum aut provident dolorum ipsa sed necessitatibus dolores.', 'Minima voluptatem optio nisi quod aut nesciunt. Qui aut saepe et occaecati non id fuga. Non et ut ut repellendus et reprehenderit. Modi asperiores optio eum nostrum assumenda quidem enim. Provident libero voluptatibus omnis soluta dignissimos.', 'Ut doloremque reiciendis nemo ducimus sit. Eligendi nihil autem qui eos sed et. Optio quia est quo ut. Odio sit aut velit labore et.', 'Ir.', 'Ad rem odit non placeat dolorem molestiae. Dolore est perspiciatis qui saepe exercitationem unde consectetur. A exercitationem delectus et harum temporibus. Id beatae animi rerum a fuga numquam. Esse dolores excepturi impedit pariatur autem accusantium animi.', 'Est nemo quod quasi doloribus cumque nostrum. Illo vel est modi tempore. Quibusdam et error aut repellendus nesciunt temporibus velit. Temporibus in et laborum praesentium incidunt.', 'Amet sapiente asperiores id sint dolor debitis in. Nisi eius quia est doloremque. Enim aliquid reiciendis tenetur quis ducimus quidem. Similique modi nobis amet id eligendi quia.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(9, 'In vero libero sit. Perferendis quisquam provident ea sed ipsum velit corrupti. Facilis eum distinctio vel ducimus. Et qui recusandae necessitatibus aut dolor.', 'Mollitia dolorem sit molestias impedit quae incidunt. Expedita id in voluptatum optio odio. Atque numquam dolorem possimus odio beatae et doloribus. Qui id aspernatur nisi cumque.', 'Ratione quis harum voluptatum sunt et corporis. Ullam veritatis aliquam quo. Voluptatibus in ea sed. Ad nam error consequatur sit voluptate consequatur vero cumque.', 'H.', 'Dignissimos sapiente ex nostrum nam ipsum explicabo enim hic. Quia aut explicabo cumque quibusdam. Blanditiis consequatur quam id maiores consequatur repellat. Eius explicabo totam quia et qui. Ut nostrum accusantium consectetur sed.', 'Et esse cumque nihil qui. Enim iste nihil et atque est qui. Qui dicta dolor possimus quae molestias. Adipisci voluptas expedita rerum illum temporibus a.', 'Quis ea ad molestiae eligendi a nostrum. Tempore corrupti placeat excepturi. Neque dolore et sapiente et fuga voluptatem facere. Sit voluptas quis quidem maxime.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
-	(10, 'Voluptas nisi ex fugiat minima in et qui. Pariatur deserunt quia architecto dolor est et dicta. Velit molestias culpa a. Iste velit voluptas possimus qui.', 'Eveniet debitis animi consequatur eveniet sunt. In quod quia voluptates aut quisquam repellat. Magnam numquam quo necessitatibus voluptatem ut impedit. Porro consequatur accusantium mollitia optio odio.', 'Ullam vel et maiores architecto et eveniet. Officia asperiores ipsa quidem voluptatum consequatur. Reiciendis quo in debitis enim adipisci. Unde quod perspiciatis soluta alias.', 'Hj.', 'Esse eligendi temporibus nihil. Qui velit velit quis. Iure et porro qui non nisi dicta. Et ipsam molestiae aliquid molestiae eaque commodi voluptatem qui.', 'Assumenda quidem delectus veritatis illo consequatur perferendis. Quisquam et cumque totam exercitationem tenetur qui qui. Eos excepturi cum eaque.', 'A minima id nulla qui qui tempore enim. Non in distinctio ea nulla quia. Autem esse quibusdam cum illum. Quia autem repellendus voluptates alias.', '0', NULL, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37');
+	(5, 'Quo cupiditate unde exercitationem voluptatem non sapiente. Et blanditiis aliquid voluptas facere esse delectus. Eos quia provident quis voluptate debitis. Ratione quidem porro error.', 'Exercitationem reiciendis magnam maxime exercitationem aliquid soluta autem aliquam. Unde harum aut quidem ullam aut. Delectus possimus aliquam voluptatem voluptatem. Enim fugiat est vel enim quas natus.', 'Harum aut ut consequatur vitae expedita natus autem enim. Magnam sint perferendis officia autem. Autem dolor nesciunt voluptas unde quod aut.', 'Hj.', 'Ab consequatur tenetur quia enim quis nihil veniam. Perferendis aperiam doloribus repellendus nisi non tenetur. Est est ipsam amet blanditiis aut consequatur non. Nesciunt sint atque quos minima voluptates quia.', 'Vel id reiciendis quaerat harum at sint beatae. Praesentium quo omnis sunt ipsum aut. Accusantium dolor accusantium consectetur voluptas consequuntur maiores.', 'Aliquid tempora beatae pariatur adipisci explicabo. Non cumque est facilis officia veritatis doloribus facere. Laudantium at similique optio vel at suscipit. Ut quo incidunt voluptas dicta qui aut perferendis.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(6, 'Qui possimus illo dolore. Voluptas quo quo ut qui. Ratione hic doloremque fugit qui quam voluptas voluptatem. Enim id provident et.', 'Sed in minima expedita aut velit quis et et. Neque harum aut nesciunt perspiciatis aut. Nisi porro voluptas rerum dolorum commodi.', 'Quas minima amet officiis. Recusandae nihil eum ullam. Ut dolorem sint aut sed maiores.', 'Hj.', 'Voluptatem est qui similique inventore voluptate eos animi voluptate. Nobis labore et molestias impedit. Tempora quam ut molestiae quo perspiciatis iste quia est. Quia consequuntur voluptatum enim corrupti a.', 'Blanditiis nesciunt qui doloremque expedita odio. Est laboriosam incidunt qui sint maiores in. Maxime sequi maiores et possimus corporis autem. Quam dolor est molestiae aut distinctio. Veniam optio ad quo quod.', 'Quia tempora deserunt inventore illum. Et dolor voluptatem error deleniti et sit sunt.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(7, 'Dicta cupiditate culpa sit animi similique aliquid optio ut. Nemo atque error neque iusto qui nisi ut aperiam. Ut qui dolorum harum vel quasi autem.', 'Debitis tempora magni illo iste sed. Delectus similique error magni ut totam. Voluptate aut voluptatem nam voluptatibus. Nihil omnis est voluptates rerum beatae maiores.', 'Qui molestiae in ipsa. Molestiae consectetur a rerum distinctio distinctio quae nostrum eum. Eaque dolore asperiores ut sint perferendis.', 'Dr.', 'Aut sunt et saepe ut aperiam et dolore molestiae. Dolores placeat sit consequatur dicta. Nisi magnam at eius sed aut magnam iste.', 'Est autem in natus aut totam. Et error culpa ad rerum modi et ab. Culpa consequatur laudantium occaecati iusto id. Omnis sit labore molestiae quia.', 'Sint totam ut sit dolorem commodi qui. Dolorem qui ex voluptatibus eos nobis qui. Quae inventore est cum autem ipsam assumenda.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(8, 'Ipsam quidem nemo nam ut. Consequatur autem vero porro optio aliquam officiis. Nesciunt et eligendi exercitationem. Rerum aut provident dolorum ipsa sed necessitatibus dolores.', 'Minima voluptatem optio nisi quod aut nesciunt. Qui aut saepe et occaecati non id fuga. Non et ut ut repellendus et reprehenderit. Modi asperiores optio eum nostrum assumenda quidem enim. Provident libero voluptatibus omnis soluta dignissimos.', 'Ut doloremque reiciendis nemo ducimus sit. Eligendi nihil autem qui eos sed et. Optio quia est quo ut. Odio sit aut velit labore et.', 'Ir.', 'Ad rem odit non placeat dolorem molestiae. Dolore est perspiciatis qui saepe exercitationem unde consectetur. A exercitationem delectus et harum temporibus. Id beatae animi rerum a fuga numquam. Esse dolores excepturi impedit pariatur autem accusantium animi.', 'Est nemo quod quasi doloribus cumque nostrum. Illo vel est modi tempore. Quibusdam et error aut repellendus nesciunt temporibus velit. Temporibus in et laborum praesentium incidunt.', 'Amet sapiente asperiores id sint dolor debitis in. Nisi eius quia est doloremque. Enim aliquid reiciendis tenetur quis ducimus quidem. Similique modi nobis amet id eligendi quia.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(9, 'In vero libero sit. Perferendis quisquam provident ea sed ipsum velit corrupti. Facilis eum distinctio vel ducimus. Et qui recusandae necessitatibus aut dolor.', 'Mollitia dolorem sit molestias impedit quae incidunt. Expedita id in voluptatum optio odio. Atque numquam dolorem possimus odio beatae et doloribus. Qui id aspernatur nisi cumque.', 'Ratione quis harum voluptatum sunt et corporis. Ullam veritatis aliquam quo. Voluptatibus in ea sed. Ad nam error consequatur sit voluptate consequatur vero cumque.', 'H.', 'Dignissimos sapiente ex nostrum nam ipsum explicabo enim hic. Quia aut explicabo cumque quibusdam. Blanditiis consequatur quam id maiores consequatur repellat. Eius explicabo totam quia et qui. Ut nostrum accusantium consectetur sed.', 'Et esse cumque nihil qui. Enim iste nihil et atque est qui. Qui dicta dolor possimus quae molestias. Adipisci voluptas expedita rerum illum temporibus a.', 'Quis ea ad molestiae eligendi a nostrum. Tempore corrupti placeat excepturi. Neque dolore et sapiente et fuga voluptatem facere. Sit voluptas quis quidem maxime.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37'),
+	(10, 'Voluptas nisi ex fugiat minima in et qui. Pariatur deserunt quia architecto dolor est et dicta. Velit molestias culpa a. Iste velit voluptas possimus qui.', 'Eveniet debitis animi consequatur eveniet sunt. In quod quia voluptates aut quisquam repellat. Magnam numquam quo necessitatibus voluptatem ut impedit. Porro consequatur accusantium mollitia optio odio.', 'Ullam vel et maiores architecto et eveniet. Officia asperiores ipsa quidem voluptatum consequatur. Reiciendis quo in debitis enim adipisci. Unde quod perspiciatis soluta alias.', 'Hj.', 'Esse eligendi temporibus nihil. Qui velit velit quis. Iure et porro qui non nisi dicta. Et ipsam molestiae aliquid molestiae eaque commodi voluptatem qui.', 'Assumenda quidem delectus veritatis illo consequatur perferendis. Quisquam et cumque totam exercitationem tenetur qui qui. Eos excepturi cum eaque.', 'A minima id nulla qui qui tempore enim. Non in distinctio ea nulla quia. Autem esse quibusdam cum illum. Quia autem repellendus voluptates alias.', '0', 4, 1, '2019-08-13 03:08:37', '2019-08-13 03:08:37');
 /*!40000 ALTER TABLE `tb_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users

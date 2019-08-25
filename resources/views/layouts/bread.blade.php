@@ -5,10 +5,10 @@
             </li>
             @for($i = 0; $i <= count(Request::segments()); $i++)
             <li>
-               <a href="{{ URL::to( implode( '/', array_slice(Request::segments(), 0 ,$i, true)))}}">
-                  {{(Request::segment($i))}}
-               </a>
-               <i class="fa fa-circle"></i>
+                <a href="{{ URL::to( implode( '/', array_slice(Request::segments(), 0 ,$i, true)))}}">
+                    {{(Request::segment($i))}}
+                </a>
+                <i class="fa fa-circle"></i>
             </li>
          @endfor
         </ul>

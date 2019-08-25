@@ -16,7 +16,7 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-users font-dark"></i>
-                    <span class="caption-subject bold">List Rtm</span>
+                    <span class="caption-subject bold">List Permasalahan</span>
                 </div>
                 <div class="tools"> </div>
             </div>
@@ -139,7 +139,7 @@
                 text: 'Add +',
                 className:"btn btn-circle green btn-outline",
                     action: function ( e, dt, node, config ) {
-                        window.location = '/rtm/add';
+                        window.location = "/masalah/add";
                         // alert( 'Button activated' );
                     }
                 },
@@ -157,7 +157,7 @@
 	    //   processing: true,
           serverSide: true,
           order:[[0,"asc"]],    
-	      ajax: "{{route ('rtm.json')}}",
+	      ajax: "{{route ('masalah.json')}}",
 	      columns: [
               { data: 'idr', name: 'tb_rtm.id', width: '15%'},//0
               { data: 'rtm_ke', name: 'tb_rtm.rtm_ke'}, //1
@@ -186,7 +186,7 @@
                         orderable:!1,
                         title:"aksi",
                         render:function(data, type, row){
-                        return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
+                        return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"/masalah/detail/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('editor|admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
                         "></i></button>@endhasanyrole @role('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                         }
                 }
