@@ -14,9 +14,8 @@
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
-                <div class="caption font-dark">
-                    <i class="icon-users font-dark"></i>
-                    <span class="caption-subject bold">List Permasalahan</span>
+                <div class="caption">
+                    <i class="icon-docs font-dark"></i>List Permasalahan
                 </div>
                 <div class="tools"> </div>
             </div>
@@ -32,6 +31,7 @@
                             <th rowspan="2">Uraian Bidang Permasalahan</th>
                             <th rowspan="2">Analisis / Penyebab</th>
                             <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                            <th rowspan="2">Status</th>
                             <th rowspan="2" style="text-align: center;">Aksi</th>
                         </tr>
                         <tr>
@@ -169,20 +169,29 @@
               { data: 'r_uraian', name: 'tb_uraian.r_uraian'}, //7
               { data: 'r_target', name: 'tb_uraian.r_target'}, //8
               { data: 'r_pic', name: 'tb_uraian.r_pic'}, //9
-              { data: 'idu', name: 'tb_uraian.id', width: '18%'} //10
+              { data: 'status', name: 'tb_uraian.status'}, //10
+              { data: 'idu', name: 'tb_uraian.id', width: '18%'} //11
 
             //   { data: 'tindak', name: 'tb_uraian.tindak'}, //9
             //   { data: 'p_rencana', name: 'tb_uraian.p_rencana'}, //10
             //   { data: 'p_realisasi', name: 'tb_uraian.p_realisasi'}, //11
-            //   { data: 'status', name: 'tb_uraian.status'}, //12
             //   { data: 'rtm_id', name: 'tb_uraian.rtm_id'}, //13
             //   { data: 'index_id', name: 'tb_uraian.index_id'}, //14
 	      ],
 	      columnDefs:[
                 {targets:[0,1,2,3,4], visible:false, className: 'noVis'},
-
+				{
+					targets:10,
+					render:function(a,e,t,n){
+						var s={
+							0:{title:"open",class:"label-danger"},
+							1:{title:"close",class:"label-success"},
+						};
+						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+					}
+				},
                 {
-                        targets:10,
+                        targets:11,
                         orderable:!1,
                         title:"aksi",
                         render:function(data, type, row){

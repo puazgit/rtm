@@ -37,5 +37,10 @@ Route::get('masalah/progresjson','MasalahController@progresjson')->name('progres
 Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
 Route::get('masalah/modal','MasalahController@modal')->name('masalah.modal');
 
+Route::get('test/{id}', function($id)
+{
+    return $id;
+});
+
 Auth::routes();
 
