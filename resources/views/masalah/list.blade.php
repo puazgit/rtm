@@ -139,7 +139,7 @@
                 text: 'Add +',
                 className:"btn btn-circle green btn-outline",
                     action: function ( e, dt, node, config ) {
-                        window.location = "/masalah/add";
+                        window.location = "/masalah/create";
                         // alert( 'Button activated' );
                     }
                 },
@@ -171,7 +171,6 @@
               { data: 'r_pic', name: 'tb_uraian.r_pic'}, //9
               { data: 'status', name: 'tb_uraian.status'}, //10
               { data: 'idu', name: 'tb_uraian.id', width: '18%'} //11
-
             //   { data: 'tindak', name: 'tb_uraian.tindak'}, //9
             //   { data: 'p_rencana', name: 'tb_uraian.p_rencana'}, //10
             //   { data: 'p_realisasi', name: 'tb_uraian.p_realisasi'}, //11

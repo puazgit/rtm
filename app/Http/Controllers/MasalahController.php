@@ -61,9 +61,9 @@ class MasalahController extends Controller
                      ->get();
         return $json;
     }
-    public function add(){
-        return view('masalah/add');
-    }
+    // public function add(){
+    //     return view('masalah/add');
+    // }
     public function detail($id){
         // $detmasalah = Uraian::where('id', $id)->first();
         $detmasalah = Rtm::select([
@@ -98,7 +98,7 @@ class MasalahController extends Controller
      */
     public function create()
     {
-        //
+        return view('masalah/create');
     }
 
     /**
@@ -109,7 +109,15 @@ class MasalahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+        
+        Product::create($request->all());
+
+        return redirect()->route('products.index')
+                        ->with('success','Product created successfully.');
     }
 
     /**
