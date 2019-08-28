@@ -16,6 +16,9 @@
         <link href="{{asset ('assets/css/uniform.default.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        @yield('css')
+        <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="{{asset ('assets/css/components-md.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
         <link href="{{asset ('assets/css/plugins-md.min.css')}}" rel="stylesheet" type="text/css" />
@@ -27,7 +30,6 @@
         <link href="{{asset ('assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
         <!-- START THEME CONTENT STYLES -->
-        @yield('css')
         <!-- END THEME CONTENT STYLES -->
 
         <link rel="shortcut icon" href="favicon.ico" />
@@ -642,15 +644,18 @@
         <script src="{{asset ('assets/js/jquery.uniform.min.js')}}" type="text/javascript"></script>
         <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        @yield('js')
+        <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="{{asset ('assets/js/app.min.js')}}" type="text/javascript"></script>
         <!-- END THEME GLOBAL SCRIPTS -->
+        <script src="{{asset ('assets/js/components-select2.min.js')}}" type="text/javascript"></script>
         <!-- BEGIN THEME LAYOUT SCRIPTS -->
         <script src="{{asset ('assets/js/layout.min.js')}}" type="text/javascript"></script>
         <script src="{{asset ('assets/js/demo.min.js')}}" type="text/javascript"></script>
         <script src="{{asset ('assets/js/quick-sidebar.min.js')}}" type="text/javascript"></script>
         <!-- END THEME LAYOUT SCRIPTS -->
-        @yield('js')
         @yield('script')
     </body>
     
