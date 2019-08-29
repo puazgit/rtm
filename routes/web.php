@@ -29,7 +29,7 @@ Route::get('user/json','UserController@json');
 // Route::get('rtm/modal','RtmController@modal')->name('rtm.modal');
 
 Route::get('masalah','MasalahController@index');
-Route::get('masalah/detail','MasalahController@index');
+Route::get('masalah/detail','MasalahController@index')->name('masalah.detail');
 Route::get('masalah/detail/{id}','MasalahController@detail');
 // Route::get('masalah/add','MasalahController@add')->name('masalah.add');
 Route::get('masalah/create','MasalahController@create')->name('masalah.create');

@@ -1,7 +1,7 @@
 <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
-                <a href="/">Home</a>
+                <a href="{{route ('home')}}">Home</a>
             </li>
             @for($i = 0; $i <= count(Request::segments()); $i++)
             <li>

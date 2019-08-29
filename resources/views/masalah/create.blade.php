@@ -4,6 +4,8 @@
 <link href="{{asset ('assets/css/summernote.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @section('content')
@@ -18,7 +20,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="icon-docs"></i>Tambah Data</div>
+                        <i class="icon-docs"></i>Tambah Data Permasalahan</div>
                     <div class="actions btn-set">
                         <button type="button" name="back" class="btn btn-secondary-outline">
                             <i class="fa fa-angle-left"></i> Back</button>
@@ -56,15 +58,17 @@
                                 <li>
                                     <a href="#tab_2" data-toggle="tab"> Isian 2 </a>
                                 </li>
+                                <li>
+                                    <a href="#tab_3" data-toggle="tab"> Isian 3 </a>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Uraian Permasalahan</label>
+                                            <label for="multiple" class="col-md-2 control-label">PIC</label>
                                             <div class="col-md-10">
-                                                <select id="single" class="form-control select2">
-                                                    <option></option>
+                                                <select id="multiple" class="form-control select2-multiple" multiple>
                                                     <optgroup label="Alaskan">
                                                         <option value="AK">Alaska</option>
                                                         <option value="HI" disabled="disabled">Hawaii</option>
@@ -129,9 +133,69 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
+                                            <label class="col-md-2 control-label">Uraian Permasalahan</label>
+                                            <div class="col-md-10">
+                                                <select id="single" class="form-control select2">
+                                                    <option></option>
+                                                    <optgroup label="">
+                                                        <option value="CA">Hasil Kuesioner/Indeks Kepuasan Pelanggan 7.2.a.1</option>
+                                                        <option value="NV">Indeks Keterikatan Karyawan 7.3.a.(3).3</option>
+                                                        <option value="OR">Indeks Kepuasan Karyawan (%) 7.3.a.3.1</option>
+                                                        <option value="WA">Indeks kepuasan pemasok 7.1.c.5</option>
+                                                        <option value="AZ">Keuangan dan Pasar 7.4.b.(2).11.1</option>
+                                                        <option value="CO">Fokus Pelanggan 7.4.b.(2).11.2</option>
+                                                        <option value="ID">Efektifitas produk dan proses 7.4.b.(2).11.3</option>
+                                                        <option value="MT">Fokus tenaga kerja 7.4.b.(2).11.4</option>
+                                                        <option value="NE">Kepemimpinan 7.4.b.(2).11.5</option>
+                                                        <option value="NM">New Layanan Penyaluran Listrik Total (PLTA + PLTMH) 7.1.a.(1).1</option>
+                                                        <option value="ND">North Dakota</option>
+                                                        <option value="UT">Utah</option>
+                                                        <option value="WY">Wyoming</option>
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="AR">Arkansas</option>
+                                                        <option value="IL">Illinois</option>
+                                                        <option value="IA">Iowa</option>
+                                                        <option value="KS">Kansas</option>
+                                                        <option value="KY">Kentucky</option>
+                                                        <option value="LA">Louisiana</option>
+                                                        <option value="MN">Minnesota</option>
+                                                        <option value="MS">Mississippi</option>
+                                                        <option value="MO">Missouri</option>
+                                                        <option value="OK">Oklahoma</option>
+                                                        <option value="SD">South Dakota</option>
+                                                        <option value="TX">Texas</option>
+                                                        <option value="TN">Tennessee</option>
+                                                        <option value="WI">Wisconsin</option>
+                                                    </optgroup>
+                                                    <optgroup label="Eastern Time Zone">
+                                                        <option value="CT">Connecticut</option>
+                                                        <option value="DE">Delaware</option>
+                                                        <option value="FL">Florida</option>
+                                                        <option value="GA">Georgia</option>
+                                                        <option value="IN">Indiana</option>
+                                                        <option value="ME">Maine</option>
+                                                        <option value="MD">Maryland</option>
+                                                        <option value="MA">Massachusetts</option>
+                                                        <option value="MI">Michigan</option>
+                                                        <option value="NH">New Hampshire</option>
+                                                        <option value="NJ">New Jersey</option>
+                                                        <option value="NY">New York</option>
+                                                        <option value="NC">North Carolina</option>
+                                                        <option value="OH">Ohio</option>
+                                                        <option value="PA">Pennsylvania</option>
+                                                        <option value="RI">Rhode Island</option>
+                                                        <option value="SC">South Carolina</option>
+                                                        <option value="VT">Vermont</option>
+                                                        <option value="VA">Virginia</option>
+                                                        <option value="WV">West Virginia</option>
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-md-2 control-label">Analisis / Penyebab</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_2"> </div>
+                                                <div name="summernote" id="summernote_analisis"> </div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,55 +204,95 @@
                                     <div class="alert alert-success margin-bottom-10">
                                         <button type="button" class="close" data-dismiss="alert"
                                             aria-hidden="true"></button>
-                                        <i class="fa fa-warning fa-lg"></i> <b>PENYELESAIAN</b>
+                                        <i class="fa fa-warning fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
                                     </div>
                                     <div class="form-body">
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Uraian</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_3"> </div>
+                                                <div name="summernote" id="summernote_uraian"> </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Target Waktu</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_4"> </div>
+                                                <div name="summernote" id="summernote_target"> </div>
                                             </div>
                                         </div>
-                                        <label class="col-md-2 control-label">PIC :
-                                            <span class="required"> * </span>
-                                        </label>
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control" name="" placeholder=""> </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab_3">
+                                    <div class="alert alert-success margin-bottom-10">
+                                        <button type="button" class="close" data-dismiss="alert"
+                                            aria-hidden="true"></button>
+                                        <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
+                                    </div>
+                                    <div class="form-body">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Tindak Lanjut</label>
+                                            <div class="col-md-10">
+                                                <div name="summernote" id="summernote_tindak"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Rencana Penyelesaian</label>
+                                            <div class="col-md-10">
+                                                <div name="summernote" id="summernote_rencana"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
+                                            <div class="col-md-10">
+                                                <div name="summernote" id="summernote_realisasi"> </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">Status</label>
+                                            <div class="col-md-10">
+                                                <input type="checkbox" class="make-switch" checked data-on-text="Open"
+                                                    checked data-off-text="Close">
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </form>
                 </div>
-        </form>
-    </div>
+            </div>
+            @endsection
+
+            @section('js')
+            <script src="{{asset ('assets/js/summernote.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset ('assets/js/components-bootstrap-switch.min.js')}}" type="text/javascript"></script>
 
 
-</div>
-@endsection
+            @endsection
 
-@section('js')
-<script src="{{asset ('assets/js/summernote.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
-@endsection
-
-@section('script')
-<script>
-    var ComponentsEditors=function()
+            @section('script')
+            <script>
+                var ComponentsEditors=function()
     {
         var s=function(){
-            $("#summernote_2").summernote(
+            $("#summernote_analisis").summernote(
                 {height:300}
             )
-            $("#summernote_3").summernote(
+            $("#summernote_uraian").summernote(
                 {height:300}
             )
-            $("#summernote_4").summernote(
+            $("#summernote_target").summernote(
+                {height:300}
+            )
+            $("#summernote_tindak").summernote(
+                {height:300}
+            )
+            $("#summernote_rencana").summernote(
+                {height:300}
+            )
+            $("#summernote_realisasi").summernote(
                 {height:300}
             )
         };
@@ -212,8 +316,10 @@
             t+="<div class='select2-result-repository__statistics'><div class='select2-result-repository__forks'><span class='glyphicon glyphicon-flash'></span> "+e.forks_count+" Forks</div><div class='select2-result-repository__stargazers'><span class='glyphicon glyphicon-star'></span> "+e.stargazers_count+" Stars</div><div class='select2-result-repository__watchers'><span class='glyphicon glyphicon-eye-open'></span> "+e.watchers_count+" Watchers</div></div></div></div>"}
             
             function t(e){
-                return e.full_name||e.text}$.fn.select2.defaults.set("theme","bootstrap");
-                var s="Select a State";
+                    return e.full_name||e.text
+                }
+                $.fn.select2.defaults.set("theme","bootstrap");
+                var s="Pilih Permasalahan";
                 $(".select2, .select2-multiple").select2({
                     placeholder:s,
                     width:null
@@ -288,5 +394,5 @@ App.isAngularJsApp()===!1&&jQuery(document).ready(function(){
     ComponentsSelect2.init()
 });
 
-</script>
-@endsection
+            </script>
+            @endsection
