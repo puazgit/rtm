@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\User;
 use App\Rtm;
 use App\Uraian;
 use App\Progres;
@@ -61,9 +62,6 @@ class MasalahController extends Controller
                      ->get();
         return $json;
     }
-    // public function add(){
-    //     return view('masalah/add');
-    // }
     public function detail($id){
         // $detmasalah = Uraian::where('id', $id)->first();
         $detmasalah = Rtm::select([
@@ -163,5 +161,18 @@ class MasalahController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function loadData(Request $request)
+    {
+        $term = trim($request->q);
+        if (empty($term)) {
+            return \Response::json([]);
+        }
+        $tags = DB::table('tb_departemen')->select('id', 'departemen')->where('departemen', 'LIKE', '%'.$term.'%')->get();
+        $formatted_tags = [];
+        foreach ($tags as $tag) {
+            $formatted_tags[] = ['id' => $tag->id, 'text' => $tag->departemen];
+        }
+        return \Response::json($formatted_tags);
     }
 }

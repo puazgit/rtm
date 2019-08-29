@@ -37,6 +37,7 @@ Route::get('masalah/json','MasalahController@json')->name('masalah.json');
 Route::get('masalah/progresjson','MasalahController@progresjson')->name('progres.json');
 Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
 Route::get('masalah/modal','MasalahController@modal')->name('masalah.modal');
+Route::get('/cari', 'MasalahController@loadData');
 
 Route::get('test/{id}', function($id)
 {

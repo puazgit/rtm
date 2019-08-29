@@ -2,10 +2,10 @@
 
 @section('css')
 <link href="{{asset ('assets/css/summernote.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset ('assets/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+{{-- <link href="{{asset ('assets/css/select2.min.css')}}" rel="stylesheet" type="text/css" /> --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
-
 @endsection
 
 @section('content')
@@ -66,130 +66,18 @@
                                 <div class="tab-pane active" id="tab_1">
                                     <div class="form-body">
                                         <div class="form-group">
-                                            <label for="multiple" class="col-md-2 control-label">PIC</label>
+                                            <label for="cuser" class="col-md-2 control-label">PIC</label>
                                             <div class="col-md-10">
-                                                <select id="multiple" class="form-control select2-multiple" multiple>
-                                                    <optgroup label="Alaskan">
-                                                        <option value="AK">Alaska</option>
-                                                        <option value="HI" disabled="disabled">Hawaii</option>
-                                                    </optgroup>
-                                                    <optgroup label="Pacific Time Zone">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                    </optgroup>
-                                                    <optgroup label="Mountain Time Zone">
-                                                        <option value="AZ">Arizona</option>
-                                                        <option value="CO">Colorado</option>
-                                                        <option value="ID">Idaho</option>
-                                                        <option value="MT">Montana</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NM">New Mexico</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                    </optgroup>
-                                                    <optgroup label="Central Time Zone">
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
-                                                    </optgroup>
-                                                    <optgroup label="Eastern Time Zone">
-                                                        <option value="CT">Connecticut</option>
-                                                        <option value="DE">Delaware</option>
-                                                        <option value="FL">Florida</option>
-                                                        <option value="GA">Georgia</option>
-                                                        <option value="IN">Indiana</option>
-                                                        <option value="ME">Maine</option>
-                                                        <option value="MD">Maryland</option>
-                                                        <option value="MA">Massachusetts</option>
-                                                        <option value="MI">Michigan</option>
-                                                        <option value="NH">New Hampshire</option>
-                                                        <option value="NJ">New Jersey</option>
-                                                        <option value="NY">New York</option>
-                                                        <option value="NC">North Carolina</option>
-                                                        <option value="OH">Ohio</option>
-                                                        <option value="PA">Pennsylvania</option>
-                                                        <option value="RI">Rhode Island</option>
-                                                        <option value="SC">South Carolina</option>
-                                                        <option value="VT">Vermont</option>
-                                                        <option value="VA">Virginia</option>
-                                                        <option value="WV">West Virginia</option>
-                                                    </optgroup>
+                                                <select id="cuser" class="form-control select2-multiple" name="cuser[]"
+                                                    multiple>
                                                 </select>
+                                                {{-- <select id="tag_list" name="tag_list[]" class="form-control" multiple></select> --}}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                             <div class="col-md-10">
-                                                <select id="single" class="form-control select2">
-                                                    <option></option>
-                                                    <optgroup label="">
-                                                        <option value="CA">Hasil Kuesioner/Indeks Kepuasan Pelanggan 7.2.a.1</option>
-                                                        <option value="NV">Indeks Keterikatan Karyawan 7.3.a.(3).3</option>
-                                                        <option value="OR">Indeks Kepuasan Karyawan (%) 7.3.a.3.1</option>
-                                                        <option value="WA">Indeks kepuasan pemasok 7.1.c.5</option>
-                                                        <option value="AZ">Keuangan dan Pasar 7.4.b.(2).11.1</option>
-                                                        <option value="CO">Fokus Pelanggan 7.4.b.(2).11.2</option>
-                                                        <option value="ID">Efektifitas produk dan proses 7.4.b.(2).11.3</option>
-                                                        <option value="MT">Fokus tenaga kerja 7.4.b.(2).11.4</option>
-                                                        <option value="NE">Kepemimpinan 7.4.b.(2).11.5</option>
-                                                        <option value="NM">New Layanan Penyaluran Listrik Total (PLTA + PLTMH) 7.1.a.(1).1</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
-                                                    </optgroup>
-                                                    <optgroup label="Eastern Time Zone">
-                                                        <option value="CT">Connecticut</option>
-                                                        <option value="DE">Delaware</option>
-                                                        <option value="FL">Florida</option>
-                                                        <option value="GA">Georgia</option>
-                                                        <option value="IN">Indiana</option>
-                                                        <option value="ME">Maine</option>
-                                                        <option value="MD">Maryland</option>
-                                                        <option value="MA">Massachusetts</option>
-                                                        <option value="MI">Michigan</option>
-                                                        <option value="NH">New Hampshire</option>
-                                                        <option value="NJ">New Jersey</option>
-                                                        <option value="NY">New York</option>
-                                                        <option value="NC">North Carolina</option>
-                                                        <option value="OH">Ohio</option>
-                                                        <option value="PA">Pennsylvania</option>
-                                                        <option value="RI">Rhode Island</option>
-                                                        <option value="SC">South Carolina</option>
-                                                        <option value="VT">Vermont</option>
-                                                        <option value="VA">Virginia</option>
-                                                        <option value="WV">West Virginia</option>
-                                                    </optgroup>
-                                                </select>
+                                                <div name="summernote" id="summernote_uraianmasalah"> </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -265,7 +153,8 @@
 
             @section('js')
             <script src="{{asset ('assets/js/summernote.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
+            {{-- <script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script> --}}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
             <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
             <script src="{{asset ('assets/js/components-bootstrap-switch.min.js')}}" type="text/javascript"></script>
 
@@ -275,124 +164,67 @@
             @section('script')
             <script>
                 var ComponentsEditors=function()
-    {
-        var s=function(){
-            $("#summernote_analisis").summernote(
-                {height:300}
-            )
-            $("#summernote_uraian").summernote(
-                {height:300}
-            )
-            $("#summernote_target").summernote(
-                {height:300}
-            )
-            $("#summernote_tindak").summernote(
-                {height:300}
-            )
-            $("#summernote_rencana").summernote(
-                {height:300}
-            )
-            $("#summernote_realisasi").summernote(
-                {height:300}
-            )
-        };
-        return{
-            init:function(){
-                s()
-            }
-        }
-    }();
-
-    jQuery(document).ready(function(){
-        ComponentsEditors.init()
-    });
-
-    var ComponentsSelect2=function(){
-    var e=function(){
-        function e(e){
-            if(e.loading)return e.text;
-            var t="<div class='select2-result-repository clearfix'><div class='select2-result-repository__avatar'><img src='"+e.owner.avatar_url+"' /></div><div class='select2-result-repository__meta'><div class='select2-result-repository__title'>"+e.full_name+"</div>";
-            return e.description&&(t+="<div class='select2-result-repository__description'>"+e.description+"</div>"),
-            t+="<div class='select2-result-repository__statistics'><div class='select2-result-repository__forks'><span class='glyphicon glyphicon-flash'></span> "+e.forks_count+" Forks</div><div class='select2-result-repository__stargazers'><span class='glyphicon glyphicon-star'></span> "+e.stargazers_count+" Stars</div><div class='select2-result-repository__watchers'><span class='glyphicon glyphicon-eye-open'></span> "+e.watchers_count+" Watchers</div></div></div></div>"}
-            
-            function t(e){
-                    return e.full_name||e.text
-                }
-                $.fn.select2.defaults.set("theme","bootstrap");
-                var s="Pilih Permasalahan";
-                $(".select2, .select2-multiple").select2({
-                    placeholder:s,
-                    width:null
-                }),
-                
-            $(".select2-allow-clear").select2({
-                allowClear:!0,
-                placeholder:s,
-                width:null
-            }),
-            
-            $(".js-data-example-ajax").select2({
-                width:"off",
-                ajax:{
-                    url:"https://api.github.com/search/repositories",
-                    dataType:"json",
-                    delay:250,
-                    data:function(e){
-                        return{
-                            q:e.term,page:e.page
-                        }},
-                        processResults:function(e,t){
-                            return{results:e.items}
-                        },
-                        cache:!0},
-                        escapeMarkup:function(e){
-                            return e
-                        },
-                        
-                        minimumInputLength:1,
-                        templateResult:e,
-                        templateSelection:t
-            }),
-            $("button[data-select2-open]").click(
-                function(){
-                    $("#"+$(this).data("select2-open")).select2("open")}),
-                    $(":checkbox").on("click",function(){
-                        $(this)
-                        .parent()
-                        .nextAll("select")
-                        .prop("disabled",!this.checked)
-                    }),
-                
-                $(".select2, .select2-multiple, .select2-allow-clear, .js-data-example-ajax").on("select2:open",function(){
-                    if($(this).parents("[class*='has-']").length)
-                    for(
-                        var e=$(this).parents("[class*='has-']")[0].className.split(/\s+/),
-                        t=0;t<e.length;++t)e[t].match("has-")&&
-                        $("body > .select2-container").addClass(e[t])
-                }),
-                
-                $(".js-btn-set-scaling-classes").on("click",function(){
-                    $("#select2-multiple-input-sm, #select2-single-input-sm")
-                    .next(".select2-container--bootstrap")
-                    .addClass("input-sm"),
-                    
-                    $("#select2-multiple-input-lg, #select2-single-input-lg")
-                    .next(".select2-container--bootstrap")
-                    .addClass("input-lg"),
-                    
-                    $(this).removeClass("btn-primary btn-outline").prop("disabled",!0)
-                })};
-                
-                return{
-                    init:function(){
-                        e()
+                {
+                    var s=function(){
+                        $("#summernote_uraianmasalah").summernote(
+                            {height:200}
+                        )
+                        $("#summernote_analisis").summernote(
+                            {height:300}
+                        )
+                        $("#summernote_uraian").summernote(
+                            {height:300}
+                        )
+                        $("#summernote_target").summernote(
+                            {height:300}
+                        )
+                        $("#summernote_tindak").summernote(
+                            {height:300}
+                        )
+                        $("#summernote_rencana").summernote(
+                            {height:300}
+                        )
+                        $("#summernote_realisasi").summernote(
+                            {height:300}
+                        )
+                    };
+                    return{
+                        init:function(){
+                            s()
+                        }
                     }
-                }
-}();
+                }();
+            
+                jQuery(document).ready(function(){
+                    ComponentsEditors.init()
+                });
 
-App.isAngularJsApp()===!1&&jQuery(document).ready(function(){
-    ComponentsSelect2.init()
-});
-
+                $('#cuser').select2({
+                    placeholder: "Pilih PIC ...",
+                    minimumInputLength: 2,
+                    // maximumInputLength : 0,
+                    // openOnEnter: true,
+                    allowClear: true,
+                    ajax: {
+                        url: '/cari',
+                        dataType: 'json',
+                        delay: 250,
+                        
+                        data: function (params) {
+                            return {
+                                q: $.trim(params.term)
+                            };
+                        },
+                
+                        processResults: function (data) {
+                            return {
+                            results: data
+                            };
+                        },
+                            cache: true
+                    }
+                });
+            
+            
             </script>
             @endsection
