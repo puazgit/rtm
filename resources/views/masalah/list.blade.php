@@ -164,7 +164,7 @@
               { data: 'tingkat', name: 'tb_rtm.tingkat'}, //2
               { data: 'rkt', name: 'tb_rtm.rkt'}, //3
               { data: 'tahun', name: 'tb_rtm.tahun'}, //4
-              { data: 'index_masalah', name: 'tb_index.index_masalah'}, //5
+              { data: 'uraian', name: 'tb_uraian.uraian'}, //5
               { data: 'analisis', name: 'tb_uraian.analisis'}, //6
               { data: 'r_uraian', name: 'tb_uraian.r_uraian'}, //7
               { data: 'r_target', name: 'tb_uraian.r_target'}, //8

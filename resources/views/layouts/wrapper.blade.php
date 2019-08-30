@@ -243,7 +243,7 @@
                                             </div>
                                         </div>
                                         <div class="post in">
-                                            <img class="avatar" alt="" src="assets/img/avatar2.jpg" />
+                                            <img class="avatar" alt="" src="{{asset ('assets/img/avatar2.jpg')}}" />
                                             <div class="message">
                                                 <span class="arrow"></span>
                                                 <a href="javascript:;" class="name">Ella Wong</a>

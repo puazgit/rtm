@@ -16,7 +16,8 @@
 <!-- END PAGE HEADER-->
 <div class="row">
     <div class="col-md-12">
-        <form class="form-horizontal form-row-seperated" action="#">
+        <form class="form-horizontal form-row-seperated" action="{{route ('masalah.store')}}" method="post">
+            @csrf
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
@@ -26,8 +27,9 @@
                             <i class="fa fa-angle-left"></i> Back</button>
                         <button class="btn btn-secondary-outline">
                             <i class="fa fa-reply"></i> Reset</button>
-                        <button class="btn btn-success">
+                        <button type="submit" name="btn_save" class="btn btn-success">
                             <i class="fa fa-check"></i> Save</button>
+                            
                         <div class="btn-group">
                             <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
                                 <i class="fa fa-share"></i> More
@@ -48,8 +50,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="portlet-body form">
-                    <form class="form-horizontal form-bordered">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+                </div><br />
+              @endif
+                <div class="portlet-body form" >
                         <div class="tabbable-bordered">
                             <ul class="nav nav-tabs">
                                 <li class="active">
@@ -77,13 +87,13 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_uraianmasalah"> </div>
+                                                <textarea class="form-control summernote" name="uraian" id="uraian"> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Analisis / Penyebab</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_analisis"> </div>
+                                                <textarea class="form-control summernote" name="analisis" id="analisis"> </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -98,13 +108,13 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Uraian</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_uraian"> </div>
+                                                <textarea class="form-control summernote" name="r_uraian" id="r_uraian"> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Target Waktu</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_target"> </div>
+                                                <textarea class="form-control summernote" name="r_target" id="r_target"> </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -119,36 +129,39 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Tindak Lanjut</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_tindak"> </div>
+                                                <textarea class="form-control summernote" name="tindak" id="tindak"> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Rencana Penyelesaian</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_rencana"> </div>
+                                                <textarea class="form-control summernote" name="p_rencana" id="p_rencana"> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
                                             <div class="col-md-10">
-                                                <div name="summernote" id="summernote_realisasi"> </div>
+                                                <textarea class="form-control summernote" name="p_realisasi" id="p_realisasi"> </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Status</label>
                                             <div class="col-md-10">
-                                                <input type="checkbox" class="make-switch" checked data-on-text="Open"
+                                                <input type="checkbox" id="status" name="status" class="make-switch" checked data-on-text="Open"
                                                     checked data-off-text="Close">
                                             </div>
                                         </div>
-
+                                        {{-- <button type="submit" class="btn btn-primary">Save</button> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
             </div>
+        </form>
+    </div>
+</div>
             @endsection
 
             @section('js')
@@ -166,25 +179,25 @@
                 var ComponentsEditors=function()
                 {
                     var s=function(){
-                        $("#summernote_uraianmasalah").summernote(
+                        $("#uraian").summernote(
                             {height:200}
                         )
-                        $("#summernote_analisis").summernote(
+                        $("#analisis").summernote(
                             {height:300}
                         )
-                        $("#summernote_uraian").summernote(
+                        $("#r_uraian").summernote(
                             {height:300}
                         )
-                        $("#summernote_target").summernote(
+                        $("#r_target").summernote(
                             {height:300}
                         )
-                        $("#summernote_tindak").summernote(
+                        $("#tindak").summernote(
                             {height:300}
                         )
-                        $("#summernote_rencana").summernote(
+                        $("#p_rencana").summernote(
                             {height:300}
                         )
-                        $("#summernote_realisasi").summernote(
+                        $("#p_realisasi").summernote(
                             {height:300}
                         )
                     };

@@ -34,6 +34,7 @@ class MasalahController extends Controller
                                 'tb_rtm.rkt AS rkt',
                                 'tb_rtm.tahun',
                                 'tb_uraian.id AS idu',
+                                'tb_uraian.uraian',
                                 'tb_uraian.analisis',
                                 'tb_uraian.r_uraian',
                                 'tb_uraian.r_target',
@@ -42,11 +43,8 @@ class MasalahController extends Controller
                                 'tb_uraian.p_rencana',
                                 'tb_uraian.p_realisasi',
                                 'tb_uraian.status',
-                                'tb_uraian.rtm_id',
-                                'tb_uraian.index_id',
-                                'tb_index.index_masalah'])
-                            ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')
-                            ->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id');
+                                'tb_uraian.rtm_id'])
+                            ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id');
 
         return Datatables::of($json)->make(true);
     }
@@ -71,6 +69,7 @@ class MasalahController extends Controller
                             'tb_rtm.rkt AS rkt',
                             'tb_rtm.tahun',
                             'tb_uraian.id AS idu',
+                            'tb_uraian.uraian AS uraian',
                             'tb_uraian.analisis',
                             'tb_uraian.r_uraian',
                             'tb_uraian.r_target',
@@ -79,11 +78,8 @@ class MasalahController extends Controller
                             'tb_uraian.p_rencana',
                             'tb_uraian.p_realisasi',
                             'tb_uraian.status AS status',
-                            'tb_uraian.rtm_id',
-                            'tb_uraian.index_id',
-                            'tb_index.index_masalah AS index_masalah'])
+                            'tb_uraian.rtm_id'])
                             ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')
-                            ->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id')
                             ->where('tb_uraian.id', $id)->first();
             
         // return $detmasalah;
@@ -107,15 +103,49 @@ class MasalahController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'name' => 'required',
-            'detail' => 'required',
-        ]);
-        
-        Product::create($request->all());
 
-        return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+        $validatedData = $request->validate([
+            'uraian' => 'required|max:255',
+            'analisis' => 'required|max:255',
+            'r_uraian' => 'required|max:255',
+            'r_target' => 'required|max:255',
+            // 'cuser' => 'required',
+            'tindak' => 'required|max:255',
+            'p_rencana' => 'required|max:255',
+            'p_realisasi' => 'required|max:255',
+            // 'status' => 'required'
+        ]);
+        $uraian = Uraian::create($validatedData);
+   
+        return redirect('/masalah')->with('success', 'Book is successfully saved');
+        // $this->validate($request,[
+        //     'uraian' => 'required',
+        //     // 'analisis' => 'required',
+        //     // 'r_uraian' => 'required',
+        //     // 'r_target' => 'required',
+        //     // 'r_pic' => 'required',
+        //     // 'tindak' => 'required',
+        //     // 'p_rencana' => 'required',
+        //     // 'p_realisasi' => 'required',
+        //     // 'status' => 'required'
+        // ]);
+        
+        // Uraian::create([
+        //                 'uraian' => $request->summernote_uraianmasalah,
+        //                 'analisis' => $request->summernote_analisis,
+        //                 'r_uraian' => $request->summernote_uraian,
+        //                 'r_target' => $request->summernote_target,
+        //                 'r_pic' => $request->summernote_uraianmasalah,
+        //                 'tindak' => $request->summernote_tindak,
+        //                 'p_rencana' => $request->summernote_rencana,
+        //                 'p_realisasi' => $request->summernote_realisasi,
+        //                 'status' => $request->chk_status
+        //                 // 'rtm_id' => $request->nama
+        //                 ]);
+
+        // return redirect()->route('masalah')
+        //                 ->with('success','Uraian created successfully.');
+        // return redirect('/masalah');
     }
 
     /**

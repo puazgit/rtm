@@ -39,7 +39,7 @@
                                 <div class="item-name primary-link">Uraian Permasalahan Bidang :</div>
                             </div>
                         </div>
-                        <div class="item-body"> {{ $detmasalah->index_masalah }}
+                        <div class="item-body"> {{ $detmasalah->uraian }}
                         </div>
                     </div>
                     <div class="item">

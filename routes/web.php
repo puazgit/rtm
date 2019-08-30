@@ -33,6 +33,7 @@ Route::get('masalah/detail','MasalahController@index')->name('masalah.detail');
 Route::get('masalah/detail/{id}','MasalahController@detail');
 // Route::get('masalah/add','MasalahController@add')->name('masalah.add');
 Route::get('masalah/create','MasalahController@create')->name('masalah.create');
+Route::post('masalah/store','MasalahController@store')->name('masalah.store');
 Route::get('masalah/json','MasalahController@json')->name('masalah.json');
 Route::get('masalah/progresjson','MasalahController@progresjson')->name('progres.json');
 Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
