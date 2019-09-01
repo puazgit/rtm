@@ -26,7 +26,7 @@
                         <button type="button" name="back" class="btn btn-secondary-outline">
                             <i class="fa fa-angle-left"></i> Back</button>
                         <button class="btn btn-secondary-outline">
-                            <i class="fa fa-reply"></i> Reset</button>
+                            <i class="fa fa-reply"></i> Reset </button>
                         <button type="submit" name="btn_save" class="btn btn-success">
                             <i class="fa fa-check"></i> Save</button>
                             
@@ -78,22 +78,21 @@
                                         <div class="form-group">
                                             <label for="cuser" class="col-md-2 control-label">PIC</label>
                                             <div class="col-md-10">
-                                                <select id="cuser" class="form-control select2-multiple" name="cuser[]"
+                                                <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
                                                     multiple>
                                                 </select>
-                                                {{-- <select id="tag_list" name="tag_list[]" class="form-control" multiple></select> --}}
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="uraian" id="uraian"> </textarea>
+                                                <textarea class="form-control summernote" name="uraian" id="uraian">{{ old('uraian') }} </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Analisis / Penyebab</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="analisis" id="analisis"> </textarea>
+                                                <textarea class="form-control summernote" name="analisis" id="analisis">{{ old('analisis') }} </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -108,13 +107,13 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Uraian</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="r_uraian" id="r_uraian"> </textarea>
+                                                <textarea class="form-control summernote" name="r_uraian" id="r_uraian">{{ old('r_uraian') }} </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Target Waktu</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="r_target" id="r_target"> </textarea>
+                                                <textarea class="form-control summernote" name="r_target" id="r_target">{{ old('r_target') }} </textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -129,26 +128,28 @@
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Tindak Lanjut</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="tindak" id="tindak"> </textarea>
+                                                <textarea class="form-control summernote" name="tindak" id="tindak">{{ old('tindak') }} </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Rencana Penyelesaian</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="p_rencana" id="p_rencana"> </textarea>
+                                                <textarea class="form-control summernote" name="p_rencana" id="p_rencana">{{ old('p_rencana') }} </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="p_realisasi" id="p_realisasi"> </textarea>
+                                                <textarea class="form-control summernote" name="p_realisasi" id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-2 control-label">Status</label>
                                             <div class="col-md-10">
-                                                <input type="checkbox" id="status" name="status" class="make-switch" checked data-on-text="Open"
-                                                    checked data-off-text="Close">
+                                                {{-- <input type="checkbox" id="status" name="status" class="make-switch" checked data-on-text="Open"
+                                                    checked data-off-text="Close"> --}}
+                                                <input type="checkbox" name="status" class="make-switch" value="1" {{ old('status') ? 'checked="checked"' : '' }} checked data-on-text="Open"
+                                                checked data-off-text="Close"/>
                                             </div>
                                         </div>
                                         {{-- <button type="submit" class="btn btn-primary">Save</button> --}}
@@ -212,14 +213,14 @@
                     ComponentsEditors.init()
                 });
 
-                $('#cuser').select2({
+                $('#r_pic').select2({
                     placeholder: "Pilih PIC ...",
                     minimumInputLength: 2,
                     // maximumInputLength : 0,
                     // openOnEnter: true,
                     allowClear: true,
                     ajax: {
-                        url: '/cari',
+                        url: '/loadDepartemen',
                         dataType: 'json',
                         delay: 250,
                         

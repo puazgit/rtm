@@ -103,49 +103,25 @@ class MasalahController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request->has('r_pic')) {
+            $request['r_pic'] = implode(',', $request->r_pic);
+        }
+        $request['status'] = $request->has('status');
 
         $validatedData = $request->validate([
-            'uraian' => 'required|max:255',
-            'analisis' => 'required|max:255',
-            'r_uraian' => 'required|max:255',
-            'r_target' => 'required|max:255',
-            // 'cuser' => 'required',
-            'tindak' => 'required|max:255',
-            'p_rencana' => 'required|max:255',
-            'p_realisasi' => 'required|max:255',
-            // 'status' => 'required'
+            'r_pic' => 'required',
+            'uraian' => 'required',
+            'analisis' => 'required',
+            'r_uraian' => 'required',
+            'r_target' => 'required',
+            'tindak' => 'required',
+            'p_rencana' => 'required',
+            'p_realisasi' => 'required',
+            'status' => 'required'
         ]);
         $uraian = Uraian::create($validatedData);
    
         return redirect('/masalah')->with('success', 'Book is successfully saved');
-        // $this->validate($request,[
-        //     'uraian' => 'required',
-        //     // 'analisis' => 'required',
-        //     // 'r_uraian' => 'required',
-        //     // 'r_target' => 'required',
-        //     // 'r_pic' => 'required',
-        //     // 'tindak' => 'required',
-        //     // 'p_rencana' => 'required',
-        //     // 'p_realisasi' => 'required',
-        //     // 'status' => 'required'
-        // ]);
-        
-        // Uraian::create([
-        //                 'uraian' => $request->summernote_uraianmasalah,
-        //                 'analisis' => $request->summernote_analisis,
-        //                 'r_uraian' => $request->summernote_uraian,
-        //                 'r_target' => $request->summernote_target,
-        //                 'r_pic' => $request->summernote_uraianmasalah,
-        //                 'tindak' => $request->summernote_tindak,
-        //                 'p_rencana' => $request->summernote_rencana,
-        //                 'p_realisasi' => $request->summernote_realisasi,
-        //                 'status' => $request->chk_status
-        //                 // 'rtm_id' => $request->nama
-        //                 ]);
-
-        // return redirect()->route('masalah')
-        //                 ->with('success','Uraian created successfully.');
-        // return redirect('/masalah');
     }
 
     /**
@@ -192,17 +168,17 @@ class MasalahController extends Controller
     {
         //
     }
-    public function loadData(Request $request)
+    public function loadDepartemen(Request $request)
     {
         $term = trim($request->q);
         if (empty($term)) {
             return \Response::json([]);
         }
-        $tags = DB::table('tb_departemen')->select('id', 'departemen')->where('departemen', 'LIKE', '%'.$term.'%')->get();
-        $formatted_tags = [];
-        foreach ($tags as $tag) {
-            $formatted_tags[] = ['id' => $tag->id, 'text' => $tag->departemen];
+        $departemen = DB::table('tb_departemen')->select('id', 'departemen')->where('departemen', 'LIKE', '%'.$term.'%')->get();
+        $formatted_departemen = [];
+        foreach ($departemen as $departemen) {
+            $formatted_departemen[] = ['id' => $departemen->id, 'text' => $departemen->departemen];
         }
-        return \Response::json($formatted_tags);
+        return \Response::json($formatted_departemen);
     }
 }
