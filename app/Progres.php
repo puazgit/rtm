@@ -8,8 +8,8 @@ class Progres extends Model
 {
     protected $table = 'tb_progres';
 
-    // public function rtm ()
-    // {
-    //     return $this->belongsTo('App\Rtm');
-    // }
+    public function uraian ()
+    {
+        return $this->belongsTo('App\Uraian');
+    }
 }

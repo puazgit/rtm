@@ -42,12 +42,18 @@ class MasalahController extends Controller
                                 'tb_uraian.tindak',
                                 'tb_uraian.p_rencana',
                                 'tb_uraian.p_realisasi',
-                                'tb_uraian.status',
-                                'tb_uraian.rtm_id'])
-                            ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id');
+                                'tb_uraian.status']);
+                            // ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id');
 
         return Datatables::of($json)->make(true);
     }
+
+    public function json2 (){
+        // $json2 = Rtm::find(4)->uraian()->orderby('rtm_uraian.id')->get();
+        $json2 = Uraian::find(6)->get();
+        return $json2;  
+    }
+
     public function progresjson($id = NULL){
         $json = DB::table('tb_progres')
                      ->select(
