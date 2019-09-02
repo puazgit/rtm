@@ -27,23 +27,24 @@ class MasalahController extends Controller
         return view('masalah/list');
     }
     public function json(){
-        $json = Rtm::select([
-                                'tb_rtm.id AS idr',
-                                'tb_rtm.rtm_ke AS rtm_ke',
-                                'tb_rtm.tingkat AS tingkat',
-                                'tb_rtm.rkt AS rkt',
-                                'tb_rtm.tahun',
-                                'tb_uraian.id AS idu',
-                                'tb_uraian.uraian',
-                                'tb_uraian.analisis',
-                                'tb_uraian.r_uraian',
-                                'tb_uraian.r_target',
-                                'tb_uraian.r_pic',
-                                'tb_uraian.tindak',
-                                'tb_uraian.p_rencana',
-                                'tb_uraian.p_realisasi',
-                                'tb_uraian.status']);
+        // $json = Rtm::select([
+        //                         'tb_rtm.id AS idr',
+        //                         'tb_rtm.rtm_ke AS rtm_ke',
+        //                         'tb_rtm.tingkat AS tingkat',
+        //                         'tb_rtm.rkt AS rkt',
+        //                         'tb_rtm.tahun',
+        //                         'tb_uraian.id AS idu',
+        //                         'tb_uraian.uraian',
+        //                         'tb_uraian.analisis',
+        //                         'tb_uraian.r_uraian',
+        //                         'tb_uraian.r_target',
+        //                         'tb_uraian.r_pic',
+        //                         'tb_uraian.tindak',
+        //                         'tb_uraian.p_rencana',
+        //                         'tb_uraian.p_realisasi',
+        //                         'tb_uraian.status']);
                             // ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id');
+        $json = Rtm::find(4)->uraian()->get();
 
         return Datatables::of($json)->make(true);
     }
