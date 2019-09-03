@@ -23,12 +23,32 @@
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="rtm-table">
                     <thead>
                         <tr>
-                            {{-- <th>Id Uraian</th> --}}
+                            <th rowspan="2">Id RTM</th>
+                            <th rowspan="2">Rtm Ke</th>
+                            <th rowspan="2">Tingkat</th>
+                            <th rowspan="2">RKT</th>
+                            <th rowspan="2">Tahun</th>
+                            <th rowspan="2">Uraian Bidang Permasalahan</th>
+                            <th rowspan="2">Analisis / Penyebab</th>
+                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                            <th rowspan="2">Status</th>
+                            <th rowspan="2" style="text-align: center;">Aksi</th>
+                        </tr>
+                        <tr>
                             <th>Uraian</th>
-                            <th>Analisis</th>
-                            <th>R_Uraian</th>
-                            <th>RTM Ke</th>
-                            <th>Aksi</th>
+                            <th>Target Waktu</th>
+                            <th>PIC</th>
+                        </tr>
+                        {{--                             
+                            <th>Tindak Lanjut</th>
+
+                            <th>Rencana</th>
+                            <th>Realisasi</th>
+
+                            <th>Status</th>
+                            <th>Id Rtm</th>
+                            <th>Id Index</th>
+                            <th>id</th> --}}
                         </tr>
                     </thead>
                 </table>
@@ -137,33 +157,40 @@
 	    //   processing: true,
           serverSide: true,
           order:[[0,"asc"]],    
-	      ajax: "{{route ('masalah.jsonuraian')}}",
+	      ajax: "{{route ('masalah.json')}}",
 	      columns: [
-              { data: 'uraian', name: 'uraian'}, //0
-              { data: 'analisis', name: 'analisis'}, //1
-              { data: 'r_uraian', name: 'r_uraian'}, //2
-              { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
-                { 
-                    return ''+data+''
-                }
-              
-              },//3
-              { data: 'id', name: 'id'}//4
+              { data: 'idr', name: 'tb_rtm.id', width: '15%'},//0
+              { data: 'rtm_ke', name: 'tb_rtm.rtm_ke'}, //1
+              { data: 'tingkat', name: 'tb_rtm.tingkat'}, //2
+              { data: 'rkt', name: 'tb_rtm.rkt'}, //3
+              { data: 'tahun', name: 'tb_rtm.tahun'}, //4
+              { data: 'uraian', name: 'tb_uraian.uraian'}, //5
+              { data: 'analisis', name: 'tb_uraian.analisis'}, //6
+              { data: 'r_uraian', name: 'tb_uraian.r_uraian'}, //7
+              { data: 'r_target', name: 'tb_uraian.r_target'}, //8
+              { data: 'r_pic', name: 'tb_uraian.r_pic'}, //9
+              { data: 'status', name: 'tb_uraian.status'}, //10
+              { data: 'idu', name: 'tb_uraian.id', width: '18%'} //11
+            //   { data: 'tindak', name: 'tb_uraian.tindak'}, //9
+            //   { data: 'p_rencana', name: 'tb_uraian.p_rencana'}, //10
+            //   { data: 'p_realisasi', name: 'tb_uraian.p_realisasi'}, //11
+            //   { data: 'rtm_id', name: 'tb_uraian.rtm_id'}, //13
+            //   { data: 'index_id', name: 'tb_uraian.index_id'}, //14
 	      ],
 	      columnDefs:[
-                // {targets:[0,1,2,3,4], visible:false, className: 'noVis'},
-				// {
-				// 	targets:10,
-				// 	render:function(a,e,t,n){
-				// 		var s={
-				// 			0:{title:"open",class:"label-danger"},
-				// 			1:{title:"close",class:"label-success"},
-				// 		};
-				// 		return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
-				// 	}
-				// },
+                {targets:[0,1,2,3,4], visible:false, className: 'noVis'},
+				{
+					targets:10,
+					render:function(a,e,t,n){
+						var s={
+							0:{title:"open",class:"label-danger"},
+							1:{title:"close",class:"label-success"},
+						};
+						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+					}
+				},
                 {
-                        targets:4,
+                        targets:11,
                         orderable:!1,
                         title:"aksi",
                         render:function(data, type, row){

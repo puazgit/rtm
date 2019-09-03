@@ -40,8 +40,8 @@ Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
 Route::get('masalah/modal','MasalahController@modal')->name('masalah.modal');
 Route::get('/loadDepartemen', 'MasalahController@loadDepartemen');
 
-Route::get('masalah/json2','MasalahController@json2');
-Route::get('masalah/json3','MasalahController@json3');
+Route::get('masalah/jsonrtm','MasalahController@jsonrtm')->name('masalah.jsonrtm');
+Route::get('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.jsonuraian');
 
 
 Route::get('/ngetest', function(){

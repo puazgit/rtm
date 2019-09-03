@@ -10,6 +10,6 @@ class Rtm extends Model
     
     public function uraian()
     {
-        return $this->belongsToMany('App\Uraian');
+        return $this->belongsToMany('App\Uraian', 'rtm_uraian', 'rtm_id', 'uraian_id');
     }
 }

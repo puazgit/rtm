@@ -44,25 +44,18 @@ class MasalahController extends Controller
         //                         'tb_uraian.p_realisasi',
         //                         'tb_uraian.status']);
                             // ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id');
-        $json = Rtm::find(4)->uraian()->get();
 
         return Datatables::of($json)->make(true);
     }
 
-    public function json2 (){
-        // $json2 = Rtm::find(4)->uraian()->orderby('rtm_uraian.id')->get();
-        // $json2 = Uraian::find(6)->get();
-        // return $json2; 
-        // $rtm = Rtm::all();
-        // foreach ($rtm->uraian as $uraian) {
-        //     echo $uraian->uraian;
-        // }
-        // return $rtm;
-        // return $json2;
-        // $json2 = Uraian::with(['progres'])->get();
+    public function jsonrtm (){
+        $json2 = Rtm::with('uraian.progres')->get();
+        return Datatables::of($json2)->make(true);
+    }
 
-        $json2 = Rtm::with(['uraian.progres'])->get();
-        return $json2;
+    public function jsonuraian (){
+        $json = Uraian::with('rtm')->get();
+        return Datatables::of($json)->make(true);
     }
 
     public function progresjson($id = NULL){
