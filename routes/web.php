@@ -44,9 +44,9 @@ Route::get('masalah/json2','MasalahController@json2');
 Route::get('masalah/json3','MasalahController@json3');
 
 
-Route::get('test/{id}', function($id)
-{
-    return $id;
+Route::get('/ngetest', function(){
+    $uraian = App\Uraian::first();
+    dd($uraian);
 });
 
 Auth::routes();

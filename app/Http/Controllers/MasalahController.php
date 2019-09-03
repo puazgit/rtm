@@ -51,8 +51,18 @@ class MasalahController extends Controller
 
     public function json2 (){
         // $json2 = Rtm::find(4)->uraian()->orderby('rtm_uraian.id')->get();
-        $json2 = Uraian::find(6)->get();
-        return $json2;  
+        // $json2 = Uraian::find(6)->get();
+        // return $json2; 
+        // $rtm = Rtm::all();
+        // foreach ($rtm->uraian as $uraian) {
+        //     echo $uraian->uraian;
+        // }
+        // return $rtm;
+        // return $json2;
+        // $json2 = Uraian::with(['progres'])->get();
+
+        $json2 = Rtm::with(['uraian.progres'])->get();
+        return $json2;
     }
 
     public function progresjson($id = NULL){
