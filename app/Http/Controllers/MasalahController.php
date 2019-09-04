@@ -72,28 +72,34 @@ class MasalahController extends Controller
     }
     public function detail($id){
         // $detmasalah = Uraian::where('id', $id)->first();
-        $detmasalah = Rtm::select([
-                            'tb_rtm.id AS idr',
-                            'tb_rtm.rtm_ke AS rtm_ke',
-                            'tb_rtm.tingkat AS tingkat',
-                            'tb_rtm.rkt AS rkt',
-                            'tb_rtm.tahun',
-                            'tb_uraian.id AS idu',
-                            'tb_uraian.uraian AS uraian',
-                            'tb_uraian.analisis',
-                            'tb_uraian.r_uraian',
-                            'tb_uraian.r_target',
-                            'tb_uraian.r_pic',
-                            'tb_uraian.tindak',
-                            'tb_uraian.p_rencana',
-                            'tb_uraian.p_realisasi',
-                            'tb_uraian.status AS status',
-                            'tb_uraian.rtm_id'])
-                            ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')
-                            ->where('tb_uraian.id', $id)->first();
+        $detmasalah = Uraian::with('rtm')->where('id', $id)->first();
+        // $detmasalah = Rtm::select([
+        //                     'tb_rtm.id AS idr',
+        //                     'tb_rtm.rtm_ke AS rtm_ke',
+        //                     'tb_rtm.tingkat AS tingkat',
+        //                     'tb_rtm.rkt AS rkt',
+        //                     'tb_rtm.tahun',
+        //                     'tb_uraian.id AS idu',
+        //                     'tb_uraian.uraian AS uraian',
+        //                     'tb_uraian.analisis',
+        //                     'tb_uraian.r_uraian',
+        //                     'tb_uraian.r_target',
+        //                     'tb_uraian.r_pic',
+        //                     'tb_uraian.tindak',
+        //                     'tb_uraian.p_rencana',
+        //                     'tb_uraian.p_realisasi',
+        //                     'tb_uraian.status AS status',
+        //                     'tb_uraian.rtm_id'])
+        //                     ->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')
+        //                     ->where('tb_uraian.id', $id)->first();
             
         // return $detmasalah;
         return view('masalah/detail', compact('detmasalah'));
+    }
+
+    public function detail2($id){
+        $detmasalah = Uraian::with('rtm')->where('id', $id)->first();
+        return $detmasalah;
     }
     /**
      * Show the form for creating a new resource.

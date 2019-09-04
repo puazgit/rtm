@@ -17,7 +17,7 @@
                 <div class="caption">
                     <i class="icon-docs font-dark"></i>Detail Permasalahan
                 </div>
-                <div class="tools"> </div>
+                {{-- <div class="tools"> </div> --}}
             </div>
             <div class="portlet-body">
                 <div class="general-item-list">
@@ -25,12 +25,42 @@
                     <div class="item">
                         <div class="item-head">
                             <div class="item-details">
-                                <div class="item-name primary-link">RTM Ke : {{ $detmasalah->rtm_ke }} | Tingkat :
-                                    {{ $detmasalah->tingkat }} | RKT : {{ $detmasalah->rkt }} | Tahun :
-                                    {{ $detmasalah->tahun }}</div>
+                                <div class="item-name primary-link">
+                                    {{-- RTM Ke :@foreach ($detmasalah->rtm as $rtm ) {{ $rtm }} @endforeach
+                                    | Tingkat :{{ $detmasalah->tingkat }} 
+                                    | RKT : {{ $detmasalah->rkt }} | Tahun :{{ $detmasalah->tahun }} --}}
+                                </div>
                             </div>
                         </div>
                         <div class="item-body">
+                                <div class="portlet light bordered">
+                                        <div class="portlet-body">
+                                            <div class="table-scrollable">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> RTM Ke </th>
+                                                            <th> RKT </th>
+                                                            <th> Tahun </th>
+                                                            <th> Status </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($detmasalah->rtm as $rtm)
+                                                        <tr>
+                                                            <td> {{$rtm->rtm_ke}} </td>
+                                                            <td> {{$rtm->rkt}} </td>
+                                                            <td> {{$rtm->tahun}} </td>
+                                                            <td>
+                                                                <span class="label label-sm label-danger"> Open </span>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                     <div class="item">
