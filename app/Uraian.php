@@ -9,7 +9,8 @@ class Uraian extends Model
     protected $table = 'tb_uraian';
     protected $primaryKey = 'id';
     protected $fillable = [ 
-        'id', 'r_pic', 'uraian', 'analisis','r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi', 'status'
+        'id', 'r_pic', 'uraian', 'analisis','r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
+        'status', 'target', 'realisasi', 'competitor'
     ];
     protected $status = ['status' => 'boolean'];
     

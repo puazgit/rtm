@@ -10,29 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
+Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-
 Route::get('/user','UserController@index');
 Route::get('user/create','UserController@create')->middleware('role:admin|editor');
 Route::get('user/json','UserController@json');
-
-// Route::get('rtm','RtmController@index');
-// Route::get('rtm/add','RtmController@add');
-// Route::get('rtm/json','RtmController@json')->name('rtm.json');
-// Route::get('rtm/progresjson','RtmController@progresjson')->name('progres.json');
-// Route::get('rtm/progresjson/{id}','RtmController@progresjson');
-// Route::get('rtm/modal','RtmController@modal')->name('rtm.modal');
-
 Route::get('masalah','MasalahController@index');
 Route::get('masalah/detail','MasalahController@index')->name('masalah.detail');
 Route::get('masalah/detail/{id}','MasalahController@detail');
-Route::get('masalah/detail2/{id}','MasalahController@detail2');
-// Route::get('masalah/add','MasalahController@add')->name('masalah.add');
 Route::get('masalah/create','MasalahController@create')->name('masalah.create');
 Route::post('masalah/store','MasalahController@store')->name('masalah.store');
 Route::get('masalah/json','MasalahController@json')->name('masalah.json');
@@ -40,15 +25,23 @@ Route::get('masalah/progresjson','MasalahController@progresjson')->name('progres
 Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
 Route::get('masalah/modal','MasalahController@modal')->name('masalah.modal');
 Route::get('/loadDepartemen', 'MasalahController@loadDepartemen');
-
 Route::get('masalah/jsonrtm','MasalahController@jsonrtm')->name('masalah.jsonrtm');
 Route::get('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.jsonuraian');
 
 
-Route::get('/ngetest', function(){
-    $uraian = App\Uraian::first();
-    dd($uraian);
-});
-
-Auth::routes();
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('masalah/detail2/{id}','MasalahController@detail2');
+// Route::get('masalah/add','MasalahController@add')->name('masalah.add');
+// Route::get('rtm','RtmController@index');
+// Route::get('rtm/add','RtmController@add');
+// Route::get('rtm/json','RtmController@json')->name('rtm.json');
+// Route::get('rtm/progresjson','RtmController@progresjson')->name('progres.json');
+// Route::get('rtm/progresjson/{id}','RtmController@progresjson');
+// Route::get('rtm/modal','RtmController@modal')->name('rtm.modal');
+// Route::get('/ngetest', function(){
+//     $uraian = App\Uraian::first();
+//     dd($uraian);
+// });
 

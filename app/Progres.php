@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Progres extends Model
 {
     protected $table = 'tb_progres';
+    protected $fillable = ['target', 'realisasi', 'competitor'];
 
     public function uraian ()
     {
