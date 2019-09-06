@@ -92,7 +92,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik (jika ada)</label>
+                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox" name="chk_grafik" value="1" id="chk_grafik" {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <div class="portlet light bordered">
                                                 <div class="portlet-body">
@@ -295,11 +295,11 @@
 
         function dynamic_field(number) {
             html = '<tr>';
-            html += '<td><input type="text" name="target[]" class="form-control" /></td>';
-            html += '<td><input type="text" name="realisasi[]" class="form-control" /></td>';
-            html += '<td><input type="text" name="competitor[]" class="form-control" /></td>';
+            html += '<td><input type="text" name="target" class="form-control" /></td>';
+            html += '<td><input type="text" name="realisasi" class="form-control" /></td>';
+            html += '<td><input type="text" name="competitor" class="form-control" /></td>';
             // html += '<td><input type="text" name="tahun[]" class="form-control" /></td>';
-            html += '<td><select name="tahun[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
+            html += '<td><select name="year" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
             if (number > 1) {
                 html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
                 $('tbody').append(html);

@@ -85,10 +85,21 @@ class MasalahController extends Controller
             'p_rencana' => 'required','p_realisasi' => 'required','status' => 'required'
             ]);
             $uraian = Uraian::create($validatedData);
-            $id = $validatedData->id;
-            $dataprogres = new Progres(['target' => '60','realisasi' => '70','competitor' => '80','year' => '2019']);
-            $datauraian = Uraian::find($id);
-            $datauraian->progres()->save($dataprogres);
+
+            if ($request->has('chk_grafik')) {
+                $uraian = Uraian::find($uraian->id);
+                // $validatedData2 = $request->validate([
+                //     'target' => 'required','realisasi' => 'required','competitor' => 'required','year' => 'required'
+                //     ]);
+                    
+                // $progres = new Progres($validatedData2);
+                // $uraian->progres()->saveMany($progres);
+                $uraian->progres()->saveMany([
+                    new Progres(['target' => '60','realisasi' => '70','competitor' => '80','year' => '2019',]),
+                    new Progres(['target' => '60','realisasi' => '80','competitor' => '80','year' => '2020',])
+                ]);
+            }    
+    
         return redirect('/masalah')->with('success', 'data successfully saved');
     }
 
