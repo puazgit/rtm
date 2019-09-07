@@ -55,7 +55,7 @@
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                        <li><b>{{ $error }}</b></li>
                         @endforeach
                     </ul>
                 </div><br />
@@ -295,11 +295,11 @@
 
         function dynamic_field(number) {
             html = '<tr>';
-            html += '<td><input type="text" name="target" class="form-control" /></td>';
-            html += '<td><input type="text" name="realisasi" class="form-control" /></td>';
-            html += '<td><input type="text" name="competitor" class="form-control" /></td>';
-            // html += '<td><input type="text" name="tahun[]" class="form-control" /></td>';
-            html += '<td><select name="year" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
+            html += '<td><input type="text" name="target[]" class="form-control" /></td>';
+            html += '<td><input type="text" name="realisasi[]" class="form-control" /></td>';
+            html += '<td><input type="text" name="competitor[]" class="form-control" /></td>';
+            html += '<td><select name="year[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
+            // html += '<td><input type="hidden" name="uraian_id[]" class="form-control" /></td>';
             if (number > 1) {
                 html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
                 $('tbody').append(html);

@@ -136,12 +136,27 @@
           ],
 	    //   processing: true,
           serverSide: true,
-          order:[[0,"asc"]],    
+          order:[[4,"desc"]],    
 	      ajax: "{{route ('masalah.jsonuraian')}}",
 	      columns: [
-              { data: 'uraian', name: 'uraian'}, //0
-              { data: 'analisis', name: 'analisis'}, //1
-              { data: 'r_uraian', name: 'r_uraian'}, //2
+              { data: 'uraian', name: 'uraian', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //0
+              { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //1
+              { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //2
               { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
                 { 
                     return ''+data+''
@@ -297,7 +312,5 @@ jQuery(document).ready(function () {
     // var modal =$(this);
     // modal.find('.modal-body #idb').val(data_id);
 });
-
-
 </script>
 @endsection

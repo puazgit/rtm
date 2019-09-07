@@ -32,7 +32,7 @@ class MasalahController extends Controller
     }
 
     public function jsonuraian (){
-        $json = Uraian::with('rtm')->get();
+        $json = Uraian::with('rtm')->latest()->get();
         return Datatables::of($json)->make(true);
     }
 
@@ -87,18 +87,42 @@ class MasalahController extends Controller
             $uraian = Uraian::create($validatedData);
 
             if ($request->has('chk_grafik')) {
-                $uraian = Uraian::find($uraian->id);
+                $uraian1 = Uraian::find($uraian->id)->id;
+                $uraian2 = $uraian1;
+
+                $target = $request->target;
+                $realisasi = $request->realisasi;
+                $competitor = $request->competitor;
+                $year = $request->year;
+                for($count = 0; $count < count($target); $count++)
+                    {
+                        $data = array(
+                            'target' => $target[$count],
+                            'realisasi'  => $realisasi[$count],
+                            'competitor'  => $competitor[$count],
+                            'year'  => $year[$count],
+                            'uraian_id'  => $uraian2,
+                            "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
+                            "updated_at" => \Carbon\Carbon::now()  # new \Datetime()
+                        );
+                        $insert_data[] = $data;     
+                    }
+                    $uraian->progres()->insert($insert_data);
+            }
+
                 // $validatedData2 = $request->validate([
                 //     'target' => 'required','realisasi' => 'required','competitor' => 'required','year' => 'required'
                 //     ]);
                     
                 // $progres = new Progres($validatedData2);
                 // $uraian->progres()->saveMany($progres);
-                $uraian->progres()->saveMany([
-                    new Progres(['target' => '60','realisasi' => '70','competitor' => '80','year' => '2019',]),
-                    new Progres(['target' => '60','realisasi' => '80','competitor' => '80','year' => '2020',])
-                ]);
-            }    
+                // $container =[];
+                // $container[] = new Progres(['']);
+                // $uraian->progres()->saveMany([
+                //     new Progres(['target' => '60','realisasi' => '70','competitor' => '80','year' => '2019',]),
+                //     new Progres(['target' => '60','realisasi' => '80','competitor' => '80','year' => '2020',])
+                // ]);
+ 
     
         return redirect('/masalah')->with('success', 'data successfully saved');
     }

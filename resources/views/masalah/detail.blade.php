@@ -176,11 +176,11 @@
                     <div class="item">
                         <div class="item-head">
                             <div class="item-details">
-                                <div class="item-name primary-link">Status :</div>
+                                <div class="item-name primary-link">Status terakhir :</div>
                             </div>
                         </div>
                         <div class="item-body">
-                            @if( $detmasalah->status == 0)
+                            @if( $detmasalah->status == 1)
                             <span class="label label-sm label-danger">open</span>
                             @else
                             <span class="label label-sm label-success">close</span>
