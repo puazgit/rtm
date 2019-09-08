@@ -18,7 +18,7 @@
                     <!-- END SIDEBAR TOGGLER BUTTON -->
                 </li>
                 <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-                <li class="sidebar-search-wrapper">
+                {{-- <li class="sidebar-search-wrapper">
                     <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
                     <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                     <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
@@ -36,7 +36,7 @@
                         </div>
                     </form>
                     <!-- END RESPONSIVE QUICK SEARCH FORM -->
-                </li>
+                </li> --}}
                 <?php
                 $role = auth()->user()->getRoleNames()->first();
                 $menu_0 = \App\Menu::where([['is_parent',0],['role', 'like', '%' . $role . '%']])->get();

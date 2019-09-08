@@ -53,9 +53,11 @@
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
+
                     <!-- BEGIN THEME PANEL -->
-                    @include('layouts/panel')
+                    {{-- @include('layouts/panel') --}}
                     <!-- END THEME PANEL -->
+                    
                     <!-- BEGIN PAGE BAR -->
                     @include('layouts/bread')
                     <!-- END PAGE BAR -->

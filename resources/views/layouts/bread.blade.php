@@ -13,7 +13,7 @@
          @endfor
         </ul>
         <div class="page-toolbar">
-            <div class="btn-group pull-right">
+            {{-- <div class="btn-group pull-right">
                 <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
                     <i class="fa fa-angle-down"></i>
                 </button>
@@ -36,6 +36,6 @@
                             <i class="icon-bag"></i> Separated link</a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
         </div>
     </div>

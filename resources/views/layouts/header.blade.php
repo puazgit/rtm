@@ -16,7 +16,7 @@
                 <ul class="nav navbar-nav pull-right">
                     <!-- BEGIN NOTIFICATION DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                    {{-- <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-bell"></i>
                             <span class="badge badge-default"> 7 </span>
@@ -113,11 +113,11 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <!-- END NOTIFICATION DROPDOWN -->
                     <!-- BEGIN INBOX DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+                    {{-- <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-envelope-open"></i>
                             <span class="badge badge-default"> 4 </span>
@@ -188,11 +188,11 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <!-- END INBOX DROPDOWN -->
                     <!-- BEGIN TODO DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+                    {{-- <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-calendar"></i>
                             <span class="badge badge-default"> 3 </span>
@@ -299,7 +299,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <!-- END TODO DROPDOWN -->
                     <!-- BEGIN USER LOGIN DROPDOWN -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
@@ -310,7 +310,7 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
-                            <li>
+                            {{-- <li>
                                 <a href="page_user_profile_1.html">
                                     <i class="icon-user"></i> My Profile </a>
                             </li>
@@ -334,7 +334,8 @@
                             <li>
                                 <a href="page_user_lock_1.html">
                                     <i class="icon-lock"></i> Lock Screen </a>
-                            </li>
+                            </li> --}}
+                            <li class="divider"> </li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="icon-key"></i> Log Out </a>
@@ -347,11 +348,11 @@
                     <!-- END USER LOGIN DROPDOWN -->
                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-quick-sidebar-toggler">
+                    {{-- <li class="dropdown dropdown-quick-sidebar-toggler">
                         <a href="javascript:;" class="dropdown-toggle">
                             <i class="icon-logout"></i>
                         </a>
-                    </li>
+                    </li> --}}
                     <!-- END QUICK SIDEBAR TOGGLER -->
                 </ul>
             </div>

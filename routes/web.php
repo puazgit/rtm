@@ -18,6 +18,7 @@ Route::get('user/json','UserController@json');
 Route::get('masalah','MasalahController@index');
 Route::get('masalah/detail','MasalahController@index')->name('masalah.detail');
 Route::get('masalah/detail/{id}','MasalahController@detail');
+Route::get('masalah/detail2/{id}','MasalahController@detail2');
 Route::get('masalah/create','MasalahController@create')->name('masalah.create');
 Route::post('masalah/store','MasalahController@store')->name('masalah.store');
 Route::get('masalah/json','MasalahController@json')->name('masalah.json');

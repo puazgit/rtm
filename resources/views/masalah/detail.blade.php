@@ -10,7 +10,7 @@
     <small>&nbsp;</small>
 </h3>
 <div class="row">
-    {{-- URAIAN --}}
+    {{-- URAIAN 1--}}
     <div class="col-md-8">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
@@ -69,7 +69,6 @@
         </div>
 
     </div>
-
     {{-- GRAFIK --}}
     <div class="col-md-4">
         <div class="row">
@@ -84,6 +83,7 @@
             </div>
         </div>
     </div>
+    {{-- URAIAN 2--}}
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-body">
@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    {{-- URAIAN --}}
+    {{-- URAIAN 3--}}
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="portlet-body">

@@ -74,13 +74,13 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn green uppercase">{{ __('Login') }}</button>
-                    <label class="rememberme check">
+                    {{-- <label class="rememberme check">
                         <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>{{ __('Remember Me') }} </label>
                         @if (Route::has('password.request'))
                         <a href="{{ route('password.request') }}" id="forget-password" class="forget-password">{{ __('Forgot Password?') }}</a>
-                        @endif
+                        @endif --}}
                 </div>
-                <div class="login-options">
+                {{-- <div class="login-options">
                     <h4>Or login with</h4>
                     <ul class="social-icons">
                         <li>
@@ -101,7 +101,7 @@
                     <p>
                         <a href="javascript:;" id="register-btn" class="uppercase">Create an account</a>
                     </p>
-                </div>
+                </div> --}}
             </form>
             <!-- END LOGIN FORM -->
             <!-- BEGIN FORGOT PASSWORD FORM -->
@@ -398,7 +398,7 @@
             </form>
             <!-- END REGISTRATION FORM -->
         </div>
-        <div class="copyright"> 2019 © RTM. Perum Jasa Tirta II. </div>
+        <div class="copyright"> 2019 © SI RTM. Perum Jasa Tirta II. </div>
         <!--[if lt IE 9]>
 <script src="assets/global/plugins/respond.min.js"></script>
 <script src="assets/global/plugins/excanvas.min.js"></script> 

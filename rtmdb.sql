@@ -136,15 +136,17 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 
 -- Dumping structure for table rtmdb.rtm_uraian
 CREATE TABLE IF NOT EXISTS `rtm_uraian` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
   `rtm_id` int(5) NOT NULL,
   `uraian_id` int(5) NOT NULL,
   `status` smallint(6) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  KEY `rtm_id` (`rtm_id`),
+  KEY `uraian_id` (`uraian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.rtm_uraian: ~0 rows (approximately)
+-- Dumping data for table rtmdb.rtm_uraian: ~1 rows (approximately)
 /*!40000 ALTER TABLE `rtm_uraian` DISABLE KEYS */;
+INSERT INTO `rtm_uraian` (`rtm_id`, `uraian_id`, `status`) VALUES
+	(1, 1, 0);
 /*!40000 ALTER TABLE `rtm_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_departemen
@@ -253,12 +255,21 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_progres: ~1 rows (approximately)
+-- Dumping data for table rtmdb.tb_progres: ~10 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
 INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
-	(1, 60, 70, 80, '2014', '2', '2019-09-07 17:58:02', '2019-09-07 17:58:02');
+	(1, 78, 77.29, 75.66, '2014', '1', '2019-09-08 21:36:18', '2019-09-08 21:36:19'),
+	(2, 79, 78.2, 78.31, '2015', '1', '2019-09-08 21:38:04', '2019-09-08 21:38:05'),
+	(3, 80, 85.25, 79.25, '2016', '1', '2019-09-08 21:38:33', '2019-09-08 21:38:34'),
+	(4, 82, 82.2, 80.45, '2017', '1', '2019-09-08 21:38:57', '2019-09-08 21:38:58'),
+	(5, 82, 0, 0, '2018', '1', '2019-09-08 21:39:23', '2019-09-08 21:39:24'),
+	(6, 82, 0, 0, '2019', '1', '2019-09-08 21:39:45', '2019-09-08 21:39:46'),
+	(7, 0, 0, 0, '2014', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42'),
+	(8, 0, 0, 0, '2015', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42'),
+	(9, 70, 74.6, 82, '2016', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42'),
+	(10, 70, 73.7, 81.6, '2017', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42');
 /*!40000 ALTER TABLE `tb_progres` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_rtm
@@ -271,16 +282,12 @@ CREATE TABLE IF NOT EXISTS `tb_rtm` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_rtm: ~5 rows (approximately)
+-- Dumping data for table rtmdb.tb_rtm: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tb_rtm` DISABLE KEYS */;
 INSERT INTO `tb_rtm` (`id`, `rtm_ke`, `tingkat`, `rkt`, `tahun`, `created_at`, `updated_at`) VALUES
-	(1, 74, 'pusat', 1, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
-	(2, 74, 'pusat', 2, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
-	(3, 74, 'pusat', 3, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
-	(4, 71, 'pusat', 1, 2018, '2019-08-13 02:59:50', '2019-08-13 02:59:50'),
-	(5, 72, 'pusat', 2, 2018, '2019-08-13 02:59:51', '2019-08-13 02:59:51');
+	(1, 71, 'pusat', 1, 2019, '2019-09-08 20:50:27', '2019-09-08 20:50:28');
 /*!40000 ALTER TABLE `tb_rtm` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_uraian
@@ -303,8 +310,8 @@ CREATE TABLE IF NOT EXISTS `tb_uraian` (
 -- Dumping data for table rtmdb.tb_uraian: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tb_uraian` DISABLE KEYS */;
 INSERT INTO `tb_uraian` (`id`, `uraian`, `analisis`, `r_uraian`, `r_target`, `r_pic`, `tindak`, `p_rencana`, `p_realisasi`, `status`, `created_at`, `updated_at`) VALUES
-	(1, '1', '1', '1', '1', '1', '1', '1', '1', 1, '2019-09-07 17:57:12', '2019-09-07 17:57:12'),
-	(2, '2', '2', '2', '2', '1', '2', '2', '2', 1, '2019-09-07 17:58:02', '2019-09-07 17:58:02');
+	(1, '1.	Hasil Kuesioner/Indeks Kepuasan Pelanggan 7.2.a.1', 'Berdasarkan grafik  dapat disimpulkan bahwa Hasil Kuesioner/Indeks Kepuasan Pelanggan menunjukan trend/kecenderungan yang meningkat (positif)', 'Indeks kepuasan pelanggan untuk tahun 2017 masih menggunakan prognosa, menunggu laporan survey kepuasan pelanggan yang masih disusun, ', '1', '8', '1', '1', '1', 1, '2019-09-08 13:30:41', '2019-09-08 13:30:41'),
+	(2, '<p class="MsoListParagraph" style="margin-left:18.0pt;mso-add-space:auto;\r\ntext-indent:-18.0pt;mso-list:l0 level1 lfo1"><span lang="EN-US" style="font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;">Indeks Keterikatan Karyawan 7.3.a.(3).3<o:p></o:p></span></p>', '<p class="MsoNormal" style="text-align:justify"><span lang="EN-US" style="font-size: 9pt; font-family: Arial, sans-serif;">Berdasarkan\r\ngrafik dapat disimpulkan bahwa </span><span lang="EN-US" style="font-size:9.0pt;\r\nmso-bidi-font-size:10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:\r\n&quot;Times New Roman&quot;">Hasil Kuesioner/Indeks Keterikatan Karyawan menunjukan\r\ntrend/kecenderungan yang menurun (Negatif)<o:p></o:p></span></p>', '<span lang="IN" style="font-size:9.0pt;mso-bidi-font-size:\r\n10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;mso-ansi-language:IN;mso-fareast-language:\r\nEN-US;mso-bidi-language:AR-SA">Indeks keterikatan karyawan untuk tahun 2017\r\nmasih menggunakan data prognosa</span>', '0', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18', '0', '0', '0', 1, '2019-09-08 15:24:42', '2019-09-08 15:24:42');
 /*!40000 ALTER TABLE `tb_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users

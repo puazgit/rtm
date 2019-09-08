@@ -23,12 +23,28 @@
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="rtm-table">
                     <thead>
                         <tr>
-                            {{-- <th>Id Uraian</th> --}}
-                            <th>Uraian</th>
-                            <th>Analisis</th>
-                            <th>R_Uraian</th>
-                            <th>RTM Ke</th>
-                            <th>Aksi</th>
+                            <th rowspan="2">Uraian Permasalahan Bidang</th>
+                            <th rowspan="2">Analisis /Penyebab</th>
+                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                            {{-- <th rowspan="2">Uraian</th>
+                            <th rowspan="2">Target Waktu</th>
+                            <th rowspan="2">PIC</th> --}}
+                            <th rowspan="2">Tindaklanjut</th>
+                            <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
+                            {{-- <th rowspan="2">Rencana</th>
+                            <th rowspan="2">Realisasi</th> --}}
+                            <th rowspan="2">Status</th>
+                            <th rowspan="2">RTM Ke</th>
+                            <th rowspan="2" style="text-align: center;">Aksi</th>
+                        </tr>
+                        <tr>
+                                <th>Uraian</th>
+                                <th>Target Waktu</th>
+                                <th>Penanggung Jawab (PIC)</th>
+                                <th>Rencana</th>
+                                <th>Realisasi</th>
+                        {{-- </tr>
+                        <tr> --}}
                         </tr>
                     </thead>
                 </table>
@@ -129,14 +145,14 @@
                     className: "btn btn-circle green btn-outline"
                 	// columns: ':not(.noVis)',
 				},  
-                {
-                    extend:"pdf",
-                    className:"btn btn-circle green btn-outline"
-                }
+                // {
+                //     extend:"pdf",
+                //     className:"btn btn-circle green btn-outline"
+                // }
           ],
 	    //   processing: true,
           serverSide: true,
-          order:[[4,"desc"]],    
+          order:[[10,"desc"]],    
 	      ajax: "{{route ('masalah.jsonuraian')}}",
 	      columns: [
               { data: 'uraian', name: 'uraian', render: function(data, column, row)
@@ -157,28 +173,59 @@
                     return ''+decodedText+''
                 }
               }, //2
+              { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //3
+              { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //4
+              { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //5
+              { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //6
+              { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                {
+                    var decodedText = $("<p/>").html(data).text(); 
+                    return ''+decodedText+''
+                }
+              }, //7
+              { data: 'status', name: 'status'}, //8
               { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
                 { 
                     return ''+data+''
                 }
               
-              },//3
-              { data: 'id', name: 'id'}//4
+              },//9
+              { data: 'id', name: 'id'}//10
 	      ],
 	      columnDefs:[
-                // {targets:[0,1,2,3,4], visible:false, className: 'noVis'},
-				// {
-				// 	targets:10,
-				// 	render:function(a,e,t,n){
-				// 		var s={
-				// 			0:{title:"open",class:"label-danger"},
-				// 			1:{title:"close",class:"label-success"},
-				// 		};
-				// 		return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
-				// 	}
-				// },
+                {targets:[5,6,7,8,9], visible:false, className: 'noVis'},
+				{
+					targets:8,
+					render:function(a,e,t,n){
+						var s={
+							1:{title:"open",class:"label-danger"},
+							0:{title:"close",class:"label-success"},
+						};
+						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+					}
+				},
                 {
-                        targets:4,
+                        targets:10,
                         orderable:!1,
                         title:"aksi",
                         render:function(data, type, row){

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator;
 use App\User;
 use App\Rtm;
 use App\Uraian;
 use App\Progres;
+use App\Departemen;
 use DataTables;
 
 class MasalahController extends Controller
@@ -52,7 +54,7 @@ class MasalahController extends Controller
     }
 
     public function detail2($id){
-        $detmasalah = Uraian::with('rtm')->where('id', $id)->first();
+        $detmasalah = Uraian::with('progres')->get();
         return $detmasalah;
     }
     /**
@@ -62,7 +64,8 @@ class MasalahController extends Controller
      */
     public function create()
     {
-        return view('masalah/create');
+        $departemen = Departemen::all();
+        return view('masalah/create', compact('departemen'));
     }
 
     /**
@@ -84,46 +87,42 @@ class MasalahController extends Controller
             'r_uraian' => 'required','r_target' => 'required','tindak' => 'required',
             'p_rencana' => 'required','p_realisasi' => 'required','status' => 'required'
             ]);
-            $uraian = Uraian::create($validatedData);
 
             if ($request->has('chk_grafik')) {
-                $uraian1 = Uraian::find($uraian->id)->id;
-                $uraian2 = $uraian1;
-
-                $target = $request->target;
-                $realisasi = $request->realisasi;
-                $competitor = $request->competitor;
-                $year = $request->year;
-                for($count = 0; $count < count($target); $count++)
-                    {
-                        $data = array(
-                            'target' => $target[$count],
-                            'realisasi'  => $realisasi[$count],
-                            'competitor'  => $competitor[$count],
-                            'year'  => $year[$count],
-                            'uraian_id'  => $uraian2,
-                            "created_at" =>  \Carbon\Carbon::now(), # new \Datetime()
-                            "updated_at" => \Carbon\Carbon::now()  # new \Datetime()
-                        );
-                        $insert_data[] = $data;     
+                $rules = array(
+                    'target.*'  => 'required',
+                    'realisasi.*'  => 'required',
+                    'competitor.*'  => 'required',
+                    'year.*'  => 'required'
+                   );
+                   $error = Validator::make($request->all(), $rules);
+                    if($error->fails()){
+                        return redirect('masalah/create')
+                                ->withErrors($error)
+                                ->withInput();
+                    }else{
+                        $uraian = Uraian::create($validatedData);
+                        $uraian = Uraian::find($uraian->id);
+            
+                        $target = $request->target;
+                        $realisasi = $request->realisasi;
+                        $competitor = $request->competitor;
+                        $year = $request->year;
+                            
+                            for($count = 0; $count < count($target); $count++){
+                                $container[] = new Progres(array(
+                                    'target' => $target[$count],
+                                    'realisasi' => $realisasi[$count],
+                                    'competitor' => $competitor[$count],
+                                    'year' => $year[$count]
+                                ));
+                            }
+                        $uraian->progres()->saveMany($container);
                     }
-                    $uraian->progres()->insert($insert_data);
+            
+            }else{
+                $uraian = Uraian::create($validatedData);
             }
-
-                // $validatedData2 = $request->validate([
-                //     'target' => 'required','realisasi' => 'required','competitor' => 'required','year' => 'required'
-                //     ]);
-                    
-                // $progres = new Progres($validatedData2);
-                // $uraian->progres()->saveMany($progres);
-                // $container =[];
-                // $container[] = new Progres(['']);
-                // $uraian->progres()->saveMany([
-                //     new Progres(['target' => '60','realisasi' => '70','competitor' => '80','year' => '2019',]),
-                //     new Progres(['target' => '60','realisasi' => '80','competitor' => '80','year' => '2020',])
-                // ]);
- 
-    
         return redirect('/masalah')->with('success', 'data successfully saved');
     }
 
@@ -171,17 +170,18 @@ class MasalahController extends Controller
     {
         //
     }
-    public function loadDepartemen(Request $request)
-    {
-        $term = trim($request->q);
-        if (empty($term)) {
-            return \Response::json([]);
-        }
-        $departemen = DB::table('tb_departemen')->select('id', 'departemen')->where('departemen', 'LIKE', '%'.$term.'%')->get();
-        $formatted_departemen = [];
-        foreach ($departemen as $departemen) {
-            $formatted_departemen[] = ['id' => $departemen->id, 'text' => $departemen->departemen];
-        }
-        return \Response::json($formatted_departemen);
-    }
+
+    // public function loadDepartemen(Request $request)
+    // {
+    //     $term = trim($request->q);
+    //     if (empty($term)) {
+    //         return \Response::json([]);
+    //     }
+    //     $departemen = DB::table('tb_departemen')->select('id', 'departemen')->where('departemen', 'LIKE', '%'.$term.'%')->get();
+    //     $formatted_departemen = [];
+    //     foreach ($departemen as $departemen) {
+    //         $formatted_departemen[] = ['id' => $departemen->id, 'text' => $departemen->departemen];
+    //     }
+    //     return \Response::json($formatted_departemen);
+    // }
 }

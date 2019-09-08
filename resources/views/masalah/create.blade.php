@@ -26,12 +26,12 @@
                     <div class="actions btn-set">
                         <button type="button" name="back" class="btn btn-secondary-outline">
                             <i class="fa fa-angle-left"></i> Back</button>
-                        <button class="btn btn-secondary-outline">
-                            <i class="fa fa-reply"></i> Reset </button>
+                        {{-- <button class="btn btn-secondary-outline">
+                            <i class="fa fa-reply"></i> Reset </button> --}}
                         <button type="submit" name="btn_save" class="btn btn-success">
                             <i class="fa fa-check"></i> Save</button>
 
-                        <div class="btn-group">
+                        {{-- <div class="btn-group">
                             <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
                                 <i class="fa fa-share"></i> More
                                 <i class="fa fa-angle-down"></i>
@@ -48,7 +48,7 @@
                                     <a href="javascript:;"> Print </a>
                                 </li>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 @if ($errors->any())
@@ -77,10 +77,13 @@
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label for="cuser" class="col-md-2 control-label">PIC</label>
+                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input type="checkbox" name="chk_pic" value="1" id="chk_pic" {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
                                                 multiple>
+                                                @foreach ($departemen as $departemen)
+                                        <option value="{{ $departemen->id }}">{{ $departemen->departemen }}</option> 
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -256,32 +259,44 @@
                     ComponentsEditors.init()
                 });
 
-                $('#r_pic').select2({
-                    placeholder: "Pilih PIC ...",
-                    minimumInputLength: 2,
-                    // maximumInputLength : 0,
-                    // openOnEnter: true,
-                    allowClear: true,
-                    ajax: {
-                        url: '/loadDepartemen',
-                        dataType: 'json',
-                        delay: 250,
-                        
-                        data: function (params) {
-                            return {
-                                q: $.trim(params.term)
-                            };
-                        },
+                $('#r_pic').select2({placeholder: "Pilih PIC ...",allowClear: true});
                 
-                        processResults: function (data) {
-                            return {
-                            results: data
-                            };
-                        },
-                            cache: true
-                    }
-                });
-            
+                // $('#r_pic').select2({
+                //     placeholder: "Pilih PIC ...",
+                //     minimumInputLength: 2,
+                //     // maximumInputLength : 0,
+                //     // openOnEnter: true,
+                //     allowClear: true,
+                //     ajax: {
+                //         url: '/loadDepartemen',
+                //         dataType: 'json',
+                //         delay: 250,
+                        
+                //         data: function (params) {
+                //             return {
+                //                 q: $.trim(params.term)
+                //             };
+                //         },
+                
+                //         processResults: function (data) {
+                //             return {
+                //             results: data
+                //             };
+                //         },
+                //             cache: true
+                //     }
+                // });
+
+    $('#chk_pic').click(function(){
+        // alert("button click");
+        if($('#chk_pic').is(':checked')){ //select all
+            $('#r_pic').find('option').prop('selected',true);
+            $('#r_pic').trigger('change');
+        } else { //deselect all
+            $('#r_pic').find('option').prop('selected',false);
+            $('#r_pic').trigger('change');
+        }
+    });          
             
 </script>
 
