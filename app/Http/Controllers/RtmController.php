@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\DB;
-// use App\Rtm;
-// use App\Uraian;
-// use App\Progres;
-// use DataTables;
+use Illuminate\Support\Facades\DB;
+use App\Rtm;
+use App\Uraian;
+use App\Progres;
+use DataTables;
 
 class RtmController extends Controller
 {
@@ -16,44 +16,21 @@ class RtmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     return view('rtm/list');
-    // }
-
-    public function modal()
+    public function index()
     {
-        return view('rtm/modal');
+        return view('rtm/index');
     }
 
-    // public function json(){
-    //     $json = Rtm::select(['tb_rtm.id AS idr', 'tb_rtm.rtm_ke AS rtm_ke', 'tb_rtm.tingkat AS tingkat', 'tb_rtm.rkt AS rkt', 'tb_rtm.tahun', 'tb_uraian.id AS idu', 'tb_uraian.analisis', 'tb_uraian.r_uraian', 'tb_uraian.r_target', 'tb_uraian.r_pic', 'tb_uraian.r_pic', 'tb_uraian.tindak', 'tb_uraian.p_rencana', 'tb_uraian.p_realisasi', 'tb_uraian.status', 'tb_uraian.rtm_id', 'tb_uraian.index_id', 'tb_index.index_masalah'])->Join('tb_uraian', 'tb_rtm.id', 'tb_uraian.rtm_id')->Join('tb_index', 'tb_uraian.index_id', 'tb_index.id');
-
-    //     return Datatables::of($json)->make(true);
-    // }
-
-    // public function progresjson($id = NULL){
-    //     $json = DB::table('tb_progres')
-    //                  ->select(
-    //                         DB::raw('MAX(year) as year'), 
-    //                         DB::raw('MAX(target) as target'), 
-    //                         DB::raw('MAX(realisasi) as realisasi'),
-    //                         DB::raw('MAX(competitor) as competitor'))
-    //                  ->where('uraian_id', '=', $id)
-    //                  ->groupBy('year')
-    //                  ->get();
-    //     return $json;
-    // }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function add()
+    public function create()
     {
-        return view('rtm/add');
+        return view('rtm/create');
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -64,29 +41,29 @@ class RtmController extends Controller
     {
         //
     }
-
+    
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($rtm)
     {
-        //
+        return view('rtm/show', compact('rtm'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($rtm)
     {
-        //
+        return view('rtm/edit', compact('rtm'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -98,15 +75,25 @@ class RtmController extends Controller
     {
         //
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($rtm)
     {
         //
+    }
+
+    // public function modal()
+    // {
+    //     return view('rtm/modal');
+    // }
+
+    public function jsonrtm (){
+        $json2 = Rtm::with('uraian.progres')->get();
+        return Datatables::of($json2)->make(true);
     }
 }

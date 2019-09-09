@@ -26,29 +26,8 @@
                     <div class="actions btn-set">
                         <button type="button" name="back" class="btn btn-secondary-outline">
                             <i class="fa fa-angle-left"></i> Back</button>
-                        {{-- <button class="btn btn-secondary-outline">
-                            <i class="fa fa-reply"></i> Reset </button> --}}
                         <button type="submit" name="btn_save" class="btn btn-success">
                             <i class="fa fa-check"></i> Save</button>
-
-                        {{-- <div class="btn-group">
-                            <a class="btn btn-success dropdown-toggle" href="javascript:;" data-toggle="dropdown">
-                                <i class="fa fa-share"></i> More
-                                <i class="fa fa-angle-down"></i>
-                            </a>
-                            <div class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="javascript:;"> Duplicate </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;"> Delete </a>
-                                </li>
-                                <li class="dropdown-divider"> </li>
-                                <li>
-                                    <a href="javascript:;"> Print </a>
-                                </li>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
                 @if ($errors->any())

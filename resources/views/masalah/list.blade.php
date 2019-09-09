@@ -213,7 +213,7 @@
               { data: 'id', name: 'id'}//10
 	      ],
 	      columnDefs:[
-                {targets:[5,6,7,8,9], visible:false, className: 'noVis'},
+                {targets:[5,6,7,8], visible:false, className: 'noVis'},
 				{
 					targets:8,
 					render:function(a,e,t,n){

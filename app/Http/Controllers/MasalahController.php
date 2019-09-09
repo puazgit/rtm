@@ -28,10 +28,10 @@ class MasalahController extends Controller
         return view('masalah/list');
     }
 
-    public function jsonrtm (){
-        $json2 = Rtm::with('uraian.progres')->get();
-        return Datatables::of($json2)->make(true);
-    }
+    // public function jsonrtm (){
+    //     $json2 = Rtm::with('uraian.progres')->get();
+    //     return Datatables::of($json2)->make(true);
+    // }
 
     public function jsonuraian (){
         $json = Uraian::with('rtm')->latest()->get();

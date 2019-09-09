@@ -143,10 +143,11 @@ CREATE TABLE IF NOT EXISTS `rtm_uraian` (
   KEY `uraian_id` (`uraian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.rtm_uraian: ~1 rows (approximately)
+-- Dumping data for table rtmdb.rtm_uraian: ~0 rows (approximately)
 /*!40000 ALTER TABLE `rtm_uraian` DISABLE KEYS */;
 INSERT INTO `rtm_uraian` (`rtm_id`, `uraian_id`, `status`) VALUES
-	(1, 1, 0);
+	(1, 1, 0),
+	(2, 1, 0);
 /*!40000 ALTER TABLE `rtm_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_departemen
@@ -240,8 +241,8 @@ INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`, `role`) VALUES
 	(2, 'User', 'user', 'icon-users', '4', 'admin'),
 	(3, 'Dokumen', 'dokumen', 'icon-docs', '0', ''),
 	(4, 'Menu Admin', '#', 'icon-user', '0', 'admin'),
-	(5, 'Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
-	(6, 'Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer');
+	(5, 'Daftar Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
+	(6, 'Daftar Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_progres
@@ -257,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_progres: ~10 rows (approximately)
+-- Dumping data for table rtmdb.tb_progres: ~8 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
 INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
 	(1, 78, 77.29, 75.66, '2014', '1', '2019-09-08 21:36:18', '2019-09-08 21:36:19'),
@@ -282,12 +283,13 @@ CREATE TABLE IF NOT EXISTS `tb_rtm` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_rtm: ~1 rows (approximately)
+-- Dumping data for table rtmdb.tb_rtm: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tb_rtm` DISABLE KEYS */;
 INSERT INTO `tb_rtm` (`id`, `rtm_ke`, `tingkat`, `rkt`, `tahun`, `created_at`, `updated_at`) VALUES
-	(1, 71, 'pusat', 1, 2019, '2019-09-08 20:50:27', '2019-09-08 20:50:28');
+	(1, 71, 'pusat', 4, 2018, '2019-09-08 20:50:27', '2019-09-08 20:50:28'),
+	(2, 72, 'pusat', 1, 2019, '2019-09-09 22:21:35', '2019-09-09 22:21:36');
 /*!40000 ALTER TABLE `tb_rtm` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_uraian

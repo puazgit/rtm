@@ -30,6 +30,8 @@ Route::get('masalah/jsonrtm','MasalahController@jsonrtm')->name('masalah.jsonrtm
 Route::get('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.jsonuraian');
 
 
+Route::get('rtm/jsonrtm', 'RtmController@jsonrtm')->name('rtm.jsonrtm');
+Route::resource('rtm', 'RtmController');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
