@@ -18,62 +18,17 @@ class MasalahController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
 
-     * @return \Illuminate\Http\Response
-     */
     public function index(){
-        return view('masalah/list');
+        return view('masalah/index');
     }
 
-    // public function jsonrtm (){
-    //     $json2 = Rtm::with('uraian.progres')->get();
-    //     return Datatables::of($json2)->make(true);
-    // }
-
-    public function jsonuraian (){
-        $json = Uraian::with('rtm')->latest()->get();
-        return Datatables::of($json)->make(true);
-    }
-
-    public function progresjson($id = NULL){
-        $json = DB::table('tb_progres')
-                    ->select(
-                        DB::raw('MAX(year) as year'), DB::raw('MAX(target) as target'), 
-                        DB::raw('MAX(realisasi) as realisasi'),DB::raw('MAX(competitor) as competitor'))
-                     ->where('uraian_id', '=', $id)
-                     ->groupBy('year')
-                     ->get();
-        return $json;
-    }
-    public function detail($id){
-        $detmasalah = Uraian::with('rtm')->where('id', $id)->first();
-        return view('masalah/detail', compact('detmasalah'));
-    }
-
-    public function detail2($id){
-        $detmasalah = Uraian::with('progres')->get();
-        return $detmasalah;
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $departemen = Departemen::all();
         return view('masalah/create', compact('departemen'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         
@@ -126,49 +81,41 @@ class MasalahController extends Controller
         return redirect('/masalah')->with('success', 'data successfully saved');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show($masalah)
     {
-        //
+        $masalah = Uraian::with('rtm')->where('id', $masalah)->first();
+        return view('masalah/show', compact('masalah'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        return view('masalah/edit', compact('id'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+
+    public function jsonuraian (){
+        $json = Uraian::with('rtm')->latest()->get();
+        return Datatables::of($json)->make(true);
+    }
+
+    public function progresjson($id = NULL){
+        $json = DB::table('tb_progres')
+                    ->select(
+                        DB::raw('MAX(year) as year'), DB::raw('MAX(target) as target'), 
+                        DB::raw('MAX(realisasi) as realisasi'),DB::raw('MAX(competitor) as competitor'))
+                     ->where('uraian_id', '=', $id)
+                     ->groupBy('year')
+                     ->get();
+        return $json;
     }
 
     // public function loadDepartemen(Request $request)

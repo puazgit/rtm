@@ -26,7 +26,7 @@
                         <div class="item-name primary-link">PIC :</div>
                     </div>
                 </div>
-                <div class="item-body"> {{ $detmasalah->r_pic }}
+                <div class="item-body"> {{ $masalah->r_pic }}
                 </div>
             </div>
             <div class="portlet-body">
@@ -46,7 +46,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($detmasalah->rtm as $rtm)
+                                                @foreach ($masalah->rtm as $rtm)
                                                 <tr>
                                                     <td> {{$rtm->rtm_ke}} </td>
                                                     <td> {{$rtm->rkt}} </td>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="item-body">
                         <textarea class="form-control summernote" name="det_uraian"
-                            id="det_uraian">{{ $detmasalah->uraian }}</textarea>
+                            id="det_uraian">{{ $masalah->uraian }}</textarea>
                     </div>
                 </div>
                 <div class="item">
@@ -106,7 +106,7 @@
                     </div>
                     <div class="item-body">
                         <textarea class="form-control summernote" name="det_analisis"
-                            id="det_analisis">{{ $detmasalah->analisis }}</textarea>
+                            id="det_analisis">{{ $masalah->analisis }}</textarea>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@
                         </div>
                         <div class="item-body">
                             <textarea class="form-control summernote" name="det_ruraian"
-                                id="det_ruraian">{{ $detmasalah->r_uraian }}</textarea>
+                                id="det_ruraian">{{ $masalah->r_uraian }}</textarea>
                         </div>
                     </div>
                     <div class="item">
@@ -137,7 +137,7 @@
                         </div>
                         <div class="item-body">
                             <textarea class="form-control summernote" name="det_rtarget"
-                                id="det_rtarget">{{ $detmasalah->r_target }}</textarea>
+                                id="det_rtarget">{{ $masalah->r_target }}</textarea>
                         </div>
                     </div>
                     <div class="item">
@@ -148,7 +148,7 @@
                         </div>
                         <div class="item-body">
                             <textarea class="form-control summernote" name="det_tindak"
-                                id="det_tindak">{{ $detmasalah->tindak }}</textarea>
+                                id="det_tindak">{{ $masalah->tindak }}</textarea>
                         </div>
                     </div>
                     <div class="item">
@@ -159,7 +159,7 @@
                         </div>
                         <div class="item-body">
                             <textarea class="form-control summernote" name="det_prencana"
-                                id="det_prencana">{{ $detmasalah->p_rencana }}</textarea>
+                                id="det_prencana">{{ $masalah->p_rencana }}</textarea>
                         </div>
                     </div>
                     <div class="item">
@@ -170,7 +170,7 @@
                         </div>
                         <div class="item-body">
                             <textarea class="form-control summernote" name="det_prealisasi"
-                                id="det_prealisasi">{{ $detmasalah->p_realisasi }}</textarea>
+                                id="det_prealisasi">{{ $masalah->p_realisasi }}</textarea>
                         </div>
                     </div>
                     <div class="item">
@@ -180,7 +180,7 @@
                             </div>
                         </div>
                         <div class="item-body">
-                            @if( $detmasalah->status == 1)
+                            @if( $masalah->status == 1)
                             <span class="label label-sm label-danger">open</span>
                             @else
                             <span class="label label-sm label-success">close</span>
