@@ -16,7 +16,7 @@
             <div class="portlet-title">
                 <div class="caption font-dark">
                     <i class="icon-users font-dark"></i>
-                    <span class="caption-subject bold">List Rtm</span>
+                    <span class="caption-subject bold">List RTM</span>
                 </div>
                 <div class="tools"> </div>
             </div>
