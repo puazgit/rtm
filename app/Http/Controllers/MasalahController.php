@@ -20,13 +20,13 @@ class MasalahController extends Controller
     }
 
     public function index(){
-        return view('masalah/index');
+        return view('masalah.index');
     }
 
     public function create()
     {
         $departemen = Departemen::all();
-        return view('masalah/create', compact('departemen'));
+        return view('masalah.create', compact('departemen'));
     }
 
     public function store(Request $request)
@@ -83,8 +83,8 @@ class MasalahController extends Controller
 
     public function show($masalah)
     {
-        $masalah = Uraian::with('rtm')->where('id', $masalah)->first();
-        return view('masalah/show', compact('masalah'));
+        $masalah = Uraian::with('rtm')->findOrfail($masalah);
+        return view('masalah.show', compact('masalah'));
     }
 
     public function edit($id)

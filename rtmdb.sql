@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               5.7.24 - MySQL Community Server (GPL)
--- Server OS:                    Win64
+-- Host:                         124.81.122.36
+-- Server version:               5.7.25 - MySQL Community Server (GPL)
+-- Server OS:                    Linux
 -- HeidiSQL Version:             10.2.0.5599
 -- --------------------------------------------------------
 
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `rtm_uraian` (
   KEY `uraian_id` (`uraian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.rtm_uraian: ~0 rows (approximately)
+-- Dumping data for table rtmdb.rtm_uraian: ~2 rows (approximately)
 /*!40000 ALTER TABLE `rtm_uraian` DISABLE KEYS */;
 INSERT INTO `rtm_uraian` (`rtm_id`, `uraian_id`, `status`) VALUES
 	(1, 1, 0),
@@ -238,11 +238,11 @@ CREATE TABLE IF NOT EXISTS `tb_menu` (
 /*!40000 ALTER TABLE `tb_menu` DISABLE KEYS */;
 INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`, `role`) VALUES
 	(1, 'Beranda', '/', 'icon-home', '0', 'admin,editor,viewer'),
-	(2, 'User', 'user', 'icon-users', '4', 'admin'),
+	(2, 'User', 'user', 'icon-users', '6', 'admin'),
 	(3, 'Dokumen', 'dokumen', 'icon-docs', '0', ''),
-	(4, 'Menu Admin', '#', 'icon-user', '0', 'admin'),
-	(5, 'Daftar Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
-	(6, 'Daftar Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer');
+	(4, 'Daftar Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
+	(5, 'Daftar Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer'),
+	(6, 'Menu Admin', '#', 'icon-user', '0', 'admin');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_progres
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_progres: ~8 rows (approximately)
+-- Dumping data for table rtmdb.tb_progres: ~10 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
 INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
 	(1, 78, 77.29, 75.66, '2014', '1', '2019-09-08 21:36:18', '2019-09-08 21:36:19'),
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `tb_rtm` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_rtm: ~0 rows (approximately)
+-- Dumping data for table rtmdb.tb_rtm: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tb_rtm` DISABLE KEYS */;
 INSERT INTO `tb_rtm` (`id`, `rtm_ke`, `tingkat`, `rkt`, `tahun`, `created_at`, `updated_at`) VALUES
 	(1, 71, 'pusat', 4, 2018, '2019-09-08 20:50:27', '2019-09-08 20:50:28'),
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `tb_uraian` (
 /*!40000 ALTER TABLE `tb_uraian` DISABLE KEYS */;
 INSERT INTO `tb_uraian` (`id`, `uraian`, `analisis`, `r_uraian`, `r_target`, `r_pic`, `tindak`, `p_rencana`, `p_realisasi`, `status`, `created_at`, `updated_at`) VALUES
 	(1, '1.	Hasil Kuesioner/Indeks Kepuasan Pelanggan 7.2.a.1', 'Berdasarkan grafik  dapat disimpulkan bahwa Hasil Kuesioner/Indeks Kepuasan Pelanggan menunjukan trend/kecenderungan yang meningkat (positif)', 'Indeks kepuasan pelanggan untuk tahun 2017 masih menggunakan prognosa, menunggu laporan survey kepuasan pelanggan yang masih disusun, ', '1', '8', '1', '1', '1', 1, '2019-09-08 13:30:41', '2019-09-08 13:30:41'),
-	(2, '<p class="MsoListParagraph" style="margin-left:18.0pt;mso-add-space:auto;\r\ntext-indent:-18.0pt;mso-list:l0 level1 lfo1"><span lang="EN-US" style="font-size:9.0pt;mso-bidi-font-size:10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;">Indeks Keterikatan Karyawan 7.3.a.(3).3<o:p></o:p></span></p>', '<p class="MsoNormal" style="text-align:justify"><span lang="EN-US" style="font-size: 9pt; font-family: Arial, sans-serif;">Berdasarkan\r\ngrafik dapat disimpulkan bahwa </span><span lang="EN-US" style="font-size:9.0pt;\r\nmso-bidi-font-size:10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;mso-bidi-font-family:\r\n&quot;Times New Roman&quot;">Hasil Kuesioner/Indeks Keterikatan Karyawan menunjukan\r\ntrend/kecenderungan yang menurun (Negatif)<o:p></o:p></span></p>', '<span lang="IN" style="font-size:9.0pt;mso-bidi-font-size:\r\n10.0pt;font-family:&quot;Arial&quot;,&quot;sans-serif&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;mso-ansi-language:IN;mso-fareast-language:\r\nEN-US;mso-bidi-language:AR-SA">Indeks keterikatan karyawan untuk tahun 2017\r\nmasih menggunakan data prognosa</span>', '0', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18', '0', '0', '0', 1, '2019-09-08 15:24:42', '2019-09-08 15:24:42');
+	(2, 'Indeks Keterikatan Karyawan 7.3.a.(3).3', 'Hasil Kuesioner/Indeks Keterikatan Karyawan menunjukan\r\ntrend/kecenderungan yang menurun (Negatif)', 'Indeks keterikatan karyawan untuk tahun 2017\r\nmasih menggunakan data prognosa', '0', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18', '0', '0', '0', 1, '2019-09-08 15:24:42', '2019-09-08 15:24:42');
 /*!40000 ALTER TABLE `tb_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users

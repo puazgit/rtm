@@ -7,7 +7,6 @@
 
 @section('content')
 <h3 class="page-title">
-    <small>&nbsp;</small>
 </h3>
 <div class="row">
     <div class="col-md-12">

@@ -7,15 +7,15 @@
 
 @section('content')
 <h3 class="page-title">
-    <small>&nbsp;</small>
 </h3>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-docs font-dark"></i>List Permasalahan
+                <div class="caption font-red-sunglo">
+                    <i class="icon-settings font-red-sunglo"></i>
+                    <span class="caption-subject bold uppercase">PERMASALAHAN</span>
                 </div>
                 <div class="tools"> </div>
             </div>

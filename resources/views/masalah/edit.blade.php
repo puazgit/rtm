@@ -9,7 +9,6 @@
 
 @section('content')
 <h3 class="page-title">
-    <small>&nbsp;</small>
 </h3>
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
@@ -20,8 +19,10 @@
             @csrf
             <div class="portlet light bordered">
                 <div class="portlet-title">
-                    <div class="caption">
-                        <i class="icon-docs"></i>Edit Data Permasalahan</div>
+                    <div class="caption font-red-sunglo">
+                        <i class="icon-settings font-red-sunglo"></i>
+                        <span class="caption-subject bold uppercase">EDIT PERMASALAHAN</span>
+                    </div>
                     <div class="actions btn-set">
                         <button type="button" name="back" class="btn btn-secondary-outline">
                             <i class="fa fa-angle-left"></i> Back</button>
