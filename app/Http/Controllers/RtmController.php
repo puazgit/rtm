@@ -28,7 +28,13 @@ class RtmController extends Controller
     
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'rtm_ke' => 'required','tingkat' => 'required','rkt' => 'required',
+            'tahun' => 'required'
+            ]);
+
+        $rtm = Rtm::create($validatedData);
+        return redirect('rtm');
     }
     
     public function show(Rtm $rtm)

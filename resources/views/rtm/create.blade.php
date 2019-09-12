@@ -21,10 +21,8 @@
                 <div class="tools"> </div>
             </div>
             <div class="portlet-body">
-                <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post"
-                spellcheck="false">
+                <form class="form-horizontal" action="/rtm" method="post" spellcheck="false">
                     <div class="tabbable-line boxless tabbable-reversed">
-                    {{-- <input type="hidden" class="form-control m-input m-input--solid" id="h_uraian" name="h_uraian" aria-describedby="" placeholder="" value="" /> --}}
                         <ul class="nav nav-tabs">
                             <li class="active">
                                 <a href="#tab_0" data-toggle="tab">Form 1 </a>
@@ -48,18 +46,17 @@
                                     </div>
                                     <div class="portlet-body form">
                                         <!-- BEGIN FORM-->
-                                        {{-- <form class="form-horizontal"> --}}
                                         <div class="form-body">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">RTM Ke</label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Enter text">
+                                                    <input type="text" class="form-control" placeholder="Enter text" id="rtm_ke" name="rtm_ke">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Tingkat</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="tingkat" name="tingkat">
                                                         <option>Pusat</option>
                                                         <option>Wilayah</option>
                                                     </select>
@@ -68,7 +65,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">RKT</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="rkt" name="rkt">
                                                         <option>I</option>
                                                         <option>II</option>
                                                         <option>III</option>
@@ -79,7 +76,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Tahun</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control">
+                                                    <select class="form-control" id="tahun" name="tahun">
                                                         <option>2014</option>
                                                         <option>2015</option>
                                                         <option>2016</option>
@@ -103,8 +100,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- </form> --}}
-                                        <!-- END FORM-->
                                     </div>
                                 </div>
                             </div>
@@ -162,11 +157,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="portlet light bordered">
-                                                        <div class="portlet-body">
-                                                            <label class="control-label">Uraian Permasalahan Terpilih :</label>
-                                                                <select id="c_uraian" name="c_uraian[]" multiple>
-                                                                    </select>    
-                                                        </div></div>
+                                                    <div class="portlet-body">
+                                                        <label class="control-label">Uraian Permasalahan Terpilih
+                                                            :</label>
+                                                        <select id="c_uraian" name="c_uraian[]" multiple>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <!-- END EXAMPLE TABLE PORTLET-->
                                             </div>
                                         </div>
@@ -185,13 +182,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="form-group">
-                            <label for="curaian" class="col-md-2 control-label">PIC</label>
-                            <div class="col-md-10">
-                                <select id="c_uraian" class="form-control select2-multiple" name="c_uraian[]" multiple>
-                                </select>
-                            </div>
-                        </div> --}}
                 </form>
             </div>
         </div>
@@ -211,7 +201,7 @@
 <script>
     $(function() {
 	    $('#headrtm-table').DataTable({
-		                dom: 'Blfrtip',
+		    dom: 'Blfrtip',
           buttons: [
           ],
 	    //   processing: true,
@@ -273,9 +263,7 @@
                 { 
                     return ''+data+''
                 }
-              
               }//10
-
 	      ],
 	      columnDefs:[
                 {targets:[0,3,4,5,6,7,8,10], visible:false, className: 'noVis'},
@@ -289,13 +277,6 @@
 						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
 					}
 				},
-                // {
-                //         targets:0,
-                //         orderable:!1,
-                //         checkboxes:{
-                //             selectRow: true,
-                //         },
-                // }
             ],
 				 select: {
 				 	style : 'multi',
@@ -303,16 +284,10 @@
 	    });
         var tablekuw = $('#headrtm-table').DataTable();
         $('#headrtm-table tbody').on('click', 'tr', function () {
-                // var ids = $.map(tablekuw.rows('.selected').data(), function (item){
-				// 	return item.id;
-				// });
                 var uraians = $.map(tablekuw.rows('.selected').data(), function (item){
 					return '<option value="'+item.id+'" selected>'+item.uraian+'</option>';
 				});
-                // $('#h_uraian').val(ids);
                 $('#c_uraian').html(uraians).trigger('change');
-                // $('#c_terpilih').val(ids);
-                // console.log(ids);
 			});
         $('#c_uraian').select2({placeholder: "PIC ...", allowClear: true});
       });
