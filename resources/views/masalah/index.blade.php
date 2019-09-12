@@ -235,7 +235,6 @@
                 }
             ],
 	    });
-      });
 
 $('#draggable').on('show.bs.modal',function (event){
 
@@ -359,5 +358,6 @@ jQuery(document).ready(function () {
     // var modal =$(this);
     // modal.find('.modal-body #idb').val(data_id);
 });
+    });
 </script>
 @endsection
