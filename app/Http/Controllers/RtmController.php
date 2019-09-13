@@ -29,12 +29,23 @@ class RtmController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'rtm_ke' => 'required','tingkat' => 'required','rkt' => 'required',
-            'tahun' => 'required'
+            'rtm_ke'=>'required','tingkat'=>'required','rkt'=>'required',
+            'tahun'=>'required','c_uraian'=>'required','h_uraian'=>'required'
             ]);
 
         $rtm = Rtm::create($validatedData);
+        $h_uraian1 = implode(',', $request->h_uraian);
+        $h_uraian2 = explode(',', $h_uraian1);
+        // $request['h_uraian'] = implode(',', $request->h_uraian);
+        for($count = 0; $count < count($h_uraian2) ; $count++){
+            $container[] = array(
+                'uraian_id' => $h_uraian2[$count]
+            );
+        }
+        $rtm->uraian()->detach([$count]);
+        $rtm->uraian()->attach($container);
         return redirect('rtm');
+        // dd($h_uraian2);
     }
     
     public function show(Rtm $rtm)

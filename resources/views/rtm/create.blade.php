@@ -19,9 +19,21 @@
                     <span class="caption-subject bold uppercase"> CREATE RTM</span>
                 </div>
                 <div class="tools"> </div>
+                
             </div>
             <div class="portlet-body">
-                <form class="form-horizontal" action="/rtm" method="post" spellcheck="false">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li><b>{{ $error }}</b></li>
+                            @endforeach
+                        </ul>
+                    </div><br />
+                    @endif
+                <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
+                    @csrf
+                    <input type="text" id="h_uraian" name="h_uraian[]" />
                     <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
                             <li class="active">
@@ -83,7 +95,7 @@
                                                         <option>2017</option>
                                                         <option>2018</option>
                                                         <option>2019</option>
-                                                        <option>2020</option>
+                                                        <option selected>2020</option>
                                                         <option>2021</option>
                                                         <option>2022</option>
                                                         <option>2023</option>
@@ -96,7 +108,7 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9">
-
+        
                                                 </div>
                                             </div>
                                         </div>
@@ -284,10 +296,14 @@
 	    });
         var tablekuw = $('#headrtm-table').DataTable();
         $('#headrtm-table tbody').on('click', 'tr', function () {
+            var ids = $.map(tablekuw.rows('.selected').data(), function (item){
+					return item.id;
+				});
                 var uraians = $.map(tablekuw.rows('.selected').data(), function (item){
 					return '<option value="'+item.id+'" selected>'+item.uraian+'</option>';
 				});
                 $('#c_uraian').html(uraians).trigger('change');
+                $('#h_uraian').val(ids);
 			});
         $('#c_uraian').select2({placeholder: "PIC ...", allowClear: true});
       });

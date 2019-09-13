@@ -8,7 +8,7 @@ class Rtm extends Model
 {
     protected $table = 'tb_rtm';
     protected $fillable = [ 
-        'rtm_ke', 'tingkat', 'rkt', 'tahun' 
+        'id', 'rtm_ke', 'tingkat', 'rkt', 'tahun' 
     ];
     
     public function uraian()
