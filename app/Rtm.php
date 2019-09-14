@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Rtm extends Model
 {
     protected $table = 'tb_rtm';
+    protected $fillable = [ 
+        'id', 'rtm_ke', 'tingkat', 'rkt', 'tahun' 
+    ];
     
     public function uraian()
     {
