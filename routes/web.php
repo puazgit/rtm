@@ -23,5 +23,6 @@ Route::get('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.j
 Route::resource('masalah', 'MasalahController');
 //RTM Routes
 Route::get('rtm/jsonrtm', 'RtmController@jsonrtm')->name('rtm.jsonrtm');
+Route::get('rtm/jsonrtm/{rtm}', 'RtmController@jsonrtm');
 Route::resource('rtm', 'RtmController');
 

@@ -18,9 +18,13 @@
                     <i class="icon-settings font-red-sunglo"></i>
                     <span class="caption-subject bold uppercase"> RTM</span>
                 </div>
-                <div class="tools"> </div>
+                <div class="tools">
+                    {{-- <a href="{{route ('rtm.create')}}"><button type="submit" name="btn_add" class="btn btn-success">
+                            <i class="fa fa-magic"></i> Add</button></a> --}}
+                </div>
             </div>
             <div class="portlet-body">
+                {{-- <div class="table-responsive m-t-10"> --}}
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="table-rtm">
                     <thead>
                         <tr>
@@ -32,7 +36,8 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
+                </div>
+            {{-- </div> --}}
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
@@ -73,25 +78,25 @@
           buttons: [
               {
                 text: 'Add +',
-                className:"btn btn-circle green btn-outline",
+                className:"btn btn-square green btn-success",
                     action: function ( e, dt, node, config ) {
-                        window.location = '/rtm/create';
+                        window.location = '{{route ('rtm.create')}}';
                         // alert( 'Button activated' );
                     }
                 },
                 {
 					extend: "colvis",
                     text: "Show",
-                    className: "btn btn-circle green btn-outline"
+                    className: "btn btn-square green btn-success"
                 	// columns: ':not(.noVis)',
 				},  
                 {
                     extend:"pdf",
-                    className:"btn btn-circle green btn-outline"
+                    className:"btn btn-square green btn-success"
                 }
           ],
           serverSide: true,
-          order:[[0,"asc"]],    
+          order:[[4,"desc"]],    
 	      ajax: "{{route ('rtm.jsonrtm')}}",
 	      columns: [
               { data: 'rtm_ke'}, //0
@@ -106,7 +111,7 @@
 
                 {
                         targets:4,
-                        orderable:!1,
+                        // orderable:!1,
                         title:"aksi",
                         render:function(data, type, row){
                         return '<a href=\"{{route ('rtm.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('editor|admin')<a href=\"{{route ('rtm.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
