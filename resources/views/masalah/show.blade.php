@@ -6,19 +6,22 @@
 @endsection
 
 @section('content')
-<h3 class="page-title">
-    <small>&nbsp;</small>
-</h3>
+    @php 
+        $pic = $masalah->r_pic;
+        $rpic = explode(",", $pic);
+    @endphp
+</br>
 <div class="row">
     {{-- URAIAN 1--}}
     <div class="col-md-8">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-docs font-dark"></i>Detail Permasalahan
+                <div class="caption font-red-sunglo">
+                    <i class="icon-settings font-red-sunglo"></i>
+                    <span class="caption-subject bold uppercase">DETAIL PERMASALAHAN</span>
                 </div>
-                {{-- <div class="tools"> </div> --}}
+                <div class="tools"></div>
             </div>
             <div class="item">
                 <div class="item-head">
@@ -26,7 +29,10 @@
                         <div class="item-name primary-link">PIC :</div>
                     </div>
                 </div>
-                <div class="item-body"> {{ $masalah->r_pic }}
+                <div class="item-body"> @foreach ($rpic as $rpic)
+                    @php $departemen = App\Departemen::findOrFail($rpic); @endphp
+                    {{$departemen->departemen}},&nbsp;
+                    @endforeach
                 </div>
             </div>
             <div class="portlet-body">

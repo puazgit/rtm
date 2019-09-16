@@ -30,7 +30,7 @@ class RtmController extends Controller
     {
         $validatedData = $request->validate([
             'rtm_ke'=>'required','tingkat'=>'required','rkt'=>'required',
-            'tahun'=>'required','c_uraian'=>'required','h_uraian'=>'required'
+            'tahun'=>'required','h_uraian'=>'required'
             ]);
 
         $rtm = Rtm::create($validatedData);
@@ -50,6 +50,8 @@ class RtmController extends Controller
     
     public function show(Rtm $rtm)
     {
+        $json2 = Rtm::with('uraian.progres')->findOrfail($rtm);
+        // return ($json2);
         return view('rtm.show', compact('rtm'));
     }
     
@@ -68,8 +70,13 @@ class RtmController extends Controller
         //
     }
 
-    public function jsonrtm (){
-        $json2 = Rtm::with('uraian.progres')->get();
-        return Datatables::of($json2)->make(true);
+    public function jsonrtm ($rtm = NULL){
+        if($rtm){
+            $json = Rtm::find($rtm)->uraian;
+            return Datatables::of($json)->make(true);
+        }else{
+            $json = Rtm::all();
+            return Datatables::of($json)->make(true);
+        }
     }
 }

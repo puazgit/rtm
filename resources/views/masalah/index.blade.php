@@ -17,37 +17,43 @@
                     <i class="icon-settings font-red-sunglo"></i>
                     <span class="caption-subject bold uppercase">PERMASALAHAN</span>
                 </div>
-                <div class="tools"> </div>
+                <div class="tools">
+                    {{-- <a href="{{route ('masalah.create')}}"><button type="submit" name="btn_add" class="btn btn-success">
+                            <i class="fa fa-magic"></i> Add</button></a> --}}
+                </div>
             </div>
             <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="rtm-table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">Uraian Permasalahan Bidang</th>
-                            <th rowspan="2">Analisis /Penyebab</th>
-                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
-                            {{-- <th rowspan="2">Uraian</th>
+                {{-- <div class="table-responsive"> --}}
+                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
+                        id="rtm-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Uraian Permasalahan Bidang</th>
+                                <th rowspan="2">Analisis /Penyebab</th>
+                                <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                                {{-- <th rowspan="2">Uraian</th>
                             <th rowspan="2">Target Waktu</th>
                             <th rowspan="2">PIC</th> --}}
-                            <th rowspan="2">Tindaklanjut</th>
-                            <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
-                            {{-- <th rowspan="2">Rencana</th>
+                                <th rowspan="2">Tindaklanjut</th>
+                                <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
+                                {{-- <th rowspan="2">Rencana</th>
                             <th rowspan="2">Realisasi</th> --}}
-                            <th rowspan="2">Status</th>
-                            <th rowspan="2">RTM Ke</th>
-                            <th rowspan="2" style="text-align: center;">Aksi</th>
-                        </tr>
-                        <tr>
+                                <th rowspan="2">Status</th>
+                                <th rowspan="2">RTM Ke</th>
+                                <th rowspan="2" style="text-align: center;">Aksi</th>
+                            </tr>
+                            <tr>
                                 <th>Uraian</th>
                                 <th>Target Waktu</th>
                                 <th>Penanggung Jawab (PIC)</th>
                                 <th>Rencana</th>
                                 <th>Realisasi</th>
-                        {{-- </tr>
+                                {{-- </tr>
                         <tr> --}}
-                        </tr>
-                    </thead>
-                </table>
+                            </tr>
+                        </thead>
+                    </table>
+                {{-- </div> --}}
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
@@ -119,36 +125,32 @@
 <script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amstockcharts/plugins/dataloader/dataloader.min.js')}}" type="text/javascript">
 </script>
-{{-- assets\amcharts\amstockcharts\plugins\dataloader --}}
-
-{{-- <script src="{{asset ('assets/js/charts-amcharts.min.js')}}" type="text/javascript"></script> --}}
-<!-- END: Page Vendor JS-->
 @endsection
 
 @section('script')
 <script>
     $(function() {
 	    $('#rtm-table').DataTable({
-		                dom: 'Blfrtip',
-          buttons: [
+		dom: 'lBfrtip',
+        buttons: [
               {
                 text: 'Add +',
-                className:"btn btn-circle green btn-outline",
+                className:"btn btn-square green btn-success",
                     action: function ( e, dt, node, config ) {
-                        window.location = "{{route ('masalah.create')}}";
+                        window.location = '{{route ('masalah.create')}}';
                         // alert( 'Button activated' );
                     }
                 },
                 {
 					extend: "colvis",
                     text: "Show",
-                    className: "btn btn-circle green btn-outline"
+                    className: "btn btn-square green btn-success"
                 	// columns: ':not(.noVis)',
 				},  
-                // {
-                //     extend:"pdf",
-                //     className:"btn btn-circle green btn-outline"
-                // }
+                {
+                    extend:"pdf",
+                    className:"btn btn-square green btn-success"
+                }
           ],
 	    //   processing: true,
           serverSide: true,
@@ -213,7 +215,7 @@
               { data: 'id', name: 'id'}//10
 	      ],
 	      columnDefs:[
-                {targets:[5,6,7,8], visible:false, className: 'noVis'},
+                {targets:[5,6,7,8,9], visible:false, className: 'noVis'},
 				{
 					targets:8,
 					render:function(a,e,t,n){

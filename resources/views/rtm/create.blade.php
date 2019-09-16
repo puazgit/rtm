@@ -5,6 +5,19 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	select[readonly].select2-hidden-accessible + .select2-container {
+    pointer-events: none;
+    touch-action: none;
+}
+    select[readonly].select2-hidden-accessible + .select2-container .select2-selection {
+        background: #eee;
+        box-shadow: none;
+    }
+    select[readonly].select2-hidden-accessible + .select2-container .select2-selection__arrow, select[readonly].select2-hidden-accessible + .select2-container .select2-selection__clear {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -33,7 +46,7 @@
                     @endif
                 <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
                     @csrf
-                    <input type="text" id="h_uraian" name="h_uraian[]" />
+                    <input type="hidden" id="h_uraian" name="h_uraian[]" />
                     <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
                             <li class="active">
@@ -172,7 +185,7 @@
                                                     <div class="portlet-body">
                                                         <label class="control-label">Uraian Permasalahan Terpilih
                                                             :</label>
-                                                        <select id="c_uraian" name="c_uraian[]" multiple>
+                                                        <select id="c_uraian" name="c_uraian[]" multiple disabled />
                                                         </select>
                                                     </div>
                                                 </div>
@@ -305,7 +318,7 @@
                 $('#c_uraian').html(uraians).trigger('change');
                 $('#h_uraian').val(ids);
 			});
-        $('#c_uraian').select2({placeholder: "PIC ...", allowClear: true});
+        $('#c_uraian').select2({placeholder: "Uraian ...", allowClear: true});
       });
 </script>
 @endsection

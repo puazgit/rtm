@@ -20,16 +20,17 @@
             spellcheck="false">
             @csrf
             <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="icon-docs"></i>Tambah Data Permasalahan</div>
-                    <div class="actions btn-set">
-                        <button type="button" name="back" class="btn btn-secondary-outline">
-                            <i class="fa fa-angle-left"></i> Back</button>
-                        <button type="submit" name="btn_save" class="btn btn-success">
-                            <i class="fa fa-check"></i> Save</button>
-                    </div>
-                </div>
+                    <div class="portlet-title">
+                            <div class="caption font-red-sunglo">
+                                <i class="icon-settings font-red-sunglo"></i>
+                                <span class="caption-subject bold uppercase"> CREATE PERMASALAHAN</span>
+                            </div>
+                            <div class="tools"><button type="button" name="back" class="btn btn-secondary-outline">
+                                    <i class="fa fa-angle-left"></i> Back</button>
+                                <button type="submit" name="btn_save" class="btn btn-success">
+                                    <i class="fa fa-check"></i> Save</button></div>
+                            
+                        </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -79,7 +80,7 @@
                                             <div class="portlet light bordered">
                                                 <div class="portlet-body">
                                                     <div class="table-scrollable">
-                                                        <table class="table table-hover" id="user_table">
+                                                        <table class="table table-hover" id="progres_table">
                                                             <thead>
                                                                 <tr>
                                                                     <th> Target </th>
@@ -89,18 +90,8 @@
                                                                     <th> Aksi </th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id="bodyprogres">
                                                             </tbody>
-                                                            {{-- <tfoot>
-                                                                <tr>
-                                                                    <td colspan="4" align="right">&nbsp;</td>
-                                                                    <td>
-                                                                        @csrf
-                                                                            <button type="submit" id="save" name="save" class="btn btn-success">
-                                                                                <i class="fa fa-check"></i> Save</button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tfoot> --}}
                                                         </table>
                                                     </div>
                                                 </div>
@@ -296,11 +287,11 @@
             // html += '<td><input type="hidden" name="uraian_id[]" class="form-control" /></td>';
             if (number > 1) {
                 html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
-                $('tbody').append(html);
+                $('tbody#bodyprogres').append(html);
             }
             else {
                 html += '<td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td></tr>';
-                $('tbody').html(html);
+                $('tbody#bodyprogres').html(html);
             }
         }
 
