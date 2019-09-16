@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 use Validator;
 use App\User;
 use App\Rtm;
@@ -103,7 +105,8 @@ class MasalahController extends Controller
     }
 
     public function jsonuraian (){
-        $json = Uraian::with('rtm')->latest()->get();
+        $row = Auth::user()->departemen_id;
+        $json = Uraian::with('rtm')->where('r_pic', 'like', '%'.$row.'%')->latest()->get();
         return Datatables::of($json)->make(true);
     }
 
