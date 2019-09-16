@@ -67,8 +67,7 @@
                                         </th>
                                         <th rowspan="2">Tindaklanjut</th>
                                         <th colspan="2" style="text-align: center;">
-                                            Rencana
-                                            Penyelesaian
+                                        Penyelesaian
                                         </th>
                                         <th rowspan="2">Status</th>
                                     </tr>
@@ -126,10 +125,21 @@
               { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
               },//7
-              { data: 'status', name: 'status', render: function(data, column, row)
-                {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//8
+              { data: 'status', name: 'status'},//8
 	    ],
+        columnDefs:[
+                {targets:[5,6,7], visible:false, className: 'noVis'},
+				{
+					targets:8,
+					render:function(a,e,t,n){
+						var s={
+							1:{title:"open",class:"label-danger"},
+							0:{title:"close",class:"label-success"},
+						};
+						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><br></br><a href="+s[a].class+"><span class=\"label label-sm label-default\">detail</span></a>"
+					}
+				},
+            ],
     });
     </script>
 @endsection

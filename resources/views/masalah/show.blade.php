@@ -58,7 +58,11 @@
                                                     <td> {{$rtm->rkt}} </td>
                                                     <td> {{$rtm->tahun}} </td>
                                                     <td>
-                                                        <span class="label label-sm label-danger"> Open </span>
+                                                        @if( $rtm->pivot->status == 1)
+                                                            <span class="label label-sm label-danger">open</span>
+                                                        @else
+                                                            <span class="label label-sm label-success">close</span>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                                 @endforeach

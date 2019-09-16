@@ -16,7 +16,7 @@ class Uraian extends Model
     
     public function rtm ()
     {
-        return $this->belongsToMany('App\Rtm');
+        return $this->belongsToMany('App\Rtm')->withPivot('status');
     }
 
     public function progres ()

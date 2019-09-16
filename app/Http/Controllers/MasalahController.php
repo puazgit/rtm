@@ -87,6 +87,7 @@ class MasalahController extends Controller
     {
         $masalah = Uraian::with('rtm')->findOrfail($masalah);
         return view('masalah.show', compact('masalah'));
+        // return $masalah;
     }
 
     public function edit($id)
