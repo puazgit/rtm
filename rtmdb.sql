@@ -59,9 +59,10 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
 -- Dumping data for table rtmdb.model_has_roles: ~3 rows (approximately)
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-	(1, 'App\\user', 1),
 	(2, 'App\\User', 2),
-	(3, 'App\\User', 3);
+	(3, 'App\\User', 3),
+	(2, 'App\\user', 6),
+	(1, 'App\\user', 19);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.password_resets
@@ -84,14 +85,15 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.permissions: ~3 rows (approximately)
+-- Dumping data for table rtmdb.permissions: ~4 rows (approximately)
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'view post', 'web', '2019-08-01 20:53:03', '2019-08-01 20:53:04'),
 	(2, 'edit post', 'web', '2019-08-01 20:53:14', '2019-08-01 20:53:16'),
-	(3, 'delete post', 'web', '2019-08-01 20:53:26', '2019-08-01 20:53:27');
+	(3, 'delete post', 'web', '2019-08-01 20:53:26', '2019-08-01 20:53:27'),
+	(4, 'add post', 'web', '2019-09-16 09:56:19', '2019-09-16 09:56:20');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.roles
@@ -138,16 +140,15 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 CREATE TABLE IF NOT EXISTS `rtm_uraian` (
   `rtm_id` int(5) NOT NULL,
   `uraian_id` int(5) NOT NULL,
-  `status` smallint(6) DEFAULT NULL,
+  `status` smallint(6) DEFAULT '0',
   KEY `rtm_id` (`rtm_id`),
   KEY `uraian_id` (`uraian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.rtm_uraian: ~2 rows (approximately)
+-- Dumping data for table rtmdb.rtm_uraian: ~1 rows (approximately)
 /*!40000 ALTER TABLE `rtm_uraian` DISABLE KEYS */;
 INSERT INTO `rtm_uraian` (`rtm_id`, `uraian_id`, `status`) VALUES
-	(1, 1, 0),
-	(2, 1, 0);
+	(1, 1, 0);
 /*!40000 ALTER TABLE `rtm_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_departemen
@@ -240,8 +241,8 @@ INSERT INTO `tb_menu` (`id`, `name`, `link`, `icon`, `is_parent`, `role`) VALUES
 	(1, 'Beranda', '/', 'icon-home', '0', 'admin,editor,viewer'),
 	(2, 'User', 'user', 'icon-users', '6', 'admin'),
 	(3, 'Dokumen', 'dokumen', 'icon-docs', '0', ''),
-	(4, 'Daftar Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
-	(5, 'Daftar Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer'),
+	(4, 'Daftar Permasalahan', '/masalah', 'icon-docs', '0', 'admin,editor,viewer'),
+	(5, 'Daftar Rtm', '/rtm', 'icon-bar-chart', '0', 'admin,editor,viewer'),
 	(6, 'Menu Admin', '#', 'icon-user', '0', 'admin');
 /*!40000 ALTER TABLE `tb_menu` ENABLE KEYS */;
 
@@ -256,21 +257,13 @@ CREATE TABLE IF NOT EXISTS `tb_progres` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_progres: ~10 rows (approximately)
+-- Dumping data for table rtmdb.tb_progres: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tb_progres` DISABLE KEYS */;
 INSERT INTO `tb_progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
-	(1, 78, 77.29, 75.66, '2014', '1', '2019-09-08 21:36:18', '2019-09-08 21:36:19'),
-	(2, 79, 78.2, 78.31, '2015', '1', '2019-09-08 21:38:04', '2019-09-08 21:38:05'),
-	(3, 80, 85.25, 79.25, '2016', '1', '2019-09-08 21:38:33', '2019-09-08 21:38:34'),
-	(4, 82, 82.2, 80.45, '2017', '1', '2019-09-08 21:38:57', '2019-09-08 21:38:58'),
-	(5, 82, 0, 0, '2018', '1', '2019-09-08 21:39:23', '2019-09-08 21:39:24'),
-	(6, 82, 0, 0, '2019', '1', '2019-09-08 21:39:45', '2019-09-08 21:39:46'),
-	(7, 0, 0, 0, '2014', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42'),
-	(8, 0, 0, 0, '2015', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42'),
-	(9, 70, 74.6, 82, '2016', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42'),
-	(10, 70, 73.7, 81.6, '2017', '2', '2019-09-08 15:24:42', '2019-09-08 15:24:42');
+	(1, 80, 50, 100, '2018', '1', '2019-09-15 15:44:33', '2019-09-15 15:44:33'),
+	(2, 80, 60, 100, '2019', '1', '2019-09-15 15:44:33', '2019-09-15 15:44:33');
 /*!40000 ALTER TABLE `tb_progres` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_rtm
@@ -278,18 +271,17 @@ CREATE TABLE IF NOT EXISTS `tb_rtm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `rtm_ke` int(5) DEFAULT NULL,
   `tingkat` varchar(20) DEFAULT NULL,
-  `rkt` int(5) DEFAULT NULL,
-  `tahun` int(5) DEFAULT NULL,
+  `rkt` varchar(5) DEFAULT NULL,
+  `tahun` varchar(5) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_rtm: ~2 rows (approximately)
+-- Dumping data for table rtmdb.tb_rtm: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tb_rtm` DISABLE KEYS */;
 INSERT INTO `tb_rtm` (`id`, `rtm_ke`, `tingkat`, `rkt`, `tahun`, `created_at`, `updated_at`) VALUES
-	(1, 71, 'pusat', 4, 2018, '2019-09-08 20:50:27', '2019-09-08 20:50:28'),
-	(2, 72, 'pusat', 1, 2019, '2019-09-09 22:21:35', '2019-09-09 22:21:36');
+	(1, 72, 'Pusat', 'I', '2020', '2019-09-15 16:05:50', '2019-09-15 16:05:50');
 /*!40000 ALTER TABLE `tb_rtm` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.tb_uraian
@@ -307,13 +299,15 @@ CREATE TABLE IF NOT EXISTS `tb_uraian` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.tb_uraian: ~2 rows (approximately)
+-- Dumping data for table rtmdb.tb_uraian: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tb_uraian` DISABLE KEYS */;
 INSERT INTO `tb_uraian` (`id`, `uraian`, `analisis`, `r_uraian`, `r_target`, `r_pic`, `tindak`, `p_rencana`, `p_realisasi`, `status`, `created_at`, `updated_at`) VALUES
-	(1, '1.	Hasil Kuesioner/Indeks Kepuasan Pelanggan 7.2.a.1', 'Berdasarkan grafik  dapat disimpulkan bahwa Hasil Kuesioner/Indeks Kepuasan Pelanggan menunjukan trend/kecenderungan yang meningkat (positif)', 'Indeks kepuasan pelanggan untuk tahun 2017 masih menggunakan prognosa, menunggu laporan survey kepuasan pelanggan yang masih disusun, ', '1', '8', '1', '1', '1', 1, '2019-09-08 13:30:41', '2019-09-08 13:30:41'),
-	(2, 'Indeks Keterikatan Karyawan 7.3.a.(3).3', 'Hasil Kuesioner/Indeks Keterikatan Karyawan menunjukan\r\ntrend/kecenderungan yang menurun (Negatif)', 'Indeks keterikatan karyawan untuk tahun 2017\r\nmasih menggunakan data prognosa', '0', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18', '0', '0', '0', 1, '2019-09-08 15:24:42', '2019-09-08 15:24:42');
+	(1, '1. Sebagai seorang karyawan, umumnya Anda menghabiskan sekitar 8 jam untuk bekerja. Suka atau tidak suka, sejumlah masalah akan muncul saat Anda bekerja.', 'Tentunya,&nbsp; setiap masalah tidak boleh dibiarkan berlarut-larut. Mengapa? Ketika Anda membiarkannya, akan timbul masalah-masalah baru sehingga Anda terjerembab pada kubangan masalah.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', '30 Hari', '2', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 1, '2019-09-15 15:44:33', '2019-09-15 15:44:33'),
+	(2, '2. Sebagai seorang karyawan, umumnya Anda menghabiskan sekitar 8 jam untuk bekerja. Suka atau tidak suka, sejumlah masalah akan muncul saat Anda bekerja.', 'Tentunya,&nbsp; setiap masalah tidak boleh dibiarkan berlarut-larut. Mengapa? Ketika Anda membiarkannya, akan timbul masalah-masalah baru sehingga Anda terjerembab pada kubangan masalah.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', '30 Hari', '2', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 1, '2019-09-15 15:44:34', '2019-09-15 15:44:34'),
+	(3, '3. Sebagai seorang karyawan, umumnya Anda menghabiskan sekitar 8 jam untuk bekerja. Suka atau tidak suka, sejumlah masalah akan muncul saat Anda bekerja.', 'Tentunya,&nbsp; setiap masalah tidak boleh dibiarkan berlarut-larut. Mengapa? Ketika Anda membiarkannya, akan timbul masalah-masalah baru sehingga Anda terjerembab pada kubangan masalah.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', '30 Hari', '2', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 'Jangan khawatir jika Anda tidak tahu akan solusi masalah yang sedang Anda hadapi. Berikut 7 contoh masalah di tempat kerja lengkap dengan solusi cerdasnya.', 1, '2019-09-15 15:44:35', '2019-09-15 15:44:35'),
+	(4, 'Foxconn Dituding Eksploitasi Buruh Demi iPhone 11', '<div style="text-align: justify; ">Jakarta - Lembaga pengawasan buruh Chinese Labor Watch (CLW), memperingatkan pabrik Foxconn melanggar undang-undang buruh China. Tudingan eksploitasi buruh kembali dialamatkan pada Foxconn.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Untuk diketahui, Foxconn adalah pabrik perakitan gadget dengan Apple sebagai pelanggan terbesarnya. Tak heran, Foxconn juga sering disebut sebagai pembuat iPhone.</div><div style="text-align: justify;"><br></div><div style="text-align: justify; ">Diduga, Foxconn memeras tenaga buruhnya demi kejar setoran memenuhi kapasitas produksi iPhone 11 yang baru dirilis. Apple sendiri langsung melakukan investigasi dan mengakui bahwa terjadi sejumlah pelanggaran, namun tidak semua.</div>', '<div style="text-align: justify;">Jakarta - Lembaga pengawasan buruh Chinese Labor Watch (CLW), memperingatkan pabrik Foxconn melanggar undang-undang buruh China. Tudingan eksploitasi buruh kembali dialamatkan pada Foxconn.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Untuk diketahui, Foxconn adalah pabrik perakitan gadget dengan Apple sebagai pelanggan terbesarnya. Tak heran, Foxconn juga sering disebut sebagai pembuat iPhone.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Diduga, Foxconn memeras tenaga buruhnya demi kejar setoran memenuhi kapasitas produksi iPhone 11 yang baru dirilis. Apple sendiri langsung melakukan investigasi dan mengakui bahwa terjadi sejumlah pelanggaran, namun tidak semua.</div>', '<div style="text-align: justify;">Jakarta - Lembaga pengawasan buruh Chinese Labor Watch (CLW), memperingatkan pabrik Foxconn melanggar undang-undang buruh China. Tudingan eksploitasi buruh kembali dialamatkan pada Foxconn.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Untuk diketahui, Foxconn adalah pabrik perakitan gadget dengan Apple sebagai pelanggan terbesarnya. Tak heran, Foxconn juga sering disebut sebagai pembuat iPhone.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Diduga, Foxconn memeras tenaga buruhnya demi kejar setoran memenuhi kapasitas produksi iPhone 11 yang baru dirilis. Apple sendiri langsung melakukan investigasi dan mengakui bahwa terjadi sejumlah pelanggaran, namun tidak semua.</div>', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18', '<div style="text-align: justify;">Jakarta - Lembaga pengawasan buruh Chinese Labor Watch (CLW), memperingatkan pabrik Foxconn melanggar undang-undang buruh China. Tudingan eksploitasi buruh kembali dialamatkan pada Foxconn.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Untuk diketahui, Foxconn adalah pabrik perakitan gadget dengan Apple sebagai pelanggan terbesarnya. Tak heran, Foxconn juga sering disebut sebagai pembuat iPhone.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Diduga, Foxconn memeras tenaga buruhnya demi kejar setoran memenuhi kapasitas produksi iPhone 11 yang baru dirilis. Apple sendiri langsung melakukan investigasi dan mengakui bahwa terjadi sejumlah pelanggaran, namun tidak semua.</div>', '<div style="text-align: justify;">Jakarta - Lembaga pengawasan buruh Chinese Labor Watch (CLW), memperingatkan pabrik Foxconn melanggar undang-undang buruh China. Tudingan eksploitasi buruh kembali dialamatkan pada Foxconn.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Untuk diketahui, Foxconn adalah pabrik perakitan gadget dengan Apple sebagai pelanggan terbesarnya. Tak heran, Foxconn juga sering disebut sebagai pembuat iPhone.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Diduga, Foxconn memeras tenaga buruhnya demi kejar setoran memenuhi kapasitas produksi iPhone 11 yang baru dirilis. Apple sendiri langsung melakukan investigasi dan mengakui bahwa terjadi sejumlah pelanggaran, namun tidak semua.</div>', '<div style="text-align: justify;">Jakarta - Lembaga pengawasan buruh Chinese Labor Watch (CLW), memperingatkan pabrik Foxconn melanggar undang-undang buruh China. Tudingan eksploitasi buruh kembali dialamatkan pada Foxconn.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Untuk diketahui, Foxconn adalah pabrik perakitan gadget dengan Apple sebagai pelanggan terbesarnya. Tak heran, Foxconn juga sering disebut sebagai pembuat iPhone.</div><div style="text-align: justify;"><br></div><div style="text-align: justify;">Diduga, Foxconn memeras tenaga buruhnya demi kejar setoran memenuhi kapasitas produksi iPhone 11 yang baru dirilis. Apple sendiri langsung melakukan investigasi dan mengakui bahwa terjadi sejumlah pelanggaran, namun tidak semua.</div>', 1, '2019-09-16 02:10:40', '2019-09-16 02:10:40');
 /*!40000 ALTER TABLE `tb_uraian` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.users
@@ -324,6 +318,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `departemen_id` int(5) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -332,157 +327,157 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table rtmdb.users: ~150 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, 'Administrator', 'admin', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', '2019-07-29 16:42:00', '2019-07-29 16:42:00'),
-	(2, 'Pia Tiara Haryanti', 'editor', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(3, 'Jindra Sabri Prabowo', 'viewer', '2019-07-29 16:42:01', '$2y$10$W17ALurAVFYMD6KZNG5zpu.x/Em2OfLc0c9c2Ubfv2FMCNtrnMsYK', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(4, 'Tami Pudjiastuti S.Psi', 'MtNLAw09So@gmail.com', '2019-07-29 16:42:01', '$2y$10$ePMxDtGzMn/yCF3AMV4pS.wDAMGjJXevP8c9nhkcto2rG0gFc/6lq', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(5, 'Maimunah Mandasari', 'Bz8WdvwLGp@gmail.com', '2019-07-29 16:42:01', '$2y$10$rblgLvhOICWjAWYgVfmz2.Vmw4XZfftX0IMlIO9mJoJszZatx1CWW', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(6, 'Elon Suwarno S.Pd', 's2n3uFrVPT@gmail.com', '2019-07-29 16:42:01', '$2y$10$Qw9sDg4QS6IP8etBz6ASSu5NUPaGAHjiWxPLeWO7E0rERq0UBjNKm', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(7, 'Vivi Wani Wahyuni', 'uxK0cAZat2@gmail.com', '2019-07-29 16:42:01', '$2y$10$8oFS2JVVPyGTY9Dxj6W0deJqcUD7Rc7ReQVDhLQjZtyYUwi8NL23S', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(8, 'Gabriella Yance Puspita', 'zrYI3dDVNi@gmail.com', '2019-07-29 16:42:01', '$2y$10$J60R1Z.PqtUAy1a6IhuWVecl3kMNG9q8IjDq1VIXC4gGXvnuCk0.y', '', '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
-	(9, 'Diana Handayani', 'bSkYbRSHq1@gmail.com', '2019-07-29 16:42:02', '$2y$10$oPDOwumhg9TizAh5jPu63ueB18X5NeDm4vbmM76Oo1ooripNPPcQG', '', '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
-	(10, 'Luthfi Natsir S.Pd', 'eXNv8jT3cu@gmail.com', '2019-07-29 16:42:02', '$2y$10$J7FEmRFqatzBgMafryDNKuNIuXWyjr20K3/7PhVgvBotiBVS/lyH.', '', '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
-	(11, 'Maras Prakasa M.Kom.', 'DaRLYkhQdx@gmail.com', '2019-07-29 16:42:02', '$2y$10$GctnIUblLrq/Wk0lIzw4ReZ3k.oylLv1Zm6XtECSeEvqvzqMoMnWa', '', '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
-	(12, 'Cayadi Kuswoyo', '3HoOT1ToSN@gmail.com', '2019-07-29 16:42:02', '$2y$10$IoIW72dPFZwWJest3yO9p.5MkeeHb85LlgC3M.S667wvdZCkA1QJO', '', '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
-	(13, 'Gilang Santoso', 'hG023a5sdG@gmail.com', '2019-07-29 16:42:02', '$2y$10$W2tQMOF41jg5kZXJLOgpnufVNYQ5PM85RvmauQ7YFjQAHShLjsj6y', '', '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
-	(14, 'Jindra Saefullah S.Sos', 'sAvwjl69gm@gmail.com', '2019-07-29 16:42:02', '$2y$10$Vt2vtcDZT94a9KknRS0yHecUktGsaZTwrpQIHQalfT2OpInFMMb1i', '', '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
-	(15, 'Rizki Jamal Winarno S.Kom', '3zy5DT8pKn@gmail.com', '2019-07-29 16:42:02', '$2y$10$Q8mvWRyNDKk3Zify7Fw6MuZiIXVVBPHsqM2UySIxtjj/DwusnpTeW', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(16, 'Jane Purnawati S.I.Kom', 'GsDAclVC42@gmail.com', '2019-07-29 16:42:03', '$2y$10$eIeR8z/EK./.ClURBqicQutWS0P4wXGD0Dvd.Q/d99sXMwjRqqF.W', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(17, 'Uda Prabowo', 'w4rUyusrh9@gmail.com', '2019-07-29 16:42:03', '$2y$10$rtkqmiTT0fm3OHnrkEgkp.YoElrYpQKsQoVHRi8qVJw1rtOxfdvSm', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(18, 'Maimunah Syahrini Kusmawati S.Pt', 'vXUU07qZyY@gmail.com', '2019-07-29 16:42:03', '$2y$10$22ZwB6P6ehENujRgQcRF/ucR6sAHEk5gylnAn/466L2TDztEfjfhG', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(19, 'Fathonah Irma Wahyuni S.Ked', 'HFvIoRmHXm@gmail.com', '2019-07-29 16:42:03', '$2y$10$wia1/WKg6A0.iQ3.WQgJjelVO.L60/4j5H8KjsH1XcH1J1BJ2vFMu', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(20, 'Amalia Pudjiastuti S.Kom', 'hArcu94oOI@gmail.com', '2019-07-29 16:42:03', '$2y$10$5U6aB1pDYhn5qplZtjRzzekCwVkAdzs6FRLqLl1ADMNae7nQ86bsS', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(21, 'Makara Prayoga', 'xmGnpewmrC@gmail.com', '2019-07-29 16:42:03', '$2y$10$QrWJsnTYLKy9cjN17c/yoOCNtGGXU40bvh7tYxNc5cSGhpw3iTtJ2', '', '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
-	(22, 'Darsirah Kuswoyo', 'S0pQHm8FxP@gmail.com', '2019-07-29 16:42:04', '$2y$10$0/yUULjZxdxCaQdlrjs5jeHFqK/ptUdqH.YwycKsXbwCogwOwzfWS', '', '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
-	(23, 'Emas Dongoran M.Pd', 'CwPGJjQWas@gmail.com', '2019-07-29 16:42:04', '$2y$10$bZSVwJ1HvuVUh19pzyN4bOGEFT7v00t5w2GUS9QiOtg1oL9xxUW5q', '', '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
-	(24, 'Aditya Damanik', 'LReKSdcEuo@gmail.com', '2019-07-29 16:42:04', '$2y$10$4X1h69SQLwTI9H1Qp3zCIe4pKmg7iGyEGw./WdcXjWca8bKq1Tphu', '', '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
-	(25, 'Latif Lega Mansur', '3uTg7C9zXA@gmail.com', '2019-07-29 16:42:04', '$2y$10$Pcq3E1eGRqmzIUkMiV5EPekWWQ1Uih/7eSpjG7MieRugHpYorQCXe', '', '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
-	(26, 'Ibun Lembah Saefullah M.Pd', 'yPepsQVd7H@gmail.com', '2019-07-29 16:42:04', '$2y$10$ybgea95pQ5DB0hvD.gQdl.eZQbzU6w3lr50izPKuPjyRIzeHJtUWK', '', '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
-	(27, 'Oni Agnes Nasyiah', 'R0jS70lHYO@gmail.com', '2019-07-29 16:42:04', '$2y$10$huz.dS039Lujd/W4Sib.o.9MKcHnc3X.y1zlqGFhPdwDDyOVI3Hdy', '', '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
-	(28, 'Olga Pangestu', 'tpDNKDv7rW@gmail.com', '2019-07-29 16:42:04', '$2y$10$JjI4aBhcwyr2V0phIcLNYe9DhbTlWW3CAYo6E8PuMOSCJll1nBk8e', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(29, 'Padmi Michelle Purnawati S.Pt', '0fjMqvKJWT@gmail.com', '2019-07-29 16:42:05', '$2y$10$6AR9SxF/EMwlF7ZE.1uk8uEdmpfC8KY9j8f08XDPJkHbsDUx4KJ6a', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(30, 'Raisa Tiara Hasanah S.Farm', 'AphiSGzHig@gmail.com', '2019-07-29 16:42:05', '$2y$10$0RVv5ULPSNd9CeOeSlVkPeREr1u1STKjk82ISqAoEwmHif.RbSwC6', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(31, 'Tasdik Mustofa', 'tXYDYubtTq@gmail.com', '2019-07-29 16:42:05', '$2y$10$3zSe0v9TPi029UeM2UiTG.MhMoe2FVyotN/.fFH4SCItq7CdCRqm2', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(32, 'Oliva Hastuti', 'ZmIlvSz2lJ@gmail.com', '2019-07-29 16:42:05', '$2y$10$CMCODXrywLufrWymY.UH1Op1X2h142fOO5FaplMsVOXCsL0Cqvpky', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(33, 'Estiawan Karya Halim', 'QEpLvErTVZ@gmail.com', '2019-07-29 16:42:05', '$2y$10$chzqZsZsZMLj0/xx1aM.2O7ejxBWaDC1TYEa0O6Z9c.CRGYHRyjj2', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(34, 'Olga Halim', 'YGqAgPOsFi@gmail.com', '2019-07-29 16:42:05', '$2y$10$kS8IXTPvrLqqPVQXekchTevBooPeNpa/I1cMx8CLBvAEEoveR/Y9G', '', '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
-	(35, 'Parman Emin Dongoran M.Farm', 'VIK4HmCc1k@gmail.com', '2019-07-29 16:42:06', '$2y$10$KnkxLj.euV5GbCWdqOsZ9uF9O5xrYbD8mOhcnEtbvEnpK.Oa8xilC', '', '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
-	(36, 'Sadina Vera Prastuti', 'rieHbeMD4Z@gmail.com', '2019-07-29 16:42:06', '$2y$10$n2M1lrbz/8KcWpRviHpL6ehAPLdWwvsnElhxJDB0s9DApqNb8AP12', '', '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
-	(37, 'Mumpuni Najmudin M.Ak', 'xlpEhafuGO@gmail.com', '2019-07-29 16:42:06', '$2y$10$3WCEpX6lffvWM5dLt9K2E.6HcvqSTMnPAiy5k6eC77uWm.pfatSoe', '', '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
-	(38, 'Maman Budi Januar', '4svcH8YHIC@gmail.com', '2019-07-29 16:42:06', '$2y$10$0Uz7SSR4jPht5d9W0Ws5COEuEHMxu159k8KWQ6whvxdFWz9OcllYu', '', '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
-	(39, 'Yoga Putra', 'RtugXrA2fs@gmail.com', '2019-07-29 16:42:06', '$2y$10$xg.ZY2WTLYE0yyOxiEpZpOtz97R1NgYVAGi4LDLKip6Lhs8hvbMim', '', '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
-	(40, 'Maimunah Betania Haryanti M.M.', 'nopJS5zaCv@gmail.com', '2019-07-29 16:42:06', '$2y$10$OTWmT8Fj8XL6EGnjppgGpumvUQEMj1lfscPZkixnKtZWNLVfTEBMS', '', '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
-	(41, 'Darijan Nababan S.Kom', 'itnlMHuUY8@gmail.com', '2019-07-29 16:42:06', '$2y$10$SNYfAcDPApus8WqkwMwdM.YKQ4vvNnCIM9dv6LfJvwN6V8mW9iLIq', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(42, 'Darmana Hakim', 'rmr7cvanzu@gmail.com', '2019-07-29 16:42:07', '$2y$10$MZdKFl1UYy5zCwa1QM73kOAh1Lns7xM9ZLTh2ba.7Y.detQEighri', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(43, 'Tania Suryatmi', 'lpOJWB0tSz@gmail.com', '2019-07-29 16:42:07', '$2y$10$T6146wutXdgbLDWrs.jia.FrdGDXargUoqJTsO4G9Rp7NoZrRw7zu', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(44, 'Cecep Adriansyah S.T.', 'XZDPXucdm2@gmail.com', '2019-07-29 16:42:07', '$2y$10$Bf2h9H6oT.umfu6VgY3epurt1cX1kt5OA6cupcGD8K/UFwUMUZeyy', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(45, 'Belinda Zulaika', 'uK1YwutyZR@gmail.com', '2019-07-29 16:42:07', '$2y$10$3h6.ORWOVWCeR3Fr.74kUu/34exCCvnIE/hICWT7xE/uUoHiR/Vry', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(46, 'Damar Uwais S.Farm', 'BsVUGbTd7l@gmail.com', '2019-07-29 16:42:07', '$2y$10$HNx2X4TaF4.Tzu7VUhjh7.IH2MUN51Dh9WpvWDa76dgIMttVVESBa', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(47, 'Prabu Prasasta', 'Laf5uKYqdz@gmail.com', '2019-07-29 16:42:07', '$2y$10$TkZhGJNCVo.KG2ZG2Amet.yEfnIQLQxJ2YnH/Orhj0uQgaMcr2eRy', '', '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
-	(48, 'Gaduh Ardianto S.Farm', '9oAz7ZFVup@gmail.com', '2019-07-29 16:42:08', '$2y$10$.ynWnXrwQw8t3RVaDoGOKOCok7i2lyXAkdrewMtlE6mn3/Oy4HdDq', '', '2019-07-29 16:42:08', '2019-07-29 16:42:08'),
-	(49, 'Queen Kuswandari', 'N7u2zdGFo6@gmail.com', '2019-07-29 16:42:08', '$2y$10$bT0onrI8thkOS0MHZh3hUuikUiMfcUAXdYVLSmQFjgicZmGbyFnXm', '', '2019-07-29 16:42:08', '2019-07-29 16:42:08'),
-	(50, 'Farhunnisa Handayani', '5Thze85GPw@gmail.com', '2019-07-29 16:42:08', '$2y$10$du2CNcbvpfCpGFkYf/8l2u//dMRf/nXjnDZXHU7nhitFBukML9d5q', '', '2019-07-29 16:42:08', '2019-07-29 16:42:08'),
-	(51, 'Dr. Hermina Towne Sr.', 'tia27@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'I5exn18hyr', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(52, 'Hoyt Goyette II', 'adavis@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Qyu7I2sMNy', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(53, 'Mellie Hermiston I', 'treutel.rhoda@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'L5YoQipaEt', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(54, 'Ernie Cole PhD', 'tschimmel@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Tzo5xIHVVc', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(55, 'Dr. Mackenzie Halvorson DVM', 'kylie36@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '5QdDp41J9W', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(56, 'Ana Keebler III', 'eliseo.predovic@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'U8HHRhWLmg', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(57, 'Paige Ruecker', 'jeramie.emmerich@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kLfSVG8IgN', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(58, 'Mr. Matt Becker I', 'griffin.lowe@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Sg9BscwuqO', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(59, 'Mr. Nathen Bednar', 'dickinson.kathryn@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'uCE1KX5N5W', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(60, 'Tressie Watsica', 'zsenger@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'L9hH4rgykM', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(61, 'Olga Corkery', 'okuneva.nella@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9jnY45QWZ9', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(62, 'Mr. Trent Willms IV', 'rbotsford@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'nAT9uGtBrA', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(63, 'Miss Trisha Smith', 'makenna61@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WNbggD9dyp', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(64, 'Claud Boyle', 'michel90@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'jvXgihgAxR', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(65, 'Kristian Haag DDS', 'horacio.daniel@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VvE2ONY7fh', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(66, 'Miss Cortney Kirlin', 'shanahan.josie@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'I0CaUwv7Pm', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(67, 'Lowell Ritchie', 'jayce50@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'KHWbaOxJes', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(68, 'Caleb Zboncak Sr.', 'louie90@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'R7HRkbspBH', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(69, 'Ellie Koepp III', 'keeling.carrie@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'MkV38k7D7w', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(70, 'Zita Langosh', 'lakin.kendrick@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'SE0oQlewFw', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(71, 'Prof. Tiffany Wisozk', 'mhoeger@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'OGEIIt8nAl', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(72, 'Gerson Paucek', 'herbert51@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'x3oBcYHYmn', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(73, 'Elyssa Runolfsdottir', 'louisa.armstrong@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9AhbEHMjlf', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(74, 'Matilde Bradtke', 'kaci.braun@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QlNVDltJVc', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(75, 'Dave Muller', 'devin.nikolaus@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'FThEsCnJtB', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(76, 'Macy Koelpin III', 'kihn.eduardo@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'fOfd2goHSP', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(77, 'Raoul Nolan', 'croob@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'd6QA27FneR', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(78, 'Wallace Parker', 'lela10@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8Wm1ycQ3cs', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(79, 'Prof. Cecile Hoeger', 'pagac.brandt@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Uk8HEVa7Rb', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(80, 'Nova Rogahn', 'theodore.spencer@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'FsoP8ua6Sc', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(81, 'Leopold Waelchi', 'haskell60@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QILotw6PEl', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(82, 'Ms. Sharon McCullough', 'glover.joey@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9MSredEQlh', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(83, 'Vella Keebler', 'caesar.bernier@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'E13YsRukuu', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(84, 'Mrs. Delta O\'Conner', 'dickens.brody@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'mxDVbAS7oD', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(85, 'Prof. Nyasia Turcotte V', 'quinten25@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vR2BGwUue7', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(86, 'Edwina Rowe', 'naomi.orn@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WJT2pLqBH2', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(87, 'Zackery Quigley', 'arnulfo.gleichner@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'zANVfzOGwS', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(88, 'Mariela Jerde', 'darrel.bruen@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'UssLJsraX0', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(89, 'Maud Ondricka', 'larkin.daisha@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QYDzj3NlwH', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(90, 'Gennaro Kunde', 'webert@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '0bqMNdwVYs', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(91, 'Samara Hayes', 'richie.mante@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Z6kUlyMAIj', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(92, 'Nasir Oberbrunner', 'carrie.thompson@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'K3BEVFGqvl', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(93, 'Abby Tremblay', 'bridie19@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Ck6UuesCQS', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(94, 'Lesley Larson', 'littel.freddy@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '719xDfKKPu', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(95, 'Alta Roberts', 'larkin.yadira@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'NniJut537Z', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(96, 'Mr. Demarco Ledner', 'lubowitz.lou@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'yaMpWv3mai', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(97, 'Miss Kitty Collier PhD', 'david66@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Rbmx4Os3EI', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(98, 'Hyman Fahey', 'padberg.dorothy@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '1FpLJbGvOk', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(99, 'Darby Gutkowski', 'annabel22@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VIYPEjeNt1', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(100, 'Gabe Beer', 'progahn@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '1PvRdIerWP', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(101, 'Crystal Welch', 'bosco.leopold@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VYPJ7uIDVM', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(102, 'Tre Wyman', 'barrows.vida@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'r6GXqEClCi', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(103, 'Dr. Dylan Doyle', 'bryon.stark@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'UGYtSKzFo6', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(104, 'Carmen Smith', 'ohansen@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gWbpeRx83c', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(105, 'Shyann Hettinger', 'valentine.hills@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QYHk0OPZAR', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(106, 'Dr. Jaime Turcotte Sr.', 'damien.bashirian@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'MfDXLES8O3', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(107, 'Kiana Kuphal', 'nzieme@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'OQfGboeEQd', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(108, 'Lawrence Block', 'kasey.dooley@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'jeds26fbve', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(109, 'Mrs. Dandre McGlynn III', 'sanford.luciano@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kozwjxj9bw', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(110, 'David Bartell', 'joana.bode@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'x4EWGoFgCa', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(111, 'Mr. Delaney Mayer', 'awhite@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'jjbWBYVNWX', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(112, 'Dr. Anjali Weissnat', 'schmeler.magali@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'pO2w00JwEZ', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(113, 'Alysson Nitzsche', 'mbernier@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'OO5b7zCoDB', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(114, 'Joshuah VonRueden', 'runolfsson.kathleen@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EN7cKRjH0c', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(115, 'Jake McDermott V', 'tdoyle@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'DAT1m155SA', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(116, 'Weldon White', 'vrutherford@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EQKtgB73E4', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(117, 'Miss Iliana Dickinson III', 'elise08@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'YpnWyfpPza', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(118, 'Mr. Floyd Marquardt I', 'glover.vance@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'xJCMd8AcKf', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(119, 'Fernando Bruen', 'pearline.hamill@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '2p0pLcSXCZ', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(120, 'Wade Christiansen', 'oconner.warren@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EgfYryznO7', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(121, 'Prof. Angus Reichert', 'hspinka@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kwnsgwOpsz', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(122, 'Fritz Harris Jr.', 'josiane13@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '0a2tSutl5i', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(123, 'Delpha Reynolds', 'webster22@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WoAkdixTOw', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(124, 'Misty Baumbach', 'kobe64@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gSc9t1jbEX', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(125, 'Mrs. Retta Tremblay IV', 'marques.morar@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'GFYyZdPz9G', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(126, 'Ashleigh Smith', 'strosin.aida@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gFGoVl0a2r', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(127, 'Mr. Cullen Kemmer', 'trey14@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QxQjn1COqH', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(128, 'Miss Susie Reichert', 'ihudson@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'rNGWCNbCFU', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(129, 'Dr. Royal Schuster II', 'kay.romaguera@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gZ3bxnsbyx', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(130, 'Miss Priscilla Okuneva', 'zmckenzie@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'lApXMhi6XM', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(131, 'Prof. Delilah Lakin Jr.', 'emmerich.jana@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'AWLSka65xl', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(132, 'Katelynn McClure', 'hessel.hortense@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'oPeBB9XD49', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(133, 'Dr. Sandy Hintz', 'titus94@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'R10czm7Crj', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(134, 'Rickie Fahey I', 'damien.padberg@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '79rvoSonRL', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(135, 'Dario Konopelski', 'kdubuque@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ASSMDxgKDx', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(136, 'Rosalee Russel', 'dante.hoeger@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'n1JL35WSE3', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(137, 'Mitchel Grant IV', 'stamm.demetris@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9JKKEkIsfy', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(138, 'Prof. Jesse Luettgen MD', 'timothy18@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'IA207qFHM5', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(139, 'Idell Effertz', 'nnikolaus@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kQ7qYQsUuh', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(140, 'Liliana O\'Connell MD', 'kemmer.candido@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'fPjUvOhDSt', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(141, 'Johann Barrows', 'dickinson.mary@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WRvEytYqyR', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(142, 'Tyreek Marquardt', 'jordy39@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'f6Un6uhAUT', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(143, 'Bella Herman', 'ghayes@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QbobcRsWvr', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(144, 'Mr. Alfonso Gleason I', 'mckayla82@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'MO2bJGWhD0', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(145, 'Mr. Freddie Mante', 'cielo.sanford@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'yflyJdob8b', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(146, 'Prof. Jess Gulgowski', 'rey05@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'mnEcoEZSuH', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(147, 'Rossie Swift I', 'pdooley@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'NlAYMOStA9', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(148, 'Viviane Rippin MD', 'cordia.lind@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'r8pL8d6sZA', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(149, 'Margarete Tillman MD', 'niko.hand@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'bvFRZsPvwG', '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
-	(150, 'Ms. Emilia Lehner', 'martina.hilpert@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'r3AzOQKMo0', '2019-08-14 14:14:06', '2019-08-14 14:14:06');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `departemen_id`, `created_at`, `updated_at`) VALUES
+	(1, 'Divisi Inventarisasi dan Pengendalian Aset', 'ipa', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', 1, '2019-07-29 16:42:00', '2019-07-29 16:42:00'),
+	(2, 'Sekretariat Perusahaan', 'sekper', '2019-07-29 16:42:00', '$2y$10$5M0X5XM3ljhBQ/lG/7fwAuO0ZojCVFxSRwF3Kd65aoDWXNT/t9zhm', '', 2, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(3, 'Divisi Sumber Daya Manusia', 'sdm', '2019-07-29 16:42:01', '$2y$10$W17ALurAVFYMD6KZNG5zpu.x/Em2OfLc0c9c2Ubfv2FMCNtrnMsYK', '', 3, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(4, 'Divisi Umum dan PKBL', 'umum', '2019-07-29 16:42:01', '$2y$10$ePMxDtGzMn/yCF3AMV4pS.wDAMGjJXevP8c9nhkcto2rG0gFc/6lq', '', 4, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(5, 'Divisi Keuangan dan Akuntansi', 'akuntansi', '2019-07-29 16:42:01', '$2y$10$rblgLvhOICWjAWYgVfmz2.Vmw4XZfftX0IMlIO9mJoJszZatx1CWW', '', 5, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(6, 'Divisi Pengendalian Kinerja dan Sistem Manajemen', 'pksm', '2019-07-29 16:42:01', '$2y$10$Qw9sDg4QS6IP8etBz6ASSu5NUPaGAHjiWxPLeWO7E0rERq0UBjNKm', '', 6, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(7, 'Satuan Pengawasan Intern', 'spi', '2019-07-29 16:42:01', '$2y$10$8oFS2JVVPyGTY9Dxj6W0deJqcUD7Rc7ReQVDhLQjZtyYUwi8NL23S', '', 7, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(8, 'Divisi Pengelolaan Proyek', 'dpp', '2019-07-29 16:42:01', '$2y$10$J60R1Z.PqtUAy1a6IhuWVecl3kMNG9q8IjDq1VIXC4gGXvnuCk0.y', '', 8, '2019-07-29 16:42:01', '2019-07-29 16:42:01'),
+	(9, 'Divisi SDA dan SDL', 'sdasdl', '2019-07-29 16:42:02', '$2y$10$oPDOwumhg9TizAh5jPu63ueB18X5NeDm4vbmM76Oo1ooripNPPcQG', '', 9, '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
+	(10, 'Divisi Rencana Strategis dan Litbang', 'renstra', '2019-07-29 16:42:02', '$2y$10$J7FEmRFqatzBgMafryDNKuNIuXWyjr20K3/7PhVgvBotiBVS/lyH.', '', 10, '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
+	(11, 'Divisi Pengusahaan dan Pelayanan Pelanggan', 'p3', '2019-07-29 16:42:02', '$2y$10$GctnIUblLrq/Wk0lIzw4ReZ3k.oylLv1Zm6XtECSeEvqvzqMoMnWa', '', 11, '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
+	(12, 'Unit Usaha Wilayah II', 'uuw2', '2019-07-29 16:42:02', '$2y$10$IoIW72dPFZwWJest3yO9p.5MkeeHb85LlgC3M.S667wvdZCkA1QJO', '', 12, '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
+	(13, 'Unit Usaha PLTA', 'plta', '2019-07-29 16:42:02', '$2y$10$W2tQMOF41jg5kZXJLOgpnufVNYQ5PM85RvmauQ7YFjQAHShLjsj6y', '', 13, '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
+	(14, 'Unit Usaha Pariwisata dan AMDK', 'pariwisata', '2019-07-29 16:42:02', '$2y$10$Vt2vtcDZT94a9KknRS0yHecUktGsaZTwrpQIHQalfT2OpInFMMb1i', '', 14, '2019-07-29 16:42:02', '2019-07-29 16:42:02'),
+	(15, 'Unit Usaha Wilayah I', 'uuw1', '2019-07-29 16:42:02', '$2y$10$Q8mvWRyNDKk3Zify7Fw6MuZiIXVVBPHsqM2UySIxtjj/DwusnpTeW', '', 15, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(16, 'Unit Usaha Wilayah IV', 'uuw4', '2019-07-29 16:42:03', '$2y$10$eIeR8z/EK./.ClURBqicQutWS0P4wXGD0Dvd.Q/d99sXMwjRqqF.W', '', 16, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(17, 'Unit Usaha Wilayah III', 'uuw3', '2019-07-29 16:42:03', '$2y$10$rtkqmiTT0fm3OHnrkEgkp.YoElrYpQKsQoVHRi8qVJw1rtOxfdvSm', '', 17, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(18, 'Unit Layanan Pengadaan', 'ulp', '2019-07-29 16:42:03', '$2y$10$22ZwB6P6ehENujRgQcRF/ucR6sAHEk5gylnAn/466L2TDztEfjfhG', '', 18, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(19, 'Administrator', 'admin', '2019-07-29 16:42:03', '$2y$10$wia1/WKg6A0.iQ3.WQgJjelVO.L60/4j5H8KjsH1XcH1J1BJ2vFMu', '', 0, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(20, 'Amalia Pudjiastuti S.Kom', 'hArcu94oOI@gmail.com', '2019-07-29 16:42:03', '$2y$10$5U6aB1pDYhn5qplZtjRzzekCwVkAdzs6FRLqLl1ADMNae7nQ86bsS', '', NULL, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(21, 'Makara Prayoga', 'xmGnpewmrC@gmail.com', '2019-07-29 16:42:03', '$2y$10$QrWJsnTYLKy9cjN17c/yoOCNtGGXU40bvh7tYxNc5cSGhpw3iTtJ2', '', NULL, '2019-07-29 16:42:03', '2019-07-29 16:42:03'),
+	(22, 'Darsirah Kuswoyo', 'S0pQHm8FxP@gmail.com', '2019-07-29 16:42:04', '$2y$10$0/yUULjZxdxCaQdlrjs5jeHFqK/ptUdqH.YwycKsXbwCogwOwzfWS', '', NULL, '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
+	(23, 'Emas Dongoran M.Pd', 'CwPGJjQWas@gmail.com', '2019-07-29 16:42:04', '$2y$10$bZSVwJ1HvuVUh19pzyN4bOGEFT7v00t5w2GUS9QiOtg1oL9xxUW5q', '', NULL, '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
+	(24, 'Aditya Damanik', 'LReKSdcEuo@gmail.com', '2019-07-29 16:42:04', '$2y$10$4X1h69SQLwTI9H1Qp3zCIe4pKmg7iGyEGw./WdcXjWca8bKq1Tphu', '', NULL, '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
+	(25, 'Latif Lega Mansur', '3uTg7C9zXA@gmail.com', '2019-07-29 16:42:04', '$2y$10$Pcq3E1eGRqmzIUkMiV5EPekWWQ1Uih/7eSpjG7MieRugHpYorQCXe', '', NULL, '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
+	(26, 'Ibun Lembah Saefullah M.Pd', 'yPepsQVd7H@gmail.com', '2019-07-29 16:42:04', '$2y$10$ybgea95pQ5DB0hvD.gQdl.eZQbzU6w3lr50izPKuPjyRIzeHJtUWK', '', NULL, '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
+	(27, 'Oni Agnes Nasyiah', 'R0jS70lHYO@gmail.com', '2019-07-29 16:42:04', '$2y$10$huz.dS039Lujd/W4Sib.o.9MKcHnc3X.y1zlqGFhPdwDDyOVI3Hdy', '', NULL, '2019-07-29 16:42:04', '2019-07-29 16:42:04'),
+	(28, 'Olga Pangestu', 'tpDNKDv7rW@gmail.com', '2019-07-29 16:42:04', '$2y$10$JjI4aBhcwyr2V0phIcLNYe9DhbTlWW3CAYo6E8PuMOSCJll1nBk8e', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(29, 'Padmi Michelle Purnawati S.Pt', '0fjMqvKJWT@gmail.com', '2019-07-29 16:42:05', '$2y$10$6AR9SxF/EMwlF7ZE.1uk8uEdmpfC8KY9j8f08XDPJkHbsDUx4KJ6a', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(30, 'Raisa Tiara Hasanah S.Farm', 'AphiSGzHig@gmail.com', '2019-07-29 16:42:05', '$2y$10$0RVv5ULPSNd9CeOeSlVkPeREr1u1STKjk82ISqAoEwmHif.RbSwC6', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(31, 'Tasdik Mustofa', 'tXYDYubtTq@gmail.com', '2019-07-29 16:42:05', '$2y$10$3zSe0v9TPi029UeM2UiTG.MhMoe2FVyotN/.fFH4SCItq7CdCRqm2', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(32, 'Oliva Hastuti', 'ZmIlvSz2lJ@gmail.com', '2019-07-29 16:42:05', '$2y$10$CMCODXrywLufrWymY.UH1Op1X2h142fOO5FaplMsVOXCsL0Cqvpky', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(33, 'Estiawan Karya Halim', 'QEpLvErTVZ@gmail.com', '2019-07-29 16:42:05', '$2y$10$chzqZsZsZMLj0/xx1aM.2O7ejxBWaDC1TYEa0O6Z9c.CRGYHRyjj2', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(34, 'Olga Halim', 'YGqAgPOsFi@gmail.com', '2019-07-29 16:42:05', '$2y$10$kS8IXTPvrLqqPVQXekchTevBooPeNpa/I1cMx8CLBvAEEoveR/Y9G', '', NULL, '2019-07-29 16:42:05', '2019-07-29 16:42:05'),
+	(35, 'Parman Emin Dongoran M.Farm', 'VIK4HmCc1k@gmail.com', '2019-07-29 16:42:06', '$2y$10$KnkxLj.euV5GbCWdqOsZ9uF9O5xrYbD8mOhcnEtbvEnpK.Oa8xilC', '', NULL, '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
+	(36, 'Sadina Vera Prastuti', 'rieHbeMD4Z@gmail.com', '2019-07-29 16:42:06', '$2y$10$n2M1lrbz/8KcWpRviHpL6ehAPLdWwvsnElhxJDB0s9DApqNb8AP12', '', NULL, '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
+	(37, 'Mumpuni Najmudin M.Ak', 'xlpEhafuGO@gmail.com', '2019-07-29 16:42:06', '$2y$10$3WCEpX6lffvWM5dLt9K2E.6HcvqSTMnPAiy5k6eC77uWm.pfatSoe', '', NULL, '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
+	(38, 'Maman Budi Januar', '4svcH8YHIC@gmail.com', '2019-07-29 16:42:06', '$2y$10$0Uz7SSR4jPht5d9W0Ws5COEuEHMxu159k8KWQ6whvxdFWz9OcllYu', '', NULL, '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
+	(39, 'Yoga Putra', 'RtugXrA2fs@gmail.com', '2019-07-29 16:42:06', '$2y$10$xg.ZY2WTLYE0yyOxiEpZpOtz97R1NgYVAGi4LDLKip6Lhs8hvbMim', '', NULL, '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
+	(40, 'Maimunah Betania Haryanti M.M.', 'nopJS5zaCv@gmail.com', '2019-07-29 16:42:06', '$2y$10$OTWmT8Fj8XL6EGnjppgGpumvUQEMj1lfscPZkixnKtZWNLVfTEBMS', '', NULL, '2019-07-29 16:42:06', '2019-07-29 16:42:06'),
+	(41, 'Darijan Nababan S.Kom', 'itnlMHuUY8@gmail.com', '2019-07-29 16:42:06', '$2y$10$SNYfAcDPApus8WqkwMwdM.YKQ4vvNnCIM9dv6LfJvwN6V8mW9iLIq', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(42, 'Darmana Hakim', 'rmr7cvanzu@gmail.com', '2019-07-29 16:42:07', '$2y$10$MZdKFl1UYy5zCwa1QM73kOAh1Lns7xM9ZLTh2ba.7Y.detQEighri', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(43, 'Tania Suryatmi', 'lpOJWB0tSz@gmail.com', '2019-07-29 16:42:07', '$2y$10$T6146wutXdgbLDWrs.jia.FrdGDXargUoqJTsO4G9Rp7NoZrRw7zu', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(44, 'Cecep Adriansyah S.T.', 'XZDPXucdm2@gmail.com', '2019-07-29 16:42:07', '$2y$10$Bf2h9H6oT.umfu6VgY3epurt1cX1kt5OA6cupcGD8K/UFwUMUZeyy', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(45, 'Belinda Zulaika', 'uK1YwutyZR@gmail.com', '2019-07-29 16:42:07', '$2y$10$3h6.ORWOVWCeR3Fr.74kUu/34exCCvnIE/hICWT7xE/uUoHiR/Vry', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(46, 'Damar Uwais S.Farm', 'BsVUGbTd7l@gmail.com', '2019-07-29 16:42:07', '$2y$10$HNx2X4TaF4.Tzu7VUhjh7.IH2MUN51Dh9WpvWDa76dgIMttVVESBa', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(47, 'Prabu Prasasta', 'Laf5uKYqdz@gmail.com', '2019-07-29 16:42:07', '$2y$10$TkZhGJNCVo.KG2ZG2Amet.yEfnIQLQxJ2YnH/Orhj0uQgaMcr2eRy', '', NULL, '2019-07-29 16:42:07', '2019-07-29 16:42:07'),
+	(48, 'Gaduh Ardianto S.Farm', '9oAz7ZFVup@gmail.com', '2019-07-29 16:42:08', '$2y$10$.ynWnXrwQw8t3RVaDoGOKOCok7i2lyXAkdrewMtlE6mn3/Oy4HdDq', '', NULL, '2019-07-29 16:42:08', '2019-07-29 16:42:08'),
+	(49, 'Queen Kuswandari', 'N7u2zdGFo6@gmail.com', '2019-07-29 16:42:08', '$2y$10$bT0onrI8thkOS0MHZh3hUuikUiMfcUAXdYVLSmQFjgicZmGbyFnXm', '', NULL, '2019-07-29 16:42:08', '2019-07-29 16:42:08'),
+	(50, 'Farhunnisa Handayani', '5Thze85GPw@gmail.com', '2019-07-29 16:42:08', '$2y$10$du2CNcbvpfCpGFkYf/8l2u//dMRf/nXjnDZXHU7nhitFBukML9d5q', '', NULL, '2019-07-29 16:42:08', '2019-07-29 16:42:08'),
+	(51, 'Dr. Hermina Towne Sr.', 'tia27@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'I5exn18hyr', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(52, 'Hoyt Goyette II', 'adavis@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Qyu7I2sMNy', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(53, 'Mellie Hermiston I', 'treutel.rhoda@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'L5YoQipaEt', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(54, 'Ernie Cole PhD', 'tschimmel@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Tzo5xIHVVc', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(55, 'Dr. Mackenzie Halvorson DVM', 'kylie36@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '5QdDp41J9W', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(56, 'Ana Keebler III', 'eliseo.predovic@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'U8HHRhWLmg', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(57, 'Paige Ruecker', 'jeramie.emmerich@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kLfSVG8IgN', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(58, 'Mr. Matt Becker I', 'griffin.lowe@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Sg9BscwuqO', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(59, 'Mr. Nathen Bednar', 'dickinson.kathryn@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'uCE1KX5N5W', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(60, 'Tressie Watsica', 'zsenger@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'L9hH4rgykM', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(61, 'Olga Corkery', 'okuneva.nella@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9jnY45QWZ9', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(62, 'Mr. Trent Willms IV', 'rbotsford@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'nAT9uGtBrA', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(63, 'Miss Trisha Smith', 'makenna61@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WNbggD9dyp', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(64, 'Claud Boyle', 'michel90@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'jvXgihgAxR', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(65, 'Kristian Haag DDS', 'horacio.daniel@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VvE2ONY7fh', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(66, 'Miss Cortney Kirlin', 'shanahan.josie@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'I0CaUwv7Pm', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(67, 'Lowell Ritchie', 'jayce50@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'KHWbaOxJes', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(68, 'Caleb Zboncak Sr.', 'louie90@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'R7HRkbspBH', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(69, 'Ellie Koepp III', 'keeling.carrie@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'MkV38k7D7w', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(70, 'Zita Langosh', 'lakin.kendrick@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'SE0oQlewFw', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(71, 'Prof. Tiffany Wisozk', 'mhoeger@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'OGEIIt8nAl', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(72, 'Gerson Paucek', 'herbert51@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'x3oBcYHYmn', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(73, 'Elyssa Runolfsdottir', 'louisa.armstrong@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9AhbEHMjlf', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(74, 'Matilde Bradtke', 'kaci.braun@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QlNVDltJVc', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(75, 'Dave Muller', 'devin.nikolaus@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'FThEsCnJtB', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(76, 'Macy Koelpin III', 'kihn.eduardo@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'fOfd2goHSP', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(77, 'Raoul Nolan', 'croob@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'd6QA27FneR', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(78, 'Wallace Parker', 'lela10@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8Wm1ycQ3cs', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(79, 'Prof. Cecile Hoeger', 'pagac.brandt@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Uk8HEVa7Rb', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(80, 'Nova Rogahn', 'theodore.spencer@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'FsoP8ua6Sc', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(81, 'Leopold Waelchi', 'haskell60@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QILotw6PEl', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(82, 'Ms. Sharon McCullough', 'glover.joey@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9MSredEQlh', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(83, 'Vella Keebler', 'caesar.bernier@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'E13YsRukuu', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(84, 'Mrs. Delta O\'Conner', 'dickens.brody@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'mxDVbAS7oD', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(85, 'Prof. Nyasia Turcotte V', 'quinten25@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'vR2BGwUue7', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(86, 'Edwina Rowe', 'naomi.orn@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WJT2pLqBH2', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(87, 'Zackery Quigley', 'arnulfo.gleichner@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'zANVfzOGwS', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(88, 'Mariela Jerde', 'darrel.bruen@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'UssLJsraX0', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(89, 'Maud Ondricka', 'larkin.daisha@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QYDzj3NlwH', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(90, 'Gennaro Kunde', 'webert@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '0bqMNdwVYs', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(91, 'Samara Hayes', 'richie.mante@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Z6kUlyMAIj', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(92, 'Nasir Oberbrunner', 'carrie.thompson@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'K3BEVFGqvl', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(93, 'Abby Tremblay', 'bridie19@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Ck6UuesCQS', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(94, 'Lesley Larson', 'littel.freddy@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '719xDfKKPu', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(95, 'Alta Roberts', 'larkin.yadira@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'NniJut537Z', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(96, 'Mr. Demarco Ledner', 'lubowitz.lou@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'yaMpWv3mai', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(97, 'Miss Kitty Collier PhD', 'david66@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Rbmx4Os3EI', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(98, 'Hyman Fahey', 'padberg.dorothy@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '1FpLJbGvOk', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(99, 'Darby Gutkowski', 'annabel22@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VIYPEjeNt1', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(100, 'Gabe Beer', 'progahn@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '1PvRdIerWP', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(101, 'Crystal Welch', 'bosco.leopold@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'VYPJ7uIDVM', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(102, 'Tre Wyman', 'barrows.vida@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'r6GXqEClCi', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(103, 'Dr. Dylan Doyle', 'bryon.stark@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'UGYtSKzFo6', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(104, 'Carmen Smith', 'ohansen@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gWbpeRx83c', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(105, 'Shyann Hettinger', 'valentine.hills@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QYHk0OPZAR', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(106, 'Dr. Jaime Turcotte Sr.', 'damien.bashirian@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'MfDXLES8O3', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(107, 'Kiana Kuphal', 'nzieme@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'OQfGboeEQd', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(108, 'Lawrence Block', 'kasey.dooley@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'jeds26fbve', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(109, 'Mrs. Dandre McGlynn III', 'sanford.luciano@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kozwjxj9bw', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(110, 'David Bartell', 'joana.bode@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'x4EWGoFgCa', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(111, 'Mr. Delaney Mayer', 'awhite@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'jjbWBYVNWX', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(112, 'Dr. Anjali Weissnat', 'schmeler.magali@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'pO2w00JwEZ', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(113, 'Alysson Nitzsche', 'mbernier@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'OO5b7zCoDB', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(114, 'Joshuah VonRueden', 'runolfsson.kathleen@example.org', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EN7cKRjH0c', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(115, 'Jake McDermott V', 'tdoyle@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'DAT1m155SA', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(116, 'Weldon White', 'vrutherford@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EQKtgB73E4', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(117, 'Miss Iliana Dickinson III', 'elise08@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'YpnWyfpPza', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(118, 'Mr. Floyd Marquardt I', 'glover.vance@example.com', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'xJCMd8AcKf', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(119, 'Fernando Bruen', 'pearline.hamill@example.net', '2019-08-14 14:14:05', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '2p0pLcSXCZ', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(120, 'Wade Christiansen', 'oconner.warren@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'EgfYryznO7', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(121, 'Prof. Angus Reichert', 'hspinka@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kwnsgwOpsz', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(122, 'Fritz Harris Jr.', 'josiane13@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '0a2tSutl5i', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(123, 'Delpha Reynolds', 'webster22@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WoAkdixTOw', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(124, 'Misty Baumbach', 'kobe64@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gSc9t1jbEX', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(125, 'Mrs. Retta Tremblay IV', 'marques.morar@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'GFYyZdPz9G', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(126, 'Ashleigh Smith', 'strosin.aida@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gFGoVl0a2r', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(127, 'Mr. Cullen Kemmer', 'trey14@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QxQjn1COqH', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(128, 'Miss Susie Reichert', 'ihudson@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'rNGWCNbCFU', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(129, 'Dr. Royal Schuster II', 'kay.romaguera@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gZ3bxnsbyx', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(130, 'Miss Priscilla Okuneva', 'zmckenzie@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'lApXMhi6XM', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(131, 'Prof. Delilah Lakin Jr.', 'emmerich.jana@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'AWLSka65xl', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(132, 'Katelynn McClure', 'hessel.hortense@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'oPeBB9XD49', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(133, 'Dr. Sandy Hintz', 'titus94@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'R10czm7Crj', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(134, 'Rickie Fahey I', 'damien.padberg@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '79rvoSonRL', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(135, 'Dario Konopelski', 'kdubuque@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'ASSMDxgKDx', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(136, 'Rosalee Russel', 'dante.hoeger@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'n1JL35WSE3', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(137, 'Mitchel Grant IV', 'stamm.demetris@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9JKKEkIsfy', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(138, 'Prof. Jesse Luettgen MD', 'timothy18@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'IA207qFHM5', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(139, 'Idell Effertz', 'nnikolaus@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'kQ7qYQsUuh', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(140, 'Liliana O\'Connell MD', 'kemmer.candido@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'fPjUvOhDSt', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(141, 'Johann Barrows', 'dickinson.mary@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'WRvEytYqyR', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(142, 'Tyreek Marquardt', 'jordy39@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'f6Un6uhAUT', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(143, 'Bella Herman', 'ghayes@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'QbobcRsWvr', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(144, 'Mr. Alfonso Gleason I', 'mckayla82@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'MO2bJGWhD0', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(145, 'Mr. Freddie Mante', 'cielo.sanford@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'yflyJdob8b', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(146, 'Prof. Jess Gulgowski', 'rey05@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'mnEcoEZSuH', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(147, 'Rossie Swift I', 'pdooley@example.net', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'NlAYMOStA9', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(148, 'Viviane Rippin MD', 'cordia.lind@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'r8pL8d6sZA', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(149, 'Margarete Tillman MD', 'niko.hand@example.com', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'bvFRZsPvwG', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06'),
+	(150, 'Ms. Emilia Lehner', 'martina.hilpert@example.org', '2019-08-14 14:14:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'r3AzOQKMo0', NULL, '2019-08-14 14:14:06', '2019-08-14 14:14:06');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
