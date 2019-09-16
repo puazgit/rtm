@@ -38,8 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function test()
+    public function departemen ()
     {
-        return "test user";
+        return $this->belongTo('App\Departemen');
     }
 }
