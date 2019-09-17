@@ -90,9 +90,10 @@ class MasalahController extends Controller
         // return $masalah;
     }
 
-    public function edit($id)
+    public function edit(Uraian $masalah)
     {
-        return view('masalah/edit', compact('id'));
+        $departemen = Departemen::all();
+        return view('masalah.edit', compact('masalah', 'departemen'));
     }
 
     public function update(Request $request, $id)
@@ -135,4 +136,15 @@ class MasalahController extends Controller
     //     }
     //     return \Response::json($formatted_departemen);
     // }
+
+    public function loadDepartemen()
+    {
+        // $departemen = DB::table('tb_departemen')->select('id', 'departemen')->get();
+        $departemen = Departemen::all();
+        $formatted_departemen = [];
+        foreach ($departemen as $departemen) {
+            $formatted_departemen[] = ['id' => $departemen->id, 'text' => $departemen->departemen];
+        }
+        return \Response::json($formatted_departemen);
+    }
 }

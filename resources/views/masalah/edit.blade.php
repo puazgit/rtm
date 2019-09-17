@@ -14,8 +14,9 @@
 <!-- END PAGE HEADER-->
 <div class="row">
     <div class="col-md-12">
-        <form class="form-horizontal form-row-seperated" action="{{route ('masalah.store')}}" method="post"
+        <form class="form-horizontal form-row-seperated" action="{{route ('masalah.index')}}/{{$masalah->id}}" method="POST"
             spellcheck="false">
+            @method('PATCH')
             @csrf
             <div class="portlet light bordered">
                 <div class="portlet-title">
@@ -56,12 +57,23 @@
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input type="checkbox" name="chk_pic" value="1" id="chk_pic" {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
+                                        <label class="col-md-2 control-label">Status</label>
+                                        <div class="col-md-10">
+                                            <input type="checkbox" name="status" class="make-switch" value="1"
+                                                {{ old('status') ? 'checked="checked"' : '' ?? $masalah->status }} checked
+                                                data-on-text="Open" checked data-off-text="Close" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
+                                                type="checkbox" name="chk_pic" value="1" id="chk_pic"
+                                                {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
                                                 multiple>
                                                 @foreach ($departemen as $departemen)
-                                        <option value="{{ $departemen->id }}">{{ $departemen->departemen }}</option> 
+                                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -70,11 +82,13 @@
                                         <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="uraian"
-                                                id="uraian">{{ old('uraian') }} </textarea>
+                                                id="uraian">{{ old('uraian') ?? $masalah->uraian }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox" name="chk_grafik" value="1" id="chk_grafik" {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
+                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox"
+                                                name="chk_grafik" value="1" id="chk_grafik"
+                                                {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <div class="portlet light bordered">
                                                 <div class="portlet-body">
@@ -101,7 +115,7 @@
                                         <label class="col-md-2 control-label">Analisis / Penyebab</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="analisis"
-                                                id="analisis">{{ old('analisis') }} </textarea>
+                                                id="analisis">{{ old('analisis') ?? $masalah->analisis }} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -117,14 +131,14 @@
                                         <label class="col-md-2 control-label">Uraian</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="r_uraian"
-                                                id="r_uraian">{{ old('r_uraian') }} </textarea>
+                                                id="r_uraian">{{ old('r_uraian') ?? $masalah->r_uraian }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Target Waktu</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="r_target"
-                                                id="r_target">{{ old('r_target') }} </textarea>
+                                                id="r_target">{{ old('r_target') ?? $masalah->r_target }} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -140,29 +154,21 @@
                                         <label class="col-md-2 control-label">Tindak Lanjut</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="tindak"
-                                                id="tindak">{{ old('tindak') }} </textarea>
+                                                id="tindak">{{ old('tindak') ?? $masalah->tindak }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Rencana Penyelesaian</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="p_rencana"
-                                                id="p_rencana">{{ old('p_rencana') }} </textarea>
+                                                id="p_rencana">{{ old('p_rencana') ?? $masalah->p_rencana }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="p_realisasi"
-                                                id="p_realisasi">{{ old('p_realisasi') }} </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Status</label>
-                                        <div class="col-md-10">
-                                            <input type="checkbox" name="status" class="make-switch" value="1"
-                                                {{ old('status') ? 'checked="checked"' : '' }} checked
-                                                data-on-text="Open" checked data-off-text="Close" />
+                                                id="p_realisasi">{{ old('p_realisasi') ?? $masalah->p_realisasi }} </textarea>
                                         </div>
                                     </div>
                                 </div>

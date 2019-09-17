@@ -128,7 +128,7 @@
               { data: 'status', name: 'status'},//8
 	    ],
         columnDefs:[
-                {targets:[5,6,7], visible:false, className: 'noVis'},
+                {targets:[4,5,6,7], visible:false, className: 'noVis'},
 				{
 					targets:8,
 					render:function(a,e,t,n){
@@ -136,7 +136,7 @@
 							1:{title:"open",class:"label-danger"},
 							0:{title:"close",class:"label-success"},
 						};
-						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><br></br><a href="+s[a].class+"><span class=\"label label-sm label-default\">detail</span></a>"
+						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><br></br><a href=\"{{url('masalah')}}/"+t.id+"\" target=\"_blank\"><span class=\"label label-sm label-default\">detail</span></a>"
 					}
 				},
             ],

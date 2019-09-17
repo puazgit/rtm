@@ -55,7 +55,7 @@ class RtmController extends Controller
         return view('rtm.show', compact('rtm'));
     }
     
-    public function edit($rtm)
+    public function edit(Rtm $rtm)
     {
         return view('rtm.edit', compact('rtm'));
     }

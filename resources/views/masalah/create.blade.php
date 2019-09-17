@@ -20,17 +20,17 @@
             spellcheck="false">
             @csrf
             <div class="portlet light bordered">
-                    <div class="portlet-title">
-                            <div class="caption font-red-sunglo">
-                                <i class="icon-settings font-red-sunglo"></i>
-                                <span class="caption-subject bold uppercase"> CREATE PERMASALAHAN</span>
-                            </div>
-                            <div class="tools"><button type="button" name="back" class="btn btn-secondary-outline">
-                                    <i class="fa fa-angle-left"></i> Back</button>
-                                <button type="submit" name="btn_save" class="btn btn-success">
-                                    <i class="fa fa-check"></i> Save</button></div>
-                            
-                        </div>
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <i class="icon-settings font-red-sunglo"></i>
+                        <span class="caption-subject bold uppercase"> CREATE PERMASALAHAN</span>
+                    </div>
+                    <div class="tools"><button type="button" name="back" class="btn btn-secondary-outline">
+                            <i class="fa fa-angle-left"></i> Back</button>
+                        <button type="submit" name="btn_save" class="btn btn-success">
+                            <i class="fa fa-check"></i> Save</button></div>
+
+                </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -57,12 +57,25 @@
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input type="checkbox" name="chk_pic" value="1" id="chk_pic" {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
+                                        <label class="col-md-2 control-label">Status</label>
+                                        <div class="col-md-10">
+                                            {{-- <input type="checkbox" id="status" name="status" class="make-switch" checked data-on-text="Open"
+                                                            checked data-off-text="Close"> --}}
+                                            <input type="checkbox" name="status" class="make-switch" value="1"
+                                                {{ old('status') ? 'checked="checked"' : '' }} checked
+                                                data-on-text="Open" checked data-off-text="Close" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
+                                                type="checkbox" name="chk_pic" value="1" id="chk_pic"
+                                                {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
                                                 multiple>
                                                 @foreach ($departemen as $departemen)
-                                        <option value="{{ $departemen->id }}">{{ $departemen->departemen }}</option> 
+                                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -75,7 +88,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox" name="chk_grafik" value="1" id="chk_grafik" {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
+                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox"
+                                                name="chk_grafik" value="1" id="chk_grafik"
+                                                {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <div class="portlet light bordered">
                                                 <div class="portlet-body">
@@ -158,16 +173,7 @@
                                                 id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Status</label>
-                                        <div class="col-md-10">
-                                            {{-- <input type="checkbox" id="status" name="status" class="make-switch" checked data-on-text="Open"
-                                                    checked data-off-text="Close"> --}}
-                                            <input type="checkbox" name="status" class="make-switch" value="1"
-                                                {{ old('status') ? 'checked="checked"' : '' }} checked
-                                                data-on-text="Open" checked data-off-text="Close" />
-                                        </div>
-                                    </div>
+
                                     {{-- <button type="submit" class="btn btn-primary">Save</button> --}}
                                 </div>
                             </div>
