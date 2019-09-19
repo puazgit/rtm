@@ -60,155 +60,173 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
-                                <div class="form-body">
+                                <div @role('unit') id="noEdit" @endrole class="form-body">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Status</label>
-                                        {{-- <div class="col-md-10">
-                                            <input type="checkbox" {{ $masalah->status == 0 ? '' : ' checked=checked' }}
-                                                id="status" name="status" class="make-switch"
-                                                value="{{$masalah->status}}" data-on-text="Open" data-off-text="Close">
-                                        </div> --}}
                                         <div class="col-md-10">
+                                            <input @role('unit') readonly @endrole type="checkbox"
+                                                {{ $masalah->status == 0 ? '' : ' checked=checked' }} id="status"
+                                                name="status" class="make-switch" value="{{$masalah->status}}"
+                                                data-on-text="Open" data-off-text="Close">
+                                        </div>
+                                        {{-- <div class="col-md-10">
                                             <select name="" id="" class="form-control">
                                             @foreach ($masalah->ActiveOptions() as $activeOptionsKey => $activeOptionsValue)
-                                            <option value="{{ $activeOptionsKey }}" {{ $masalah->status == $activeOptionsKey ? ' selected' : '' }}>{{$activeOptionsValue}}</option>
-                                            {{-- <input type="checkbox" id="status" name="status" class="make-switch" value="{{$activeOptionsKey}}" {{ $masalah->status == $activeOptionsValue ? '' : ' checked=checked' }} data-on-text="Open" data-off-text="Close"> --}}
-                                            @endforeach
-                                            </select>
-                                            </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
-                                                type="checkbox" name="chk_pic" value="1" id="chk_pic"
-                                                checked /></label></label>
-                                        <div class="col-md-10">
-                                            <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
-                                                multiple>
-                                                @foreach ($rpic as $rpic)
-                                                    @foreach ($departemen as $item)
-                                                        @if($rpic == $item->id)
-                                                            <option value="{{ $item->id }}" selected \>{{ $item->departemen }}
+                                            <option value="{{ $activeOptionsKey }}"
+                                        {{ $masalah->status == $activeOptionsKey ? ' selected' : '' }}>{{$activeOptionsValue}}
+                                        </option>
+                                        @endforeach
+                                        </select>
+                                    </div> --}}
+                                </div>
+                                <div class="form-group">
+                                    <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
+                                            @role('unit') disabled @endrole type="checkbox" name="chk_pic" value="1"
+                                            id="chk_pic" checked /></label></label>
+                                    <div class="col-md-10">
+                                        <select @role('unit') disabled @endrole id="r_pic"
+                                            class="form-control select2-multiple" name="r_pic[]" multiple>
+                                            @foreach ($rpic as $rpic)
+                                                @foreach ($departemen as $item)
+                                                    @if($item->id == $rpic)
+                                                        <option value="{{ $item->id }}" selected \>{{ $item->departemen }}
+                                                        </option>
+                                                    @else
+                                                        <option value="{{ $item->id }}" \>{{ $item->departemen }}
                                                             </option>
-                                                        @endif
-                                                    @endforeach
+                                                    @endif
                                                 @endforeach
-                                            </select>
-                                        </div>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Uraian Permasalahan</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="uraian"
-                                                id="uraian">{{ old('uraian') ?? $masalah->uraian }} </textarea>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Uraian Permasalahan</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="uraian"
+                                            id="uraian">{{ old('uraian') ?? $masalah->uraian }} </textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
-                                                name="chk_grafik" value="1" id="chk_grafik" 
-                                        {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
-                                        <div class="col-md-10">
-                                            <div class="portlet light bordered">
-                                                <div class="portlet-body">
-                                                    <div class="table-scrollable">
-                                                        <table class="table table-hover" id="user_table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th> Target </th>
-                                                                    <th> Realisasi </th>
-                                                                    <th> Competitor </th>
-                                                                    <th style="width:100px"> Tahun </th>
-                                                                    <th> Aksi </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="bodyprogres1">
-                                                                @foreach($masalah->progres as $progres)
-                                                                    <tr>
-                                                                            <td><input type="text" disabled name="target[]" class="form-control" value="{{$progres->target}}" /></td>
-                                                                            <td><input type="text" disabled name="realisasi[]" class="form-control" value="{{$progres->realisasi}}" /></td>
-                                                                            <td><input type="text" disabled name="competitor[]" class="form-control" value="{{$progres->competitor}}" /></td>
-                                                                            <td><select name="year[]" disabled class="form-control"><option>{{$progres->year}}</option></td>
-                                                                            {{-- <td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td> --}}
-                                                                        </tr>
-                                                                @endforeach
-                                                                <tbody id="bodyprogres">
-                                                                    </tbody>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Analisis / Penyebab</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="analisis"
+                                            id="analisis">{{ old('analisis') ?? $masalah->analisis }} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_2">
+                            <div class="alert alert-success margin-bottom-10">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <i class="fa fa-warning fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
+                            </div>
+                            <div @role('unit') id="noEdit" @endrole class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Uraian</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="r_uraian"
+                                            id="r_uraian">{{ old('r_uraian') ?? $masalah->r_uraian }} </textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Target Waktu</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="r_target"
+                                            id="r_target">{{ old('r_target') ?? $masalah->r_target }} </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_3">
+                            <div class="alert alert-success margin-bottom-10">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
+                                        name="chk_grafik" value="1" id="chk_grafik"
+                                        {{ count($masalah->progres) > 0 ? ' checked' : ''}} @role('unit') disabled
+                                        @endrole /></label></label>
+                                <div class="col-md-10">
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-body">
+                                            <div class="table-scrollable">
+                                                <table class="table table-hover" id="user_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th> Target </th>
+                                                            <th> Realisasi </th>
+                                                            <th> Competitor </th>
+                                                            <th style="width:100px"> Tahun </th>
+                                                            <th> Aksi </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="bodyprogres1">
+                                                        @foreach($masalah->progres as $progres)
+                                                        <tr>
+                                                            <td><input type="text" @role('unit') disabled @endrole
+                                                                    name="target[]" class="form-control"
+                                                                    value="{{$progres->target}}" /></td>
+                                                            <td><input type="text" @role('unit') disabled @endrole
+                                                                    name="realisasi[]" class="form-control"
+                                                                    value="{{$progres->realisasi}}" /></td>
+                                                            <td><input type="text" @role('unit') disabled @endrole
+                                                                    name="competitor[]" class="form-control"
+                                                                    value="{{$progres->competitor}}" /></td>
+                                                            <td><select name="year[]" @role('unit') disabled @endrole
+                                                                    class="form-control">
+                                                                    <option>{{$progres->year}}</option>
+                                                            </td>
+                                                            {{-- <td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td> --}}
+                                                        </tr>
+                                                        @endforeach
+                                                    <tbody id="bodyprogres">
+                                                    </tbody>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Analisis / Penyebab</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="analisis"
-                                                id="analisis">{{ old('analisis') ?? $masalah->analisis }} </textarea>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="tab_2">
-                                <div class="alert alert-success margin-bottom-10">
-                                    <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true"></button>
-                                    <i class="fa fa-warning fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
-                                </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Uraian</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="r_uraian"
-                                                id="r_uraian">{{ old('r_uraian') ?? $masalah->r_uraian }} </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Target Waktu</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="r_target"
-                                                id="r_target">{{ old('r_target') ?? $masalah->r_target }} </textarea>
-                                        </div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Tindak Lanjut</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="tindak"
+                                            id="tindak">{{ old('tindak') ?? $masalah->tindak }} </textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="tab_3">
-                                <div class="alert alert-success margin-bottom-10">
-                                    <button type="button" class="close" data-dismiss="alert"
-                                        aria-hidden="true"></button>
-                                    <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Rencana Penyelesaian</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="p_rencana"
+                                            id="p_rencana">{{ old('p_rencana') ?? $masalah->p_rencana }} </textarea>
+                                    </div>
                                 </div>
-                                <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Tindak Lanjut</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="tindak"
-                                                id="tindak">{{ old('tindak') ?? $masalah->tindak }} </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Rencana Penyelesaian</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="p_rencana"
-                                                id="p_rencana">{{ old('p_rencana') ?? $masalah->p_rencana }} </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="p_realisasi"
-                                                id="p_realisasi">{{ old('p_realisasi') ?? $masalah->p_realisasi }} </textarea>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
+                                    <div class="col-md-10">
+                                        <textarea class="form-control summernote" name="p_realisasi"
+                                            id="p_realisasi">{{ old('p_realisasi') ?? $masalah->p_realisasi }} </textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
-        </form>
     </div>
+    </form>
 </div>
+</div>
+<style>
+    #noEdit {
+        pointer-events: none;
+    }
+</style>
 @endsection
 
 @section('js')
@@ -273,7 +291,7 @@
 </script>
 
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
     
             var count = 1;
     
@@ -306,6 +324,6 @@
                 $(this).closest("tr").remove();
             });
         });
-    </script>
+</script>
 
 @endsection

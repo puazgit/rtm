@@ -13,7 +13,7 @@ class Uraian extends Model
         'status', 'target', 'realisasi', 'competitor'
     ];
     // protected $status = ['status' => 'boolean'];
-    protected $attributes = ['status' => 1];
+    // protected $attributes = ['status' => 1];
     
     public function rtm ()
     {
@@ -25,9 +25,9 @@ class Uraian extends Model
         return $this->hasMany('App\Progres');
     }
 
-    public function getActiveAttribute($attribute){
-        return $this->activeOptions()[$attribute];
-    }
+    // public function getActiveAttribute($attribute){
+    //     return $this->activeOptions()[$attribute];
+    // }
 
     public function activeOptions(){
         return [
