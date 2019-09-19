@@ -13,9 +13,14 @@
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
 <div class="row">
+    @php
+    $r_pic=$masalah->r_pic;
+    $rpic=explode(",",$r_pic);
+    @endphp
+
     <div class="col-md-12">
-        <form class="form-horizontal form-row-seperated" action="{{route ('masalah.index')}}/{{$masalah->id}}" method="POST"
-            spellcheck="false">
+        <form class="form-horizontal form-row-seperated" action="{{route ('masalah.index')}}/{{$masalah->id}}"
+            method="POST" spellcheck="false">
             @method('PATCH')
             @csrf
             <div class="portlet light bordered">
@@ -58,22 +63,34 @@
                                 <div class="form-body">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Status</label>
+                                        {{-- <div class="col-md-10">
+                                            <input type="checkbox" {{ $masalah->status == 0 ? '' : ' checked=checked' }}
+                                                id="status" name="status" class="make-switch"
+                                                value="{{$masalah->status}}" data-on-text="Open" data-off-text="Close">
+                                        </div> --}}
                                         <div class="col-md-10">
-                                            <input type="checkbox" name="status" class="make-switch" value="1"
-                                                {{ old('status') ? 'checked="checked"' : '' ?? $masalah->status }} checked
-                                                data-on-text="Open" checked data-off-text="Close" />
-                                        </div>
+                                            <select name="" id="" class="form-control">
+                                            @foreach ($masalah->ActiveOptions() as $activeOptionsKey => $activeOptionsValue)
+                                            <option value="{{ $activeOptionsKey }}" {{ $masalah->status == $activeOptionsKey ? ' selected' : '' }}>{{$activeOptionsValue}}</option>
+                                            {{-- <input type="checkbox" id="status" name="status" class="make-switch" value="{{$activeOptionsKey}}" {{ $masalah->status == $activeOptionsValue ? '' : ' checked=checked' }} data-on-text="Open" data-off-text="Close"> --}}
+                                            @endforeach
+                                            </select>
+                                            </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
                                                 type="checkbox" name="chk_pic" value="1" id="chk_pic"
-                                                {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
+                                                checked /></label></label>
                                         <div class="col-md-10">
                                             <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
                                                 multiple>
-                                                @foreach ($departemen as $departemen)
-                                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
-                                                </option>
+                                                @foreach ($rpic as $rpic)
+                                                    @foreach ($departemen as $item)
+                                                        @if($rpic == $item->id)
+                                                            <option value="{{ $item->id }}" selected \>{{ $item->departemen }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
                                                 @endforeach
                                             </select>
                                         </div>
@@ -86,9 +103,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox"
-                                                name="chk_grafik" value="1" id="chk_grafik"
-                                                {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
+                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
+                                                name="chk_grafik" value="1" id="chk_grafik" 
+                                        {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <div class="portlet light bordered">
                                                 <div class="portlet-body">
@@ -103,7 +120,18 @@
                                                                     <th> Aksi </th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id="bodyprogres1">
+                                                                @foreach($masalah->progres as $progres)
+                                                                    <tr>
+                                                                            <td><input type="text" disabled name="target[]" class="form-control" value="{{$progres->target}}" /></td>
+                                                                            <td><input type="text" disabled name="realisasi[]" class="form-control" value="{{$progres->realisasi}}" /></td>
+                                                                            <td><input type="text" disabled name="competitor[]" class="form-control" value="{{$progres->competitor}}" /></td>
+                                                                            <td><select name="year[]" disabled class="form-control"><option>{{$progres->year}}</option></td>
+                                                                            {{-- <td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td> --}}
+                                                                        </tr>
+                                                                @endforeach
+                                                                <tbody id="bodyprogres">
+                                                                    </tbody>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -245,35 +273,39 @@
 </script>
 
 <script>
-    $(document).ready(function () {
-        var count = 1;
-        dynamic_field(count);
-        function dynamic_field(number) {
-            html = '<tr>';
-            html += '<td><input type="text" name="target[]" class="form-control" /></td>';
-            html += '<td><input type="text" name="realisasi[]" class="form-control" /></td>';
-            html += '<td><input type="text" name="competitor[]" class="form-control" /></td>';
-            html += '<td><select name="year[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
-            if (number > 1) {
-                html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
-                $('tbody').append(html);
-            }
-            else {
-                html += '<td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td></tr>';
-                $('tbody').html(html);
-            }
-        }
-
-        $(document).on('click', '#add', function () {
-            count++;
+        $(document).ready(function () {
+    
+            var count = 1;
+    
             dynamic_field(count);
+    
+            function dynamic_field(number) {
+                html = '<tr>';
+                html += '<td><input type="text" name="target[]" class="form-control" /></td>';
+                html += '<td><input type="text" name="realisasi[]" class="form-control" /></td>';
+                html += '<td><input type="text" name="competitor[]" class="form-control" /></td>';
+                html += '<td><select name="year[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
+                // html += '<td><input type="hidden" name="uraian_id[]" class="form-control" /></td>';
+                if (number > 1) {
+                    html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
+                    $('tbody#bodyprogres').append(html);
+                }
+                else {
+                    html += '<td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td></tr>';
+                    $('tbody#bodyprogres').html(html);
+                }
+            }
+    
+            $(document).on('click', '#add', function () {
+                count++;
+                dynamic_field(count);
+            });
+    
+            $(document).on('click', '.remove', function () {
+                count--;
+                $(this).closest("tr").remove();
+            });
         });
-
-        $(document).on('click', '.remove', function () {
-            count--;
-            $(this).closest("tr").remove();
-        });
-    });
-</script>
+    </script>
 
 @endsection

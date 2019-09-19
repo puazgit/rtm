@@ -90,10 +90,12 @@ class MasalahController extends Controller
         // return $masalah;
     }
 
-    public function edit(Uraian $masalah)
+    public function edit($masalah)
     {
         $departemen = Departemen::all();
+        $masalah = Uraian::with('progres')->findOrfail($masalah);
         return view('masalah.edit', compact('masalah', 'departemen'));
+        // return $masalah;
     }
 
     public function update(Request $request, $id)
@@ -147,4 +149,8 @@ class MasalahController extends Controller
         }
         return \Response::json($formatted_departemen);
     }
+
+    // public function getActiveAttribute(){
+    //     return Uraian
+    // }
 }

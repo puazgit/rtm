@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?<input type="checkbox"
+                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
                                                 name="chk_grafik" value="1" id="chk_grafik"
                                                 {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
@@ -310,9 +310,6 @@
             count--;
             $(this).closest("tr").remove();
         });
-
-
-
     });
 </script>
 
