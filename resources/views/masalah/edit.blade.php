@@ -146,8 +146,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
                                         name="chk_grafik" value="1" id="chk_grafik"
-                                        {{ count($masalah->progres) > 0 ? ' checked' : ''}} @role('unit') disabled
-                                        @endrole /></label></label>
+                                        {{ count($masalah->progres) > 0 ? ' checked disabled' : ''}} /></label></label>
                                 <div class="col-md-10">
                                     <div class="portlet light bordered">
                                         <div class="portlet-body">
