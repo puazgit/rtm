@@ -21,19 +21,17 @@
     <div class="col-md-12">
         <form class="form-horizontal form-row-seperated" action="{{route ('masalah.index')}}/{{$masalah->id}}"
             method="POST" spellcheck="false">
-            @method('PATCH')
             @csrf
+            @method('PATCH')
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption font-red-sunglo">
                         <i class="icon-settings font-red-sunglo"></i>
                         <span class="caption-subject bold uppercase">EDIT PERMASALAHAN</span>
                     </div>
-                    <div class="actions btn-set">
-                        <button type="button" name="back" class="btn btn-secondary-outline">
-                            <i class="fa fa-angle-left"></i> Back</button>
-                        <button type="submit" name="btn_save" class="btn btn-success">
-                            <i class="fa fa-check"></i> Save</button>
+                    <div class="actions">
+                            <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
+                            <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
                     </div>
                 </div>
                 @if ($errors->any())
@@ -164,16 +162,16 @@
                                                     <tbody id="bodyprogres1">
                                                         @foreach($masalah->progres as $progres)
                                                         <tr>
-                                                            <td><input type="text" @role('unit') disabled @endrole
+                                                            <td><input type="text" disabled
                                                                     name="target[]" class="form-control"
                                                                     value="{{$progres->target}}" /></td>
-                                                            <td><input type="text" @role('unit') disabled @endrole
+                                                            <td><input type="text" disabled
                                                                     name="realisasi[]" class="form-control"
                                                                     value="{{$progres->realisasi}}" /></td>
-                                                            <td><input type="text" @role('unit') disabled @endrole
+                                                            <td><input type="text" disabled
                                                                     name="competitor[]" class="form-control"
                                                                     value="{{$progres->competitor}}" /></td>
-                                                            <td><select name="year[]" @role('unit') disabled @endrole
+                                                            <td><select name="year[]" disabled
                                                                     class="form-control">
                                                                     <option>{{$progres->year}}</option>
                                                             </td>

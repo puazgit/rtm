@@ -41,8 +41,8 @@ class MasalahController extends Controller
         
         $validatedData = $request->validate([
             'r_pic' => 'required','uraian' => 'required','analisis' => 'required',
-            'r_uraian' => 'required','r_target' => 'required','tindak' => 'required',
-            'p_rencana' => 'required','p_realisasi' => 'required','status' => 'required'
+            'r_uraian' => 'required','r_target' => 'required','tindak' => '',
+            'p_rencana' => '','p_realisasi' => '','status' => 'required'
             ]);
 
             if ($request->has('chk_grafik')) {
@@ -100,7 +100,19 @@ class MasalahController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        if ($request->has('r_pic')) {
+            $request['r_pic'] = implode(',', $request->r_pic);
+        }
+        $request['status'] = $request->has('status');
+        
+        $validatedData = $request->validate([
+            'r_pic' => 'required','uraian' => 'required','analisis' => 'required',
+            'r_uraian' => 'required','r_target' => 'required','tindak' => '',
+            'p_rencana' => '','p_realisasi' => '','status' => 'required'
+            ]);
+            Uraian::whereId($id)->update($validatedData);
+
+        return redirect('masalah/');
     }
 
     public function destroy($id)

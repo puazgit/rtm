@@ -25,13 +25,19 @@
 </h3>
 <div class="row">
     <div class="col-md-12">
+    <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
+        @csrf
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
                     <span class="caption-subject bold uppercase"> CREATE RTM</span>
                 </div>
-                <div class="tools"> </div>
+                <div class="tools">                                        
+                    <button type="submit" class="btn btn-circle green">Submit</button>
+                    <button type="button"
+                        class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                </div>
                 
             </div>
             <div class="portlet-body">
@@ -44,8 +50,6 @@
                         </ul>
                     </div><br />
                     @endif
-                <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
-                    @csrf
                     <input type="hidden" id="h_uraian" name="h_uraian[]" />
                     <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
@@ -131,7 +135,7 @@
                             <div class="tab-pane" id="tab_1">
                                 <div class="portlet box green">
                                     <div class="portlet-title">
-                                        <div class="caption">Pilih Uraian
+                                        <div class="caption">Pilih Uraian Permasalahan
                                             <i class="fa fa-gift"></i> </div>
                                         <div class="tools">
                                             <a href="javascript:;" class="collapse"> </a>
@@ -195,7 +199,7 @@
                                         <!-- END FORM-->
                                     </div>
                                 </div>
-                                <div class="form-actions">
+                                {{-- <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-10 col-md-12">
                                             <button type="submit" class="btn btn-circle green">Submit</button>
@@ -203,13 +207,14 @@
                                                 class="btn btn-circle grey-salsa btn-outline">Cancel</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
-                </form>
+
             </div>
         </div>
+    </form>
     </div>
 </div>
 @endsection

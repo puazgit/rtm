@@ -10,7 +10,7 @@
 
 @section('content')
 <h3 class="page-title">
-    <small>&nbsp;</small>
+    <small></small>
 </h3>
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
@@ -25,10 +25,10 @@
                         <i class="icon-settings font-red-sunglo"></i>
                         <span class="caption-subject bold uppercase"> CREATE PERMASALAHAN</span>
                     </div>
-                    <div class="tools"><button type="button" name="back" class="btn btn-secondary-outline">
-                            <i class="fa fa-angle-left"></i> Back</button>
-                        <button type="submit" name="btn_save" class="btn btn-success">
-                            <i class="fa fa-check"></i> Save</button></div>
+                    <div class="tools">
+                            <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
+                            <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                    </div>
 
                 </div>
                 @if ($errors->any())
@@ -41,16 +41,16 @@
                 </div><br />
                 @endif
                 <div class="portlet-body form">
-                    <div class="tabbable-bordered">
+                    <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#tab_1" data-toggle="tab"> Isian 1 </a>
+                                <a href="#tab_1" data-toggle="tab"> Form 1 </a>
                             </li>
                             <li>
-                                <a href="#tab_2" data-toggle="tab"> Isian 2 </a>
+                                <a href="#tab_2" data-toggle="tab"> Form 2 </a>
                             </li>
                             <li>
-                                <a href="#tab_3" data-toggle="tab"> Isian 3 </a>
+                                <a href="#tab_3" data-toggle="tab"> Form 3 </a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -85,32 +85,6 @@
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="uraian"
                                                 id="uraian">{{ old('uraian') }} </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
-                                                name="chk_grafik" value="1" id="chk_grafik"
-                                                {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
-                                        <div class="col-md-10">
-                                            <div class="portlet light bordered">
-                                                <div class="portlet-body">
-                                                    <div class="table-scrollable">
-                                                        <table class="table table-hover" id="progres_table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th> Target </th>
-                                                                    <th> Realisasi </th>
-                                                                    <th> Competitor </th>
-                                                                    <th style="width:100px"> Tahun </th>
-                                                                    <th> Aksi </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="bodyprogres">
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -152,6 +126,31 @@
                                     <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
                                 </div>
                                 <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox" name="chk_grafik" value="1"
+                                                id="chk_grafik" {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
+                                        <div class="col-md-10">
+                                            <div class="portlet light bordered">
+                                                <div class="portlet-body">
+                                                    <div class="table-scrollable">
+                                                        <table class="table table-hover" id="progres_table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th> Target </th>
+                                                                    <th> Realisasi </th>
+                                                                    <th> Competitor </th>
+                                                                    <th style="width:100px"> Tahun </th>
+                                                                    <th> Aksi </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="bodyprogres">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tindak Lanjut</label>
                                         <div class="col-md-10">
@@ -202,26 +201,23 @@
     var ComponentsEditors=function()
                 {
                     var s=function(){
-                        $("#uraian").summernote(
-                            {height:200}
-                        )
-                        $("#analisis").summernote(
-                            {height:300}
-                        )
-                        $("#r_uraian").summernote(
-                            {height:300}
-                        )
-                        $("#r_target").summernote(
-                            {height:300}
-                        )
-                        $("#tindak").summernote(
-                            {height:300}
-                        )
-                        $("#p_rencana").summernote(
-                            {height:300}
-                        )
-                        $("#p_realisasi").summernote(
-                            {height:300}
+                        $('.summernote').summernote(
+                            {
+                                toolbar: [
+                                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                                    ['fontname', ['fontname']],
+                                    ['para', ['ul', 'ol', 'paragraph']],
+                                    ['insert',['table']],
+                                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                                    ['fontsize', ['fontsize']],
+                                    ['color', ['color']],
+                                    ['height', ['height']]
+                                ],
+                                height:200,
+                                disableDragAndDrop: true,
+                                codeviewFilter: false,
+                                codeviewIframeFilter: true,
+                            }
                         )
                     };
                     return{
