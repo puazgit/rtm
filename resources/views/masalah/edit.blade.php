@@ -83,17 +83,15 @@
                                             id="chk_pic" checked /></label></label>
                                     <div class="col-md-10">
                                         <select @role('unit') disabled @endrole id="r_pic"
-                                            class="form-control select2-multiple" name="r_pic[]" multiple>
-                                            @foreach ($rpic as $rpic)
-                                                @foreach ($departemen as $item)
-                                                    @if($item->id == $rpic)
-                                                        <option value="{{ $item->id }}" selected \>{{ $item->departemen }}
-                                                        </option>
-                                                    @else
-                                                        <option value="{{ $item->id }}" \>{{ $item->departemen }}
-                                                            </option>
-                                                    @endif
-                                                @endforeach
+                                            class="form-control select2-multiple" name="r_pic[]" multiple>                             
+                                            @foreach ($departemen as $item)
+                                                @if(in_array($item->id, $rpic))
+                                                    <option value="{{ $item->id }}" selected \>{{ $item->departemen }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $item->id }}" \>{{ $item->departemen }}
+                                                    </option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
