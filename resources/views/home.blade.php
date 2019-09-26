@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-{{-- <div class="row">
+<div class="row">
     <div class="col-md-12 col-sm-6">
         <div class="portlet light bordered">
             <div class="portlet-title">
@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 <div class="clearfix"></div>
 @endsection
 
@@ -140,19 +140,19 @@
         "year2004": 1.7,
         "year2005": 3.1
     }, {
-        "country": "Kinerja Proses dan Kesesuaian Produk",
+        "country": "Kinerja Proses </br>dan Kesesuaian Produk",
         "year2004": 2.8,
         "year2005": 2.9
     }, {
-        "country": "Status Tindakan Koreksi dan Tindakan Pencegahan",
+        "country": "Status Tindakan Koreksi</br> dan Tindakan Pencegahan",
         "year2004": 2.6,
         "year2005": 2.3
     }, {
-        "country": "Perubahan yang dapat mempengaruhi pada sistem manajemen",
+        "country": "Perubahan yang dapat</br> mempengaruhi pada </br>sistem manajemen",
         "year2004": 1.4,
         "year2005": 2.1
     }, {
-        "country": "Brazil",
+        "country": "Saran Untuk </br>Koreksi",
         "year2004": 2.6,
         "year2005": 4.9
     }];

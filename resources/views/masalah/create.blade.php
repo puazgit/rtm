@@ -44,13 +44,13 @@
                     <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#tab_1" data-toggle="tab"> Form 1 </a>
+                                <a href="#tab_1" data-toggle="tab"> URAIAN PERMASALAHAN </a>
                             </li>
                             <li>
-                                <a href="#tab_2" data-toggle="tab"> Form 2 </a>
+                                <a href="#tab_2" data-toggle="tab"> RENCANA PENYELESAIAN </a>
                             </li>
                             <li>
-                                <a href="#tab_3" data-toggle="tab"> Form 3 </a>
+                                <a href="#tab_3" data-toggle="tab"> EVALUASI PROGRES TINDAKLANJUT </a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -78,6 +78,13 @@
                                                 </option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Ket. PIC</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control summernote" name="ket"
+                                                id="ket">{{ old('ket') }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">

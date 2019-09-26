@@ -40,7 +40,7 @@ class MasalahController extends Controller
         $request['status'] = $request->has('status');
         
         $validatedData = $request->validate([
-            'r_pic' => 'required','uraian' => 'required','analisis' => 'required',
+            'r_pic' => 'required','ket' => '','uraian' => 'required','analisis' => '',
             'r_uraian' => 'required','r_target' => 'required','tindak' => '',
             'p_rencana' => '','p_realisasi' => '','status' => 'required'
             ]);
@@ -110,8 +110,43 @@ class MasalahController extends Controller
             'r_uraian' => 'required','r_target' => 'required','tindak' => '',
             'p_rencana' => '','p_realisasi' => '','status' => 'required'
             ]);
-            Uraian::whereId($id)->update($validatedData);
 
+            if ($request->has('chk_grafik')) {
+                $rules = array(
+                    'target.*'  => 'required',
+                    'realisasi.*'  => 'required',
+                    'competitor.*'  => 'required',
+                    'year.*'  => 'required'
+                   );
+                   $error = Validator::make($request->all(), $rules);
+                    if($error->fails()){
+                        return redirect('masalah/create')
+                                ->withErrors($error)
+                                ->withInput();
+                    }else{
+                        $uraian = Uraian::whereId($id)->update($validatedData);
+                        $uraian = Uraian::find($id);
+            
+                        $target = $request->target;
+                        $realisasi = $request->realisasi;
+                        $competitor = $request->competitor;
+                        $year = $request->year;
+                            
+                            for($count = 0; $count < count($target); $count++){
+                                $container[] = new Progres(array(
+                                    'target' => $target[$count],
+                                    'realisasi' => $realisasi[$count],
+                                    'competitor' => $competitor[$count],
+                                    'year' => $year[$count]
+                                ));
+                            }
+                        $uraian->progres()->saveMany($container);
+                    }
+            }else{
+                Uraian::whereId($id)->update($validatedData);
+            }
+
+            // Uraian::whereId($id)->update($validatedData);
         return redirect('masalah/');
     }
 

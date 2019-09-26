@@ -47,13 +47,13 @@
                     <div class="tabbable-bordered">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a href="#tab_1" data-toggle="tab"> Isian 1 </a>
+                                <a href="#tab_1" data-toggle="tab"> URAIAN PERMASALAHAN </a>
                             </li>
                             <li>
-                                <a href="#tab_2" data-toggle="tab"> Isian 2 </a>
+                                <a href="#tab_2" data-toggle="tab"> RENCANA PENYELESAIAN</a>
                             </li>
                             <li>
-                                <a href="#tab_3" data-toggle="tab"> Isian 3 </a>
+                                <a href="#tab_3" data-toggle="tab"> EVALUASI PROGRES TINDAKLANJUT </a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -82,7 +82,7 @@
                                             @role('unit') disabled @endrole type="checkbox" name="chk_pic" value="1"
                                             id="chk_pic" checked /></label></label>
                                     <div class="col-md-10">
-                                        <select @role('unit') disabled @endrole id="r_pic"
+                                        <select @role('unit') readonly @endrole id="r_pic"
                                             class="form-control select2-multiple" name="r_pic[]" multiple>                             
                                             @foreach ($departemen as $item)
                                                 @if(in_array($item->id, $rpic))
@@ -110,9 +110,9 @@
                                             id="analisis">{{ old('analisis') ?? $masalah->analisis }} </textarea>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  
                         </div>
-                        <div class="tab-pane" id="tab_2">
+                        <div class="tab-pane" id="tab_2">   
                             <div class="alert alert-success margin-bottom-10">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
                                 <i class="fa fa-warning fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
@@ -142,7 +142,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox"
                                         name="chk_grafik" value="1" id="chk_grafik"
-                                        {{ count($masalah->progres) > 0 ? ' checked disabled' : ''}} /></label></label>
+                                        {{ count($masalah->progres) > 0 ? ' checked' : ''}} /></label>
                                 <div class="col-md-10">
                                     <div class="portlet light bordered">
                                         <div class="portlet-body">
