@@ -59,6 +59,7 @@
                                 width="100%" id="uraian-table">
                                 <thead>
                                     <tr>
+                                        <th rowspan="2">ID</th>
                                         <th rowspan="2">Uraian Permasalahan Bidang</th>
                                         <th rowspan="2">Analisis /Penyebab</th>
                                         <th colspan="3" style="text-align: center;">
@@ -101,36 +102,37 @@
         serverSide: true,   
 	    ajax: "{{route ('rtm.jsonrtm')}}/{{$rtm->id}}",
         columns: [
+              { data: 'id', name: 'id'},//0
               { data: 'uraian', name: 'uraian', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//0
+              },//1
               { data: 'analisis', name: 'analisis', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//1
+              },//2
               { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//2
+              },//3
               { data: 'r_target', name: 'r_target', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//3
+              },//4
               { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//4
+              },//5
               { data: 'tindak', name: 'tindak', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//5
+              },//6
               { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//6
+              },//7
               { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
                 {var decodedText = $("<p/>").html(data).text(); return ''+decodedText+''}
-              },//7
-              { data: 'status', name: 'status'},//8
+              },//8
+              { data: 'status', name: 'status'},//9
 	    ],
         columnDefs:[
-                {targets:[4,5,6,7], visible:false, className: 'noVis'},
+                {targets:[5,6,7,8], visible:false, className: 'noVis'},
 				{
-					targets:8,
+					targets:9,
 					render:function(a,e,t,n){
 						var s={
 							1:{title:"open",class:"label-danger"},
