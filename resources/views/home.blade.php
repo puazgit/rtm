@@ -24,7 +24,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="6"></span></div>
+                    <span data-counter="counterup" data-value="{{ $total_rtm }}"></span></div>
                 <div class="desc"> Total RTM</div>
             </div>
             <a class="more" href="javascript:;"> View more

@@ -15,7 +15,7 @@
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase">PERMASALAHAN</span>
+                    <span class="caption-subject bold uppercase">PERMASALAHAN {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
                 </div>
                 <div class="tools">
                     {{-- <a href="{{route ('masalah.create')}}"><button type="submit" name="btn_add" class="btn btn-success">

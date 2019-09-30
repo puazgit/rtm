@@ -50,7 +50,7 @@
                         </ul>
                     </div><br />
                     @endif
-                    <input type="hidden" id="h_uraian" name="h_uraian[]" />
+                    <input type="text" id="h_uraian" name="h_uraian[]" />
                     <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
                             <li class="active">
@@ -157,7 +157,7 @@
                                                                 width="100%" id="headrtm-table">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th rowspan="2" style="text-align: center;">Aksi
+                                                                        <th rowspan="2" style="text-align: center;">ID
                                                                         </th>
                                                                         <th rowspan="2">Uraian Permasalahan Bidang</th>
                                                                         <th rowspan="2">Analisis /Penyebab</th>
@@ -229,101 +229,112 @@
 
 @section('script')
 <script>
-    $(function() {
-	    $('#headrtm-table').DataTable({
-		    dom: 'Blfrtip',
-          buttons: [
-          ],
-	    //   processing: true,
-          serverSide: true,
-          order:[[0,"desc"]],    
-	      ajax: "{{route ('masalah.jsonuraian')}}",
-	      columns: [
-              { data: 'id', name: 'id'},//0
-              { data: 'uraian', name: 'uraian', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //1
-              { data: 'analisis', name: 'analisis', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //2
-              { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //3
-              { data: 'r_target', name: 'r_target', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //4
-              { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //5
-              { data: 'tindak', name: 'tindak', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //6
-              { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //7
-              { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //8
-              { data: 'status', name: 'status'}, //9
-              { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
-                { 
-                    return ''+data+''
-                }
-              }//10
-	      ],
-	      columnDefs:[
-                {targets:[0,3,4,5,6,7,8,10], visible:false, className: 'noVis'},
-				{
-					targets:9,
-					render:function(a,e,t,n){
-						var s={
-							1:{title:"open",class:"label-danger"},
-							0:{title:"close",class:"label-success"},
-						};
-						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
-					}
-				},
+    $(document).ready(function() {
+        data_permasalahan();
+        function data_permasalahan() {
+            var tablekuw = $('#headrtm-table').DataTable({
+            tabIndex : -1,
+            dom: 'Blfrtip',
+            pageLength: 10,
+            responsive:!0,
+            buttons: [
             ],
-				 select: {
-				 	style : 'multi',
-				 },
-	    });
-        var tablekuw = $('#headrtm-table').DataTable();
-        $('#headrtm-table tbody').on('click', 'tr', function () {
+            //   processing: true,
+            // serverSide: true,
+            order:[[0,"desc"]],    
+            ajax: {
+                url: "{{route ('masalah.jsonuraian')}}",
+                type : 'GET',
+            },
+            columns: [
+                { data: 'id', name: 'id'},//0
+                { data: 'uraian', name: 'uraian', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //1
+                { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //2
+                { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //3
+                { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //4
+                { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //5
+                { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //6
+                { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //7
+                { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //8
+                { data: 'status', name: 'status'}, //9
+                { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
+                    { 
+                        return ''+data+''
+                    }
+                }//10
+            ],
+            columnDefs:[
+                    {targets:[3,4,5,6,7,8,10], visible:false, className: 'noVis'},
+                    {
+                        targets:9,
+                        render:function(a,e,t,n){
+                            var s={
+                                1:{title:"open",class:"label-danger"},
+                                0:{title:"close",class:"label-success"},
+                            };
+                            return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+                        }
+                    },
+                ],
+                    select: {
+                        style : 'multi',
+                    },
+            });
+
+            $('#headrtm-table tbody').on('click', 'tr', function () {
+            // $(this).toggleClass('selected');
             var ids = $.map(tablekuw.rows('.selected').data(), function (item){
 					return item.id;
 				});
                 var uraians = $.map(tablekuw.rows('.selected').data(), function (item){
-					return '<option value="'+item.id+'" selected>'+item.uraian+'</option>';
+					return '<option value="'+item.id+'" selected>'+item.id+'</option>';
 				});
-                $('#c_uraian').html(uraians).trigger('change');
                 $('#h_uraian').val(ids);
+                $('#c_uraian').html(uraians).trigger('change');
 			});
-        $('#c_uraian').select2({placeholder: "Uraian ...", allowClear: true});
+        }
+
+        $('#c_uraian').select2({placeholder: "Uraian ...", allowClear: false});
       });
 </script>
 @endsection

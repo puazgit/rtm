@@ -27,7 +27,7 @@
                     </div>
                     <div class="tools">
                             <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
-                            <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                            <button type="button" onclick="history.back()" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
                     </div>
 
                 </div>
@@ -56,37 +56,6 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Status</label>
-                                        <div class="col-md-10">
-                                            {{-- <input type="checkbox" id="status" name="status" class="make-switch" checked data-on-text="Open"
-                                                            checked data-off-text="Close"> --}}
-                                            <input type="checkbox" name="status" class="make-switch" value="1"
-                                                {{ old('status') ? 'checked="checked"' : '' }} checked
-                                                data-on-text="Open" checked data-off-text="Close" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
-                                                type="checkbox" name="chk_pic" value="1" id="chk_pic"
-                                                {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label></label>
-                                        <div class="col-md-10">
-                                            <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
-                                                multiple>
-                                                @foreach ($departemen as $departemen)
-                                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Ket. PIC</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="ket"
-                                                id="ket">{{ old('ket') }} </textarea>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                         <div class="col-md-10">
@@ -124,6 +93,35 @@
                                                 id="r_target">{{ old('r_target') }} </textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)
+                                            <input type="checkbox" name="chk_pic" value="1" id="chk_pic"
+                                                {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label>
+                                        <div class="col-md-10">
+                                            <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
+                                                multiple="multiple">
+                                                @foreach ($departemen as $departemen)
+                                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="col-md-2 control-label">Ket. PIC</label>
+                                            <div class="col-md-10">
+                                                <textarea class="form-control summernote" name="ket"
+                                                    id="ket">{{ old('ket') }} </textarea>
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                            <label class="col-md-2 control-label">Status</label>
+                                            <div class="col-md-10">
+                                                <input type="checkbox" name="status" class="make-switch" value="1"
+                                                    {{ old('status') ? 'checked="checked"' : '' }} checked
+                                                    data-on-text="Open" checked data-off-text="Close" />
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab_3">
@@ -218,7 +216,8 @@
                                     ['font', ['strikethrough', 'superscript', 'subscript']],
                                     ['fontsize', ['fontsize']],
                                     ['color', ['color']],
-                                    ['height', ['height']]
+                                    ['height', ['height']],
+                                    ['view', ['fullscreen','help']]
                                 ],
                                 height:200,
                                 disableDragAndDrop: true,
@@ -238,7 +237,7 @@
                     ComponentsEditors.init()
                 });
 
-                $('#r_pic').select2({placeholder: "Pilih PIC ...",allowClear: true});
+                $('#r_pic').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
                 
                 // $('#r_pic').select2({
                 //     placeholder: "Pilih PIC ...",

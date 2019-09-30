@@ -30,8 +30,8 @@
                         <span class="caption-subject bold uppercase">EDIT PERMASALAHAN</span>
                     </div>
                     <div class="actions">
-                            <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
-                            <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                            <button type="submit" id="btn_save" class="btn btn-circle green">Update</button>
+                            <button type="button" onclick="history.back()" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
                     </div>
                 </div>
                 @if ($errors->any())

@@ -39,7 +39,7 @@
                 </li> --}}
                 <?php
                 $role = auth()->user()->getRoleNames()->first();
-                $menu_0 = \App\Menu::where([['is_parent',0],['role', 'like', '%' . $role . '%']])->get();
+                $menu_0 = \App\Menu::where([['is_parent',0],['role', 'like', '%' . $role . '%']])->orderBy('urutan')->get();
                 foreach ($menu_0 as $key) {
                   get_menu_child($key->id);
                 }

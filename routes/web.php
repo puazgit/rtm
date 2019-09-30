@@ -13,6 +13,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+// Route::resource('home', 'HomeController');
 Route::get('/user','UserController@index');
 Route::get('user/create','UserController@create')->middleware('role:admin');
 Route::get('user/json','UserController@json');

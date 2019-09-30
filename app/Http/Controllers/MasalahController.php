@@ -157,7 +157,16 @@ class MasalahController extends Controller
 
     public function jsonuraian (){
         $row = Auth::user()->departemen_id;
-        $json = Uraian::with('rtm')->where('r_pic', 'like', '%'.$row.'%')->latest()->get();
+        if(Auth::user()->name == 'Administrator'){
+            $json = Uraian::with('rtm')->latest()->get();
+        }else{
+            $json = Uraian::with('rtm')
+            ->where('r_pic', '=', $row)
+            ->orWhere('r_pic', 'like', '%,'.$row.',%')
+            ->orWhere('r_pic', 'like', $row.',%')
+            ->orWhere('r_pic', 'like', '%,'.$row)
+            ->latest()->get();
+        }
         return Datatables::of($json)->make(true);
     }
 
