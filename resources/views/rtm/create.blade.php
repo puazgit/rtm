@@ -50,7 +50,7 @@
                         </ul>
                     </div><br />
                     @endif
-                    <input type="text" id="h_uraian" name="h_uraian[]" />
+                    <input type="hidden" id="h_uraian" name="h_uraian[]" />
                     <div class="tabbable-line boxless tabbable-reversed">
                         <ul class="nav nav-tabs">
                             <li class="active">

@@ -39,7 +39,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="87">0</span>
+                    <span data-counter="counterup" data-value="{{ $total_uraian }}">0</span>
                 </div>
                 <div class="desc"> Total Permasalahan </div>
             </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="47">0</span>
+                    <span data-counter="counterup" data-value="{{ $masalah_close }}">0</span>
                 </div>
                 <div class="desc"> Permasalahan Close </div>
             </div>
@@ -71,7 +71,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="40">0</span></div>
+                    <span data-counter="counterup" data-value="{{ $masalah_open }}">0</span></div>
                 <div class="desc"> Permasalahan Open</div>
             </div>
             <a class="more" href="javascript:;"> View more
@@ -87,7 +87,7 @@
                 <div class="caption">
                     <i class="icon-bar-chart font-green"></i>
                     <span class="caption-subject font-green bold">Evaluasi Progres RTM sebelumnya</span>
-                    <span class="caption-helper">3 bulanan</span>
+                    <span class="caption-helper"></span>
                 </div>
                 <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
@@ -128,58 +128,40 @@
     var chart = am4core.create("chartdiv", am4charts.XYChart);
     
     // Add percent sign to all numbers
-    chart.numberFormatter.numberFormat = "#.3'%'";
+    chart.numberFormatter.numberFormat = "#";
     
     // Add data
-    chart.data = [{
-        "country": "Hasil Audit",
-        "year2004": 3.5,
-        "year2005": 4.2
-    }, {
-        "country": "Umpan Balik (Feedback) Pelanggan",
-        "year2004": 1.7,
-        "year2005": 3.1
-    }, {
-        "country": "Kinerja Proses </br>dan Kesesuaian Produk",
-        "year2004": 2.8,
-        "year2005": 2.9
-    }, {
-        "country": "Status Tindakan Koreksi</br> dan Tindakan Pencegahan",
-        "year2004": 2.6,
-        "year2005": 2.3
-    }, {
-        "country": "Perubahan yang dapat</br> mempengaruhi pada </br>sistem manajemen",
-        "year2004": 1.4,
-        "year2005": 2.1
-    }, {
-        "country": "Saran Untuk </br>Koreksi",
-        "year2004": 2.6,
-        "year2005": 4.9
-    }];
+    chart.data = [
+        {"rtm": "RTM 73","s_open": 15,"s_close": 20},
+        {"rtm": "RTM 72","s_open": 35,"s_close": 20},
+        {"rtm": "RTM 71","s_open": 12,"s_close": 18},
+        {"rtm": "RTM 70","s_open": 13,"s_close": 20},
+        {"rtm": "RTM 69","s_open": 23,"s_close": 15}];
     
     // Create axes
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "country";
+    categoryAxis.dataFields.category = "rtm";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
     
     var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = "GDP growth rate";
+    valueAxis.title.text = "";
+    valueAxis.title.text = "Permasalahan";
     valueAxis.title.fontWeight = 800;
     
     // Create series
     var series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueY = "year2004";
-    series.dataFields.categoryX = "country";
+    series.dataFields.valueY = "s_open";
+    series.dataFields.categoryX = "rtm";
     series.clustered = false;
-    series.tooltipText = "GDP grow in {categoryX} (2004): [bold]{valueY}[/]";
+    series.tooltipText = "Status Open {categoryX} : [bold]{valueY}[/]";
     
     var series2 = chart.series.push(new am4charts.ColumnSeries());
-    series2.dataFields.valueY = "year2005";
-    series2.dataFields.categoryX = "country";
+    series2.dataFields.valueY = "s_close";
+    series2.dataFields.categoryX = "rtm";
     series2.clustered = false;
     series2.columns.template.width = am4core.percent(50);
-    series2.tooltipText = "GDP grow in {categoryX} (2005): [bold]{valueY}[/]";
+    series2.tooltipText = "Status Close {categoryX} : [bold]{valueY}[/]";
     
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.lineX.disabled = true;
