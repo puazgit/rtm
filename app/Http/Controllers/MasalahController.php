@@ -155,10 +155,30 @@ class MasalahController extends Controller
         //
     }
 
-    public function jsonuraian (){
+    // public function jsonuraian (){
+    //     $row = Auth::user()->departemen_id;
+    //     if(Auth::user()->name == 'Administrator'){
+    //         $json = Uraian::with('rtm')->latest()->get();
+    //     }else{
+    //         $json = Uraian::with('rtm')
+    //         ->where('r_pic', '=', $row)
+    //         ->orWhere('r_pic', 'like', '%,'.$row.',%')
+    //         ->orWhere('r_pic', 'like', $row.',%')
+    //         ->orWhere('r_pic', 'like', '%,'.$row)
+    //         ->latest()->get();
+    //     }
+    //     return Datatables::of($json)->make(true);
+    // }
+
+    public function jsonuraian (Request $request){
+        $m_rtm= $request->input('m_rtm');
+
         $row = Auth::user()->departemen_id;
         if(Auth::user()->name == 'Administrator'){
-            $json = Uraian::with('rtm')->latest()->get();
+            // $json = Uraian::with('rtm')->where('rtm_ke', '=', '74')->get();
+            $json = Uraian::with(['rtm' => function($query) {
+                return $query->where('rtm_id', '=', '3');
+            }])->get();
         }else{
             $json = Uraian::with('rtm')
             ->where('r_pic', '=', $row)

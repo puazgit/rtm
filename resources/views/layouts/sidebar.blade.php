@@ -44,7 +44,7 @@
                   get_menu_child($key->id);
                 }
                 function get_menu_child($parent=0){
-                    $menu = \App\Menu::where('is_parent',$parent)->get();
+                    $menu = \App\Menu::where('is_parent',$parent)->orderBy('urutan')->get();
                     $parent = \App\Menu::where('id',$parent)->first();
                 ?>
 

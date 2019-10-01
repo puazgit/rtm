@@ -1,14 +1,34 @@
 @extends('layouts/wrapper')
 
 @section('css')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/datatables.min.css')}}" rel="stylesheet" type="text/css" />
-{{-- <link href="{{asset ('assets/css/datatables.bootstrap.css')}}" rel="stylesheet" type="text/css" /> --}}
 @endsection
 
 @section('content')
 <h3 class="page-title">
 </h3>
 <div class="row">
+        <div class="col-md-12">
+                <div class="portlet light bordered">
+                        <div class="m-portlet__body">
+
+                                <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
+                                        <div class="col-lg-4">
+                                                <label>Pilih RTM :</label>
+                                            @php $rtm=App\Rtm::get('rtm_ke') @endphp
+                                            <select id="m_rtm" class="form-control select2-multiple" name="m_rtm" >
+                                                    @foreach ($rtm as $rtm)
+                                                    <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}</option>
+                                                    @endforeach
+                                            </select>
+                                    </div>
+
+                                </div>	  	               
+                            </div>
+                </div>
+        </div>
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
@@ -100,8 +120,8 @@
     <!-- /.modal-dialog -->
 </div>
 @endsection
-
 @section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <!-- BEGIN: Page Vendor JS-->
 <script src="{{asset ('assets/js/datatable.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.min.js')}}" type="text/javascript"></script>
@@ -129,239 +149,263 @@
 
 @section('script')
 <script>
-    $(function() {
-	    $('#table-masalah').DataTable({
-		dom: 'lBfrtip',
-        buttons: [
-              {
-                text: 'Add +',
-                className:"btn btn-square green btn-success",
-                    action: function ( e, dt, node, config ) {
-                        window.location = '{{route ('masalah.create')}}';
-                        // alert( 'Button activated' );
-                    }
+// $(document).ready(function() {
+//     $('#m_rtm').select2().on('select2:select', function(e) {
+//         var dataprob = e.params.data.text;
+//     });
+// });
+
+$(document).ready(function() {
+    load_data();
+
+    $('#m_rtm').select2().on('select2:select', function(e) {
+        var	m_rtm = e.params.data.text;
+        load_data(m_rtm);
+    });
+
+    function load_data(m_rtm){
+        var	m_rtm = $('#m_rtm').val();
+
+        var tablekuw = $('#table-masalah').DataTable({
+		    dom: 'lBfrtip',
+            buttons: [
+                {
+                    text: 'Add +',
+                    className:"btn btn-square green btn-success",
+                        action: function ( e, dt, node, config ) {
+                            window.location = '{{route ('masalah.create')}}';
+                            // alert( 'Button activated' );
+                        }
                 },
                 {
-					extend: "colvis",
-                    text: "Show",
-                    className: "btn btn-square green btn-success"
-                	// columns: ':not(.noVis)',
-				},  
+                        extend: "colvis",
+                        text: "Show",
+                        className: "btn btn-square green btn-success"
+                        // columns: ':not(.noVis)',
+                },  
                 {
-                    extend:"pdf",
-                    className:"btn btn-square green btn-success"
-                }
-          ],
-	    //   processing: true,
-          serverSide: true,
-          order:[[10,"desc"]],    
-	      ajax: "{{route ('masalah.jsonuraian')}}",
-	      columns: [
-              { data: 'uraian', name: 'uraian', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //0
-              { data: 'analisis', name: 'analisis', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //1
-              { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //2
-              { data: 'r_target', name: 'r_target', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //3
-              { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //4
-              { data: 'tindak', name: 'tindak', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //5
-              { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //6
-              { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
-                {
-                    var decodedText = $("<p/>").html(data).text(); 
-                    return ''+decodedText+''
-                }
-              }, //7
-              { data: 'status', name: 'status'}, //8
-              { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
-                { 
-                    return ''+data+''
-                }
-              
-              },//9
-              { data: 'id', name: 'id'}//10
-	      ],
-	      columnDefs:[
-                {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
-				{
-					targets:8,
-					render:function(a,e,t,n){
-						var s={
-							1:{title:"open",class:"label-danger"},
-							0:{title:"close",class:"label-success"},
-						};
-						return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
-					}
-				},
-                {
-                        targets:10,
-                        orderable:!1,
-                        title:"aksi",
-                        render:function(data, type, row){
-                        return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('masalah.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('masalah.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
-                        "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
-                        }
+                        extend:"pdf",
+                        className:"btn btn-square green btn-success"
                 }
             ],
-	    });
+            serverSide: true,
+            order:[[10,"desc"]],    
+            ajax: {
+                url : "{{route ('masalah.jsonuraian')}}",
+                data: "{m_rtm:m_rtm}",
+                // dataSrc: ""
+            },
+            columns: [
+                { data: 'uraian', name: 'uraian', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //0
+                { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //1
+                { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //2
+                { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //3
+                { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //4
+                { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //5
+                { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //6
+                { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //7
+                { data: 'status', name: 'status'}, //8
+                { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
+                    { 
+                        return ''+data+''
+                    }
+                
+                },//9
+                { data: 'id', name: 'id'}//10
+            ],
+            columnDefs:[
+                    {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
+                    {
+                        targets:8,
+                        render:function(a,e,t,n){
+                            var s={
+                                1:{title:"open",class:"label-danger"},
+                                0:{title:"close",class:"label-success"},
+                            };
+                            return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+                        }
+                    },
+                    {
+                            targets:10,
+                            orderable:!1,
+                            title:"aksi",
+                            render:function(data, type, row){
+                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('masalah.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('masalah.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
+                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                            }
+                    }
+            ],
+        });
+    }
+});
 
+
+$(function() {
         var tablemasalah = $('#table-masalah').DataTable();
             @role('unit')
             tablemasalah.buttons(0).disable();
             @endrole
             
-$('#draggable').on('show.bs.modal',function (event){
+    $('#draggable').on('show.bs.modal',function (event){
 
-    var button = $(event.relatedTarget);
-    var data_id = button.data().idb;
+        var button = $(event.relatedTarget);
+        var data_id = button.data().idb;
 
-    var ChartsAmcharts = function () {
-    t = function () {
-            var e = AmCharts.makeChart(
+        var ChartsAmcharts = function () {
+            t = function () {
+                    var e = AmCharts.makeChart(
 
-                "chart_2",
-                {
-                    type: "serial",
-                    dataLoader: {
-                        url: "{{route ('progres.json')}}" + '/' + data_id,
-                        format: "json"
-                    },
-                    theme: "light",
-                    fontFamily: "Open Sans",
-                    color: "#888888",
-                    legend:
-                    
-                    {
-                        equalWidths: !1,
-                        useGraphSettings: !0,
-                        valueAlign: "left",
-                        valueWidth: 120
-                    },
-                    valueAxes:
-                        [
-                            {
-                                axisAlpha: 0,
-                                position: "left"
-                            }
-                        ],
-                    graphs:
-                        [
-                            {
-                                alphaField: "alpha",
-                                balloonText: "realisasi:[[value]]",
-                                dashLengthField: "dashLength",
-                                fillAlphas: .7,
-                                legendPeriodValueText: "total: [[value.sum]]",
-                                legendValueText: "[[value]]",
-                                title: "realisasi",
-                                type: "column",
-                                valueField: "realisasi",
-                                valueAxis: "realisasiAxis"
+                        "chart_2",
+                        {
+                            type: "serial",
+                            dataLoader: {
+                                url: "{{route ('progres.json')}}" + '/' + data_id,
+                                format: "json"
                             },
+                            theme: "light",
+                            fontFamily: "Open Sans",
+                            color: "#888888",
+                            legend:
+                            
                             {
-                                bullet: "square",
-                                balloonText: "target:[[value]]",
-                                bulletBorderAlpha: 1,
-                                bulletBorderThickness: 1,
-                                dashLengthField: "dashLength",
-                                legendValueText: "[[value]]",
-                                title: "target",
-                                fillAlphas: 0,
-                                legendPeriodValueText: "total: [[value.sum]]",
-                                valueField: "target",
-                                valueAxis: "targetAxis"
+                                equalWidths: !1,
+                                useGraphSettings: !0,
+                                valueAlign: "left",
+                                valueWidth: 120
                             },
+                            valueAxes:
+                                [
+                                    {
+                                        axisAlpha: 0,
+                                        position: "left"
+                                    }
+                                ],
+                            graphs:
+                                [
+                                    {
+                                        alphaField: "alpha",
+                                        balloonText: "realisasi:[[value]]",
+                                        dashLengthField: "dashLength",
+                                        fillAlphas: .7,
+                                        legendPeriodValueText: "total: [[value.sum]]",
+                                        legendValueText: "[[value]]",
+                                        title: "realisasi",
+                                        type: "column",
+                                        valueField: "realisasi",
+                                        valueAxis: "realisasiAxis"
+                                    },
+                                    {
+                                        bullet: "square",
+                                        balloonText: "target:[[value]]",
+                                        bulletBorderAlpha: 1,
+                                        bulletBorderThickness: 1,
+                                        dashLengthField: "dashLength",
+                                        legendValueText: "[[value]]",
+                                        title: "target",
+                                        fillAlphas: 0,
+                                        legendPeriodValueText: "total: [[value.sum]]",
+                                        valueField: "target",
+                                        valueAxis: "targetAxis"
+                                    },
+                                    {
+                                        balloonText: "competitor:[[value]]",
+                                        bullet: "round",
+                                        bulletBorderAlpha: 1,
+                                        useLineColorForBulletBorder: !0,
+                                        bulletColor: "#FFFFFF",
+                                        dashLengthField: "dashLength",
+                                        labelPosition: "right",
+                                        legendValueText: "[[value]]",
+                                        title: "competitor",
+                                        fillAlphas: 0,
+                                        legendPeriodValueText: "total: [[value.sum]]",
+                                        valueField: "competitor",
+                                        valueAxis: "competitorAxis"
+                                    }
+                                ],
+                            chartCursor:
                             {
-                                balloonText: "competitor:[[value]]",
-                                bullet: "round",
-                                bulletBorderAlpha: 1,
-                                useLineColorForBulletBorder: !0,
-                                bulletColor: "#FFFFFF",
-                                dashLengthField: "dashLength",
-                                labelPosition: "right",
-                                legendValueText: "[[value]]",
-                                title: "competitor",
-                                fillAlphas: 0,
-                                legendPeriodValueText: "total: [[value.sum]]",
-                                valueField: "competitor",
-                                valueAxis: "competitorAxis"
+                                categoryBalloonDateFormat: "DD",
+                                cursorAlpha: .1,
+                                cursorColor: "#000000",
+                                fullWidth: !0,
+                                valueBalloonsEnabled: !1,
+                                zoomable: !1
+                            },
+                            categoryField: "year",
+                            categoryAxis:
+                            {
+                                gridPosition: "start",
+                                axisAlpha: 0, tickLength: 0
+                            },
+                            exportConfig:
+                            {
+                                menuBottom: "20px",
+                                menuRight: "22px",
+                                menuItems:
+                                    [
+                                        {
+                                            icon: App.getGlobalPluginsPath() + "amcharts/amcharts/images/export.png", format: "png"
+                                        }
+                                    ]
                             }
-                        ],
-                    chartCursor:
-                    {
-                        categoryBalloonDateFormat: "DD",
-                        cursorAlpha: .1,
-                        cursorColor: "#000000",
-                        fullWidth: !0,
-                        valueBalloonsEnabled: !1,
-                        zoomable: !1
-                    },
-                    categoryField: "year",
-                    categoryAxis:
-                    {
-                        gridPosition: "start",
-                        axisAlpha: 0, tickLength: 0
-                    },
-                    exportConfig:
-                    {
-                        menuBottom: "20px",
-                        menuRight: "22px",
-                        menuItems:
-                            [
-                                {
-                                    icon: App.getGlobalPluginsPath() + "amcharts/amcharts/images/export.png", format: "png"
-                                }
-                            ]
-                    }
+                        }
+                    );
+                    $("#chart_2").closest(".portlet").find(".fullscreen").click(function () {
+                        e.invalidateSize()
+                    })    
+            };
+            return {
+                init: function () {
+                t()
                 }
-            );
-            $("#chart_2").closest(".portlet").find(".fullscreen").click(function () {
-                e.invalidateSize()
-            })    
-    };
-    return {
-        init: function () {
-        t()
-        }
-    }
-}();
-jQuery(document).ready(function () {
-    ChartsAmcharts.init() 
-});
-});
+            }
+        }();
+        
+        jQuery(document).ready(function () {
+            ChartsAmcharts.init() 
+        });
     });
+});
 </script>
 @endsection
