@@ -21,9 +21,9 @@ Route::get('user/json','UserController@json');
 Route::get('masalah/getActiveAttribute', 'MasalahController@getActiveAttribute');
 Route::get('masalah/progresjson','MasalahController@progresjson')->name('progres.json');
 Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
-Route::get('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.jsonuraian');
 Route::get('masalah/dept', 'MasalahController@loadDepartemen')->name('masalah.dept');
 Route::resource('masalah', 'MasalahController');
+Route::post('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.jsonuraian');
 //RTM Routes
 Route::get('rtm/jsonrtm', 'RtmController@jsonrtm')->name('rtm.jsonrtm');
 Route::get('rtm/jsonrtm/{rtm}', 'RtmController@jsonrtm');

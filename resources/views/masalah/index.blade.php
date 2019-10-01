@@ -10,69 +10,73 @@
 <h3 class="page-title">
 </h3>
 <div class="row">
-        <div class="col-md-12">
-                <div class="portlet light bordered">
-                        <div class="m-portlet__body">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="m-portlet__body">
+                {{-- <form class="form-horizontal form-row-seperated">
+                            @csrf --}}
+                <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
+                    <div class="col-lg-4">
+                        <label>Pilih RTM :</label>
+                        @php $rtm=App\Rtm::get('rtm_ke') @endphp
+                        <select id="m_rtm" class="form-control select2-multiple" name="m_rtm">
+                            @foreach ($rtm as $rtm)
+                            <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                                <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
-                                        <div class="col-lg-4">
-                                                <label>Pilih RTM :</label>
-                                            @php $rtm=App\Rtm::get('rtm_ke') @endphp
-                                            <select id="m_rtm" class="form-control select2-multiple" name="m_rtm" >
-                                                    @foreach ($rtm as $rtm)
-                                                    <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}</option>
-                                                    @endforeach
-                                            </select>
-                                    </div>
-
-                                </div>	  	               
-                            </div>
                 </div>
+                {{-- </form>	  	                --}}
+            </div>
         </div>
+    </div>
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase">PERMASALAHAN {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
+                    <span class="caption-subject bold uppercase">PERMASALAHAN
+                        {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
                 </div>
                 <div class="tools">
-                    {{-- <a href="{{route ('masalah.create')}}"><button type="submit" name="btn_add" class="btn btn-success">
-                            <i class="fa fa-magic"></i> Add</button></a> --}}
+                    {{-- <a href="{{route ('masalah.create')}}"><button type="submit" name="btn_add"
+                        class="btn btn-success">
+                        <i class="fa fa-magic"></i> Add</button></a> --}}
                 </div>
             </div>
             <div class="portlet-body">
                 {{-- <div class="table-responsive"> --}}
-                    <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                        id="table-masalah">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Uraian Permasalahan Bidang</th>
-                                <th rowspan="2">Analisis /Penyebab</th>
-                                <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
-                                {{-- <th rowspan="2">Uraian</th>
+                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
+                    id="table-masalah">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Uraian Permasalahan Bidang</th>
+                            <th rowspan="2">Analisis /Penyebab</th>
+                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                            {{-- <th rowspan="2">Uraian</th>
                             <th rowspan="2">Target Waktu</th>
                             <th rowspan="2">PIC</th> --}}
-                                <th rowspan="2">Tindaklanjut</th>
-                                <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
-                                {{-- <th rowspan="2">Rencana</th>
+                            <th rowspan="2">Tindaklanjut</th>
+                            <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
+                            {{-- <th rowspan="2">Rencana</th>
                             <th rowspan="2">Realisasi</th> --}}
-                                <th rowspan="2">Status</th>
-                                <th rowspan="2">RTM Ke</th>
-                                <th rowspan="2" style="text-align: center;">Aksi</th>
-                            </tr>
-                            <tr>
-                                <th>Uraian</th>
-                                <th>Target Waktu</th>
-                                <th>Penanggung Jawab (PIC)</th>
-                                <th>Rencana</th>
-                                <th>Realisasi</th>
-                                {{-- </tr>
+                            <th rowspan="2">Status</th>
+                            <th rowspan="2">RTM Ke</th>
+                            <th rowspan="2" style="text-align: center;">Aksi</th>
+                        </tr>
+                        <tr>
+                            <th>Uraian</th>
+                            <th>Target Waktu</th>
+                            <th>Penanggung Jawab (PIC)</th>
+                            <th>Rencana</th>
+                            <th>Realisasi</th>
+                            {{-- </tr>
                         <tr> --}}
-                            </tr>
-                        </thead>
-                    </table>
+                        </tr>
+                    </thead>
+                </table>
                 {{-- </div> --}}
             </div>
         </div>
@@ -149,7 +153,7 @@
 
 @section('script')
 <script>
-// $(document).ready(function() {
+    // $(document).ready(function() {
 //     $('#m_rtm').select2().on('select2:select', function(e) {
 //         var dataprob = e.params.data.text;
 //     });
@@ -160,9 +164,9 @@ $(document).ready(function() {
 
     $('#m_rtm').select2().on('select2:select', function(e) {
         var	m_rtm = e.params.data.text;
+        $('#table-masalah').DataTable().destroy();
         load_data(m_rtm);
     });
-
     function load_data(m_rtm){
         var	m_rtm = $('#m_rtm').val();
 
@@ -174,7 +178,6 @@ $(document).ready(function() {
                     className:"btn btn-square green btn-success",
                         action: function ( e, dt, node, config ) {
                             window.location = '{{route ('masalah.create')}}';
-                            // alert( 'Button activated' );
                         }
                 },
                 {
@@ -192,7 +195,8 @@ $(document).ready(function() {
             order:[[10,"desc"]],    
             ajax: {
                 url : "{{route ('masalah.jsonuraian')}}",
-                data: "{m_rtm:m_rtm}",
+                data: {m_rtm:m_rtm},
+                // type: "POST"
                 // dataSrc: ""
             },
             columns: [

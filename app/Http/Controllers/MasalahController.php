@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 
 use Validator;
@@ -170,24 +171,10 @@ class MasalahController extends Controller
     //     return Datatables::of($json)->make(true);
     // }
 
-    public function jsonuraian (Request $request){
-        $m_rtm= $request->input('m_rtm');
-
-        $row = Auth::user()->departemen_id;
-        if(Auth::user()->name == 'Administrator'){
-            // $json = Uraian::with('rtm')->where('rtm_ke', '=', '74')->get();
-            $json = Uraian::with(['rtm' => function($query) {
-                return $query->where('rtm_id', '=', '3');
-            }])->get();
-        }else{
-            $json = Uraian::with('rtm')
-            ->where('r_pic', '=', $row)
-            ->orWhere('r_pic', 'like', '%,'.$row.',%')
-            ->orWhere('r_pic', 'like', $row.',%')
-            ->orWhere('r_pic', 'like', '%,'.$row)
-            ->latest()->get();
-        }
-        return Datatables::of($json)->make(true);
+    public function jsonuraian(Request $request)
+    {
+        $input = $request->all();
+        return response()->json(['success'=>'Got Simple Product Ajax Request.']);
     }
 
     public function progresjson($id = NULL){
