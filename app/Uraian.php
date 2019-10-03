@@ -10,7 +10,7 @@ class Uraian extends Model
     protected $primaryKey = 'id';
     protected $fillable = [ 
         'id', 'r_pic','ket', 'uraian', 'analisis','r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
-        'status', 'target', 'realisasi', 'competitor'
+        'status', 'target', 'realisasi', 'competitor', 'm_rtm'
     ];
     // protected $status = ['status' => 'boolean'];
     // protected $attributes = ['status' => 1];

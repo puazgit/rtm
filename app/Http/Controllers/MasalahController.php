@@ -23,6 +23,7 @@ class MasalahController extends Controller
     }
 
     public function index(){
+        
         return view('masalah.index');
     }
 
@@ -156,26 +157,50 @@ class MasalahController extends Controller
         //
     }
 
-    // public function jsonuraian (){
-    //     $row = Auth::user()->departemen_id;
-    //     if(Auth::user()->name == 'Administrator'){
-    //         $json = Uraian::with('rtm')->latest()->get();
-    //     }else{
-    //         $json = Uraian::with('rtm')
-    //         ->where('r_pic', '=', $row)
-    //         ->orWhere('r_pic', 'like', '%,'.$row.',%')
-    //         ->orWhere('r_pic', 'like', $row.',%')
-    //         ->orWhere('r_pic', 'like', '%,'.$row)
-    //         ->latest()->get();
-    //     }
-    //     return Datatables::of($json)->make(true);
-    // }
+    public function jsonuraian (Request $request){
+        // $term = trim($request->q);
+        // $m_rtm = $request->m_rtm;
+        // $m_rtm = $request->m_rtm;
+        $row = Auth::user()->departemen_id;
+        if(Auth::user()->name == 'Administrator'){
+        $row = Auth::user()->name;
 
-    public function jsonuraian(Request $request)
-    {
-        $input = $request->all();
-        return response()->json(['success'=>'Got Simple Product Ajax Request.']);
+            $method = $request->input('m_rtm');
+            echo $method; 
+            // $m_rtm = $request->m_rtm;
+            // var_dump($m_rtm);
+            // if($request->ajax()){
+            //     if(!empty($request->m_rtm))
+            //     {   
+            //         // $m_rtm = $request->input('m_rtm');
+            //         // $m_rtm = '72';
+            //         // $json = Rtm::where('rtm_ke', '=', '73')->with('Uraian')->latest()->get();
+            //         $json = Uraian::whereHas('rtm', function($query) {$query->where('rtm_ke', '72');})->get();
+                    
+            //         // $json = Uraian::with('rtm')->latest()->get();
+            //     }else{
+            //         $json = Uraian::whereHas('rtm', function($query) {$query->where('rtm_ke', '72');})->get();
+            //         // $json = Uraian::with('rtm');
+            //     }
+            // }
+                $json = Uraian::with('rtm');
+        }else{
+            $json = Uraian::with('rtm')
+            ->where('r_pic', '=', $row)
+            ->orWhere('r_pic', 'like', '%,'.$row.',%')
+            ->orWhere('r_pic', 'like', $row.',%')
+            ->orWhere('r_pic', 'like', '%,'.$row)
+            ->latest()->get();
+        }
+        
+        // return Datatables::of($json)->make(true);
     }
+
+    // public function jsonuraian(Request $request)
+    // {
+    //     $input = $request->all();
+    //     return response()->json(['success'=>'Got Simple Product Ajax Request.']);
+    // }
 
     public function progresjson($id = NULL){
         $json = DB::table('tb_progres')

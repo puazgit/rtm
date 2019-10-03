@@ -13,21 +13,23 @@
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="m-portlet__body">
-                {{-- <form class="form-horizontal form-row-seperated">
-                            @csrf --}}
+                <form class="form-horizontal form-row-seperated" type="POST">
+                            @csrf
                 <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
                     <div class="col-lg-4">
                         <label>Pilih RTM :</label>
                         @php $rtm=App\Rtm::get('rtm_ke') @endphp
-                        <select id="m_rtm" class="form-control select2-multiple" name="m_rtm">
-                            @foreach ($rtm as $rtm)
-                            <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}</option>
-                            @endforeach
-                        </select>
+                        <select id="m_rtm" class="form-control select2" name="m_rtm">
+                            {{-- @foreach ($rtm as $rtm) --}}
+                            {{-- <option value="{{ $rtm->rtm_ke }}">{{ $rtm->rtm_ke }}</option> --}}
+                            <option value="72" selected >72</option>
+                            {{-- @endforeach --}}
+                            </select>
+                        {{-- <input type="text" id="m_rtm" name="m_rtm" value="72"> --}}
                     </div>
 
                 </div>
-                {{-- </form>	  	                --}}
+                </form>	  	               
             </div>
         </div>
     </div>
@@ -76,6 +78,17 @@
                         <tr> --}}
                         </tr>
                     </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <td>
+                            <select data-colomn="0" class="form-control filter-select">
+                                <option value="">Select Please ...</option>
+                                {{-- @foreach ($collection as $item)
+                                    
+                                @endforeach --}}
+                            </select>
+                        </td>
+                    </tfoot>
                 </table>
                 {{-- </div> --}}
             </div>
@@ -152,112 +165,119 @@
 @endsection
 
 @section('script')
+
 <script>
-    // $(document).ready(function() {
-//     $('#m_rtm').select2().on('select2:select', function(e) {
-//         var dataprob = e.params.data.text;
-//     });
-// });
 
 $(document).ready(function() {
-    load_data();
-
-    $('#m_rtm').select2().on('select2:select', function(e) {
-        var	m_rtm = e.params.data.text;
-        $('#table-masalah').DataTable().destroy();
-        load_data(m_rtm);
+    $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
     });
-    function load_data(m_rtm){
-        var	m_rtm = $('#m_rtm').val();
+		load_data();
 
-        var tablekuw = $('#table-masalah').DataTable({
-		    dom: 'lBfrtip',
-            buttons: [
-                {
+		$('#m_rtm').change(function() {
+			var m_rtm = $("input[name=m_rtm]").val();
+
+            $('#table-masalah').DataTable().destroy();
+			load_data(m_rtm);		
+		})
+
+		function load_data(m_rtm=''){
+			var m_rtm = $("input[name=m_rtm]").val();
+
+			var tablekuw = $('#table-masalah').DataTable({
+				autoWidth: false,
+				tabIndex : -1,
+				pageLength: 10,
+				dom: "<l<B>f<t>ip>",
+				responsive:!0,
+				ajax: {
+					url: '{{route ('masalah.jsonuraian')}}',
+					type: 'POST',
+					data: {m_rtm:m_rtm},
+					// dataSrc: ''
+				},
+                buttons: [
+                    {
                     text: 'Add +',
                     className:"btn btn-square green btn-success",
                         action: function ( e, dt, node, config ) {
                             window.location = '{{route ('masalah.create')}}';
+                            // alert( 'Button activated' );
                         }
-                },
-                {
+                    },
+                    {
                         extend: "colvis",
                         text: "Show",
                         className: "btn btn-square green btn-success"
                         // columns: ':not(.noVis)',
-                },  
-                {
+                    },  
+                    {
                         extend:"pdf",
                         className:"btn btn-square green btn-success"
-                }
-            ],
-            serverSide: true,
-            order:[[10,"desc"]],    
-            ajax: {
-                url : "{{route ('masalah.jsonuraian')}}",
-                data: {m_rtm:m_rtm},
-                // type: "POST"
-                // dataSrc: ""
-            },
-            columns: [
-                { data: 'uraian', name: 'uraian', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
                     }
-                }, //0
-                { data: 'analisis', name: 'analisis', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //1
-                { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //2
-                { data: 'r_target', name: 'r_target', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //3
-                { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //4
-                { data: 'tindak', name: 'tindak', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //5
-                { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //6
-                { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
-                    {
-                        var decodedText = $("<p/>").html(data).text(); 
-                        return ''+decodedText+''
-                    }
-                }, //7
-                { data: 'status', name: 'status'}, //8
-                { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
-                    { 
-                        return ''+data+''
-                    }
-                
-                },//9
-                { data: 'id', name: 'id'}//10
-            ],
-            columnDefs:[
+                ],
+                columns: [
+                    { data: 'uraian', name: 'uraian', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //0
+                    { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //1
+                    { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //2
+                    { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //3
+                    { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //4
+                    { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //5
+                    { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //6
+                    { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                        {
+                            var decodedText = $("<p/>").html(data).text(); 
+                            return ''+decodedText+''
+                        }
+                    }, //7
+                    { data: 'status', name: 'status'}, //8
+                    { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
+                        { 
+                            return ''+data+''
+                        }
+                    
+                    },//9
+                    { data: 'id', name: 'id'}//10
+	            ],
+				//colom yang dihilangkan dari tampilan datatables
+                columnDefs:[
                     {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
                     {
                         targets:8,
@@ -278,9 +298,9 @@ $(document).ready(function() {
                             "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                             }
                     }
-            ],
-        });
-    }
+                ],
+			});
+		}
 });
 
 
