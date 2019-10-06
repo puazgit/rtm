@@ -49,6 +49,7 @@
                                                     <th> RKT </th>
                                                     <th> Tahun </th>
                                                     <th> Status </th>
+                                                    <!-- <th> Status </th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -63,6 +64,7 @@
                                                         @else
                                                             <span class="label label-sm label-success">close</span>
                                                         @endif
+                                                        <span class="label label-sm label-warning">detail</span>
                                                     </td>
                                                 </tr>
                                                 @endforeach

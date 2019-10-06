@@ -13,23 +13,23 @@
     <div class="col-md-12">
         <div class="portlet light bordered">
             <div class="m-portlet__body">
-                <form class="form-horizontal form-row-seperated" type="POST">
-                            @csrf
                 <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
                     <div class="col-lg-4">
-                        <label>Pilih RTM :</label>
                         @php $rtm=App\Rtm::get('rtm_ke') @endphp
+                        <label>Pilih RTM :</label>
                         <select id="m_rtm" class="form-control select2" name="m_rtm">
-                            {{-- @foreach ($rtm as $rtm) --}}
-                            {{-- <option value="{{ $rtm->rtm_ke }}">{{ $rtm->rtm_ke }}</option> --}}
-                            <option value="72" selected >72</option>
-                            {{-- @endforeach --}}
-                            </select>
-                        {{-- <input type="text" id="m_rtm" name="m_rtm" value="72"> --}}
+                            @foreach ($rtm as $rtm)
+                            <option value="{{ $rtm->rtm_ke }}">{{ $rtm->rtm_ke }}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    <!-- <div class="col-lg-4">
+                        <button type="submit" name="btn_search" id="btn_search"
+                        class="btn btn-success">
+                        <i class="fa fa-magic"></i> test</button></a>
+                    </div> -->
 
-                </div>
-                </form>	  	               
+                </div>  	               
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="portlet-body">
-                {{-- <div class="table-responsive"> --}}
+                <!-- <div class="table-responsive"> -->
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
                     id="table-masalah">
                     <thead>
@@ -74,23 +74,9 @@
                             <th>Penanggung Jawab (PIC)</th>
                             <th>Rencana</th>
                             <th>Realisasi</th>
-                            {{-- </tr>
-                        <tr> --}}
                         </tr>
                     </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                        <td>
-                            <select data-colomn="0" class="form-control filter-select">
-                                <option value="">Select Please ...</option>
-                                {{-- @foreach ($collection as $item)
-                                    
-                                @endforeach --}}
-                            </select>
-                        </td>
-                    </tfoot>
                 </table>
-                {{-- </div> --}}
             </div>
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
@@ -167,58 +153,45 @@
 @section('script')
 
 <script>
-
-$(document).ready(function() {
+$(document).ready(function(){
     $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
     });
-		load_data();
-
-		$('#m_rtm').change(function() {
-			var m_rtm = $("input[name=m_rtm]").val();
-
-            $('#table-masalah').DataTable().destroy();
-			load_data(m_rtm);		
-		})
-
-		function load_data(m_rtm=''){
-			var m_rtm = $("input[name=m_rtm]").val();
-
-			var tablekuw = $('#table-masalah').DataTable({
-				autoWidth: false,
-				tabIndex : -1,
-				pageLength: 10,
-				dom: "<l<B>f<t>ip>",
-				responsive:!0,
-				ajax: {
-					url: '{{route ('masalah.jsonuraian')}}',
-					type: 'POST',
-					data: {m_rtm:m_rtm},
-					// dataSrc: ''
-				},
-                buttons: [
-                    {
-                    text: 'Add +',
-                    className:"btn btn-square green btn-success",
-                        action: function ( e, dt, node, config ) {
-                            window.location = '{{route ('masalah.create')}}';
-                            // alert( 'Button activated' );
-                        }
-                    },
-                    {
-                        extend: "colvis",
-                        text: "Show",
-                        className: "btn btn-square green btn-success"
-                        // columns: ':not(.noVis)',
-                    },  
-                    {
-                        extend:"pdf",
-                        className:"btn btn-square green btn-success"
+ load_data();
+ function load_data(m_rtm)
+ {
+    $('#table-masalah').DataTable({
+    processing: true,
+    serverSide: true,
+    order:[[10,"desc"]],
+    ajax: {
+        url:'{{ route("masalah.index") }}',
+        data:{m_rtm:m_rtm}
+    },
+    dom: 'Blfrtip',
+    buttons: [
+              {
+                text: 'Add +',
+                className:"btn btn-square green btn-success",
+                    action: function ( e, dt, node, config ) {
+                        window.location = '{{route ('masalah.create')}}';
+                        // alert( 'Button activated' );
                     }
-                ],
-                columns: [
+                },
+                {
+					extend: "colvis",
+                    text: "Show",
+                    className: "btn btn-square green btn-success"
+                	// columns: ':not(.noVis)',
+				},  
+                {
+                    extend:"pdf",
+                    className:"btn btn-square green btn-success"
+                }
+          ],
+    columns: [
                     { data: 'uraian', name: 'uraian', render: function(data, column, row)
                         {
                             var decodedText = $("<p/>").html(data).text(); 
@@ -276,7 +249,6 @@ $(document).ready(function() {
                     },//9
                     { data: 'id', name: 'id'}//10
 	            ],
-				//colom yang dihilangkan dari tampilan datatables
                 columnDefs:[
                     {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
                     {
@@ -299,11 +271,40 @@ $(document).ready(function() {
                             }
                     }
                 ],
-			});
-		}
-});
+    });
+    }
 
-
+        $('#m_rtm').select2({
+            placeholder: 'Pilih RTM',
+		    minimumInputLength: 0,
+		    allowClear: true,
+		    dropdownAutoWidth: true,
+        }).change(function(){
+            var	m_rtm = $(this).val();
+            if(m_rtm != '')
+                {
+                    $('#table-masalah').DataTable().destroy();
+                    load_data(m_rtm);
+                }
+            else
+                {
+                    alert('Empty');
+                }
+        });
+        
+        $('#btn_search').click(function(){
+        var m_rtm = $('#m_rtm').val();
+            if(m_rtm != '')
+                {
+                    $('#table-masalah').DataTable().destroy();
+                    load_data(m_rtm);
+                }
+            else
+                {
+                    alert('Empty');
+                }
+        });
+    });
 $(function() {
         var tablemasalah = $('#table-masalah').DataTable();
             @role('unit')

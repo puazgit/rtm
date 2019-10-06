@@ -56,6 +56,17 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
+                                <div class="form-group">
+                                        <label for="cindex" class="col-md-2 control-label">Index Permasalahan</label>
+                                        <div class="col-md-10">
+                                            <select id="index_p" class="form-control select2-multiple" name="index_p">
+                                                @foreach ($index_p as $index_p)
+                                                <option value="{{ $index_p->id }}">{{ $index_p->index_masalah }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                         <div class="col-md-10">

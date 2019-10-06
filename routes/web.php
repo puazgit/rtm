@@ -23,7 +23,7 @@ Route::get('masalah/progresjson','MasalahController@progresjson')->name('progres
 Route::get('masalah/progresjson/{id}','MasalahController@progresjson');
 Route::get('masalah/dept', 'MasalahController@loadDepartemen')->name('masalah.dept');
 // Route::post('masalah/jsonuraian','MasalahController@jsonuraian')->name('masalah.jsonuraian');
-Route::match(['get', 'post'], 'masalah/jsonuraian', 'MasalahController@jsonuraian')->name('masalah.jsonuraian');
+// Route::match(['get', 'post'], 'masalah/jsonuraian', 'MasalahController@jsonuraian')->name('masalah.jsonuraian');
 // Route::post('masalah/jsonuraian', 'MasalahController@jsonuraian')->name('masalah.jsonuraian');
 Route::resource('masalah', 'MasalahController');
 //RTM Routes

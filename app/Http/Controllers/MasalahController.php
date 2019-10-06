@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
-
-use Validator;
-use App\User;
-use App\Rtm;
-use App\Uraian;
-use App\Progres;
 use App\Departemen;
+use App\Progres;
+use App\Uraian;
+use App\User;
+use App\IndexP;
 use DataTables;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Validator;
 
 class MasalahController extends Controller
 {
@@ -22,66 +20,96 @@ class MasalahController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        
+    public function index(Request $request)
+    {
+        $deptid = Auth::user()->departemen_id;
+        $m_rtm = $request->m_rtm;
+        if(request()->ajax()){
+            if($m_rtm){
+                if(Auth::user()->name == 'Administrator'){
+                    $json = Uraian::whereHas('rtm', function($q) use ($m_rtm)
+                        {
+                            $q->where('rtm_ke',  ''. $m_rtm .'');
+                        })->latest()->get();
+                }else{
+                    $json = Uraian::whereHas('rtm', function($q) use ($m_rtm)
+                        {
+                            $q->where('rtm_ke',  ''. $m_rtm .'');
+                        })->latest()->get();
+                }
+            }else{
+                if(Auth::user()->name == 'Administrator'){
+                    $json = Uraian::with('rtm')->latest()->get();
+                }else{
+                    $json = Uraian::with('rtm')
+                        ->where('r_pic', '=', $deptid)
+                        ->orWhere('r_pic', 'like', '%,'.$deptid.',%')
+                        ->orWhere('r_pic', 'like', $deptid.',%')
+                        ->orWhere('r_pic', 'like', '%,'.$deptid)
+                        ->latest()->get();
+                }
+            }
+            return datatables()->of($json)->make(true);
+        }
         return view('masalah.index');
     }
 
     public function create()
     {
         $departemen = Departemen::all();
-        return view('masalah.create', compact('departemen'));
+        $index_p = IndexP::all();
+        return view('masalah.create', compact('departemen','index_p'));
     }
 
     public function store(Request $request)
     {
-        
+
         if ($request->has('r_pic')) {
             $request['r_pic'] = implode(',', $request->r_pic);
         }
         $request['status'] = $request->has('status');
-        
-        $validatedData = $request->validate([
-            'r_pic' => 'required','ket' => '','uraian' => 'required','analisis' => '',
-            'r_uraian' => 'required','r_target' => 'required','tindak' => '',
-            'p_rencana' => '','p_realisasi' => '','status' => 'required'
-            ]);
 
-            if ($request->has('chk_grafik')) {
-                $rules = array(
-                    'target.*'  => 'required',
-                    'realisasi.*'  => 'required',
-                    'competitor.*'  => 'required',
-                    'year.*'  => 'required'
-                   );
-                   $error = Validator::make($request->all(), $rules);
-                    if($error->fails()){
-                        return redirect('masalah/create')
-                                ->withErrors($error)
-                                ->withInput();
-                    }else{
-                        $uraian = Uraian::create($validatedData);
-                        $uraian = Uraian::find($uraian->id);
-            
-                        $target = $request->target;
-                        $realisasi = $request->realisasi;
-                        $competitor = $request->competitor;
-                        $year = $request->year;
-                            
-                            for($count = 0; $count < count($target); $count++){
-                                $container[] = new Progres(array(
-                                    'target' => $target[$count],
-                                    'realisasi' => $realisasi[$count],
-                                    'competitor' => $competitor[$count],
-                                    'year' => $year[$count]
-                                ));
-                            }
-                        $uraian->progres()->saveMany($container);
-                    }
-            
-            }else{
+        $validatedData = $request->validate([
+            'r_pic' => 'required', 'index_p' => 'required', 'ket' => '', 'uraian' => 'required', 'analisis' => '',
+            'r_uraian' => 'required', 'r_target' => 'required', 'tindak' => '',
+            'p_rencana' => '', 'p_realisasi' => '', 'status' => 'required',
+        ]);
+
+        if ($request->has('chk_grafik')) {
+            $rules = array(
+                'target.*' => 'required',
+                'realisasi.*' => 'required',
+                'competitor.*' => 'required',
+                'year.*' => 'required',
+            );
+            $error = Validator::make($request->all(), $rules);
+            if ($error->fails()) {
+                return redirect('masalah/create')
+                    ->withErrors($error)
+                    ->withInput();
+            } else {
                 $uraian = Uraian::create($validatedData);
+                $uraian = Uraian::find($uraian->id);
+
+                $target = $request->target;
+                $realisasi = $request->realisasi;
+                $competitor = $request->competitor;
+                $year = $request->year;
+
+                for ($count = 0; $count < count($target); $count++) {
+                    $container[] = new Progres(array(
+                        'target' => $target[$count],
+                        'realisasi' => $realisasi[$count],
+                        'competitor' => $competitor[$count],
+                        'year' => $year[$count],
+                    ));
+                }
+                $uraian->progres()->saveMany($container);
             }
+
+        } else {
+            $uraian = Uraian::create($validatedData);
+        }
         return redirect('/masalah')->with('success', 'data successfully saved');
     }
 
@@ -106,49 +134,49 @@ class MasalahController extends Controller
             $request['r_pic'] = implode(',', $request->r_pic);
         }
         $request['status'] = $request->has('status');
-        
+
         $validatedData = $request->validate([
-            'r_pic' => 'required','uraian' => 'required','analisis' => 'required',
-            'r_uraian' => 'required','r_target' => 'required','tindak' => '',
-            'p_rencana' => '','p_realisasi' => '','status' => 'required'
-            ]);
+            'r_pic' => 'required', 'uraian' => 'required', 'analisis' => 'required',
+            'r_uraian' => 'required', 'r_target' => 'required', 'tindak' => '',
+            'p_rencana' => '', 'p_realisasi' => '', 'status' => 'required',
+        ]);
 
-            if ($request->has('chk_grafik')) {
-                $rules = array(
-                    'target.*'  => 'required',
-                    'realisasi.*'  => 'required',
-                    'competitor.*'  => 'required',
-                    'year.*'  => 'required'
-                   );
-                   $error = Validator::make($request->all(), $rules);
-                    if($error->fails()){
-                        return redirect('masalah/create')
-                                ->withErrors($error)
-                                ->withInput();
-                    }else{
-                        $uraian = Uraian::whereId($id)->update($validatedData);
-                        $uraian = Uraian::find($id);
-            
-                        $target = $request->target;
-                        $realisasi = $request->realisasi;
-                        $competitor = $request->competitor;
-                        $year = $request->year;
-                            
-                            for($count = 0; $count < count($target); $count++){
-                                $container[] = new Progres(array(
-                                    'target' => $target[$count],
-                                    'realisasi' => $realisasi[$count],
-                                    'competitor' => $competitor[$count],
-                                    'year' => $year[$count]
-                                ));
-                            }
-                        $uraian->progres()->saveMany($container);
-                    }
-            }else{
-                Uraian::whereId($id)->update($validatedData);
+        if ($request->has('chk_grafik')) {
+            $rules = array(
+                'target.*' => 'required',
+                'realisasi.*' => 'required',
+                'competitor.*' => 'required',
+                'year.*' => 'required',
+            );
+            $error = Validator::make($request->all(), $rules);
+            if ($error->fails()) {
+                return redirect('masalah/create')
+                    ->withErrors($error)
+                    ->withInput();
+            } else {
+                $uraian = Uraian::whereId($id)->update($validatedData);
+                $uraian = Uraian::find($id);
+
+                $target = $request->target;
+                $realisasi = $request->realisasi;
+                $competitor = $request->competitor;
+                $year = $request->year;
+
+                for ($count = 0; $count < count($target); $count++) {
+                    $container[] = new Progres(array(
+                        'target' => $target[$count],
+                        'realisasi' => $realisasi[$count],
+                        'competitor' => $competitor[$count],
+                        'year' => $year[$count],
+                    ));
+                }
+                $uraian->progres()->saveMany($container);
             }
+        } else {
+            Uraian::whereId($id)->update($validatedData);
+        }
 
-            // Uraian::whereId($id)->update($validatedData);
+        // Uraian::whereId($id)->update($validatedData);
         return redirect('masalah/');
     }
 
@@ -157,59 +185,33 @@ class MasalahController extends Controller
         //
     }
 
-    public function jsonuraian (Request $request){
-        // $term = trim($request->q);
-        // $m_rtm = $request->m_rtm;
-        // $m_rtm = $request->m_rtm;
-        $row = Auth::user()->departemen_id;
-        if(Auth::user()->name == 'Administrator'){
-        $row = Auth::user()->name;
-
-            $method = $request->input('m_rtm');
-            echo $method; 
-            // $m_rtm = $request->m_rtm;
-            // var_dump($m_rtm);
-            // if($request->ajax()){
-            //     if(!empty($request->m_rtm))
-            //     {   
-            //         // $m_rtm = $request->input('m_rtm');
-            //         // $m_rtm = '72';
-            //         // $json = Rtm::where('rtm_ke', '=', '73')->with('Uraian')->latest()->get();
-            //         $json = Uraian::whereHas('rtm', function($query) {$query->where('rtm_ke', '72');})->get();
-                    
-            //         // $json = Uraian::with('rtm')->latest()->get();
-            //     }else{
-            //         $json = Uraian::whereHas('rtm', function($query) {$query->where('rtm_ke', '72');})->get();
-            //         // $json = Uraian::with('rtm');
-            //     }
-            // }
-                $json = Uraian::with('rtm');
-        }else{
-            $json = Uraian::with('rtm')
-            ->where('r_pic', '=', $row)
-            ->orWhere('r_pic', 'like', '%,'.$row.',%')
-            ->orWhere('r_pic', 'like', $row.',%')
-            ->orWhere('r_pic', 'like', '%,'.$row)
-            ->latest()->get();
-        }
-        
-        // return Datatables::of($json)->make(true);
-    }
-
     // public function jsonuraian(Request $request)
     // {
-    //     $input = $request->all();
-    //     return response()->json(['success'=>'Got Simple Product Ajax Request.']);
+    //     $row = Auth::user()->departemen_id;
+    //     if (Auth::user()->name == 'Administrator') {
+
+    //         $json = Uraian::with('rtm');
+    //     } else {
+    //         $json = Uraian::with('rtm')
+    //             ->where('r_pic', '=', $row)
+    //             ->orWhere('r_pic', 'like', '%,' . $row . ',%')
+    //             ->orWhere('r_pic', 'like', $row . ',%')
+    //             ->orWhere('r_pic', 'like', '%,' . $row)
+    //             ->latest()->get();
+    //     }
+
+    //     return Datatables::of($json)->make(true);
     // }
 
-    public function progresjson($id = NULL){
+    public function progresjson($id = null)
+    {
         $json = DB::table('tb_progres')
-                    ->select(
-                        DB::raw('MAX(year) as year'), DB::raw('MAX(target) as target'), 
-                        DB::raw('MAX(realisasi) as realisasi'),DB::raw('MAX(competitor) as competitor'))
-                     ->where('uraian_id', '=', $id)
-                     ->groupBy('year')
-                     ->get();
+            ->select(
+                DB::raw('MAX(year) as year'), DB::raw('MAX(target) as target'),
+                DB::raw('MAX(realisasi) as realisasi'), DB::raw('MAX(competitor) as competitor'))
+            ->where('uraian_id', '=', $id)
+            ->groupBy('year')
+            ->get();
         return $json;
     }
 
@@ -238,7 +240,4 @@ class MasalahController extends Controller
         return \Response::json($formatted_departemen);
     }
 
-    // public function getActiveAttribute(){
-    //     return Uraian
-    // }
 }
