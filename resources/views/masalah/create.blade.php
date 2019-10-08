@@ -26,8 +26,9 @@
                         <span class="caption-subject bold uppercase"> CREATE PERMASALAHAN</span>
                     </div>
                     <div class="tools">
-                            <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
-                            <button type="button" onclick="history.back()" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                        <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
+                        <button type="button" onclick="history.back()"
+                            class="btn btn-circle grey-salsa btn-outline">Cancel</button>
                     </div>
 
                 </div>
@@ -56,7 +57,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
-                                <div class="form-group">
+                                    <div class="form-group">
                                         <label for="cindex" class="col-md-2 control-label">Index Permasalahan</label>
                                         <div class="col-md-10">
                                             <select id="index_p" class="form-control select2-multiple" name="index_p">
@@ -119,20 +120,20 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                            <label class="col-md-2 control-label">Ket. PIC</label>
-                                            <div class="col-md-10">
-                                                <textarea class="form-control summernote" name="ket"
-                                                    id="ket">{{ old('ket') }} </textarea>
-                                            </div>
+                                        <label class="col-md-2 control-label">Ket. PIC</label>
+                                        <div class="col-md-10">
+                                            <textarea class="form-control summernote" name="ket"
+                                                id="ket">{{ old('ket') }} </textarea>
                                         </div>
+                                    </div>
                                     <div class="form-group">
-                                            <label class="col-md-2 control-label">Status</label>
-                                            <div class="col-md-10">
-                                                <input type="checkbox" name="status" class="make-switch" value="1"
-                                                    {{ old('status') ? 'checked="checked"' : '' }} checked
-                                                    data-on-text="Open" checked data-off-text="Close" />
-                                            </div>
+                                        <label class="col-md-2 control-label">Status</label>
+                                        <div class="col-md-10">
+                                            <input type="checkbox" name="status" class="make-switch" value="1"
+                                                {{ old('status') ? 'checked="checked"' : '' }} checked
+                                                data-on-text="Open" checked data-off-text="Close" />
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tab_3">
@@ -143,8 +144,9 @@
                                 </div>
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input type="checkbox" name="chk_grafik" value="1"
-                                                id="chk_grafik" {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
+                                        <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input
+                                                type="checkbox" name="chk_grafik" value="1" id="chk_grafik"
+                                                {{ old('chk_grafik') == '1' ? 'checked' : '' }} /></label></label>
                                         <div class="col-md-10">
                                             <div class="portlet light bordered">
                                                 <div class="portlet-body">
@@ -188,13 +190,10 @@
                                                 id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                         </div>
                                     </div>
-
-                                    {{-- <button type="submit" class="btn btn-primary">Save</button> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </form>
@@ -204,7 +203,6 @@
 
 @section('js')
 <script src="{{asset ('assets/js/summernote.min.js')}}" type="text/javascript"></script>
-{{-- <script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/components-bootstrap-switch.min.js')}}" type="text/javascript"></script>
@@ -249,35 +247,8 @@
                 });
 
                 $('#r_pic').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
-                
-                // $('#r_pic').select2({
-                //     placeholder: "Pilih PIC ...",
-                //     minimumInputLength: 2,
-                //     // maximumInputLength : 0,
-                //     // openOnEnter: true,
-                //     allowClear: true,
-                //     ajax: {
-                //         url: '/loadDepartemen',
-                //         dataType: 'json',
-                //         delay: 250,
-                        
-                //         data: function (params) {
-                //             return {
-                //                 q: $.trim(params.term)
-                //             };
-                //         },
-                
-                //         processResults: function (data) {
-                //             return {
-                //             results: data
-                //             };
-                //         },
-                //             cache: true
-                //     }
-                // });
 
     $('#chk_pic').click(function(){
-        // alert("button click");
         if($('#chk_pic').is(':checked')){ //select all
             $('#r_pic').find('option').prop('selected',true);
             $('#r_pic').trigger('change');
@@ -303,7 +274,6 @@
             html += '<td><input type="text" name="realisasi[]" class="form-control" /></td>';
             html += '<td><input type="text" name="competitor[]" class="form-control" /></td>';
             html += '<td><select name="year[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
-            // html += '<td><input type="hidden" name="uraian_id[]" class="form-control" /></td>';
             if (number > 1) {
                 html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
                 $('tbody#bodyprogres').append(html);

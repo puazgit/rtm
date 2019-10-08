@@ -19,33 +19,30 @@ class MasalahController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function index(Request $request)
     {
         $deptid = Auth::user()->departemen_id;
         $m_rtm = $request->m_rtm;
-        if(request()->ajax()){
-            if($m_rtm){
-                if(Auth::user()->name == 'Administrator'){
-                    $json = Uraian::whereHas('rtm', function($q) use ($m_rtm)
-                        {
-                            $q->where('rtm_ke',  ''. $m_rtm .'');
-                        })->latest()->get();
-                }else{
-                    $json = Uraian::whereHas('rtm', function($q) use ($m_rtm)
-                        {
-                            $q->where('rtm_ke',  ''. $m_rtm .'');
-                        })->latest()->get();
+        if (request()->ajax()) {
+            if ($m_rtm) {
+                if (Auth::user()->name == 'Administrator') {
+                    $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
+                        $q->where('rtm_ke',  '' . $m_rtm . '');
+                    })->latest()->get();
+                } else {
+                    $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
+                        $q->where('rtm_ke',  '' . $m_rtm . '');
+                    })->latest()->get();
                 }
-            }else{
-                if(Auth::user()->name == 'Administrator'){
+            } else {
+                if (Auth::user()->name == 'Administrator') {
                     $json = Uraian::with('rtm')->latest()->get();
-                }else{
+                } else {
                     $json = Uraian::with('rtm')
                         ->where('r_pic', '=', $deptid)
-                        ->orWhere('r_pic', 'like', '%,'.$deptid.',%')
-                        ->orWhere('r_pic', 'like', $deptid.',%')
-                        ->orWhere('r_pic', 'like', '%,'.$deptid)
+                        ->orWhere('r_pic', 'like', '%,' . $deptid . ',%')
+                        ->orWhere('r_pic', 'like', $deptid . ',%')
+                        ->orWhere('r_pic', 'like', '%,' . $deptid)
                         ->latest()->get();
                 }
             }
@@ -58,7 +55,7 @@ class MasalahController extends Controller
     {
         $departemen = Departemen::all();
         $index_p = IndexP::all();
-        return view('masalah.create', compact('departemen','index_p'));
+        return view('masalah.create', compact('departemen', 'index_p'));
     }
 
     public function store(Request $request)
@@ -106,7 +103,6 @@ class MasalahController extends Controller
                 }
                 $uraian->progres()->saveMany($container);
             }
-
         } else {
             $uraian = Uraian::create($validatedData);
         }
@@ -207,8 +203,11 @@ class MasalahController extends Controller
     {
         $json = DB::table('tb_progres')
             ->select(
-                DB::raw('MAX(year) as year'), DB::raw('MAX(target) as target'),
-                DB::raw('MAX(realisasi) as realisasi'), DB::raw('MAX(competitor) as competitor'))
+                DB::raw('MAX(year) as year'),
+                DB::raw('MAX(target) as target'),
+                DB::raw('MAX(realisasi) as realisasi'),
+                DB::raw('MAX(competitor) as competitor')
+            )
             ->where('uraian_id', '=', $id)
             ->groupBy('year')
             ->get();
@@ -239,5 +238,4 @@ class MasalahController extends Controller
         }
         return \Response::json($formatted_departemen);
     }
-
 }

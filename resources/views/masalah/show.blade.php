@@ -6,10 +6,10 @@
 @endsection
 
 @section('content')
-    @php 
-        $pic = $masalah->r_pic;
-        $rpic = explode(",", $pic);
-    @endphp
+@php
+$pic = $masalah->r_pic;
+$rpic = explode(",", $pic);
+@endphp
 </br>
 <div class="row">
     {{-- URAIAN 1--}}
@@ -60,9 +60,9 @@
                                                     <td> {{$rtm->tahun}} </td>
                                                     <td>
                                                         @if( $rtm->pivot->status == 1)
-                                                            <span class="label label-sm label-danger">open</span>
+                                                        <span class="label label-sm label-danger">open</span>
                                                         @else
-                                                            <span class="label label-sm label-success">close</span>
+                                                        <span class="label label-sm label-success">close</span>
                                                         @endif
                                                         <span class="label label-sm label-warning">detail</span>
                                                     </td>

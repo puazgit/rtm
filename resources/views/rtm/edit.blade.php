@@ -26,9 +26,8 @@
             </div>
             <div class="portlet-body form">
                 {{$rtm->rtm_ke}}
-                <form class="form" action="{{route ('masalah.store')}}" method="post"
-            spellcheck="false">
-                @include('rtm.form');
+                <form class="form" action="{{route ('masalah.store')}}" method="post" spellcheck="false">
+                    @include('rtm.form');
                 </form>
             </div>
         </div>

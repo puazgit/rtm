@@ -15,29 +15,25 @@ class RtmController extends Controller
     {
         $this->middleware('auth');
     }
-    
     public function index()
     {
         return view('rtm/index');
     }
-
     public function create()
     {
         return view('rtm/create');
     }
-    
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'rtm_ke'=>'required','tingkat'=>'required','rkt'=>'required',
-            'tahun'=>'required','h_uraian'=>'required'
-            ]);
+            'rtm_ke' => 'required', 'tingkat' => 'required', 'rkt' => 'required',
+            'tahun' => 'required', 'h_uraian' => 'required'
+        ]);
 
         $rtm = Rtm::create($validatedData);
         $h_uraian1 = implode(',', $request->h_uraian);
         $h_uraian2 = explode(',', $h_uraian1);
-        // $request['h_uraian'] = implode(',', $request->h_uraian);
-        for($count = 0; $count < count($h_uraian2) ; $count++){
+        for ($count = 0; $count < count($h_uraian2); $count++) {
             $container[] = array(
                 'uraian_id' => $h_uraian2[$count]
             );
@@ -45,36 +41,30 @@ class RtmController extends Controller
         $rtm->uraian()->detach([$count]);
         $rtm->uraian()->attach($container);
         return redirect('rtm');
-        // dd($h_uraian2);
     }
-    
     public function show(Rtm $rtm)
     {
         $json2 = Rtm::with('uraian.progres')->findOrfail($rtm);
-        // return ($json2);
         return view('rtm.show', compact('rtm'));
     }
-    
     public function edit(Rtm $rtm)
     {
         return view('rtm.edit', compact('rtm'));
     }
-    
     public function update(Request $request, $id)
     {
         //
     }
-    
     public function destroy($rtm)
     {
         //
     }
-
-    public function jsonrtm ($rtm = NULL){
-        if($rtm){
+    public function jsonrtm($rtm = NULL)
+    {
+        if ($rtm) {
             $json = Rtm::find($rtm)->uraian;
             return Datatables::of($json)->make(true);
-        }else{
+        } else {
             $json = Rtm::all();
             return Datatables::of($json)->make(true);
         }

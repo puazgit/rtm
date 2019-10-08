@@ -6,15 +6,18 @@
 <link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
 <style type="text/css">
-	select[readonly].select2-hidden-accessible + .select2-container {
-    pointer-events: none;
-    touch-action: none;
-}
-    select[readonly].select2-hidden-accessible + .select2-container .select2-selection {
+    select[readonly].select2-hidden-accessible+.select2-container {
+        pointer-events: none;
+        touch-action: none;
+    }
+
+    select[readonly].select2-hidden-accessible+.select2-container .select2-selection {
         background: #eee;
         box-shadow: none;
     }
-    select[readonly].select2-hidden-accessible + .select2-container .select2-selection__arrow, select[readonly].select2-hidden-accessible + .select2-container .select2-selection__clear {
+
+    select[readonly].select2-hidden-accessible+.select2-container .select2-selection__arrow,
+    select[readonly].select2-hidden-accessible+.select2-container .select2-selection__clear {
         display: none;
     }
 </style>
@@ -25,22 +28,21 @@
 </h3>
 <div class="row">
     <div class="col-md-12">
-    <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
-        @csrf
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption font-red-sunglo">
-                    <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase"> CREATE RTM</span>
+        <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
+            @csrf
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <i class="icon-settings font-red-sunglo"></i>
+                        <span class="caption-subject bold uppercase"> CREATE RTM</span>
+                    </div>
+                    <div class="tools">
+                        <button type="submit" class="btn btn-circle green">Submit</button>
+                        <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                    </div>
+
                 </div>
-                <div class="tools">                                        
-                    <button type="submit" class="btn btn-circle green">Submit</button>
-                    <button type="button"
-                        class="btn btn-circle grey-salsa btn-outline">Cancel</button>
-                </div>
-                
-            </div>
-            <div class="portlet-body">
+                <div class="portlet-body">
                     @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -79,7 +81,8 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">RTM Ke</label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control" placeholder="Enter text" id="rtm_ke" name="rtm_ke">
+                                                    <input type="text" class="form-control" placeholder="Enter text"
+                                                        id="rtm_ke" name="rtm_ke">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -125,7 +128,7 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9">
-        
+
                                                 </div>
                                             </div>
                                         </div>
@@ -199,22 +202,13 @@
                                         <!-- END FORM-->
                                     </div>
                                 </div>
-                                {{-- <div class="form-actions">
-                                    <div class="row">
-                                        <div class="col-md-offset-10 col-md-12">
-                                            <button type="submit" class="btn btn-circle green">Submit</button>
-                                            <button type="button"
-                                                class="btn btn-circle grey-salsa btn-outline">Cancel</button>
-                                        </div>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
 
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
 </div>
 @endsection
@@ -239,8 +233,6 @@
             responsive:!0,
             buttons: [
             ],
-            //   processing: true,
-            // serverSide: true,
             order:[[0,"desc"]],    
             ajax: {
                 url: "{{route ('masalah.jsonuraian')}}",
@@ -322,7 +314,6 @@
             });
 
             $('#headrtm-table tbody').on('click', 'tr', function () {
-            // $(this).toggleClass('selected');
             var ids = $.map(tablekuw.rows('.selected').data(), function (item){
 					return item.id;
 				});

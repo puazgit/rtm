@@ -23,13 +23,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <!-- <div class="col-lg-4">
-                        <button type="submit" name="btn_search" id="btn_search"
-                        class="btn btn-success">
-                        <i class="fa fa-magic"></i> test</button></a>
-                    </div> -->
-
-                </div>  	               
+                </div>
             </div>
         </div>
     </div>
@@ -43,13 +37,9 @@
                         {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
                 </div>
                 <div class="tools">
-                    {{-- <a href="{{route ('masalah.create')}}"><button type="submit" name="btn_add"
-                        class="btn btn-success">
-                        <i class="fa fa-magic"></i> Add</button></a> --}}
                 </div>
             </div>
             <div class="portlet-body">
-                <!-- <div class="table-responsive"> -->
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
                     id="table-masalah">
                     <thead>
@@ -57,13 +47,8 @@
                             <th rowspan="2">Uraian Permasalahan Bidang</th>
                             <th rowspan="2">Analisis /Penyebab</th>
                             <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
-                            {{-- <th rowspan="2">Uraian</th>
-                            <th rowspan="2">Target Waktu</th>
-                            <th rowspan="2">PIC</th> --}}
                             <th rowspan="2">Tindaklanjut</th>
                             <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
-                            {{-- <th rowspan="2">Rencana</th>
-                            <th rowspan="2">Realisasi</th> --}}
                             <th rowspan="2">Status</th>
                             <th rowspan="2">RTM Ke</th>
                             <th rowspan="2" style="text-align: center;">Aksi</th>
@@ -88,7 +73,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                {{-- <h4 class="modal-title">Progress</h4> --}}
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -99,7 +83,6 @@
                                 <div class="caption">
                                     <i class="icon-bar-chart font-green-haze"></i>
                                     <span class="caption-subject bold uppercase font-green-haze"> Progress</span>
-                                    {{-- <span class="caption-helper">duration on value axis</span> --}}
                                 </div>
                                 <div class="tools">
                                     <a href="javascript:;" class="collapse"> </a>
@@ -131,7 +114,6 @@
 <script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
-{{-- <script src="{{asset ('assets/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script> --}}
 <script src="{{asset ('assets/js/jquery-ui.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
 
@@ -153,7 +135,7 @@
 @section('script')
 
 <script>
-$(document).ready(function(){
+    $(document).ready(function(){
     $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -177,14 +159,12 @@ $(document).ready(function(){
                 className:"btn btn-square green btn-success",
                     action: function ( e, dt, node, config ) {
                         window.location = '{{route ('masalah.create')}}';
-                        // alert( 'Button activated' );
                     }
                 },
                 {
 					extend: "colvis",
                     text: "Show",
                     className: "btn btn-square green btn-success"
-                	// columns: ':not(.noVis)',
 				},  
                 {
                     extend:"pdf",
