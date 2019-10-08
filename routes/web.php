@@ -30,7 +30,6 @@ Route::resource('masalah', 'MasalahController');
 Route::get('rtm/jsonrtm', 'RtmController@jsonrtm')->name('rtm.jsonrtm');
 Route::get('rtm/jsonrtm/{rtm}', 'RtmController@jsonrtm');
 Route::resource('rtm', 'RtmController');
-
 //Departemen
 
 
