@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Uraian extends Model
 {
-    protected $table = 'tb_uraian';
+    protected $table = 'uraian';
     protected $primaryKey = 'id';
     protected $fillable = [
         'id', 'r_pic', 'ket', 'uraian', 'analisis', 'r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
@@ -14,11 +14,16 @@ class Uraian extends Model
     ];
     public function rtm()
     {
-        return $this->belongsToMany('App\Rtm')->withPivot('status');
+        return $this->belongsToMany('App\Rtm');
     }
     public function progres()
     {
         return $this->hasMany('App\Progres');
+    }
+
+    public function departemen()
+    {
+        return $this->belongsToMany('App\Departemen');
     }
     public function activeOptions()
     {

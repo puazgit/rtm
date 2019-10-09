@@ -28,14 +28,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $total_rtm = DB::table('tb_rtm')->get()->count();
-        $total_uraian = DB::table('tb_uraian')->get()->count();
-        $masalah_open = DB::table('tb_uraian')->where('status', '1')->count();
-        $masalah_close = DB::table('tb_uraian')->where('status', '0')->count();
+        $total_rtm = DB::table('rtm')->get()->count();
+        $total_uraian = DB::table('uraian')->get()->count();
+        $masalah_open = DB::table('uraian')->where('status', '1')->count();
+        $masalah_close = DB::table('uraian')->where('status', '0')->count();
 
-        return view('home')->with('total_rtm',$total_rtm)
-                           ->with('total_uraian',$total_uraian)
-                           ->with('masalah_open',$masalah_open)
-                           ->with('masalah_close',$masalah_close);
+        return view('home')->with('total_rtm', $total_rtm)
+            ->with('total_uraian', $total_uraian)
+            ->with('masalah_open', $masalah_open)
+            ->with('masalah_close', $masalah_close);
     }
 }

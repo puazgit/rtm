@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Departemen extends Model
 {
-    protected $table = 'tb_departemen';
+    protected $table = 'departemen';
     protected $primaryKey = 'id';
-    public function user ()
+    public function user()
     {
         return $this->hasMany('App\User');
+    }
+
+    public function uraian()
+    {
+        return $this->belongsToMany('App\Uraian');
     }
 }

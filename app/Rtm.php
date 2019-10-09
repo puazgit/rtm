@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rtm extends Model
 {
-    protected $table = 'tb_rtm';
+    protected $table = 'rtm';
     protected $fillable = [
         'id', 'rtm_ke', 'tingkat', 'rkt', 'tahun'
     ];
@@ -14,6 +14,6 @@ class Rtm extends Model
     public function uraian()
 
     {
-        return $this->belongsToMany('App\Uraian', 'rtm_uraian', 'rtm_id', 'uraian_id');
+        return $this->belongsToMany('App\Uraian');
     }
 }

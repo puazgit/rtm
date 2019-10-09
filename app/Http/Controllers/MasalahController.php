@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Departemen;
 use App\Progres;
 use App\Uraian;
+use App\Rtm;
 use App\User;
-use App\IndexP;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +19,14 @@ class MasalahController extends Controller
     {
         $this->middleware('auth');
     }
+
+    public function test()
+    {
+        // $rtm = Rtm::with('uraian.departemen')->get();
+        $rtm = Uraian::with('departemen')->get();
+        return $rtm;
+    }
+
     public function index(Request $request)
     {
         $deptid = Auth::user()->departemen_id;
@@ -26,9 +34,7 @@ class MasalahController extends Controller
         if (request()->ajax()) {
             if ($m_rtm) {
                 if (Auth::user()->name == 'Administrator') {
-                    $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
-                        $q->where('rtm_ke',  '' . $m_rtm . '');
-                    })->latest()->get();
+                    $json = Rtm::FindorFail($m_rtm)->uraian()->get();
                 } else {
                     $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
                         $q->where('rtm_ke',  '' . $m_rtm . '');

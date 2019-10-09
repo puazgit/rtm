@@ -17,6 +17,7 @@ Route::get('/user', 'UserController@index');
 Route::get('user/create', 'UserController@create')->middleware('role:admin');
 Route::get('user/json', 'UserController@json');
 //Masalah Routes
+Route::get('masalah/test', 'MasalahController@test');
 Route::get('masalah/getActiveAttribute', 'MasalahController@getActiveAttribute');
 Route::get('masalah/progresjson', 'MasalahController@progresjson')->name('progres.json');
 Route::get('masalah/progresjson/{id}', 'MasalahController@progresjson');

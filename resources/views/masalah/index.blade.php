@@ -15,11 +15,11 @@
             <div class="m-portlet__body">
                 <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
                     <div class="col-lg-4">
-                        @php $rtm=App\Rtm::get('rtm_ke') @endphp
+                        {{-- @php $rtm=App\Rtm::get('rtm_ke') @endphp --}}
                         <label>Pilih RTM :</label>
                         <select id="m_rtm" class="form-control select2" name="m_rtm">
-                            @foreach ($rtm as $rtm)
-                            <option value="{{ $rtm->rtm_ke }}">{{ $rtm->rtm_ke }}</option>
+                            @foreach (App\Rtm::get() as $rtm)
+                            <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}</option>
                             @endforeach
                         </select>
                     </div>
