@@ -22,8 +22,10 @@ class MasalahController extends Controller
 
     public function test()
     {
-        // $rtm = Rtm::with('uraian.departemen')->get();
-        $rtm = Uraian::with('departemen')->get();
+        $rtm = Rtm::find(1)->uraian()->with('departemen')->get();
+        // $rtm = Rtm::first()->uraian();
+        // $rtm = Rtm::get();
+        // $rtm = Uraian::with('departemen')->get();
         return $rtm;
     }
 
@@ -34,7 +36,7 @@ class MasalahController extends Controller
         if (request()->ajax()) {
             if ($m_rtm) {
                 if (Auth::user()->name == 'Administrator') {
-                    $json = Rtm::FindorFail($m_rtm)->uraian()->get();
+                    $json = Rtm::FindorFail($m_rtm)->uraian()->with('departemen')->get();
                 } else {
                     $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
                         $q->where('rtm_ke',  '' . $m_rtm . '');
