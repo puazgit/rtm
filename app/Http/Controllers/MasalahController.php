@@ -22,11 +22,24 @@ class MasalahController extends Controller
 
     public function test()
     {
-        $rtm = Rtm::find(1)->uraian()->with('departemen')->get();
+        // $rtmall = Rtm::find(1)->uraian()->with('departemen')->with('progres')->get();
+        // $rtmall = Rtm::find(3);
+        // $rtmall = $rtmall->departemen()->get();
+        // foreach ($rtmall->uraian as $uraian) {
+        //     echo $uraian->pivot->uraian_id;
+        // }
         // $rtm = Rtm::first()->uraian();
         // $rtm = Rtm::get();
         // $rtm = Uraian::with('departemen')->get();
-        return $rtm;
+        // dd($rtm);
+        // $testFilter = Uraian::findwith('FilterRtm')->get();
+        // $testFilter = Rtm::with('FilterUraian')->get();
+        // $testFilter = Rtm::with('uraian')->FilterRtm()->get();
+        // $testFilter = Rtm::FindorFail(3)->uraian()->get();
+        $testFilter = Rtm::filter()->get();
+        // ->uraian()->with('departemen')
+
+        return $testFilter;
     }
 
     public function index(Request $request)
@@ -36,7 +49,8 @@ class MasalahController extends Controller
         if (request()->ajax()) {
             if ($m_rtm) {
                 if (Auth::user()->name == 'Administrator') {
-                    $json = Rtm::FindorFail($m_rtm)->uraian()->with('departemen')->get();
+                    // $json = Rtm::FindorFail($m_rtm)->uraian()->with('departemen')->get();
+                    $json = Rtm::filter()->get();
                 } else {
                     $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
                         $q->where('rtm_ke',  '' . $m_rtm . '');
@@ -209,7 +223,7 @@ class MasalahController extends Controller
 
     public function progresjson($id = null)
     {
-        $json = DB::table('tb_progres')
+        $json = DB::table('progres')
             ->select(
                 DB::raw('MAX(year) as year'),
                 DB::raw('MAX(target) as target'),

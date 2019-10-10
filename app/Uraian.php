@@ -16,6 +16,19 @@ class Uraian extends Model
     {
         return $this->belongsToMany('App\Rtm');
     }
+
+    // public function FilterRtm($filter = 3)
+
+    // {
+    //     return $this->belongsToMany('App\Rtm')->wherePivot('rtm_id', '=', $filter);
+    // }
+
+    public function FilterRtm()
+
+    {
+        return $this->rtm()->where('id', '=', 2);
+    }
+
     public function progres()
     {
         return $this->hasMany('App\Progres');
@@ -25,6 +38,7 @@ class Uraian extends Model
     {
         return $this->belongsToMany('App\Departemen');
     }
+
     public function activeOptions()
     {
         return [
