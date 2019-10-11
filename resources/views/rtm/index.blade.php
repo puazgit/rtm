@@ -10,7 +10,7 @@
 
 </h3>
 <div class="row">
-<div class="col-md-6">
+    <div class="col-md-6">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
@@ -65,8 +65,9 @@
                     <span class="caption-subject bold uppercase"> RTM</span>
                 </div>
                 <div class="tools">
-                    {{-- <a href="{{route ('rtm.create')}}"><button type="submit" name="btn_add" class="btn btn-success">
-                            <i class="fa fa-magic"></i> Add</button></a> --}}
+                    {{-- <a href="{{route ('rtm.create')}}"><button type="submit" name="btn_add"
+                        class="btn btn-success">
+                        <i class="fa fa-magic"></i> Add</button></a> --}}
                 </div>
             </div>
             <div class="portlet-body">
@@ -82,7 +83,7 @@
                         </tr>
                     </thead>
                 </table>
-                </div>
+            </div>
             {{-- </div> --}}
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
@@ -112,13 +113,14 @@
 <script src="{{asset ('assets/amcharts/ammap/ammap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/ammap/maps/js/worldLow.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amstockcharts/plugins/dataloader/dataloader.min.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/amcharts/amstockcharts/plugins/dataloader/dataloader.min.js')}}" type="text/javascript">
+</script>
 <!-- END: Page Vendor JS-->
 @endsection
 
 @section('script')
 <script>
-$(function() {
+    $(function() {
     $('#table-masalah').DataTable({
         dom: 'Blfrtip',
     buttons: [

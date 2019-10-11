@@ -10,23 +10,11 @@ class Uraian extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'id', 'r_pic', 'ket', 'uraian', 'analisis', 'r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
-        'status', 'target', 'realisasi', 'competitor', 'm_rtm'
+        'status', 'target', 'realisasi', 'competitor', 'm_rtm', 'm_departemen'
     ];
     public function rtm()
     {
         return $this->belongsToMany('App\Rtm');
-    }
-
-    // public function FilterRtm($filter = 3)
-
-    // {
-    //     return $this->belongsToMany('App\Rtm')->wherePivot('rtm_id', '=', $filter);
-    // }
-
-    public function FilterRtm()
-
-    {
-        return $this->rtm()->where('id', '=', 2);
     }
 
     public function progres()
@@ -46,5 +34,10 @@ class Uraian extends Model
             1  => 'Open',
             2  => 'In-Progress',
         ];
+    }
+
+    public function scopeActiveDesc($query)
+    {
+        return $query->where('status', 0)->orderBy('created_at', 'DESC');
     }
 }

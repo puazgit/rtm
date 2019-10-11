@@ -14,65 +14,64 @@
         <div class="portlet light bordered">
             <div class="m-portlet__body">
                 <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
-                    <div class="col-lg-4">
+                    {{-- <div class="col-lg-4">
                         <select id="m_rtm" class="form-control select2" name="m_rtm">
                             @foreach (App\Rtm::get() as $rtm)
                             <option value=""></option>
                             <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-lg-4">
-                        <select id="m_departemen" class="form-control select2" name="m_departemen">
-                            @foreach (App\Departemen::get() as $departemen)
-                            <option value=""></option>
-                            <option value="{{ $departemen->id }}">{{ $departemen->departemen }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @endforeach
+                    </select>
                 </div>
+                <div class="col-lg-4">
+                    <select id="m_departemen" class="form-control select2" name="m_departemen">
+                        @foreach (App\Departemen::get() as $departemen)
+                        <option value=""></option>
+                        <option value="{{ $departemen->id }}">{{ $departemen->departemen }}</option>
+                        @endforeach
+                    </select>
+                </div> --}}
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption font-red-sunglo">
-                    <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase">PERMASALAHAN
-                        {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
-                </div>
-                <div class="tools">
-                </div>
+</div>
+<div class="col-md-12">
+    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-red-sunglo">
+                <i class="icon-settings font-red-sunglo"></i>
+                <span class="caption-subject bold uppercase">PERMASALAHAN
+                    {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
             </div>
-            <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                    id="table-masalah">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">Uraian Permasalahan Bidang</th>
-                            <th rowspan="2">Analisis /Penyebab</th>
-                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
-                            <th rowspan="2">Tindaklanjut</th>
-                            <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
-                            <th rowspan="2">Status</th>
-                            <th rowspan="2">RTM Ke</th>
-                            <th rowspan="2" style="text-align: center;">Aksi</th>
-                        </tr>
-                        <tr>
-                            <th>Uraian</th>
-                            <th>Target Waktu</th>
-                            <th>Penanggung Jawab (PIC)</th>
-                            <th>Rencana</th>
-                            <th>Realisasi</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div class="tools">
             </div>
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
+        <div class="portlet-body">
+            <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="table-masalah">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Uraian Permasalahan Bidang</th>
+                        <th rowspan="2">Analisis /Penyebab</th>
+                        <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
+                        <th rowspan="2">Tindaklanjut</th>
+                        <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
+                        <th rowspan="2">Status</th>
+                        <th rowspan="2">RTM Ke</th>
+                        <th rowspan="2" style="text-align: center;">Aksi</th>
+                    </tr>
+                    <tr>
+                        <th>Uraian</th>
+                        <th>Target Waktu</th>
+                        <th>Penanggung Jawab (PIC)</th>
+                        <th>Rencana</th>
+                        <th>Realisasi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
 </div>
 
 <div class="modal fade draggable-modal" id="draggable" tabindex="-1" role="basic" aria-hidden="true">
@@ -150,15 +149,23 @@
     });
  load_data();
 
- $('#m_rtm').change(function(){
-    var	m_rtm = $(this).val();
-    var	m_departemen = $(m_departmen).val();
+//  $('#m_rtm').change(function(){
+//     var	m_rtm = $(this).val();
+//     var	m_departemen = $(m_departemen).val();
 
-    $('#table-masalah').DataTable().destroy();
-    load_data(m_rtm, m_departemen);
- })
+//     $('#table-masalah').DataTable().destroy();
+//     load_data(m_rtm, m_departemen);
+//  })
 
- function load_data(m_rtm, m_departemen)
+//  $('#m_departemen').change(function(){
+//     var	m_departemen = $(this).val();
+//     var	m_rtm =  $(m_rtm).val();
+
+//     $('#table-masalah').DataTable().destroy();
+//     load_data(m_rtm, m_departemen);
+//  })
+
+ function load_data()
  {
     $('#table-masalah').DataTable({
     processing: true,
@@ -166,7 +173,7 @@
     order:[[10,"desc"]],
     ajax: {
         url:'{{ route("masalah.index") }}',
-        data:{m_rtm:m_rtm, m_departemen:m_departemen}
+        // data:{m_rtm:m_rtm, m_departemen:m_departemen}
     },
     dom: 'Blfrtip',
     buttons: [
@@ -272,19 +279,6 @@
 
         $('#m_rtm').select2({placeholder: '--- Pilih RTM ---',minimumInputLength: 0,allowClear: true});
         $('#m_departemen').select2({placeholder: '--- Pilih Departemen ---',minimumInputLength: 0,allowClear: true});
-        // $('#m_rtm').select2({placeholder: '--- Pilih RTM ---',minimumInputLength: 0,allowClear: true});
-        // .change(function(){
-        //     var	m_rtm = $(this).val();
-        //     if(m_rtm != '')
-        //         {
-        //             $('#table-masalah').DataTable().destroy();
-        //             load_data(m_rtm);
-        //         }
-        //     else
-        //         {
-        //             alert('Empty');
-        //         }
-        // });
     });
 $(function() {
         var tablemasalah = $('#table-masalah').DataTable();

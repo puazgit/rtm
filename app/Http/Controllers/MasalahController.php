@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
+
 class MasalahController extends Controller
 {
     public function __construct()
@@ -20,59 +21,20 @@ class MasalahController extends Controller
         $this->middleware('auth');
     }
 
-    public function test()
+    public function oke()
     {
-        // $rtmall = Rtm::find(1)->uraian()->with('departemen')->with('progres')->get();
-        // $rtmall = Rtm::find(3);
-        // $rtmall = $rtmall->departemen()->get();
-        // foreach ($rtmall->uraian as $uraian) {
-        //     echo $uraian->pivot->uraian_id;
-        // }
-        // $rtm = Rtm::first()->uraian();
-        // $rtm = Rtm::get();
-        // $rtm = Uraian::with('departemen')->get();
-        // dd($rtm);
-        // $testFilter = Uraian::findwith('FilterRtm')->get();
-        // $testFilter = Rtm::with('FilterUraian')->get();
-        // $testFilter = Rtm::with('uraian')->FilterRtm()->get();
-        // $testFilter = Rtm::FindorFail(3)->uraian()->get();
-        $testFilter = Rtm::filter()->get();
-        // ->uraian()->with('departemen')
-
-        return $testFilter;
+        $uraian = uraian::activeDesc()->get();
+        return $uraian;
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $deptid = Auth::user()->departemen_id;
-        $m_rtm = $request->m_rtm;
         if (request()->ajax()) {
-            if ($m_rtm) {
-                if (Auth::user()->name == 'Administrator') {
-                    // $json = Rtm::FindorFail($m_rtm)->uraian()->with('departemen')->get();
-                    $json = Rtm::filter()->get();
-                } else {
-                    $json = Uraian::whereHas('rtm', function ($q) use ($m_rtm) {
-                        $q->where('rtm_ke',  '' . $m_rtm . '');
-                    })->latest()->get();
-                }
-            } else {
-                if (Auth::user()->name == 'Administrator') {
-                    $json = Uraian::with('rtm')->latest()->get();
-                } else {
-                    $json = Uraian::with('rtm')
-                        ->where('r_pic', '=', $deptid)
-                        ->orWhere('r_pic', 'like', '%,' . $deptid . ',%')
-                        ->orWhere('r_pic', 'like', $deptid . ',%')
-                        ->orWhere('r_pic', 'like', '%,' . $deptid)
-                        ->latest()->get();
-                }
-            }
-            return datatables()->of($json)->make(true);
+            $json = Uraian::with('rtm')->latest()->get();
+            return datatables::of($json)->make(true);
         }
         return view('masalah.index');
     }
-
     public function create()
     {
         $departemen = Departemen::all();
