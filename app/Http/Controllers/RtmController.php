@@ -44,7 +44,7 @@ class RtmController extends Controller
     }
     public function show(Rtm $rtm)
     {
-        $json2 = Rtm::with('uraian.progres')->findOrfail($rtm);
+        $json = Rtm::with('uraian.progres')->findOrfail($rtm);
         return view('rtm.show', compact('rtm'));
     }
     public function edit(Rtm $rtm)

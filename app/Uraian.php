@@ -27,17 +27,21 @@ class Uraian extends Model
         return $this->belongsToMany('App\Departemen');
     }
 
-    public function activeOptions()
+    public function jenis(Type $var = null)
     {
-        return [
-            0  => 'Close',
-            1  => 'Open',
-            2  => 'In-Progress',
-        ];
+        # code...
     }
+    // public function activeOptions()
+    // {
+    //     return [
+    //         0  => 'Close',
+    //         1  => 'Open',
+    //         2  => 'In-Progress',
+    //     ];
+    // }
 
-    public function scopeActiveDesc($query)
-    {
-        return $query->where('status', 0)->orderBy('created_at', 'DESC');
-    }
+    // public function scopeActiveDesc($query)
+    // {
+    //     return $query->where('status', 0)->orderBy('created_at', 'DESC');
+    // }
 }

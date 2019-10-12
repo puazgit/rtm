@@ -219,10 +219,9 @@
                             return ''+decodedText+''
                         }
                     }, //3
-                    { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                    { data: 'departemen[].departemen', name: 'departemen', orderable: false, render: function(data, column, row)
                         {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
+                            return ''+data+''
                         }
                     }, //4
                     { data: 'tindak', name: 'tindak', render: function(data, column, row)
@@ -244,7 +243,7 @@
                         }
                     }, //7
                     { data: 'status', name: 'status'}, //8
-                    { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
+                    { data: 'rtm[].rtm_ke', name: 'rtm', orderable: false, render: function(data, type, row)
                         { 
                             return ''+data+''
                         }
@@ -253,7 +252,7 @@
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[
-                    {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
+                    {targets:[5,6,7], visible:false, className: 'noVis'},
                     {
                         targets:8,
                         render:function(a,e,t,n){

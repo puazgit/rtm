@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Indexp extends Model
+class Jenis extends Model
 {
-    protected $table = 'indexp';
+    protected $table = 'jenis';
 
     public function uraian()
     {

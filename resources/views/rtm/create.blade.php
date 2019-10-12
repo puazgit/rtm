@@ -235,7 +235,7 @@
             ],
             order:[[0,"desc"]],    
             ajax: {
-                url: "{{route ('masalah.jsonuraian')}}",
+                url: "{{route ('masalah.index')}}",
                 type : 'GET',
             },
             columns: [

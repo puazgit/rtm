@@ -23,7 +23,7 @@
                 <div class="portlet-title">
                     <div class="caption font-red-sunglo">
                         <i class="icon-settings font-red-sunglo"></i>
-                        <span class="caption-subject bold uppercase"> CREATE PERMASALAHAN</span>
+                        <span class="caption-subject bold uppercase"> BUAT DATA PERMASALAHAN BIDANG</span>
                     </div>
                     <div class="tools">
                         <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
@@ -50,19 +50,22 @@
                             <li>
                                 <a href="#tab_2" data-toggle="tab"> RENCANA PENYELESAIAN </a>
                             </li>
+                            @role('admin')
                             <li>
                                 <a href="#tab_3" data-toggle="tab"> EVALUASI PROGRES TINDAKLANJUT </a>
                             </li>
+                            @endrole
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
                                 <div class="form-body">
                                     <div class="form-group">
-                                        <label for="cindex" class="col-md-2 control-label">Index Permasalahan</label>
+                                        <label for="jenis" class="col-md-2 control-label">Jenis Permasalahan</label>
                                         <div class="col-md-10">
-                                            <select id="index_p" class="form-control select2-multiple" name="index_p">
-                                                @foreach ($index_p as $index_p)
-                                                <option value="{{ $index_p->id }}">{{ $index_p->index_masalah }}
+                                            <select id="sjenis" class="form-control select2" name="sjenis">
+                                                <option value=""></option>
+                                                @foreach ($jenis as $jenis)
+                                                <option value="{{ $jenis->id }}">{{ $jenis->jenis_masalah }}
                                                 </option>
                                                 @endforeach
                                             </select>
@@ -110,7 +113,7 @@
                                             <input type="checkbox" name="chk_pic" value="1" id="chk_pic"
                                                 {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label>
                                         <div class="col-md-10">
-                                            <select id="r_pic" class="form-control select2-multiple" name="r_pic[]"
+                                            <select id="sdept" class="form-control select2-multiple" name="sdept[]"
                                                 multiple="multiple">
                                                 @foreach ($departemen as $departemen)
                                                 <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
@@ -129,7 +132,8 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Status</label>
                                         <div class="col-md-10">
-                                            <input type="checkbox" name="status" class="make-switch" value="1"
+                                            <input @role('unit') readonly @endrole type="checkbox" name="status"
+                                                class="make-switch" value="1"
                                                 {{ old('status') ? 'checked="checked"' : '' }} checked
                                                 data-on-text="Open" checked data-off-text="Close" />
                                         </div>
@@ -142,7 +146,7 @@
                                         aria-hidden="true"></button>
                                     <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
                                 </div>
-                                <div class="form-body">
+                                <div class="form-body" @role('unit') id="noEdit" @endrole>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input
                                                 type="checkbox" name="chk_grafik" value="1" id="chk_grafik"
@@ -172,7 +176,7 @@
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tindak Lanjut</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="tindak"
+                                            <textarea tabindex="-1" class="form-control summernote" name="tindak"
                                                 id="tindak">{{ old('tindak') }} </textarea>
                                         </div>
                                     </div>
@@ -199,6 +203,11 @@
         </form>
     </div>
 </div>
+<style>
+    #noEdit {
+        pointer-events: none;
+    }
+</style>
 @endsection
 
 @section('js')
@@ -246,14 +255,15 @@
                     ComponentsEditors.init()
                 });
 
-                $('#r_pic').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
+            $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
+            $('#sjenis').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
 
     $('#chk_pic').click(function(){
         if($('#chk_pic').is(':checked')){ //select all
-            $('#r_pic').find('option').prop('selected',true);
-            $('#r_pic').trigger('change');
+            $('#dept').find('option').prop('selected',true);
+            $('#dept').trigger('change');
         } else { //deselect all
-            $('#r_pic').find('option').prop('selected',false);
+            $('#dept').find('option').prop('selected',false);
             $('#r_pic').trigger('change');
         }
     });          

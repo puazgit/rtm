@@ -11,7 +11,6 @@ class Rtm extends Model
     protected $fillable = [
         'id', 'rtm_ke', 'tingkat', 'rkt', 'tahun'
     ];
-    protected $with = 'uraian';
 
     public function uraian()
 

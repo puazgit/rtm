@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Departemen;
 use App\Progres;
 use App\Uraian;
+use App\Jenis;
 use App\Rtm;
 use App\User;
 use DataTables;
@@ -21,16 +22,36 @@ class MasalahController extends Controller
         $this->middleware('auth');
     }
 
+    public function test()
+    {
+        $json = Uraian::with('rtm')->latest()->get();
+        return $json;
+    }
+
     public function oke()
     {
-        $uraian = uraian::activeDesc()->get();
-        return $uraian;
+        $r = function ($query) {
+            return $query->where('id', '>', '0');
+        };
+        $d = function ($query) {
+            return $query->where('id', '>', '0');
+        };
+        $uraian = uraian::with(['rtm' => $r, 'departemen' => $d])->latest()->get();
+        return datatables::of($uraian)->make(true);
+        // return $uraian;
     }
 
     public function index()
     {
         if (request()->ajax()) {
-            $json = Uraian::with('rtm')->latest()->get();
+            // $json = Uraian::with('rtm')->latest()->get();
+            $r = function ($query) {
+                return $query->where('id', '>', '0');
+            };
+            $d = function ($query) {
+                return $query->where('id', '>', '0');
+            };
+            $json = uraian::with(['rtm' => $r, 'departemen' => $d])->latest()->get();
             return datatables::of($json)->make(true);
         }
         return view('masalah.index');
@@ -38,8 +59,8 @@ class MasalahController extends Controller
     public function create()
     {
         $departemen = Departemen::all();
-        $index_p = IndexP::all();
-        return view('masalah.create', compact('departemen', 'index_p'));
+        $jenis = Jenis::all();
+        return view('masalah.create', compact('departemen', 'jenis'));
     }
 
     public function store(Request $request)
@@ -51,7 +72,7 @@ class MasalahController extends Controller
         $request['status'] = $request->has('status');
 
         $validatedData = $request->validate([
-            'r_pic' => 'required', 'index_p' => 'required', 'ket' => '', 'uraian' => 'required', 'analisis' => '',
+            'sdept' => 'required', 'sjenis' => 'required', 'ket' => '', 'uraian' => 'required', 'analisis' => '',
             'r_uraian' => 'required', 'r_target' => 'required', 'tindak' => '',
             'p_rencana' => '', 'p_realisasi' => '', 'status' => 'required',
         ]);
@@ -102,9 +123,10 @@ class MasalahController extends Controller
 
     public function edit($masalah)
     {
-        $departemen = Departemen::all();
+        $dept_id = Auth::user()->departemen_id;
+        $alldepartemen = Departemen::all();
         $masalah = Uraian::with('progres')->findOrfail($masalah);
-        return view('masalah.edit', compact('masalah', 'departemen'));
+        return view('masalah.edit', compact('masalah', 'alldepartemen', 'dept_id'));
         // return $masalah;
     }
 
