@@ -23,11 +23,28 @@ class RtmController extends Controller
     {
         return view('rtm/create');
     }
+
+    public function add()
+    {
+        return view('rtm/add');
+    }
+
+    public function save(Request $request)
+    {
+        $validatedData = $request->validate([
+            'rtm_ke' => 'required|digits_between:0,100', 'tingkat' => 'required', 'rkt' => 'required',
+            'tahun' => 'required'
+        ]);
+
+        $rtm = Rtm::create($validatedData);
+        return redirect('rtm');
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'rtm_ke' => 'required', 'tingkat' => 'required', 'rkt' => 'required',
-            'tahun' => 'required', 'h_uraian' => 'required'
+            'rtm_ke' => 'required|digits_between:0,100', 'tingkat' => 'required', 'rkt' => 'required',
+            'tahun' => 'required'
         ]);
 
         $rtm = Rtm::create($validatedData);

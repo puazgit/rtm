@@ -125,10 +125,10 @@
 		  dom: 'Blfrtip',
           buttons: [
               {
-                text: 'Add +',
+                text: 'Tambah RTM',
                 className:"btn btn-square green btn-success",
                     action: function ( e, dt, node, config ) {
-                        window.location = '{{route ('masalah.create')}}';
+                        window.location = '{{route ('rtm.add')}}';
                         // alert( 'Button activated' );
                     }
                 }
