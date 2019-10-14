@@ -21,11 +21,11 @@
         <div class="portlet-body">
             <div class="alert alert-warning alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                <strong>Pemberitahuan !</strong> Anda belum memasukkan data untuk RTM Ke 75 . <a
+                <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke 75 . <a
                     href="{{route ('home')}}/storage/1/5da42491eb741_CONTOH-SURAT.docx"><b>download
                     </b></a>
                 surat
-                permintaan data untuk RTM Ke 75
+                permohonan bahan RTM Ke 75
             </div>
         </div>
     </div>

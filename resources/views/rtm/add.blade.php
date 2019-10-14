@@ -102,7 +102,7 @@
                                             <div class="dropzone dropzone-file-area" id="document-dropzone"
                                                 style="width: 600px; margin-top: 10px;">
                                                 <div class="dz-message" data-dz-message><span>
-                                                        <h3 class="sbold">Klik untuk mengunggah</h3>
+                                                        <h3 class="sbold">Klik untuk mengunggah file</h3>
                                                     </span>
                                                 </div>
                                             </div>

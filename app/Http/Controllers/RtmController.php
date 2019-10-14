@@ -56,6 +56,7 @@ class RtmController extends Controller
             'tahun' => 'required', 'document' => 'required'
         ], [
             'rtm_ke.required' => 'RTM harap diisi',
+            'rtm_ke.digits_between' => 'RTM harus angka',
             'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
         ]);
 

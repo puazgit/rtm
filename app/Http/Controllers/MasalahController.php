@@ -34,7 +34,7 @@ class MasalahController extends Controller
             return $query->where('id', '>', '0');
         };
         $d = function ($query) {
-            return $query->where('id', '>', '0');
+            return $query->where('departemen', '=', 'Divisi Inventarisasi dan Pengendalian Aset (IPA)');
         };
         $uraian = uraian::with(['rtm' => $r, 'departemen' => $d])->latest()->get();
         return datatables::of($uraian)->make(true);
@@ -49,7 +49,7 @@ class MasalahController extends Controller
                 return $query->where('id', '>', '0');
             };
             $d = function ($query) {
-                return $query->where('id', '>', '0');
+                return $query->where('id', '=', '1');
             };
             $json = uraian::with(['rtm' => $r, 'departemen' => $d])->latest()->get();
             return datatables::of($json)->make(true);

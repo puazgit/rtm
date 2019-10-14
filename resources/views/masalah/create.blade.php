@@ -23,15 +23,38 @@
                 <div class="portlet-title">
                     <div class="caption font-red-sunglo">
                         <i class="icon-settings font-red-sunglo"></i>
-                        <span class="caption-subject bold uppercase"> BUAT DATA PERMASALAHAN BIDANG</span>
+                        <span class="caption-subject bold uppercase"> DAFTAR PERMASALAHAN</span>
                     </div>
                     <div class="tools">
                         <button type="submit" id="btn_save" class="btn btn-circle green">Submit</button>
                         <button type="button" onclick="history.back()"
                             class="btn btn-circle grey-salsa btn-outline">Cancel</button>
                     </div>
-
                 </div>
+                <div class="portlet-body">
+                    <div class="mt-element-step">
+                        <div class="row step-line">
+                            <div class="col-md-3 bg-grey mt-step-col">
+                                <div class="mt-step-title uppercase font-grey-cascade">&nbsp;</div>
+                                <div class="mt-step-content uppercase font-grey-cascade bold">&nbsp;</div>
+                                <div class="mt-step-content uppercase font-grey-cascade bold">&nbsp;</div>
+                            </div>
+                            <div class="col-md-6 bg-grey mt-step-col">
+                                <div class="mt-step-title uppercase font-grey-cascade">Rapat Tinjauan Manajemen : 75
+                                </div>
+                                <div class="mt-step-content uppercase font-grey-cascade bold">Tingkat Pusat</div>
+                                <div class="mt-step-content uppercase font-grey-cascade bold">Pada Rkt I Tahun 2019
+                                </div>
+                            </div>
+                            <div class="col-md-3 bg-grey mt-step-col">
+                                <div class="mt-step-title uppercase font-grey-cascade">&nbsp;</div>
+                                <div class="mt-step-content uppercase font-grey-cascade bold">&nbsp;</div>
+                                <div class="mt-step-content uppercase font-grey-cascade bold">&nbsp;</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -58,6 +81,11 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
+                                <div class="alert alert-success margin-bottom-10">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true"></button>
+                                    <i class="fa fa-check fa-lg"></i> <b>URAIAN PERMASALAHAN</b>
+                                </div>
                                 <div class="form-body">
                                     <div class="form-group">
                                         <label for="jenis" class="col-md-2 control-label">Jenis Permasalahan</label>
@@ -91,7 +119,7 @@
                                 <div class="alert alert-success margin-bottom-10">
                                     <button type="button" class="close" data-dismiss="alert"
                                         aria-hidden="true"></button>
-                                    <i class="fa fa-warning fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
+                                    <i class="fa fa-check fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
                                 </div>
                                 <div class="form-body">
                                     <div class="form-group">
