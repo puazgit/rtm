@@ -17,6 +17,18 @@
 <!-- END PAGE HEADER-->
 <!-- BEGIN DASHBOARD STATS 1-->
 <div class="row">
+    <div class="col-md-12 col-sm-6">
+        <div class="portlet-body">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <strong>Pemberitahuan !</strong> Anda belum memasukkan data untuk RTM Ke 75 . <a
+                    href="{{route ('home')}}/storage/1/5da42491eb741_CONTOH-SURAT.docx"><b>download
+                    </b></a>
+                surat
+                permintaan data untuk RTM Ke 75
+            </div>
+        </div>
+    </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="dashboard-stat purple">
             <div class="visual">
@@ -78,6 +90,19 @@
                 <i class="m-icon-swapright m-icon-white"></i>
             </a>
         </div>
+    </div>
+</div>
+<div class="portlet light bordered">
+    <div class="portlet-body">
+        <a href="javascript:;" class="icon-btn">
+            <i class="fa fa-file-o"></i>
+            <div> + Data</div>
+        </a>
+        <a href="javascript:;" class="icon-btn">
+            <i class="fa fa-barcode"></i>
+            <div> Products </div>
+            <span class="badge badge-success"> 4 </span>
+        </a>
     </div>
 </div>
 <div class="row">

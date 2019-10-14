@@ -29,14 +29,41 @@ class RtmController extends Controller
         return view('rtm/add');
     }
 
+    public function saveMedia(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
     public function save(Request $request)
     {
         $validatedData = $request->validate([
             'rtm_ke' => 'required|digits_between:0,100', 'tingkat' => 'required', 'rkt' => 'required',
-            'tahun' => 'required'
+            'tahun' => 'required', 'document' => 'required'
+        ], [
+            'rtm_ke.required' => 'RTM harap diisi',
+            'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
         ]);
 
-        $rtm = Rtm::create($validatedData);
+        $rtm = Rtm::Create($validatedData);
+
+        foreach ($request->input('document', []) as $file) {
+            $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
+        }
         return redirect('rtm');
     }
 

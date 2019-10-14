@@ -1,8 +1,9 @@
 @extends('layouts/wrapper')
 
 @section('css')
-<link href="{{asset ('assets/css/dropzone.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset ('assets/css/basic.min.css')}}" rel="stylesheet" type="text/css" />
+{{-- <link href="{{asset ('assets/dropzone/dropzone.min.css')}}" rel="stylesheet" type="text/css" /> --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+{{-- <link href="{{asset ('assets/dropzone/basic.min.css')}}" rel="stylesheet" type="text/css" /> --}}
 @endsection
 
 @section('content')
@@ -10,7 +11,8 @@
 </h3>
 <div class="row">
     <div class="col-md-12">
-        <form class="form-horizontal" action="{{route ('rtm.save')}}" method="post" spellcheck="false">
+        <form action="{{route ('rtm.save')}}" class="form-horizontal" method="POST" enctype="multipart/form-data"
+            spellcheck="false">
             @csrf
             <div class="portlet light bordered">
                 <div class="portlet-title">
@@ -92,22 +94,23 @@
                                                     <option>2022</option>
                                                     <option>2023</option>
                                                     <option>2024</option>
-
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-3 control-label">Attach Surat</label>
-                                            <div class="dropzone dropzone-file-area" id="my-dropzone"
-                                                style="width: 500px; margin-top: 10px;">
-                                                <h3 class="sbold">Drop files disini</h3>
+                                            <div class="dropzone dropzone-file-area" id="document-dropzone"
+                                                style="width: 600px; margin-top: 10px;">
+                                                <div class="dz-message" data-dz-message><span>
+                                                        <h3 class="sbold">Klik untuk mengunggah</h3>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="col-md-offset-3 col-md-9">
-
                                             </div>
                                         </div>
                                     </div>
@@ -118,19 +121,54 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 @endsection
 
 @section('js')
-<script src="{{asset ('assets/js/dropzone.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/form-dropzone.min.js')}}" type="text/javascript"></script>
+{{-- <script src="{{asset ('assets/dropzone/dropzone.min.js')}}" type="text/javascript"></script> --}}
+{{-- <script src="{{asset ('assets/dropzone/form-dropzone.min.js')}}" type="text/javascript"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 @endsection
 
 @section('script')
 <script>
-    $(document).ready(function() {
-      });
+    // $(document).ready(function() {
+    //   });
+    var uploadedDocumentMap = {}
+  Dropzone.options.documentDropzone = {
+    url: '{{ route('rtm.saveMedia') }}',
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    success: function (file, response) {
+      $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+      uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedDocumentMap[file.name]
+      }
+      $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+      @if(isset($rtm) && $rtm->document)
+        var files =
+          {!! json_encode($rtm->document) !!}
+        for (var i in files) {
+          var file = files[i]
+          this.options.addedfile.call(this, file)
+          file.previewElement.classList.add('dz-complete')
+          $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+        }
+      @endif
+    }
+  }
 </script>
 @endsection

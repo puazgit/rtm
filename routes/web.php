@@ -25,6 +25,7 @@ Route::get('masalah/progresjson/{id}', 'MasalahController@progresjson');
 Route::get('masalah/dept', 'MasalahController@loadDepartemen')->name('masalah.dept');
 Route::resource('masalah', 'MasalahController');
 //RTM Routes
+Route::post('rtm/media', 'RtmController@saveMedia')->name('rtm.saveMedia');
 Route::get('rtm/jsonrtm', 'RtmController@jsonrtm')->name('rtm.jsonrtm');
 Route::get('rtm/jsonrtm/{rtm}', 'RtmController@jsonrtm');
 Route::get('rtm/add', 'RtmController@add')->name('rtm.add');
