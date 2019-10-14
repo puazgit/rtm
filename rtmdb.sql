@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         124.81.122.36
--- Server version:               5.7.25 - MySQL Community Server (GPL)
--- Server OS:                    Linux
+-- Host:                         127.0.0.1
+-- Server version:               5.7.24 - MySQL Community Server (GPL)
+-- Server OS:                    Win64
 -- HeidiSQL Version:             10.2.0.5599
 -- --------------------------------------------------------
 
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `departemen` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.departemen: ~18 rows (approximately)
+-- Dumping data for table rtmdb.departemen: ~19 rows (approximately)
 /*!40000 ALTER TABLE `departemen` DISABLE KEYS */;
 INSERT INTO `departemen` (`id`, `departemen`) VALUES
 	(1, 'Divisi Inventarisasi dan Pengendalian Aset (IPA)'),
@@ -143,6 +143,33 @@ INSERT INTO `jenis` (`id`, `jenis_masalah`, `created_at`, `updated_at`) VALUES
 	(6, 'Saran untuk koreksi', '2019-08-13 10:15:51', '2019-08-13 10:15:51');
 /*!40000 ALTER TABLE `jenis` ENABLE KEYS */;
 
+-- Dumping structure for table rtmdb.media
+CREATE TABLE IF NOT EXISTS `media` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) unsigned NOT NULL,
+  `collection_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mime_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `disk` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` bigint(20) unsigned NOT NULL,
+  `manipulations` json NOT NULL,
+  `custom_properties` json NOT NULL,
+  `responsive_images` json NOT NULL,
+  `order_column` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `media_model_type_model_id_index` (`model_type`,`model_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table rtmdb.media: ~0 rows (approximately)
+/*!40000 ALTER TABLE `media` DISABLE KEYS */;
+INSERT INTO `media` (`id`, `model_type`, `model_id`, `collection_name`, `name`, `file_name`, `mime_type`, `disk`, `size`, `manipulations`, `custom_properties`, `responsive_images`, `order_column`, `created_at`, `updated_at`) VALUES
+	(1, 'App\\Rtm', 4, 'document', '5da42491eb741_CONTOH SURAT', '5da42491eb741_CONTOH-SURAT.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'public', 11334, '[]', '[]', '[]', 1, '2019-10-14 14:33:00', '2019-10-14 14:33:00');
+/*!40000 ALTER TABLE `media` ENABLE KEYS */;
+
 -- Dumping structure for table rtmdb.menu
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -174,14 +201,15 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.migrations: ~3 rows (approximately)
+-- Dumping data for table rtmdb.migrations: ~4 rows (approximately)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
 	(2, '2014_10_12_100000_create_password_resets_table', 1),
-	(3, '2019_07_29_163140_create_permission_tables', 1);
+	(3, '2019_07_29_163140_create_permission_tables', 1),
+	(5, '2019_10_14_110202_create_media_table', 2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.model_has_permissions
@@ -255,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.permissions: ~3 rows (approximately)
+-- Dumping data for table rtmdb.permissions: ~4 rows (approximately)
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'view post', 'web', '2019-08-01 20:53:03', '2019-08-01 20:53:04'),
@@ -277,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `progres` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.progres: ~14 rows (approximately)
+-- Dumping data for table rtmdb.progres: ~15 rows (approximately)
 /*!40000 ALTER TABLE `progres` DISABLE KEYS */;
 INSERT INTO `progres` (`id`, `target`, `realisasi`, `competitor`, `year`, `uraian_id`, `created_at`, `updated_at`) VALUES
 	(1, 80, 50, 100, '2018', '1', '2019-09-15 15:44:33', '2019-09-15 15:44:33'),
@@ -348,16 +376,15 @@ CREATE TABLE IF NOT EXISTS `rtm` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rtm_ke` (`rtm_ke`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.rtm: ~5 rows (approximately)
+-- Dumping data for table rtmdb.rtm: ~9 rows (approximately)
 /*!40000 ALTER TABLE `rtm` DISABLE KEYS */;
 INSERT INTO `rtm` (`id`, `rtm_ke`, `tingkat`, `rkt`, `tahun`, `created_at`, `updated_at`) VALUES
 	(1, 72, 'Pusat', 'I', '2020', '2019-09-15 16:05:50', '2019-09-15 16:05:50'),
 	(2, 73, 'Pusat', 'II', '2020', '2019-09-16 13:48:09', '2019-09-16 13:48:09'),
 	(3, 74, 'Pusat', 'I', '2019', '2019-09-29 23:00:44', '2019-09-29 23:00:44'),
-	(4, 75, 'Pusat', 'II', '2019', '2019-10-13 16:02:42', '2019-10-13 16:02:42'),
-	(6, 76, 'Pusat', 'III', '2019', '2019-10-13 16:03:17', '2019-10-13 16:03:17');
+	(4, 75, 'Pusat', 'II', '2019', '2019-10-14 14:33:00', '2019-10-14 14:33:00');
 /*!40000 ALTER TABLE `rtm` ENABLE KEYS */;
 
 -- Dumping structure for table rtmdb.rtm_uraian
