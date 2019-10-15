@@ -222,6 +222,18 @@
                                                 id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">Attachment</label>
+                                        <div class="col-md-10">
+                                            <div class="dropzone dropzone-file-area" id="document-dropzone"
+                                                style="margin-top: 10px;">
+                                                <div class="dz-message" data-dz-message><span>
+                                                        <h3 class="sbold">Klik untuk mengunggah file</h3>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -250,54 +262,88 @@
 @section('script')
 <script>
     var ComponentsEditors=function()
-                {
-                    var s=function(){
-                        $('.summernote').summernote(
-                            {
-                                toolbar: [
-                                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                                    ['fontname', ['fontname']],
-                                    ['para', ['ul', 'ol', 'paragraph']],
-                                    ['insert',['table']],
-                                    ['font', ['strikethrough', 'superscript', 'subscript']],
-                                    ['fontsize', ['fontsize']],
-                                    ['color', ['color']],
-                                    ['height', ['height']],
-                                    ['view', ['fullscreen','help']]
-                                ],
-                                height:200,
-                                disableDragAndDrop: true,
-                                codeviewFilter: false,
-                                codeviewIframeFilter: true,
-                            }
-                        )
-                    };
-                    return{
-                        init:function(){
-                            s()
-                        }
-                    }
-                }();
-            
-                jQuery(document).ready(function(){
-                    ComponentsEditors.init()
-                });
-
-            $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
-            $('#sjenis').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
-
+    {
+    var s=function(){
+    $('.summernote').summernote(
+    {
+    toolbar: [
+    ['style', ['bold', 'italic', 'underline', 'clear']],
+    ['fontname', ['fontname']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert',['table']],
+    ['font', ['strikethrough', 'superscript', 'subscript']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['height', ['height']],
+    ['view', ['fullscreen','help']]
+    ],
+    height:200,
+    disableDragAndDrop: true,
+    codeviewFilter: false,
+    codeviewIframeFilter: true,
+    }
+    )
+    };
+    return{
+    init:function(){
+    s()
+    }
+    }
+    }();
+    
+    jQuery(document).ready(function(){
+    ComponentsEditors.init()
+    });
+    
+    $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
+    $('#sjenis').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
+    
     $('#chk_pic').click(function(){
-        if($('#chk_pic').is(':checked')){ //select all
-            $('#dept').find('option').prop('selected',true);
-            $('#dept').trigger('change');
-        } else { //deselect all
-            $('#dept').find('option').prop('selected',false);
-            $('#r_pic').trigger('change');
-        }
-    });          
-            
+    if($('#chk_pic').is(':checked')){ //select all
+    $('#dept').find('option').prop('selected',true);
+    $('#dept').trigger('change');
+    } else { //deselect all
+    $('#dept').find('option').prop('selected',false);
+    $('#r_pic').trigger('change');
+    }
+    });
+    
+    var uploadedDocumentMap = {}
+    Dropzone.options.documentDropzone = {
+    url: '{{ route('rtm.saveMedia') }}',
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    success: function (file, response) {
+    $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+    uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+    file.previewElement.remove()
+    var name = ''
+    if (typeof file.file_name !== 'undefined') {
+    name = file.file_name
+    } else {
+    name = uploadedDocumentMap[file.name]
+    }
+    $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+    @if(isset($rtm) && $rtm->document)
+    var files =
+    {!! json_encode($rtm->document) !!}
+    for (var i in files) {
+    var file = files[i]
+    this.options.addedfile.call(this, file)
+    file.previewElement.classList.add('dz-complete')
+    $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+    }
+    @endif
+    }
+    }
 </script>
-
 
 <script>
     $(document).ready(function () {

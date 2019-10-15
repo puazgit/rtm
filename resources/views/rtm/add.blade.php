@@ -98,12 +98,14 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label">Attach Surat</label>
-                                            <div class="dropzone dropzone-file-area" id="document-dropzone"
-                                                style="width: 600px; margin-top: 10px;">
-                                                <div class="dz-message" data-dz-message><span>
-                                                        <h3 class="sbold">Klik untuk mengunggah file</h3>
-                                                    </span>
+                                            {{-- <label class="col-md-3 control-label">Attach Surat</label> --}}
+                                            <div class="col-md-10">
+                                                <div class="dropzone dropzone-file-area" id="document-dropzone"
+                                                    style="width: 600px; margin-top: 10px;">
+                                                    <div class="dz-message" data-dz-message><span>
+                                                            <h4 class="sbold">Unggah Surat Permohonan Bahan RTM</h4>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -133,42 +135,40 @@
 
 @section('script')
 <script>
-    // $(document).ready(function() {
-    //   });
     var uploadedDocumentMap = {}
-  Dropzone.options.documentDropzone = {
+    Dropzone.options.documentDropzone = {
     url: '{{ route('rtm.saveMedia') }}',
     maxFilesize: 2, // MB
     addRemoveLinks: true,
     headers: {
-      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
     },
     success: function (file, response) {
-      $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
-      uploadedDocumentMap[file.name] = response.name
+    $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+    uploadedDocumentMap[file.name] = response.name
     },
     removedfile: function (file) {
-      file.previewElement.remove()
-      var name = ''
-      if (typeof file.file_name !== 'undefined') {
-        name = file.file_name
-      } else {
-        name = uploadedDocumentMap[file.name]
-      }
-      $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    file.previewElement.remove()
+    var name = ''
+    if (typeof file.file_name !== 'undefined') {
+    name = file.file_name
+    } else {
+    name = uploadedDocumentMap[file.name]
+    }
+    $('form').find('input[name="document[]"][value="' + name + '"]').remove()
     },
     init: function () {
-      @if(isset($rtm) && $rtm->document)
-        var files =
-          {!! json_encode($rtm->document) !!}
-        for (var i in files) {
-          var file = files[i]
-          this.options.addedfile.call(this, file)
-          file.previewElement.classList.add('dz-complete')
-          $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
-        }
-      @endif
+    @if(isset($rtm) && $rtm->document)
+    var files =
+    {!! json_encode($rtm->document) !!}
+    for (var i in files) {
+    var file = files[i]
+    this.options.addedfile.call(this, file)
+    file.previewElement.classList.add('dz-complete')
+    $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
     }
-  }
+    @endif
+    }
+    }
 </script>
 @endsection
