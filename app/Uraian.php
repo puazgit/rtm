@@ -9,9 +9,11 @@ class Uraian extends Model
     protected $table = 'uraian';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'r_pic', 'ket', 'uraian', 'analisis', 'r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
-        'status', 'target', 'realisasi', 'competitor', 'm_rtm', 'm_departemen'
+        'id', 'ket', 'uraian', 'analisis', 'r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
+        'status', 'target', 'realisasi', 'competitor', 'jenis_id'
     ];
+    protected $guarded = ['srtm', 'sdept'];
+
     public function rtm()
     {
         return $this->belongsToMany('App\Rtm');
@@ -27,9 +29,9 @@ class Uraian extends Model
         return $this->belongsToMany('App\Departemen');
     }
 
-    public function jenis(Type $var = null)
+    public function jenis()
     {
-        # code...
+        return $this->belongsTo('App\Jenis');
     }
     // public function activeOptions()
     // {

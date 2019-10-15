@@ -56,6 +56,27 @@ class MasalahController extends Controller
         }
         return view('masalah.index');
     }
+
+    // public function saveMedia(Request $request)
+    // {
+    //     $path = storage_path('tmp/uploads');
+
+    //     if (!file_exists($path)) {
+    //         mkdir($path, 0777, true);
+    //     }
+
+    //     $file = $request->file('file');
+
+    //     $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+    //     $file->move($path, $name);
+
+    //     return response()->json([
+    //         'name'          => $name,
+    //         'original_name' => $file->getClientOriginalName(),
+    //     ]);
+    // }
+
     public function create()
     {
         $departemen = Departemen::all();
@@ -65,19 +86,28 @@ class MasalahController extends Controller
 
     public function store(Request $request)
     {
-
-        if ($request->has('r_pic')) {
-            $request['r_pic'] = implode(',', $request->r_pic);
-        }
         $request['status'] = $request->has('status');
 
         $validatedData = $request->validate([
-            'sdept' => 'required', 'sjenis' => 'required', 'ket' => '', 'uraian' => 'required', 'analisis' => '',
-            'r_uraian' => 'required', 'r_target' => 'required', 'tindak' => '',
-            'p_rencana' => '', 'p_realisasi' => '', 'status' => 'required',
+            'srtm' => 'required', 'sdept' => 'required',
+            'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
+            'analisis' => '', 'r_uraian' => 'required', 'r_target' => 'required',
+            'tindak' => '', 'p_rencana' => '', 'p_realisasi' => '', 'status' => 'required',
         ]);
 
+        $uraian = Uraian::create($validatedData);
+        $uraian = Uraian::find($uraian->id);
+        $uraian->rtm()->attach($request->srtm);
+        $uraian->departemen()->attach($request->sdept);
+
         if ($request->has('chk_grafik')) {
+            // $validatedData = $request->validate([
+            //     'target.*' => 'required',
+            //     'realisasi.*' => 'required',
+            //     'competitor.*' => 'required',
+            //     'year.*' => 'required',
+            // ]);
+
             $rules = array(
                 'target.*' => 'required',
                 'realisasi.*' => 'required',
@@ -89,29 +119,24 @@ class MasalahController extends Controller
                 return redirect('masalah/create')
                     ->withErrors($error)
                     ->withInput();
-            } else {
-                $uraian = Uraian::create($validatedData);
-                $uraian = Uraian::find($uraian->id);
-
-                $target = $request->target;
-                $realisasi = $request->realisasi;
-                $competitor = $request->competitor;
-                $year = $request->year;
-
-                for ($count = 0; $count < count($target); $count++) {
-                    $container[] = new Progres(array(
-                        'target' => $target[$count],
-                        'realisasi' => $realisasi[$count],
-                        'competitor' => $competitor[$count],
-                        'year' => $year[$count],
-                    ));
-                }
-                $uraian->progres()->saveMany($container);
             }
-        } else {
-            $uraian = Uraian::create($validatedData);
+
+            $target = $request->target;
+            $realisasi = $request->realisasi;
+            $competitor = $request->competitor;
+            $year = $request->year;
+
+            for ($count = 0; $count < count($target); $count++) {
+                $container[] = new Progres(array(
+                    'target' => $target[$count],
+                    'realisasi' => $realisasi[$count],
+                    'competitor' => $competitor[$count],
+                    'year' => $year[$count],
+                ));
+            }
+            $uraian->progres()->saveMany($container);
         }
-        return redirect('/masalah')->with('success', 'data successfully saved');
+        return redirect('/masalah')->with('success', 'bahan RTM berhasil diinput');
     }
 
     public function show($masalah)

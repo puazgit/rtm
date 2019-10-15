@@ -33,6 +33,12 @@
             </div>
         </div>
     </div>
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+    </div>
+    @endif
 </div>
 <div class="col-md-12">
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -276,7 +282,7 @@
     });
     }
 
-        $('#m_rtm').select2({placeholder: '--- Pilih RTM ---',minimumInputLength: 0,allowClear: true});
+        // $('#m_rtm').select2({placeholder: '--- Pilih RTM ---',minimumInputLength: 0,allowClear: true});
         $('#m_departemen').select2({placeholder: '--- Pilih Departemen ---',minimumInputLength: 0,allowClear: true});
     });
 $(function() {

@@ -6,6 +6,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -55,6 +56,14 @@
                     </div>
                 </div>
                 <hr>
+                <select id="srtm" class="form-control select2-multiple" name="srtm">
+                    @foreach (App\Rtm::all() as $rtm)
+                    <option value=""></option>
+                    <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
+                    </option>
+                    @endforeach
+                </select>
+                <hr>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -90,7 +99,7 @@
                                     <div class="form-group">
                                         <label for="jenis" class="col-md-2 control-label">Jenis Permasalahan</label>
                                         <div class="col-md-10">
-                                            <select id="sjenis" class="form-control select2" name="sjenis">
+                                            <select id="jenis_id" class="form-control select2" name="jenis_id">
                                                 <option value=""></option>
                                                 @foreach ($jenis as $jenis)
                                                 <option value="{{ $jenis->id }}">{{ $jenis->jenis_masalah }}
@@ -222,7 +231,7 @@
                                                 id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label class="col-md-2 control-label">Attachment</label>
                                         <div class="col-md-10">
                                             <div class="dropzone dropzone-file-area" id="document-dropzone"
@@ -233,7 +242,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -255,8 +264,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/components-bootstrap-switch.min.js')}}" type="text/javascript"></script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 @endsection
 
 @section('script')
@@ -295,8 +303,9 @@
     ComponentsEditors.init()
     });
     
+    $('#srtm').select2({placeholder: "Pilih RTM Ke ...",allowClear: true, width : '100%'});
     $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
-    $('#sjenis').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
+    $('#jenis_id').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
     
     $('#chk_pic').click(function(){
     if($('#chk_pic').is(':checked')){ //select all
@@ -308,41 +317,41 @@
     }
     });
     
-    var uploadedDocumentMap = {}
-    Dropzone.options.documentDropzone = {
-    url: '{{ route('rtm.saveMedia') }}',
-    maxFilesize: 2, // MB
-    addRemoveLinks: true,
-    headers: {
-    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-    },
-    success: function (file, response) {
-    $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
-    uploadedDocumentMap[file.name] = response.name
-    },
-    removedfile: function (file) {
-    file.previewElement.remove()
-    var name = ''
-    if (typeof file.file_name !== 'undefined') {
-    name = file.file_name
-    } else {
-    name = uploadedDocumentMap[file.name]
-    }
-    $('form').find('input[name="document[]"][value="' + name + '"]').remove()
-    },
-    init: function () {
-    @if(isset($rtm) && $rtm->document)
-    var files =
-    {!! json_encode($rtm->document) !!}
-    for (var i in files) {
-    var file = files[i]
-    this.options.addedfile.call(this, file)
-    file.previewElement.classList.add('dz-complete')
-    $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
-    }
-    @endif
-    }
-    }
+    // var uploadedDocumentMap = {}
+    // Dropzone.options.documentDropzone = {
+    // url: '{{ route('masalah.saveMedia') }}',
+    // maxFilesize: 2, // MB
+    // addRemoveLinks: true,
+    // headers: {
+    // 'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    // },
+    // success: function (file, response) {
+    // $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+    // uploadedDocumentMap[file.name] = response.name
+    // },
+    // removedfile: function (file) {
+    // file.previewElement.remove()
+    // var name = ''
+    // if (typeof file.file_name !== 'undefined') {
+    // name = file.file_name
+    // } else {
+    // name = uploadedDocumentMap[file.name]
+    // }
+    // $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    // },
+    // init: function () {
+    // @if(isset($rtm) && $rtm->document)
+    // var files =
+    // {!! json_encode($rtm->document) !!}
+    // for (var i in files) {
+    // var file = files[i]
+    // this.options.addedfile.call(this, file)
+    // file.previewElement.classList.add('dz-complete')
+    // $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+    // }
+    // @endif
+    // }
+    // }
 </script>
 
 <script>

@@ -20,6 +20,7 @@ Route::get('user/json', 'UserController@json');
 Route::get('masalah/test', 'MasalahController@test');
 Route::get('masalah/oke', 'MasalahController@oke');
 Route::get('masalah/getActiveAttribute', 'MasalahController@getActiveAttribute');
+Route::post('masalah/media', 'MasalahController@saveMedia')->name('masalah.saveMedia');
 Route::get('masalah/progresjson', 'MasalahController@progresjson')->name('progres.json');
 Route::get('masalah/progresjson/{id}', 'MasalahController@progresjson');
 Route::get('masalah/dept', 'MasalahController@loadDepartemen')->name('masalah.dept');
