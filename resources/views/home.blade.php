@@ -17,16 +17,17 @@
 <!-- END PAGE HEADER-->
 <!-- BEGIN DASHBOARD STATS 1-->
 <div class="row">
+    {{-- @if ($message = Session::get('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>{{ $message }}</strong>
+</div>
+@endif --}}
+</div>
+<div class="row">
     <div class="col-md-12 col-sm-6">
         <div class="portlet-body">
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke 75 . <a
-                    href="{{route ('home')}}/storage/1/5da42491eb741_CONTOH-SURAT.docx"><b>download
-                    </b></a>
-                surat
-                permohonan bahan RTM Ke 75
-            </div>
+            {!! $message!!}
         </div>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -36,7 +37,8 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="{{ $total_rtm }}"></span></div>
+                    <span data-counter="counterup" data-value="{{ $total_rtm }}"></span>
+                </div>
                 <div class="desc"> Total RTM</div>
             </div>
             <a class="more" href="javascript:;"> View more

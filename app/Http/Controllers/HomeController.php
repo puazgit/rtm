@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Departemen;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Rtm;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,14 +30,28 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $userdept = Auth::user()->departemen_id;
+        $rtmc = Rtm::where('enabled', 1)->first();
+        $message = null;
+        if (isset($rtmc) && $userdept != 0) {
+            $rtmcid = $rtmc->id;
+            $json = Departemen::Findorfail($userdept);
+            $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
+                return $q->where('id', '=', $rtmcid);
+            })->get();
+            if (sizeof($json1) > 0) {
+                $message = null;
+            } else {
+                $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
+            <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
+            href=\"" . $rtmc->rtm_ke . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "</div>";
+            }
+        }
+
         $total_rtm = DB::table('rtm')->get()->count();
         $total_uraian = DB::table('uraian')->get()->count();
         $masalah_open = DB::table('uraian')->where('status', '1')->count();
         $masalah_close = DB::table('uraian')->where('status', '0')->count();
-
-        return view('home')->with('total_rtm', $total_rtm)
-            ->with('total_uraian', $total_uraian)
-            ->with('masalah_open', $masalah_open)
-            ->with('masalah_close', $masalah_close);
+        return view('home', compact('total_rtm', 'total_uraian', 'masalah_open', 'masalah_close', 'message'));
     }
 }

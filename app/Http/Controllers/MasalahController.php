@@ -24,8 +24,21 @@ class MasalahController extends Controller
 
     public function test()
     {
-        $json = Uraian::with('rtm')->latest()->get();
-        return $json;
+        // $rtmc = Rtm::where('enabled', 1)->first();
+        // $userdept = Auth::user()->departemen_id;
+        // $json = Departemen::FindorFail($userdept);
+        // $json = $json->uraian()->whereHas('rtm', function ($q) use ($rtmc) {
+        //     $q->where('id', '=', $rtmc);
+        // })->get();
+        // $message = '';
+        // if (sizeof($json) < 0) {
+        //     $message = "haha";
+        // } else {
+        //     $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
+        //     <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
+        //     href=\"\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "</div>";
+        // }
+        // return redirect('/')->with('success', $message);
     }
 
     public function oke()
@@ -92,7 +105,7 @@ class MasalahController extends Controller
             'srtm' => 'required', 'sdept' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => '', 'r_uraian' => 'required', 'r_target' => 'required',
-            'tindak' => '', 'p_rencana' => '', 'p_realisasi' => '', 'status' => 'required',
+            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
         ]);
 
         $uraian = Uraian::create($validatedData);

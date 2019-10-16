@@ -65,7 +65,7 @@ class RtmController extends Controller
         foreach ($request->input('document', []) as $file) {
             $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
         }
-        return redirect('rtm');
+        return redirect('rtm')->with('success', 'RTM berhasil dibuat');
     }
 
     public function store(Request $request)

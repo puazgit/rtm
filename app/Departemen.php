@@ -18,6 +18,11 @@ class Departemen extends Model
         return $this->belongsToMany('App\Uraian');
     }
 
+    // public function rtm()
+    // {
+    //     return $this->hasManyThrough('App\Rtm', 'App\Uraian');
+    // }
+
     public function scopeFilterDepartemen($query)
     {
         return $query->where('id', '=', 1);
