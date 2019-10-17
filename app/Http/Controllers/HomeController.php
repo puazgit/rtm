@@ -28,13 +28,25 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    public function cekcok()
+    {
+        $rtm = Rtm::find(6);
+        $mediaItems = $rtm->getMedia('document');
+        $publicUrl = $mediaItems[0]->getUrl();
+        return $publicUrl;
+    }
+
     public function index()
     {
         $userdept = Auth::user()->departemen_id;
-        $rtmc = Rtm::where('enabled', 1)->first();
+        $rtmc = Rtm::SelectedRtm();
         $message = null;
         if (isset($rtmc) && $userdept != 0) {
             $rtmcid = $rtmc->id;
+            $rtmcUrl = $rtmc->getMedia('document');
+            $rtmcUrl = $rtmcUrl[0]->getUrl();
+
             $json = Departemen::Findorfail($userdept);
             $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
                 return $q->where('id', '=', $rtmcid);
@@ -44,7 +56,8 @@ class HomeController extends Controller
             } else {
                 $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
             <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
-            href=\"" . $rtmc->rtm_ke . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "</div>";
+            href=\"" . $rtmcUrl . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "
+             Klik <a href=\"masalah/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
             }
         }
 

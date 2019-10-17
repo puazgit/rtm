@@ -96,7 +96,7 @@
 </div>
 <div class="portlet light bordered">
     <div class="portlet-body">
-        <a href="javascript:;" class="icon-btn">
+        <a href="{{route ('masalah.create')}}" class="icon-btn">
             <i class="fa fa-file-o"></i>
             <div> + Data</div>
         </a>

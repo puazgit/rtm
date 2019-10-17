@@ -17,8 +17,12 @@ class Rtm extends Model implements HasMedia
     ];
 
     public function uraian()
-
     {
         return $this->belongsToMany('App\Uraian');
+    }
+
+    public function scopeSelectedRtm($query)
+    {
+        return $query->where('enabled', 1)->first();
     }
 }

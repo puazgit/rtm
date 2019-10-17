@@ -24,6 +24,7 @@ class MasalahController extends Controller
 
     public function test()
     {
+        return Rtm::all()->getMedia();
         // $rtmc = Rtm::where('enabled', 1)->first();
         // $userdept = Auth::user()->departemen_id;
         // $json = Departemen::FindorFail($userdept);
@@ -94,7 +95,8 @@ class MasalahController extends Controller
     {
         $departemen = Departemen::all();
         $jenis = Jenis::all();
-        return view('masalah.create', compact('departemen', 'jenis'));
+        $selectedrtm = Rtm::SelectedRtm();
+        return view('masalah.create', compact('departemen', 'jenis', 'selectedrtm'));
     }
 
     public function store(Request $request)

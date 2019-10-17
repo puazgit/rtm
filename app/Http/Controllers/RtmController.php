@@ -19,9 +19,17 @@ class RtmController extends Controller
     {
         return view('rtm/index');
     }
+    public function cek()
+    {
+        // $rtm = Rtm::find(5);
+        // $mediaItems = $rtm->getMedia('document');
+        // $publicUrl = $mediaItems[0]->getUrl();
+        // return $publicUrl;
+        // return $rtm;
+    }
     public function create()
     {
-        return view('rtm/create');
+        return view('rtm/create', compact('rtm'));
     }
 
     public function add()
@@ -113,5 +121,22 @@ class RtmController extends Controller
             $json = Rtm::all();
             return Datatables::of($json)->make(true);
         }
+    }
+
+    public function loadRtm()
+    {
+        $rtm = Rtm::all();
+        $formatted_rtm = [];
+        foreach ($rtm as $rtm) {
+            $formatted_rtm[] = [
+                'id' => $rtm->id,
+                'text' => $rtm->rtm_ke,
+                'tingkat' => $rtm->tingkat,
+                'rkt' => $rtm->rkt,
+                'tahun' => $rtm->tahun,
+                'enabled' => $rtm->enabled,
+            ];
+        }
+        return \Response::json($formatted_rtm);
     }
 }

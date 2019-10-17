@@ -41,10 +41,13 @@
                                 <div class="mt-step-content uppercase font-grey-cascade bold">&nbsp;</div>
                             </div>
                             <div class="col-md-6 bg-grey mt-step-col">
-                                <div class="mt-step-title uppercase font-grey-cascade">Rapat Tinjauan Manajemen : 75
+                                <div id="lrtmke" class="mt-step-title uppercase font-grey-cascade">Rapat Tinjauan
+                                    Manajemen : 75
                                 </div>
-                                <div class="mt-step-content uppercase font-grey-cascade bold">Tingkat Pusat</div>
-                                <div class="mt-step-content uppercase font-grey-cascade bold">Pada Rkt I Tahun 2019
+                                <div id="ltingkat" class="mt-step-content uppercase font-grey-cascade bold">Tingkat
+                                    Pusat</div>
+                                <div id="lrktTahun" class="mt-step-content uppercase font-grey-cascade bold">Pada Rkt
+                                    I Tahun 2019
                                 </div>
                             </div>
                             <div class="col-md-3 bg-grey mt-step-col">
@@ -56,12 +59,12 @@
                     </div>
                 </div>
                 <hr>
-                <select id="srtm" class="form-control select2-multiple" name="srtm">
-                    @foreach (App\Rtm::all() as $rtm)
-                    <option value=""></option>
-                    <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
-                    </option>
+                <select id="srtm" class="form-control select2" name="srtm">
+                    @role('unit')
+                    @foreach ($selectedrtm->get() as $item)
+                    <option value="{{$item->id}}">{{$item->rtm_ke}}</option>
                     @endforeach
+                    @endrole
                 </select>
                 <hr>
                 @if ($errors->any())
@@ -303,10 +306,32 @@
     ComponentsEditors.init()
     });
     
-    $('#srtm').select2({placeholder: "Pilih RTM Ke ...",allowClear: true, width : '100%'});
     $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
     $('#jenis_id').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
     
+    $('#srtm').select2({
+			placeholder: 'Pilih RTM Ke ...',
+			minimumInputLength: 0,
+			allowClear: true,
+			dropdownAutoWidth: true,
+			ajax: {
+				url: '{{route ('rtm.load')}}',
+				dataType: 'json',
+				delay: 250,
+				processResults: function (data) {
+					return {
+						results: data
+					};
+				},
+				cache: true
+			}
+		}).on('select2:select', function(e){
+            var data = e.params.data;
+            $('#lrtmke').html("Rapat Tinjauan Manajemen : "+data.text+"");
+            $('#ltingkat').html("Tingkat "+data.tingkat+"");
+            $('#lrktTahun').html("Pada RKT "+data.rkt+" Tahun "+data.tahun+"");
+        });
+
     $('#chk_pic').click(function(){
     if($('#chk_pic').is(':checked')){ //select all
     $('#dept').find('option').prop('selected',true);
