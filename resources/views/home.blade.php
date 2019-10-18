@@ -98,7 +98,7 @@
     <div class="portlet-body">
         <a href="{{route ('masalah.create')}}" class="icon-btn">
             <i class="fa fa-file-o"></i>
-            <div> + Data</div>
+            <div> + Bahan</div>
         </a>
         <a href="javascript:;" class="icon-btn">
             <i class="fa fa-barcode"></i>

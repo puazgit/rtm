@@ -29,14 +29,6 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function cekcok()
-    {
-        $rtm = Rtm::find(6);
-        $mediaItems = $rtm->getMedia('document');
-        $publicUrl = $mediaItems[0]->getUrl();
-        return $publicUrl;
-    }
-
     public function index()
     {
         $userdept = Auth::user()->departemen_id;

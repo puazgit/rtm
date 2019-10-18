@@ -42,12 +42,14 @@
                             </div>
                             <div class="col-md-6 bg-grey mt-step-col">
                                 <div id="lrtmke" class="mt-step-title uppercase font-grey-cascade">Rapat Tinjauan
-                                    Manajemen : 75
+                                    Manajemen : @isset($selectedrtm->rtm_ke) {{ $selectedrtm->rtm_ke }} @endisset
                                 </div>
                                 <div id="ltingkat" class="mt-step-content uppercase font-grey-cascade bold">Tingkat
-                                    Pusat</div>
+                                    @isset($selectedrtm->tingkat){{$selectedrtm->tingkat}}@endisset</div>
                                 <div id="lrktTahun" class="mt-step-content uppercase font-grey-cascade bold">Pada Rkt
-                                    I Tahun 2019
+                                    @isset($selectedrtm->rkt)
+                                    {{$selectedrtm->rkt}}@endisset Tahun
+                                    @isset($selectedrtm->tahun){{$selectedrtm->tahun}}@endisset
                                 </div>
                             </div>
                             <div class="col-md-3 bg-grey mt-step-col">
@@ -59,13 +61,17 @@
                     </div>
                 </div>
                 <hr>
-                <select id="srtm" class="form-control select2" name="srtm">
-                    @role('unit')
-                    @foreach ($selectedrtm->get() as $item)
-                    <option value="{{$item->id}}">{{$item->rtm_ke}}</option>
-                    @endforeach
-                    @endrole
-                </select>
+                <div @role ('unit') id="noEdit" @endrole><select id="srtm" class="form-control select2" name="srtm">
+                        @role('unit')
+                        <option value="@isset($selectedrtm->id){{$selectedrtm->id}}@endisset">
+                            @isset($selectedrtm->rtm_ke){{$selectedrtm->rtm_ke}}@endisset
+                        </option>
+                        @endrole
+                        <option value="@isset($selectedrtm->id){{$selectedrtm->id}}@endisset">
+                            @isset($selectedrtm->rtm_ke){{$selectedrtm->rtm_ke}}@endisset
+                        </option>
+                    </select>
+                </div>
                 <hr>
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -148,15 +154,20 @@
                                                 id="r_target">{{ old('r_target') }} </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" @role('unit') id="noEdit" @endrole>
                                         <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)
                                             <input type="checkbox" name="chk_pic" value="1" id="chk_pic"
                                                 {{ old('chk_pic') == '1' ? 'checked' : '' }} /></label>
                                         <div class="col-md-10">
                                             <select id="sdept" class="form-control select2-multiple" name="sdept[]"
-                                                multiple="multiple">
-                                                @foreach ($departemen as $departemen)
-                                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                                                multiple>
+                                                @role('unit')
+                                                <option value="{{Auth::user()->departemen_id }}" selected />
+                                                {{Auth::user()->name }}
+                                                </option>
+                                                @endrole
+                                                @foreach ($alldepartemen as $item)
+                                                <option value="{{$item->id}}">{{$item->departemen}}
                                                 </option>
                                                 @endforeach
                                             </select>
@@ -234,18 +245,6 @@
                                                 id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label class="col-md-2 control-label">Attachment</label>
-                                        <div class="col-md-10">
-                                            <div class="dropzone dropzone-file-area" id="document-dropzone"
-                                                style="margin-top: 10px;">
-                                                <div class="dz-message" data-dz-message><span>
-                                                        <h3 class="sbold">Klik untuk mengunggah file</h3>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -334,11 +333,11 @@
 
     $('#chk_pic').click(function(){
     if($('#chk_pic').is(':checked')){ //select all
-    $('#dept').find('option').prop('selected',true);
-    $('#dept').trigger('change');
+    $('#sdept').find('option').prop('selected',true);
+    $('#sdept').trigger('change');
     } else { //deselect all
-    $('#dept').find('option').prop('selected',false);
-    $('#r_pic').trigger('change');
+    $('#sdept').find('option').prop('selected',false);
+    $('#sdept').trigger('change');
     }
     });
     

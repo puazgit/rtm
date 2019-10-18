@@ -24,41 +24,11 @@ class MasalahController extends Controller
 
     public function test()
     {
-        return Rtm::all()->getMedia();
-        // $rtmc = Rtm::where('enabled', 1)->first();
-        // $userdept = Auth::user()->departemen_id;
-        // $json = Departemen::FindorFail($userdept);
-        // $json = $json->uraian()->whereHas('rtm', function ($q) use ($rtmc) {
-        //     $q->where('id', '=', $rtmc);
-        // })->get();
-        // $message = '';
-        // if (sizeof($json) < 0) {
-        //     $message = "haha";
-        // } else {
-        //     $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
-        //     <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
-        //     href=\"\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "</div>";
-        // }
-        // return redirect('/')->with('success', $message);
+        return uraian::with('rtm')->with('departemen')->latest()->get();
     }
-
-    public function oke()
-    {
-        $r = function ($query) {
-            return $query->where('id', '>', '0');
-        };
-        $d = function ($query) {
-            return $query->where('departemen', '=', 'Divisi Inventarisasi dan Pengendalian Aset (IPA)');
-        };
-        $uraian = uraian::with(['rtm' => $r, 'departemen' => $d])->latest()->get();
-        return datatables::of($uraian)->make(true);
-        // return $uraian;
-    }
-
     public function index()
     {
         if (request()->ajax()) {
-            // $json = Uraian::with('rtm')->latest()->get();
             $r = function ($query) {
                 return $query->where('id', '>', '0');
             };
@@ -71,32 +41,12 @@ class MasalahController extends Controller
         return view('masalah.index');
     }
 
-    // public function saveMedia(Request $request)
-    // {
-    //     $path = storage_path('tmp/uploads');
-
-    //     if (!file_exists($path)) {
-    //         mkdir($path, 0777, true);
-    //     }
-
-    //     $file = $request->file('file');
-
-    //     $name = uniqid() . '_' . trim($file->getClientOriginalName());
-
-    //     $file->move($path, $name);
-
-    //     return response()->json([
-    //         'name'          => $name,
-    //         'original_name' => $file->getClientOriginalName(),
-    //     ]);
-    // }
-
     public function create()
     {
-        $departemen = Departemen::all();
         $jenis = Jenis::all();
         $selectedrtm = Rtm::SelectedRtm();
-        return view('masalah.create', compact('departemen', 'jenis', 'selectedrtm'));
+        $alldepartemen = Departemen::all();
+        return view('masalah.create', compact('jenis', 'selectedrtm', 'alldepartemen'));
     }
 
     public function store(Request $request)
@@ -108,6 +58,12 @@ class MasalahController extends Controller
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => '', 'r_uraian' => 'required', 'r_target' => 'required',
             'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
+        ], [
+            'jenis_id.required' => 'Jenis Permasalahan harap diisi',
+            'uraian.required' => 'Uraian Permasalahan harap diisi',
+            'analisis.required' => 'Analisis / Penyebab harap diisi',
+            'r_uraian.required' => 'Uraian Rencana penyelesaian  harap diisi',
+            'r_target.required' => 'Target waktu harap diisi',
         ]);
 
         $uraian = Uraian::create($validatedData);
@@ -116,12 +72,6 @@ class MasalahController extends Controller
         $uraian->departemen()->attach($request->sdept);
 
         if ($request->has('chk_grafik')) {
-            // $validatedData = $request->validate([
-            //     'target.*' => 'required',
-            //     'realisasi.*' => 'required',
-            //     'competitor.*' => 'required',
-            //     'year.*' => 'required',
-            // ]);
 
             $rules = array(
                 'target.*' => 'required',
@@ -158,7 +108,6 @@ class MasalahController extends Controller
     {
         $masalah = Uraian::with('rtm')->findOrfail($masalah);
         return view('masalah.show', compact('masalah'));
-        // return $masalah;
     }
 
     public function edit($masalah)
@@ -166,8 +115,7 @@ class MasalahController extends Controller
         $dept_id = Auth::user()->departemen_id;
         $alldepartemen = Departemen::all();
         $masalah = Uraian::with('progres')->findOrfail($masalah);
-        return view('masalah.edit', compact('masalah', 'alldepartemen', 'dept_id'));
-        // return $masalah;
+        return view('masalah.edit', compact('dept_id', 'alldepartemen', 'masalah'));
     }
 
     public function update(Request $request, $id)
@@ -217,8 +165,6 @@ class MasalahController extends Controller
         } else {
             Uraian::whereId($id)->update($validatedData);
         }
-
-        // Uraian::whereId($id)->update($validatedData);
         return redirect('masalah/');
     }
 
@@ -226,24 +172,6 @@ class MasalahController extends Controller
     {
         //
     }
-
-    // public function jsonuraian(Request $request)
-    // {
-    //     $row = Auth::user()->departemen_id;
-    //     if (Auth::user()->name == 'Administrator') {
-
-    //         $json = Uraian::with('rtm');
-    //     } else {
-    //         $json = Uraian::with('rtm')
-    //             ->where('r_pic', '=', $row)
-    //             ->orWhere('r_pic', 'like', '%,' . $row . ',%')
-    //             ->orWhere('r_pic', 'like', $row . ',%')
-    //             ->orWhere('r_pic', 'like', '%,' . $row)
-    //             ->latest()->get();
-    //     }
-
-    //     return Datatables::of($json)->make(true);
-    // }
 
     public function progresjson($id = null)
     {
@@ -260,23 +188,8 @@ class MasalahController extends Controller
         return $json;
     }
 
-    // public function loadDepartemen(Request $request)
-    // {
-    //     $term = trim($request->q);
-    //     if (empty($term)) {
-    //         return \Response::json([]);
-    //     }
-    //     $departemen = DB::table('tb_departemen')->select('id', 'departemen')->where('departemen', 'LIKE', '%'.$term.'%')->get();
-    //     $formatted_departemen = [];
-    //     foreach ($departemen as $departemen) {
-    //         $formatted_departemen[] = ['id' => $departemen->id, 'text' => $departemen->departemen];
-    //     }
-    //     return \Response::json($formatted_departemen);
-    // }
-
     public function loadDepartemen()
     {
-        // $departemen = DB::table('tb_departemen')->select('id', 'departemen')->get();
         $departemen = Departemen::all();
         $formatted_departemen = [];
         foreach ($departemen as $departemen) {

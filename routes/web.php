@@ -18,8 +18,8 @@ Route::get('/user', 'UserController@index');
 Route::get('user/create', 'UserController@create')->middleware('role:admin');
 Route::get('user/json', 'UserController@json');
 //Masalah Routes
+
 Route::get('masalah/test', 'MasalahController@test');
-Route::get('masalah/oke', 'MasalahController@oke');
 Route::get('masalah/getActiveAttribute', 'MasalahController@getActiveAttribute');
 Route::post('masalah/media', 'MasalahController@saveMedia')->name('masalah.saveMedia');
 Route::get('masalah/progresjson', 'MasalahController@progresjson')->name('progres.json');

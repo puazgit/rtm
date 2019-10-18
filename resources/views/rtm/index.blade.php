@@ -18,46 +18,15 @@
         </div>
         @endif
     </div>
-    <div class="col-md-6">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption font-red-sunglo">
-                    <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase"> RTM</span>
-                </div>
-                <div class="tools">
-                    {{-- <a href="{{route ('rtm.create')}}"><button type="submit" name="btn_add"
-                        class="btn btn-success">
-                        <i class="fa fa-magic"></i> Add</button></a> --}}
-                </div>
-            </div>
-            <div class="portlet-body">
-                {{-- <div class="table-responsive m-t-10"> --}}
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="table-rtm">
-                    <thead>
-                        <tr>
-                            <th>RTM Ke</th>
-                            <th>Tingkat</th>
-                            <th>RKT</th>
-                            <th>Tahun</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            {{-- </div> --}}
-        </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
-    </div>
-    <div class="col-md-6">
+
+    <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
                     <span class="caption-subject bold uppercase">PERMASALAHAN
-                        {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->email}}</span>
+                        {{ Auth::user()->name == 'Administrator' ? 'SELURUH UNIT KERJA' : Auth::user()->name}}</span>
                 </div>
                 <div class="tools">
                 </div>
@@ -72,12 +41,12 @@
                             <th rowspan="2">Analisis /Penyebab</th>
                             <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
                             {{-- <th rowspan="2">Uraian</th>
-                            <th rowspan="2">Target Waktu</th>
-                            <th rowspan="2">PIC</th> --}}
+                                <th rowspan="2">Target Waktu</th>
+                                <th rowspan="2">PIC</th> --}}
                             <th rowspan="2">Tindaklanjut</th>
                             <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
                             {{-- <th rowspan="2">Rencana</th>
-                            <th rowspan="2">Realisasi</th> --}}
+                                <th rowspan="2">Realisasi</th> --}}
                             <th rowspan="2">Status</th>
                             <th rowspan="2">RTM Ke</th>
                             <th rowspan="2" style="text-align: center;">Aksi</th>
@@ -96,6 +65,32 @@
         </div>
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
+
+    {{-- <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-red-sunglo">
+                    <i class="icon-settings font-red-sunglo"></i>
+                    <span class="caption-subject bold uppercase"> RTM</span>
+                </div>
+                <div class="tools">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="table-rtm">
+                    <thead>
+                        <tr>
+                            <th>RTM Ke</th>
+                            <th>Tingkat</th>
+                            <th>RKT</th>
+                            <th>Tahun</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div> --}}
 </div>
 @endsection
 

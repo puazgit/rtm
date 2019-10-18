@@ -286,10 +286,10 @@
         $('#m_departemen').select2({placeholder: '--- Pilih Departemen ---',minimumInputLength: 0,allowClear: true});
     });
 $(function() {
-        var tablemasalah = $('#table-masalah').DataTable();
-            @role('unit')
-            tablemasalah.buttons(0).disable();
-            @endrole
+        // var tablemasalah = $('#table-masalah').DataTable();
+        //     @role('unit')
+        //     tablemasalah.buttons(0).disable();
+        //     @endrole
             
     $('#draggable').on('show.bs.modal',function (event){
 
