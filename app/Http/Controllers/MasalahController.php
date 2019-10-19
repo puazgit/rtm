@@ -56,7 +56,7 @@ class MasalahController extends Controller
         $validatedData = $request->validate([
             'srtm' => 'required', 'sdept' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
-            'analisis' => '', 'r_uraian' => 'required', 'r_target' => 'required',
+            'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
             'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
         ], [
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',

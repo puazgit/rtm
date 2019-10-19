@@ -109,7 +109,7 @@
                                         <label for="jenis" class="col-md-2 control-label">Jenis Permasalahan</label>
                                         <div class="col-md-10">
                                             <select id="jenis_id" class="form-control select2" name="jenis_id">
-                                                <option value=""></option>
+                                                <option value="{{old('jenis_id')}}">{{old('jenis_id')}}</option>
                                                 @foreach ($jenis as $jenis)
                                                 <option value="{{ $jenis->id }}">{{ $jenis->jenis_masalah }}
                                                 </option>
