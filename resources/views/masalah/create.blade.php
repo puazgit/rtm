@@ -195,7 +195,7 @@
                                 <div class="alert alert-success margin-bottom-10">
                                     <button type="button" class="close" data-dismiss="alert"
                                         aria-hidden="true"></button>
-                                    <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
+                                    <i class="fa fa-check fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
                                 </div>
                                 <div class="form-body" @role('unit') id="noEdit" @endrole>
                                     <div class="form-group">
