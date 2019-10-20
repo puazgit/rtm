@@ -16,7 +16,7 @@ class Uraian extends Model
 
     public function rtm()
     {
-        return $this->belongsToMany('App\Rtm');
+        return $this->belongsToMany('App\Rtm')->withPivot('rtm_id', 'uraian_id');;
     }
 
     public function progres()
@@ -33,6 +33,8 @@ class Uraian extends Model
     {
         return $this->belongsTo('App\Jenis');
     }
+
+
     // public function activeOptions()
     // {
     //     return [

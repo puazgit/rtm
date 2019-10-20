@@ -211,10 +211,9 @@ $(function() {
                             return ''+decodedText+''
                         }
                     }, //3
-                    { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                    { data: 'departemen[].departemen', name: 'departemen', render: function(data, column, row)
                         {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
+                            return ''+data+''
                         }
                     }, //4
                     { data: 'tindak', name: 'tindak', render: function(data, column, row)
@@ -245,7 +244,11 @@ $(function() {
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[
-                    {targets:[1,2,3,4,5,6,7,9,10], visible:false, className: 'noVis'},
+                    @role('admin')
+                    {targets:[5,6,7], visible:false, className: 'noVis'},
+                    @else
+                    {targets:[4,5,6,7], visible:false, className: 'noVis'},
+                    @endrole
                     {
                         targets:8,
                         render:function(a,e,t,n){
