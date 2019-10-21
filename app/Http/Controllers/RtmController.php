@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Rtm;
 use App\Uraian;
 use App\Progres;
+use App\Departemen;
 use DataTables;
 
 class RtmController extends Controller
@@ -24,9 +25,14 @@ class RtmController extends Controller
         // $myFilteredCollection = $myCollection->filter(function ($value) {
         //     return !empty($value);
         // });
+        $srtm = null;
+        $departemen = Departemen::findOrFail(4);
+        $json = $departemen->uraian()->with(['rtm' => function ($query) use ($srtm) {
+            return $query->where('id', '=', $srtm);
+        }])->with('progres')->get();
 
-        $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
-        return datatables::of($json)->make(true);
+        // $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
+        // return datatables::of($json)->make(true);
         // $r = function ($query) {
         //     return $query->where('id', '=', '6');
         // };
@@ -34,9 +40,9 @@ class RtmController extends Controller
         //     return $query->where('id', '=', '1');
         // };
         // $json = uraian::with(['rtm' => $r, 'departemen' => $d])->latest();
-        $json = Rtm::with('uraian')->get();
-        // return $json;
-        return datatables::of($json)->make(true);
+        // $json = Rtm::with('uraian')->get();
+        return $json;
+        // return datatables::of($json)->make(true);
     }
 
     public function create()

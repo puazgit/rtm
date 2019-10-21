@@ -1,5 +1,7 @@
 @extends('layouts/wrapper')
 @section('css')
+<link href="{{asset ('assets/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/datatables.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
@@ -7,6 +9,28 @@
 </h3>
 <div class="row">
     <div class="col-md-12">
+        <div class="m-portlet__body">
+            <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
+                <div class="col-lg-4">
+                    <select id="sdept" class="form-control select2" name="sdept">
+                        <option value=""></option>
+                        @foreach (App\Departemen::get() as $departemen)
+                        <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-lg-4">
+                    <select id="srtm" class="form-control select2" name="srtm">
+                        <option value=""></option>
+                        @foreach (App\Rtm::get() as $rtm)
+                        <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
         @if ($message = Session::get('success'))
         <div class="alert alert-success alert-block">
             <button type="button" class="close" data-dismiss="alert">×</button>
@@ -56,46 +80,77 @@
 
 @section('js')
 <!-- BEGIN: Page Vendor JS-->
+<script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/components-select2.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatable.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/jquery-ui.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/amcharts.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/serial.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/pie.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/radar.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/themes/light.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/themes/patterns.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amcharts/themes/chalk.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/ammap/ammap.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/ammap/maps/js/worldLow.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/amcharts/amstockcharts/plugins/dataloader/dataloader.min.js')}}" type="text/javascript">
 </script>
 @endsection
 @section('script')
 <script>
-    $(function() {
+    $(document).ready(function(){
+        
+    $('#sdept').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
+    $('#srtm').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
+
+    $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+    });
+
+ load_data();
+
+ $('#sdept').change(function(){
+    var	sdept = $(this).val();
+    var	srtm = $(srtm).val();
+
+    $('#table-bahan').DataTable().destroy();
+    load_data(sdept ,srtm);
+ })
+
+ $('#srtm').change(function(){
+    var	srtm = $(this).val();
+    var	sdept = $(sdept).val();
+
+    $('#table-bahan').DataTable().destroy();
+    load_data(sdept, srtm);
+ })
+
+ function load_data(sdept, srtm)
+ {
+    var	sdept = $('#sdept').val();
+    var	srtm = $('#srtm').val();
+    
     $('#table-bahan').DataTable({
-        dom: 'Blfrtip',
-    buttons: [
-              {
-                text: '+ Bahan',
-                className:"btn btn-square green btn-success",
-                    action: function ( e, dt, node, config ) {
-                        window.location = '{{route ('bahan.create')}}';
-                    }
-                }
-          ],
     processing: true,
     serverSide: true,
     order:[[10,"desc"]],
     ajax: {
-        url:'{{ route("bahan.index") }}'
+        url:'{{ route("bahan.index") }}',
+        data:{sdept:sdept, srtm:srtm}
     },
+    dom: 'Blfrtip',
+    buttons: [
+              {
+                text: 'Add +',
+                className:"btn btn-square green btn-success",
+                    action: function ( e, dt, node, config ) {
+                        window.location = '{{route ('bahan.create')}}';
+                    }
+                },
+                {
+					extend: "colvis",
+                    text: "Show",
+                    className: "btn btn-square green btn-success"
+				},  
+                {
+                    extend:"pdf",
+                    className:"btn btn-square green btn-success"
+                }
+          ],
     columns: [
                     { data: 'uraian', name: 'uraian', render: function(data, column, row)
                         {
@@ -121,10 +176,9 @@
                             return ''+decodedText+''
                         }
                     }, //3
-                    { data: 'departemen[].departemen', name: 'departemen', render: function(data, column, row)
+                    { data: 'departemen[].departemen', name: 'departemen', orderable: false, render: function(data, column, row)
                         {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
+                            return ''+data+''
                         }
                     }, //4
                     { data: 'tindak', name: 'tindak', render: function(data, column, row)
@@ -146,7 +200,7 @@
                         }
                     }, //7
                     { data: 'status', name: 'status'}, //8
-                    { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
+                    { data: 'rtm[].rtm_ke', name: 'rtm', orderable: false, render: function(data, type, row)
                         { 
                             return ''+data+''
                         }
@@ -175,12 +229,13 @@
                             orderable:!1,
                             title:"aksi",
                             render:function(data, type, row){
-                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('bahan.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('bahan.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
+                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('masalah.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('masalah.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
                             "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                             }
                     }
                 ],
     });
+    }
     });
 </script>
 @endsection

@@ -19,10 +19,49 @@ class BahanController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        // $rtm = Rtm::find(1);
+        // $json = $rtm->uraian()->with('progres')->with('departemen')->get();
+
+        // $m_departemen = $request->m_departemen;
+        // if (request()->ajax()) {
+        // if ($m_departemen) {
+        // $departemen = Departemen::find(4);
+        // $json = $departemen->uraian()->with('progres')->with('rtm')->get();
+        // $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
+        //     $srtm = 1;
+        //     $departemen = Departemen::findOrFail($m_departemen);
+        //     $json = $departemen->uraian()->with(['rtm' => function ($query) use ($srtm) {
+        //         return $query->where('id', '=', $srtm);
+        //     }])->with('progres')->get();
+        //     return datatables::of($json)->make(true);
+        // }
+        //  else {
+        //     return datatables::of($json)->make(true);
+        // }
+        // return $json;
+        // }
+        $sdept = $request->sdept;
+        $srtm = $request->srtm;
+
         if (request()->ajax()) {
-            $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
+            $json = Uraian::with(['rtm', 'departemen']);
+            if ($sdept && $srtm) {
+                $json->whereHas('departemen', function ($q) use ($request) {
+                    return $q->where('id', $request->input('sdept'));
+                })->whereHas('rtm', function ($q) use ($request) {
+                    return $q->where('id', $request->input('srtm'));
+                });
+            } elseif ($sdept) {
+                $json->whereHas('departemen', function ($q) use ($request) {
+                    return $q->where('id', $request->input('sdept'));
+                });
+            } elseif ($srtm) {
+                $json->whereHas('rtm', function ($q) use ($request) {
+                    return $q->where('id', $request->input('srtm'));
+                });
+            }
             return datatables::of($json)->make(true);
         }
         return view('bahan.index');
@@ -88,7 +127,7 @@ class BahanController extends Controller
             }
             $uraian->progres()->saveMany($container);
         }
-        return redirect('bahan.index')->with('success', 'bahan RTM berhasil diinput');
+        return redirect('bahan')->with('success', 'bahan RTM berhasil diinput');
     }
 
     public function show($bahan)
