@@ -21,10 +21,12 @@ class RtmController extends Controller
     }
     public function cek()
     {
-        $myFilteredCollection = $myCollection->filter(function ($value) {
-            return !empty($value);
-        });
+        // $myFilteredCollection = $myCollection->filter(function ($value) {
+        //     return !empty($value);
+        // });
 
+        $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
+        return datatables::of($json)->make(true);
         // $r = function ($query) {
         //     return $query->where('id', '=', '6');
         // };

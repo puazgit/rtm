@@ -1,13 +1,9 @@
 @extends('layouts/wrapper')
-
 @section('css')
 <link href="{{asset ('assets/css/datatables.min.css')}}" rel="stylesheet" type="text/css" />
-{{-- <link href="{{asset ('assets/css/datatables.bootstrap.css')}}" rel="stylesheet" type="text/css" /> --}}
 @endsection
-
 @section('content')
 <h3 class="page-title">
-
 </h3>
 <div class="row">
     <div class="col-md-12">
@@ -18,9 +14,7 @@
         </div>
         @endif
     </div>
-
     <div class="col-md-12">
-        <!-- BEGIN EXAMPLE TABLE PORTLET-->
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
@@ -32,7 +26,6 @@
                 </div>
             </div>
             <div class="portlet-body">
-                <!-- <div class="table-responsive"> -->
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
                     id="table-bahan">
                     <thead>
@@ -40,13 +33,8 @@
                             <th rowspan="2">Uraian Permasalahan Bidang</th>
                             <th rowspan="2">Analisis /Penyebab</th>
                             <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
-                            {{-- <th rowspan="2">Uraian</th>
-                                <th rowspan="2">Target Waktu</th>
-                                <th rowspan="2">PIC</th> --}}
                             <th rowspan="2">Tindaklanjut</th>
                             <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
-                            {{-- <th rowspan="2">Rencana</th>
-                                <th rowspan="2">Realisasi</th> --}}
                             <th rowspan="2">Status</th>
                             <th rowspan="2">RTM Ke</th>
                             <th rowspan="2" style="text-align: center;">Aksi</th>
@@ -60,37 +48,9 @@
                         </tr>
                     </thead>
                 </table>
-                <!-- </div> -->
             </div>
         </div>
-        <!-- END EXAMPLE TABLE PORTLET-->
     </div>
-
-    {{-- <div class="col-md-12">
-        <div class="portlet light bordered">
-            <div class="portlet-title">
-                <div class="caption font-red-sunglo">
-                    <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase"> RTM</span>
-                </div>
-                <div class="tools">
-                </div>
-            </div>
-            <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="table-rtm">
-                    <thead>
-                        <tr>
-                            <th>RTM Ke</th>
-                            <th>Tingkat</th>
-                            <th>RKT</th>
-                            <th>Tahun</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-    </div> --}}
 </div>
 @endsection
 
@@ -101,11 +61,8 @@
 <script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
-{{-- <script src="{{asset ('assets/js/table-datatables-buttons.min.js')}}" type="text/javascript"></script> --}}
 <script src="{{asset ('assets/js/jquery-ui.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/ui-modals.min.js')}}" type="text/javascript"></script>
-
-<!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="{{asset ('assets/amcharts/amcharts/amcharts.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amcharts/serial.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amcharts/pie.js')}}" type="text/javascript"></script>
@@ -118,9 +75,7 @@
 <script src="{{asset ('assets/amcharts/amstockcharts/amstock.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/amcharts/amstockcharts/plugins/dataloader/dataloader.min.js')}}" type="text/javascript">
 </script>
-<!-- END: Page Vendor JS-->
 @endsection
-
 @section('script')
 <script>
     $(function() {
@@ -132,7 +87,6 @@
                 className:"btn btn-square green btn-success",
                     action: function ( e, dt, node, config ) {
                         window.location = '{{route ('bahan.create')}}';
-                        // alert( 'Button activated' );
                     }
                 }
           ],
@@ -201,7 +155,11 @@
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[
+                    @role('unit')
+                    {targets:[4,5,6,7], visible:false, className: 'noVis'},
+                    @else
                     {targets:[5,6,7], visible:false, className: 'noVis'},
+                    @endrole
                     {
                         targets:8,
                         render:function(a,e,t,n){
