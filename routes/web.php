@@ -26,6 +26,9 @@ Route::get('masalah/progresjson', 'MasalahController@progresjson')->name('progre
 Route::get('masalah/progresjson/{id}', 'MasalahController@progresjson');
 Route::get('masalah/dept', 'MasalahController@loadDepartemen')->name('masalah.dept');
 Route::resource('masalah', 'MasalahController');
+
+//Bahan Routes
+Route::resource('bahan', 'BahanController');
 //RTM Routes
 Route::get('rtm/cek', 'RtmController@cek')->name('rtm.cek');
 Route::get('rtm/loadRtm', 'RtmController@loadRtm')->name('rtm.load');
