@@ -25,7 +25,7 @@ class BahanController extends Controller
             $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
             return datatables::of($json)->make(true);
         }
-        return view('rtm/bahan/index');
+        return view('bahan.index');
     }
 
     public function create()
@@ -33,7 +33,7 @@ class BahanController extends Controller
         $jenis = Jenis::all();
         $selectedrtm = Rtm::SelectedRtm();
         $alldepartemen = Departemen::all();
-        return view('rtm/bahan/create', compact('jenis', 'selectedrtm', 'alldepartemen'));
+        return view('bahan.create', compact('jenis', 'selectedrtm', 'alldepartemen'));
     }
 
     public function store(Request $request)
@@ -68,7 +68,7 @@ class BahanController extends Controller
             );
             $error = Validator::make($request->all(), $rules);
             if ($error->fails()) {
-                return redirect('rtm/bahan/create')
+                return redirect('bahan.create')
                     ->withErrors($error)
                     ->withInput();
             }
@@ -88,14 +88,14 @@ class BahanController extends Controller
             }
             $uraian->progres()->saveMany($container);
         }
-        return redirect('/rtm/bahan')->with('success', 'bahan RTM berhasil diinput');
+        return redirect('bahan.index')->with('success', 'bahan RTM berhasil diinput');
     }
 
     public function show($bahan)
     {
         $bahan = Uraian::with('rtm')->with('departemen')->findOrfail($bahan);
         // return $bahan;
-        return view('rtm/bahan/show', compact('bahan'));
+        return view('bahan.show', compact('bahan'));
     }
 
     public function edit($bahan)
@@ -103,7 +103,7 @@ class BahanController extends Controller
         $dept_id = Auth::user()->departemen_id;
         $alldepartemen = Departemen::all();
         $bahan = Uraian::with('progres')->findOrfail($bahan);
-        return view('rtm/bahan/edit', compact('dept_id', 'alldepartemen', 'bahan'));
+        return view('bahan.edit', compact('dept_id', 'alldepartemen', 'bahan'));
     }
 
     public function update(Request $request, $id)
