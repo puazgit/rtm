@@ -681,7 +681,6 @@
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="{{asset ('assets/js/app.min.js')}}" type="text/javascript"></script>
     <!-- END THEME GLOBAL SCRIPTS -->
-    <script src="{{asset ('assets/js/components-select2.min.js')}}" type="text/javascript"></script>
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
     <script src="{{asset ('assets/js/layout.min.js')}}" type="text/javascript"></script>
     <script src="{{asset ('assets/js/demo.min.js')}}" type="text/javascript"></script>

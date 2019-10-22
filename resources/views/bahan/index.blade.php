@@ -80,12 +80,12 @@
 
 @section('js')
 <!-- BEGIN: Page Vendor JS-->
-<script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/components-select2.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatable.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
+<script src="{{asset ('assets/js/components-select2.min.js')}}" type="text/javascript"></script>
 </script>
 @endsection
 @section('script')

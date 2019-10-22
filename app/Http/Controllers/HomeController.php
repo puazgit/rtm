@@ -34,7 +34,7 @@ class HomeController extends Controller
         $userdept = Auth::user()->departemen_id;
         $rtmc = Rtm::SelectedRtm();
         $message = null;
-        if (isset($rtmc) && $userdept != 0) {
+        if ($rtmc != 0 && $userdept != 0) {
             $rtmcid = $rtmc->id;
             $rtmcUrl = $rtmc->getMedia('document');
             $rtmcUrl = $rtmcUrl[0]->getUrl();
