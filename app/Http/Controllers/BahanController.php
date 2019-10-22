@@ -70,7 +70,7 @@ class BahanController extends Controller
     public function create()
     {
         $jenis = Jenis::all();
-        $selectedrtm = Rtm::SelectedRtm();
+        $selectedrtm = Rtm::SelectedRtm()->first();
         $alldepartemen = Departemen::all();
         return view('bahan.create', compact('jenis', 'selectedrtm', 'alldepartemen'));
     }
@@ -80,7 +80,7 @@ class BahanController extends Controller
         $request['status'] = $request->has('status');
 
         $validatedData = $request->validate([
-            'srtm' => 'required', 'sdept' => 'required',
+            'sdept' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
             'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
@@ -141,13 +141,66 @@ class BahanController extends Controller
     {
         $dept_id = Auth::user()->departemen_id;
         $alldepartemen = Departemen::all();
-        $bahan = Uraian::with('progres')->findOrfail($bahan);
+        $bahan = Uraian::with('progres')->with('jenis')->findOrfail($bahan);
         return view('bahan.edit', compact('dept_id', 'alldepartemen', 'bahan'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $request['status'] = $request->has('status');
+        $validatedData = $request->validate([
+            'sdept' => 'required',
+            'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
+            'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
+            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
+        ], [
+            'jenis_id.required' => 'Jenis Permasalahan harap diisi',
+            'uraian.required' => 'Uraian Permasalahan harap diisi',
+            'analisis.required' => 'Analisis / Penyebab harap diisi',
+            'r_uraian.required' => 'Uraian Rencana penyelesaian  harap diisi',
+            'r_target.required' => 'Target waktu harap diisi',
+        ]);
+
+        $uraian = whereId($id)->update($validatedData);
+        $uraian = Uraian::find($uraian->id);
+        $uraian->rtm()->attach($request->srtm);
+        $uraian->departemen()->attach($request->sdept);
+
+        if ($request->has('chk_grafik')) {
+            $rules = array(
+                'target.*' => 'required',
+                'realisasi.*' => 'required',
+                'competitor.*' => 'required',
+                'year.*' => 'required',
+            );
+            $error = Validator::make($request->all(), $rules);
+            if ($error->fails()) {
+                return redirect('masalah/create')
+                    ->withErrors($error)
+                    ->withInput();
+            } else {
+                $uraian = Uraian::whereId($id)->update($validatedData);
+                $uraian = Uraian::find($id);
+
+                $target = $request->target;
+                $realisasi = $request->realisasi;
+                $competitor = $request->competitor;
+                $year = $request->year;
+
+                for ($count = 0; $count < count($target); $count++) {
+                    $container[] = new Progres(array(
+                        'target' => $target[$count],
+                        'realisasi' => $realisasi[$count],
+                        'competitor' => $competitor[$count],
+                        'year' => $year[$count],
+                    ));
+                }
+                $uraian->progres()->saveMany($container);
+            }
+        } else {
+            Uraian::whereId($id)->update($validatedData);
+        }
+        return redirect('bahan/');
     }
 
     public function destroy($id)

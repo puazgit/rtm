@@ -32,12 +32,12 @@ class HomeController extends Controller
     public function index()
     {
         $userdept = Auth::user()->departemen_id;
-        $rtmc = Rtm::SelectedRtm();
+        $rtmc = Rtm::SelectedRtm()->first();
         $message = null;
-        if ($rtmc != 0 && $userdept != 0) {
-            $rtmcid = $rtmc->id;
+        if (($rtmc->exists() == true) && $userdept != 0) {
+            $rtmcid = $rtmc->pluck('id');
             $rtmcUrl = $rtmc->getMedia('document');
-            $rtmcUrl = $rtmcUrl[0]->getUrl();
+            $rtmcUrl = $rtmcUrl[0]->getFullUrl();
 
             $json = Departemen::Findorfail($userdept);
             $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
@@ -49,7 +49,7 @@ class HomeController extends Controller
                 $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
             <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
             href=\"" . $rtmcUrl . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "
-             Klik <a href=\"masalah/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
+             Klik <a href=\"bahan/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
             }
         }
 

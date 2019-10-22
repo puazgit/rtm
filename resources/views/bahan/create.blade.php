@@ -62,11 +62,6 @@
                 </div>
                 <hr>
                 <div @role ('unit') id="noEdit" @endrole><select id="srtm" class="form-control select2" name="srtm">
-                        @role('unit')
-                        <option value="@isset($selectedrtm->id){{$selectedrtm->id}}@endisset">
-                            @isset($selectedrtm->rtm_ke){{$selectedrtm->rtm_ke}}@endisset
-                        </option>
-                        @endrole
                         <option value="@isset($selectedrtm->id){{$selectedrtm->id}}@endisset">
                             @isset($selectedrtm->rtm_ke){{$selectedrtm->rtm_ke}}@endisset
                         </option>

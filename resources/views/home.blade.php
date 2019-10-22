@@ -96,7 +96,7 @@
 </div>
 <div class="portlet light bordered">
     <div class="portlet-body">
-        <a href="{{route ('masalah.create')}}" class="icon-btn">
+        <a href="{{route ('bahan.create')}}" class="icon-btn">
             <i class="fa fa-file-o"></i>
             <div> + Bahan</div>
         </a>
