@@ -161,7 +161,8 @@ class BahanController extends Controller
             'r_target.required' => 'Target waktu harap diisi',
         ]);
 
-        $uraian = whereId($id)->update($validatedData);
+        $uraian = Uraian::find($id);
+        $uraian->save($validatedData);
         $uraian = Uraian::find($uraian->id);
         $uraian->rtm()->attach($request->srtm);
         $uraian->departemen()->attach($request->sdept);

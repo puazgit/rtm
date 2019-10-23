@@ -23,6 +23,6 @@ class Rtm extends Model implements HasMedia
 
     public function scopeSelectedRtm($query)
     {
-        return $query->where('enabled', 1)->latest();
+        return $query->where('enabled', 1);
     }
 }

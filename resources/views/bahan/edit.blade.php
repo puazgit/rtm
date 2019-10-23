@@ -74,8 +74,8 @@
                                     <div class="form-group">
                                         <label for="cuser" class="col-md-2 control-label">Penanggung jawab (All)<input
                                                 @role('unit') disabled @endrole type="checkbox" name="chk_pic" value="1"
-                                                id="chk_pic" checked /></label></label>
-                                        <div class="col-md-10">
+                                                id="chk_pic" /></label></label>
+                                        <div @role('unit') id="noEdit" @endrole class="col-md-10">
                                             <select id="sdept" class="form-control select2-multiple" name="sdept[]"
                                                 multiple>
                                                 @foreach ($bahan->departemen as $item)
@@ -83,11 +83,13 @@
                                                 {{ $item->departemen }}
                                                 </option>
                                                 @endforeach
+                                                @role('admin')
                                                 @foreach ($alldepartemen as $alldepartemen)
                                                 <option value="{{ $alldepartemen->id }}" />
                                                 {{ $alldepartemen->departemen }}
                                                 </option>
                                                 @endforeach
+                                                @endrole
                                             </select>
                                         </div>
                                     </div>
