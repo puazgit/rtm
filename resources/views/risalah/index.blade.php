@@ -46,7 +46,7 @@
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase">BAHAN RTM
+                    <span class="caption-subject bold uppercase">RISALAH RTM
                     </span>
                 </div>
                 <div class="tools">
@@ -54,7 +54,7 @@
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                    id="table-bahan">
+                    id="table-risalah">
                     <thead>
                         <tr>
                             <th rowspan="2">Uraian Permasalahan Bidang</th>
@@ -110,7 +110,7 @@
     var	sdept = $(this).val();
     var	srtm = $(srtm).val();
 
-    $('#table-bahan').DataTable().destroy();
+    $('#table-risalah').DataTable().destroy();
     load_data(sdept ,srtm);
  })
 
@@ -118,7 +118,7 @@
     var	srtm = $(this).val();
     var	sdept = $(sdept).val();
 
-    $('#table-bahan').DataTable().destroy();
+    $('#table-risalah').DataTable().destroy();
     load_data(sdept, srtm);
  })
 
@@ -127,21 +127,21 @@
     var	sdept = $('#sdept').val();
     var	srtm = $('#srtm').val();
     
-    $('#table-bahan').DataTable({
+    $('#table-risalah').DataTable({
     processing: true,
     serverSide: true,
     order:[[10,"desc"]],
     ajax: {
-        url:'{{ route("bahan.index") }}',
+        url:'{{ route("risalah.index") }}',
         data:{sdept:sdept, srtm:srtm}
     },
     dom: 'Blfrtip',
     buttons: [
               {
-                text: '+ bahan',
+                text: '+ risalah',
                 className:"btn btn-square green btn-success",
                     action: function ( e, dt, node, config ) {
-                        window.location = '{{route ('bahan.create')}}';
+                        window.location = '{{route ('risalah.create')}}';
                     }
                 },
                 {
@@ -232,7 +232,7 @@
                             orderable:!1,
                             title:"aksi",
                             render:function(data, type, row){
-                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('bahan.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('bahan.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
+                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('risalah.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('risalah.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
                             "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                             }
                     }

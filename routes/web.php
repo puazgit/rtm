@@ -29,6 +29,7 @@ Route::resource('masalah', 'MasalahController');
 
 //Bahan Routes
 Route::resource('bahan', 'BahanController');
+Route::resource('risalah', 'RisalahController');
 //RTM Routes
 Route::get('rtm/cek', 'RtmController@cek')->name('rtm.cek');
 Route::get('rtm/loadRtm', 'RtmController@loadRtm')->name('rtm.load');

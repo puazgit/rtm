@@ -34,7 +34,20 @@ class Uraian extends Model
         return $this->belongsTo('App\Jenis');
     }
 
+    public function scopeStatusBahan($query)
+    {
+        return $query->where('sbahan', 1);
+    }
 
+    public function scopeStatusRisalah($query)
+    {
+        return $query->StatusBahan()->where('srisalah', 1);
+    }
+
+    public function scopeStatusTindak($query)
+    {
+        return $query->StatusRisalah()->where('stindak', 1);
+    }
     // public function activeOptions()
     // {
     //     return [
