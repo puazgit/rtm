@@ -44,6 +44,10 @@ class Uraian extends Model
         return $query->StatusBahan()->where('srisalah', 1);
     }
 
+    public function scopeStatusNoRisalah($query)
+    {
+        return $query->StatusBahan()->where('srisalah', 0);
+    }
     public function scopeStatusTindak($query)
     {
         return $query->StatusRisalah()->where('stindak', 1);

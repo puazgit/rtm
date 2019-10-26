@@ -28,32 +28,32 @@ class MasalahController extends Controller
     }
     public function index()
     {
-        // if (request()->ajax()) {
-        // $r = function ($query) {
-        //     return $query->where('id', '=', '2');
-        // };
-        // $rtmid = 1;
-        // $deptid = 1;
-        // $r = function ($query) use ($rtmid) {
-        //     $query->where('id', '=', $rtmid);
-        // };
+        if (request()->ajax()) {
+            // $r = function ($query) {
+            //     return $query->where('id', '=', '2');
+            // };
+            // $rtmid = 1;
+            // $deptid = 1;
+            // $r = function ($query) use ($rtmid) {
+            //     $query->where('id', '=', $rtmid);
+            // };
 
-        // $d = function ($query) use ($deptid) {
-        //     $query->where('id', '=', $deptid);
-        // };
+            // $d = function ($query) use ($deptid) {
+            //     $query->where('id', '=', $deptid);
+            // };
 
-        // $d = function ($query) {
-        //     return $query->where('id', '>', '0');
-        // };
-        // $json1 = Uraian::query()->with('rtm');
-        // $json = $json1->whereRaw('id', 3);
-        // $json = $json->rtm()->get();
-        // $json = uraian::whereHas('rtm', $r)->whereHas('departemen', $d)->latest()->get();
+            // $d = function ($query) {
+            //     return $query->where('id', '>', '0');
+            // };
+            // $json1 = Uraian::query()->with('rtm');
+            // $json = $json1->whereRaw('id', 3);
+            // $json = $json->rtm()->get();
+            // $json = uraian::whereHas('rtm', $r)->whereHas('departemen', $d)->latest()->get();
 
-        $json = Uraian::with('rtm')->with('departemen')->get();
-        // }
-        return datatables::of($json)->make(true);
-        // return view('masalah.index');
+            $json = Uraian::with('rtm')->with('departemen')->get();
+            return datatables::of($json)->make(true);
+        }
+        return view('masalah.index');
     }
 
     public function create()

@@ -25,10 +25,10 @@ class RisalahController extends Controller
 
         if (request()->ajax()) {
             $dept_id = Auth::user()->departemen_id;
-            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusRisalah() : Uraian::with(['rtm', 'departemen'])
+            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusRisalah()->latest() : Uraian::with(['rtm', 'departemen'])
                 ->whereHas('departemen', function ($q) use ($dept_id) {
                     return $q->where('id', $dept_id);
-                })->StatusRisalah();
+                })->StatusRisalah()->latest();
 
             if ($sdept && $srtm) {
                 $json->whereHas('departemen', function ($q) use ($request) {
@@ -50,9 +50,36 @@ class RisalahController extends Controller
         return view('risalah.index');
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $sdept = $request->sdept;
+        $srtm = $request->srtm;
+
+        if (request()->ajax()) {
+            $dept_id = Auth::user()->departemen_id;
+            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusNoRisalah()->latest() : Uraian::with(['rtm', 'departemen'])
+                ->whereHas('departemen', function ($q) use ($dept_id) {
+                    return $q->where('id', $dept_id);
+                })->StatusNoRisalah()->latest();
+
+            if ($sdept && $srtm) {
+                $json->whereHas('departemen', function ($q) use ($request) {
+                    return $q->where('id', $request->input('sdept'));
+                })->whereHas('rtm', function ($q) use ($request) {
+                    return $q->where('id', $request->input('srtm'));
+                });
+            } elseif ($sdept) {
+                $json->whereHas('departemen', function ($q) use ($request) {
+                    return $q->where('id', $request->input('sdept'));
+                });
+            } elseif ($srtm) {
+                $json->whereHas('rtm', function ($q) use ($request) {
+                    return $q->where('id', $request->input('srtm'));
+                });
+            }
+            return datatables::of($json)->make(true);
+        }
+        return view('risalah/create');
     }
 
     public function store(Request $request)

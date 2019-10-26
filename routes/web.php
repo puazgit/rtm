@@ -28,6 +28,7 @@ Route::get('masalah/dept', 'MasalahController@loadDepartemen')->name('masalah.de
 Route::resource('masalah', 'MasalahController');
 
 //Bahan Routes
+Route::resource('evaluasi', 'EvaluasiController');
 Route::resource('bahan', 'BahanController');
 Route::resource('risalah', 'RisalahController');
 //RTM Routes

@@ -19,8 +19,8 @@
     @endphp --}}
 
     <div class="col-md-12">
-        <form class="form-horizontal form-row-seperated" action="{{route ('bahan.index')}}/{{$bahan->id}}" method="POST"
-            spellcheck="false">
+        <form class="form-horizontal form-row-seperated" action="{{route ('evaluasi.index')}}/{{$evaluasi->id}}"
+            method="POST" spellcheck="false">
             @csrf
             @method('PATCH')
             <div class="portlet light bordered">
@@ -53,21 +53,19 @@
                             <li>
                                 <a href="#tab_2" data-toggle="tab"> RENCANA PENYELESAIAN</a>
                             </li>
-                            @role('admin')
                             <li>
                                 <a href="#tab_3" data-toggle="tab"> EVALUASI PROGRES TINDAKLANJUT </a>
                             </li>
-                            @endrole
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1">
-                                <div class="form-body">
+                                <div @role('unit') id="noEdit" @endrole class="form-body">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Status</label>
                                         <div class="col-md-10">
                                             <input @role('unit') readonly @endrole type="checkbox"
-                                                {{ $bahan->status == 0 ? '' : ' checked=checked' }} id="status"
-                                                name="status" class="make-switch" value="{{$bahan->status}}"
+                                                {{ $evaluasi->status == 0 ? '' : ' checked=checked' }} id="status"
+                                                name="status" class="make-switch" value="{{$evaluasi->status}}"
                                                 data-on-text="Open" data-off-text="Close">
                                         </div>
                                     </div>
@@ -76,7 +74,7 @@
                                         <div @role('unit') id="noEdit" @endrole class="col-md-10">
                                             <select id="srtm" class="form-control select2-multiple" name="srtm[]"
                                                 multiple>
-                                                @foreach ($bahan->rtm as $rtm)
+                                                @foreach ($evaluasi->rtm as $rtm)
                                                 <option value="{{ $rtm->id }}" selected />
                                                 {{ $rtm->rtm_ke }}
                                                 </option>
@@ -98,7 +96,7 @@
                                         <div @role('unit') id="noEdit" @endrole class="col-md-10">
                                             <select id="sdept" class="form-control select2-multiple" name="sdept[]"
                                                 multiple>
-                                                @foreach ($bahan->departemen as $item)
+                                                @foreach ($evaluasi->departemen as $item)
                                                 <option value="{{ $item->id }}" selected />
                                                 {{ $item->departemen }}
                                                 </option>
@@ -117,10 +115,10 @@
                                         <label for="jenis" class="col-md-2 control-label">Jenis Permasalahan</label>
                                         <div class="col-md-10">
                                             <select id="jenis_id" class="form-control select2" name="jenis_id">
-                                                <option value="{{ $bahan->jenis->id }}" selected />
-                                                {{ $bahan->jenis->jenis_masalah }}
+                                                <option value="{{ $evaluasi->jenis->id }}" selected />
+                                                {{ $evaluasi->jenis->jenis_masalah }}
                                                 </option>
-                                                @foreach ($bahan->jenis->get() as $jenis)
+                                                @foreach ($evaluasi->jenis->get() as $jenis)
                                                 <option value="{{ $jenis->id }}" />
                                                 {{ $jenis->jenis_masalah }}
                                                 </option>
@@ -132,14 +130,14 @@
                                         <label class="col-md-2 control-label">Uraian Permasalahan</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="uraian"
-                                                id="uraian">{{ old('uraian') ?? $bahan->uraian }} </textarea>
+                                                id="uraian">{{ old('uraian') ?? $evaluasi->uraian }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Analisis / Penyebab</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="analisis"
-                                                id="analisis">{{ old('analisis') ?? $bahan->analisis }} </textarea>
+                                                id="analisis">{{ old('analisis') ?? $evaluasi->analisis }} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -150,19 +148,19 @@
                                         aria-hidden="true"></button>
                                     <i class="fa fa-warning fa-lg"></i> <b>RENCANA PENYELESAIAN</b>
                                 </div>
-                                <div class="form-body">
+                                <div @role('unit') id="noEdit" @endrole class="form-body">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Uraian</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="r_uraian"
-                                                id="r_uraian">{{ old('r_uraian') ?? $bahan->r_uraian }} </textarea>
+                                                id="r_uraian">{{ old('r_uraian') ?? $evaluasi->r_uraian }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Target Waktu</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="r_target"
-                                                id="r_target">{{ old('r_target') ?? $bahan->r_target }} </textarea>
+                                                id="r_target">{{ old('r_target') ?? $evaluasi->r_target }} </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +174,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input
                                             type="checkbox" name="chk_grafik" value="1" id="chk_grafik"
-                                            {{ count($bahan->progres) > 0 ? ' checked' : ''}} /></label>
+                                            {{-- {{ count($evaluasi->progres) > 0 ? ' checked' : ''}} --}} /></label>
                                     <div class="col-md-10">
                                         <div class="portlet light bordered">
                                             <div class="portlet-body">
@@ -192,7 +190,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="bodyprogres1">
-                                                            @foreach($bahan->progres as $progres)
+                                                            @foreach($evaluasi->progres as $progres)
                                                             <tr>
                                                                 <td><input type="text" disabled name="target[]"
                                                                         class="form-control"
@@ -223,21 +221,33 @@
                                         <label class="col-md-2 control-label">Tindak Lanjut</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="tindak"
-                                                id="tindak">{{ old('tindak') ?? $bahan->tindak }} </textarea>
+                                                id="tindak">{{ old('tindak') ?? $evaluasi->tindak }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Rencana Penyelesaian</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="p_rencana"
-                                                id="p_rencana">{{ old('p_rencana') ?? $bahan->p_rencana }} </textarea>
+                                                id="p_rencana">{{ old('p_rencana') ?? $evaluasi->p_rencana }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
                                         <div class="col-md-10">
                                             <textarea class="form-control summernote" name="p_realisasi"
-                                                id="p_realisasi">{{ old('p_realisasi') ?? $bahan->p_realisasi }} </textarea>
+                                                id="p_realisasi">{{ old('p_realisasi') ?? $evaluasi->p_realisasi }} </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Attachment</label>
+                                        <div class="col-md-10">
+                                            <div class="dropzone dropzone-file-area" id="document-dropzone"
+                                                style="width: 600px; margin-top: 10px;">
+                                                <div class="dz-message" data-dz-message><span>
+                                                        <h4 class="sbold">Unggah File Pendukung</h4>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -303,18 +313,18 @@
                 });
 
                 $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true});
-                $('#srtm').select2({placeholder: "Pilih RTM ...",allowClear: true});
+                $('#srtm').select2({placeholder: "Pilih PIC ...",allowClear: true});
                 
 
     $('#chk_pic').click(function(){
-    if($('#chk_pic').is(':checked')){ //select all
-    $('#sdept').find('option').prop('selected',true);
-    $('#sdept').trigger('change');
-    } else { //deselect all
-    $('#sdept').find('option').prop('selected',false);
-    $('#sdept').trigger('change');
-    }
-    });         
+        if($('#chk_pic').is(':checked')){ //select all
+            $('#sdept').find('option').prop('selected',true);
+            $('#sdept').trigger('change');
+        } else { //deselect all
+            $('#sdept').find('option').prop('selected',false);
+            $('#sdept').trigger('change');
+        }
+    });          
             
 </script>
 

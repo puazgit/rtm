@@ -213,9 +213,9 @@
 	            ],
                 columnDefs:[
                     @role('unit')
-                    {targets:[4,5,6,7], visible:false, className: 'noVis'},
+                    {targets:[4,5,6,7,10], visible:false, className: 'noVis'},
                     @else
-                    {targets:[5,6,7], visible:false, className: 'noVis'},
+                    {targets:[5,6,7,10], visible:false, className: 'noVis'},
                     @endrole
                     {
                         targets:8,
@@ -239,6 +239,11 @@
                 ],
     });
     }
+
+        var tablerisalah = $('#table-risalah').DataTable();
+            @role('unit')
+            tablerisalah.buttons(0).disable();
+            @endrole
     });
 </script>
 @endsection

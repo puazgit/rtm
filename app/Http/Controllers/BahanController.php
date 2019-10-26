@@ -26,10 +26,10 @@ class BahanController extends Controller
 
         if (request()->ajax()) {
             $dept_id = Auth::user()->departemen_id;
-            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusBahan() : Uraian::with(['rtm', 'departemen'])
+            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusBahan()->latest() : Uraian::with(['rtm', 'departemen'])
                 ->whereHas('departemen', function ($q) use ($dept_id) {
                     return $q->where('id', $dept_id);
-                })->StatusBahan();
+                })->StatusBahan()->latest();
 
             if ($sdept && $srtm) {
                 $json->whereHas('departemen', function ($q) use ($request) {
@@ -116,7 +116,7 @@ class BahanController extends Controller
 
     public function show($bahan)
     {
-        $bahan = Uraian::with('rtm')->with('departemen')->findOrfail($bahan);
+        $bahan = Uraian::findOrfail($bahan);
         // return $bahan;
         return view('bahan.show', compact('bahan'));
     }
@@ -125,15 +125,16 @@ class BahanController extends Controller
     {
         $dept_id = Auth::user()->departemen_id;
         $alldepartemen = Departemen::all();
-        $bahan = Uraian::with('progres')->with('jenis')->findOrfail($bahan);
-        return view('bahan.edit', compact('dept_id', 'alldepartemen', 'bahan'));
+        $allrtm = Rtm::all();
+        $bahan = Uraian::findOrfail($bahan);
+        return view('bahan.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'bahan'));
     }
 
     public function update(Request $request, $id)
     {
         $request['status'] = $request->has('status');
         $validatedData = $request->validate([
-            'sdept' => 'required',
+            'sdept' => 'required', 'srtm' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
             'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
@@ -146,6 +147,10 @@ class BahanController extends Controller
         ]);
         $uraian = Uraian::find($id);
         $uraian->update($validatedData);
+
+        // $uraian = Uraian::find($uraian->id);
+        // $uraian->rtm()->sync($request->srtm);
+        $uraian->departemen()->sync($request->sdept);
         // dd($uraian);
         // if ($request->has('chk_grafik')) {
 
