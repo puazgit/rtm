@@ -212,4 +212,43 @@ class MasalahController extends Controller
         }
         return \Response::json($formatted_departemen);
     }
+
+    public function saveMedia(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
+    public function save(Request $request)
+    {
+        $validatedData = $request->validate([
+            'rtm_ke' => 'required|digits_between:0,100', 'tingkat' => 'required', 'rkt' => 'required',
+            'tahun' => 'required', 'document' => 'required'
+        ], [
+            'rtm_ke.required' => 'RTM harap diisi',
+            'rtm_ke.digits_between' => 'RTM harus angka',
+            'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
+        ]);
+
+        $rtm = Rtm::Create($validatedData);
+
+        foreach ($request->input('document', []) as $file) {
+            $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
+        }
+        return redirect('rtm')->with('success', 'RTM berhasil dibuat');
+    }
 }

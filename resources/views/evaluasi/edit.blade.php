@@ -2,6 +2,7 @@
 
 @section('css')
 <link href="{{asset ('assets/css/summernote.css')}}" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 <link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
@@ -20,7 +21,7 @@
 
     <div class="col-md-12">
         <form class="form-horizontal form-row-seperated" action="{{route ('evaluasi.index')}}/{{$evaluasi->id}}"
-            method="POST" spellcheck="false">
+            method="POST" enctype="multipart/form-data" spellcheck="false">
             @csrf
             @method('PATCH')
             <div class="portlet light bordered">
@@ -239,10 +240,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-3 control-label">Attachment</label>
+                                        <label class="col-md-2 control-label">Attachment</label>
                                         <div class="col-md-10">
                                             <div class="dropzone dropzone-file-area" id="document-dropzone"
-                                                style="width: 600px; margin-top: 10px;">
+                                                style="width: 800px; margin-top: 10px;">
                                                 <div class="dz-message" data-dz-message><span>
                                                         <h4 class="sbold">Unggah File Pendukung</h4>
                                                     </span>
@@ -269,6 +270,7 @@
 
 @section('js')
 <script src="{{asset ('assets/js/summernote.min.js')}}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{asset ('assets/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/components-bootstrap-switch.min.js')}}" type="text/javascript"></script>
@@ -276,6 +278,42 @@
 
 @section('script')
 <script>
+    var uploadedDocumentMap = {}
+    Dropzone.options.documentDropzone = {
+    url: '{{ route('evaluasi.saveMedia') }}',
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    success: function (file, response) {
+    $('form').append('<input type="hidden" name="lampiran[]" value="' + response.name + '">')
+    uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+    file.previewElement.remove()
+    var name = ''
+    if (typeof file.file_name !== 'undefined') {
+    name = file.file_name
+    } else {
+    name = uploadedDocumentMap[file.name]
+    }
+    $('form').find('input[name="lampiran[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+    @if(isset($uraian) && $uraian->lampiran)
+    var files =
+    {!! json_encode($uraian->document) !!}
+    for (var i in files) {
+    var file = files[i]
+    this.options.addedfile.call(this, file)
+    file.previewElement.classList.add('dz-complete')
+    $('form').append('<input type="hidden" name="lampiran[]" value="' + file.file_name + '">')
+    }
+    @endif
+    }
+    }
+
     var ComponentsEditors=function()
                 {
                     var s=function(){

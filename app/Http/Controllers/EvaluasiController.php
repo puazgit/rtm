@@ -39,7 +39,8 @@ class EvaluasiController extends Controller
             'sdept' => 'required', 'srtm' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
-            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
+            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => '',
+            'lampiran' => 'required'
         ], [
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',
             'uraian.required' => 'Uraian Permasalahan harap diisi',
@@ -49,11 +50,13 @@ class EvaluasiController extends Controller
         ]);
         $uraian = Uraian::find($id);
         $uraian->update($validatedData);
-
         // $uraian = Uraian::find($uraian->id);
         // $uraian->rtm()->sync($request->srtm);
         $uraian->departemen()->sync($request->sdept);
-        // dd($uraian);
+        foreach ($request->input('lampiran', []) as $file) {
+            $uraian->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('lampiran');
+        }
+
         if ($request->has('chk_grafik')) {
 
             $rules = array(
@@ -85,5 +88,25 @@ class EvaluasiController extends Controller
             $uraian->progres()->saveMany($container);
         }
         return redirect('evaluasi')->with('success', 'Evaluasi RTM berhasil diupdate');
+    }
+
+    public function saveMedia(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
     }
 }
