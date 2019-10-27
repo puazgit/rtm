@@ -20,29 +20,27 @@ class RtmController extends Controller
     {
         return view('rtm/index');
     }
+
     public function cek()
     {
-        // $myFilteredCollection = $myCollection->filter(function ($value) {
-        //     return !empty($value);
-        // });
-        $srtm = null;
-        $departemen = Departemen::findOrFail(4);
-        $json = $departemen->uraian()->with(['rtm' => function ($query) use ($srtm) {
-            return $query->where('id', '=', $srtm);
-        }])->with('progres')->get();
+        if (request()->ajax()) {
+            $model = Uraian::with(['rtm', 'departemen']);
 
-        // $json = Uraian::with('rtm')->with('departemen')->with('progres')->latest()->get();
-        // return datatables::of($json)->make(true);
-        // $r = function ($query) {
-        //     return $query->where('id', '=', '6');
-        // };
-        // $d = function ($query) {
-        //     return $query->where('id', '=', '1');
-        // };
-        // $json = uraian::with(['rtm' => $r, 'departemen' => $d])->latest();
-        // $json = Rtm::with('uraian')->get();
-        return $json;
-        // return datatables::of($json)->make(true);
+            $uraians =  DataTables::eloquent($model)
+                ->addColumn('rtm', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->rtm_ke;
+                    })->implode(', ');
+                })
+                ->addColumn('departemen', function (Uraian $uraian) {
+                    return $uraian->departemen->map(function ($departemen) {
+                        return $departemen->departemen;
+                    })->implode(', ');
+                })
+                ->toJson();
+            return $uraians;
+        }
+        return view('rtm/cek');
     }
 
     public function create()

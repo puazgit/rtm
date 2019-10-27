@@ -22,7 +22,6 @@
                         @endforeach
                     </select>
                 </div>
-                @endrole
                 <div class="col-lg-4">
                     <select id="srtm" class="form-control select2" name="srtm">
                         <option value=""></option>
@@ -32,6 +31,7 @@
                         @endforeach
                     </select>
                 </div>
+                @endrole
             </div>
         </div>
         @if ($message = Session::get('success'))
@@ -54,7 +54,7 @@
             </div>
             <div class="portlet-body">
                 <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                    id="table-bahan">
+                    id="table-bahan1">
                     <thead>
                         <tr>
                             <th rowspan="2">Uraian Permasalahan Bidang</th>
@@ -87,26 +87,26 @@
                 <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
                     @role('admin')
                     <div class="col-lg-4">
-                        <select id="sdept" class="form-control select2" name="sdept">
+                        <select id="sdept2" class="form-control select2" name="sdept2">
                             <option value=""></option>
-                            @foreach (App\Departemen::get() as $departemen)
+                            @foreach (App\Departemen::get() as $departemen2)
 
-                            <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                            <option value="{{ $departemen2->id }}">{{ $departemen2->departemen }}
                             </option>
                             @endforeach
                         </select>
                     </div>
-                    @endrole
                     <div class="col-lg-4">
-                        <select id="srtm" class="form-control select2" name="srtm">
+                        <select id="srtm2" class="form-control select2" name="srtm2">
                             <option value=""></option>
-                            @foreach (App\Rtm::get() as $rtm)
-                            <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
+                            @foreach (App\Rtm::get() as $rtm2)
+                            <option value="{{ $rtm2->id }}">{{ $rtm2->rtm_ke }}
                             </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+                @endrole
             </div>
             <div class="portlet light bordered">
                 <div class="portlet-title">
@@ -120,7 +120,7 @@
                 </div>
                 <div class="portlet-body">
                     <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                        id="table-bahan">
+                        id="table-bahan2">
                         <thead>
                             <tr>
                                 <th rowspan="2">Uraian Permasalahan Bidang</th>
@@ -165,6 +165,9 @@
     $('#sdept').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
     $('#srtm').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
 
+    $('#sdept2').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
+    $('#srtm2').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
+
     $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -177,7 +180,7 @@
     var	sdept = $(this).val();
     var	srtm = $(srtm).val();
 
-    $('#table-bahan').DataTable().destroy();
+    $('#table-bahan1').DataTable().destroy();
     load_data(sdept ,srtm);
  })
 
@@ -185,7 +188,7 @@
     var	srtm = $(this).val();
     var	sdept = $(sdept).val();
 
-    $('#table-bahan').DataTable().destroy();
+    $('#table-bahan1').DataTable().destroy();
     load_data(sdept, srtm);
  })
 
@@ -194,7 +197,7 @@
     var	sdept = $('#sdept').val();
     var	srtm = $('#srtm').val();
     
-    $('#table-bahan').DataTable({
+    $('#table-bahan1').DataTable({
     processing: true,
     serverSide: true,
     order:[[10,"desc"]],
@@ -306,6 +309,124 @@
                 ],
     });
     }
+
+load_data2();
+
+$('#sdept2').change(function(){
+   var	sdept2 = $(this).val();
+   var	srtm2 = $(srtm2).val();
+
+   $('#table-bahan2').DataTable().destroy();
+   load_data2(sdept2 ,srtm2);
+})
+
+$('#srtm2').change(function(){
+   var	srtm2 = $(this).val();
+   var	sdept2 = $(sdept2).val();
+
+   $('#table-bahan2').DataTable().destroy();
+   load_data2(sdept2, srtm2);
+})
+
+function load_data2(sdept2, srtm2)
+{
+   var	sdept2 = $('#sdept2').val();
+   var	srtm2 = $('#srtm2').val();
+   
+   $('#table-bahan2').DataTable({
+   processing: true,
+   serverSide: true,
+   order:[[10,"desc"]],
+   ajax: {
+       url:'{{ route("bahan.index") }}',
+       data:{sdept2:sdept2, srtm2:srtm2}
+   },
+   dom: 'lrtip',
+   columns: [
+                   { data: 'uraian', name: 'uraian', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //0
+                   { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //1
+                   { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //2
+                   { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //3
+                   { data: 'departemen[].departemen', name: 'departemen', orderable: false, render: function(data, column, row)
+                       {
+                           return ''+data+''
+                       }
+                   }, //4
+                   { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //5
+                   { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //6
+                   { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                       {
+                           var decodedText = $("<p/>").html(data).text(); 
+                           return ''+decodedText+''
+                       }
+                   }, //7
+                   { data: 'status', name: 'status'}, //8
+                   { data: 'rtm[].rtm_ke', name: 'rtm', orderable: false, render: function(data, type, row)
+                       { 
+                           return ''+data+''
+                       }
+                   
+                   },//9
+                   { data: 'id', name: 'id'}//10
+               ],
+               columnDefs:[
+                   @role('unit')
+                   {targets:[4,5,6,7], visible:false, className: 'noVis'},
+                   @else
+                   {targets:[5,6,7], visible:false, className: 'noVis'},
+                   @endrole
+                   {
+                       targets:8,
+                       render:function(a,e,t,n){
+                           var s={
+                               1:{title:"open",class:"label-danger"},
+                               0:{title:"close",class:"label-success"},
+                           };
+                           return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+                       }
+                   },
+                   {
+                           targets:10,
+                           orderable:!1,
+                           title:"aksi",
+                           render:function(data, type, row){
+                           return '<a href=\"{{route ('bahan.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('bahan.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
+                           "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                           }
+                   }
+               ],
+   });
+   }
     });
     </script>
     @endsection
