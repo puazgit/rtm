@@ -23,6 +23,12 @@ class RtmController extends Controller
 
     public function cek()
     {
+
+        // $rtmuraian = Uraian::with('rtm')->whereDoesntHave('rtm', function ($query) {
+        //     $query->where('id', 2);
+        // })->get();
+        // return $rtmuraian;
+
         if (request()->ajax()) {
             $model = Uraian::with(['rtm', 'departemen']);
 

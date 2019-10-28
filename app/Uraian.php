@@ -9,7 +9,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 class Uraian extends Model implements HasMedia
 {
     use HasMediaTrait;
-
+    protected $with = ['rtm', 'departemen'];
     protected $table = 'uraian';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -40,7 +40,7 @@ class Uraian extends Model implements HasMedia
 
     public function scopeStatusBahan($query)
     {
-        return $query->where('sbahan', 1);
+        return $query->where('sbahan', 1)->latest();
     }
 
     public function scopeStatusRisalah($query)
@@ -55,6 +55,48 @@ class Uraian extends Model implements HasMedia
     public function scopeStatusTindak($query)
     {
         return $query->StatusRisalah()->where('stindak', 1);
+    }
+
+    public function scopehasIdDeptbyLogin($query, $dept_id)
+    {
+        return $query->whereHas('departemen', function ($q) use ($dept_id) {
+            return $q->where('id', $dept_id);
+        });
+    }
+
+    public function scopehasDept2($query, $sdept2)
+    {
+        return $query->whereHas('departemen', function ($q) use ($sdept2) {
+            return $q->where('id', $sdept2);
+        });
+    }
+
+    public function scopehasDept($query, $sdept)
+    {
+        return $query->whereHas('departemen', function ($q) use ($sdept) {
+            return $q->where('id', $sdept);
+        });
+    }
+
+    public function scopehasRtm($query, $srtm2)
+    {
+        return $query->whereHas('departemen', function ($q) use ($srtm2) {
+            return $q->where('id', $srtm2);
+        });
+    }
+
+    public function scopegetIdRtmEx($query, $LastIdRtm)
+    {
+        return $query->whereDoesntHave('rtm', function ($q) use ($LastIdRtm) {
+            return $q->where('id', $LastIdRtm);
+        });
+    }
+
+    public function scopegetInRtmId($query, $LastIdRtm)
+    {
+        return $query->whereHas('rtm', function ($q) use ($LastIdRtm) {
+            return $q->where('id', $LastIdRtm);
+        });
     }
     // public function activeOptions()
     // {

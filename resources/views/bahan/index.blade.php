@@ -22,15 +22,6 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-lg-4">
-                    <select id="srtm" class="form-control select2" name="srtm">
-                        <option value=""></option>
-                        @foreach (App\Rtm::get() as $rtm)
-                        <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
                 @endrole
             </div>
         </div>
@@ -163,7 +154,6 @@
         $(document).ready(function(){
         
     $('#sdept').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
-    $('#srtm').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
 
     $('#sdept2').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
     $('#srtm2').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
@@ -184,18 +174,9 @@
     load_data(sdept ,srtm);
  })
 
- $('#srtm').change(function(){
-    var	srtm = $(this).val();
-    var	sdept = $(sdept).val();
-
-    $('#table-bahan1').DataTable().destroy();
-    load_data(sdept, srtm);
- })
-
- function load_data(sdept, srtm)
+ function load_data(sdept)
  {
     var	sdept = $('#sdept').val();
-    var	srtm = $('#srtm').val();
     
     $('#table-bahan1').DataTable({
     processing: true,
@@ -203,7 +184,7 @@
     order:[[10,"desc"]],
     ajax: {
         url:'{{ route("bahan.index") }}',
-        data:{sdept:sdept, srtm:srtm}
+        data:{sdept:sdept}
     },
     dom: 'Blfrtip',
     buttons: [
@@ -338,7 +319,7 @@ function load_data2(sdept2, srtm2)
    serverSide: true,
    order:[[10,"desc"]],
    ajax: {
-       url:'{{ route("bahan.index") }}',
+       url:'{{ route("bahan.rtmlama") }}',
        data:{sdept2:sdept2, srtm2:srtm2}
    },
    dom: 'lrtip',

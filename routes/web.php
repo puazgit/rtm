@@ -30,7 +30,10 @@ Route::resource('masalah', 'MasalahController');
 //Bahan Routes
 Route::post('evaluasi/media', 'EvaluasiController@saveMedia')->name('evaluasi.saveMedia');
 Route::resource('evaluasi', 'EvaluasiController');
+
+Route::get('bahan/rtmlama', 'BahanController@rtmlama')->name('bahan.rtmlama');
 Route::resource('bahan', 'BahanController');
+
 Route::resource('risalah', 'RisalahController');
 //RTM Routes
 Route::get('rtm/cek', 'RtmController@cek')->name('rtm.cek');

@@ -22,35 +22,46 @@ class BahanController extends Controller
     public function index(Request $request)
     {
         $sdept = $request->sdept;
-        $srtm = $request->srtm;
+        $LastIdRtm = Rtm::SelectedRtm()->first()->id;
+        $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $dept_id = Auth::user()->departemen_id;
-            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusBahan()->latest() : Uraian::with(['rtm', 'departemen'])
-                ->whereHas('departemen', function ($q) use ($dept_id) {
-                    return $q->where('id', $dept_id);
-                })->StatusBahan()->latest();
+            $json = $dept_id == 0 ? Uraian::StatusBahan() : Uraian::hasIdDeptbyLogin($dept_id)->StatusBahan();
+            $json->getInRtmId($LastIdRtm);
 
-            if ($sdept && $srtm) {
-                $json->whereHas('departemen', function ($q) use ($request) {
-                    return $q->where('id', $request->input('sdept'));
-                })->whereHas('rtm', function ($q) use ($request) {
-                    return $q->where('id', $request->input('srtm'));
-                });
-            } elseif ($sdept) {
-                $json->whereHas('departemen', function ($q) use ($request) {
-                    return $q->where('id', $request->input('sdept'));
-                });
-            } elseif ($srtm) {
-                $json->whereHas('rtm', function ($q) use ($request) {
-                    return $q->where('id', $request->input('srtm'));
-                });
+            if ($sdept) {
+                $json->hasDept($sdept);
             }
             return datatables::of($json)->make(true);
         }
         return view('bahan.index');
     }
 
+    public function rtmlama(Request $request)
+    {
+        $sdept2 = $request->sdept2;
+        $srtm2 = $request->srtm2;
+        $dept_id = Auth::user()->departemen_id;
+        $LastIdRtm = Rtm::SelectedRtm()->first()->id;
+
+        if (request()->ajax()) {
+            $json = $dept_id == 0 ?
+                Uraian::getIdRtmEx($LastIdRtm)->StatusBahan()
+                : Uraian::getIdRtmEx($LastIdRtm)->hasIdDeptbyLogin($dept_id)->StatusBahan();
+
+            if ($sdept2) {
+                $json->hasDept2($sdept2);
+                if ($srtm2) {
+                    $json->hasDept2($sdept2)->hasRtm($srtm2);
+                }
+            } elseif ($srtm2) {
+                $json->hasRtm($srtm2);
+            }
+
+            return datatables::of($json)->make(true);
+        }
+        return view('bahan.index');
+    }
     public function create()
     {
         $jenis = Jenis::all();
