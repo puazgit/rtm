@@ -32,7 +32,18 @@ class BahanController extends Controller
             if ($sdept) {
                 $json->hasDept($sdept);
             }
-            return datatables::of($json)->make(true);
+
+            return datatables::of($json)
+                ->addColumn('rtm', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->rtm_ke;
+                    })->implode(', ');
+                })
+                ->addColumn('departemen', function (Uraian $uraian) {
+                    return $uraian->departemen->map(function ($departemen) {
+                        return $departemen->departemen;
+                    })->implode(', ');
+                })->make(true);
         }
         return view('bahan.index');
     }
@@ -40,28 +51,39 @@ class BahanController extends Controller
     public function rtmlama(Request $request)
     {
         $sdept2 = $request->sdept2;
-        $srtm2 = $request->srtm2;
+        $srtm = $request->srtm;
         $dept_id = Auth::user()->departemen_id;
         $LastIdRtm = Rtm::SelectedRtm()->first()->id;
 
         if (request()->ajax()) {
             $json = $dept_id == 0 ?
-                Uraian::getIdRtmEx($LastIdRtm)->StatusBahan()
-                : Uraian::getIdRtmEx($LastIdRtm)->hasIdDeptbyLogin($dept_id)->StatusBahan();
+                Uraian::getIdRtmEx($LastIdRtm)->StatusRisalah()->StatusOpen()
+                : Uraian::getIdRtmEx($LastIdRtm)->hasIdDeptbyLogin($dept_id)->StatusRisalah()->StatusOpen();
 
             if ($sdept2) {
                 $json->hasDept2($sdept2);
-                if ($srtm2) {
-                    $json->hasDept2($sdept2)->hasRtm($srtm2);
+                if ($srtm) {
+                    $json->hasDept2($sdept2)->hasRtm($srtm);
                 }
-            } elseif ($srtm2) {
-                $json->hasRtm($srtm2);
+            } elseif ($srtm) {
+                $json->hasRtm($srtm);
             }
 
-            return datatables::of($json)->make(true);
+            return datatables::of($json)
+                ->addColumn('rtm', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->rtm_ke;
+                    })->implode(', ');
+                })
+                ->addColumn('departemen', function (Uraian $uraian) {
+                    return $uraian->departemen->map(function ($departemen) {
+                        return $departemen->departemen;
+                    })->implode(', ');
+                })->make(true);
         }
         return view('bahan.index');
     }
+
     public function create()
     {
         $jenis = Jenis::all();

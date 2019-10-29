@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `departemen` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.departemen: ~9 rows (approximately)
+-- Dumping data for table rtmdb.departemen: ~19 rows (approximately)
 /*!40000 ALTER TABLE `departemen` DISABLE KEYS */;
 INSERT INTO `departemen` (`id`, `departemen`) VALUES
 	(1, 'Divisi Inventarisasi dan Pengendalian Aset (IPA)'),
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `departemen_uraian` (
   PRIMARY KEY (`departemen_id`,`uraian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.departemen_uraian: ~7 rows (approximately)
+-- Dumping data for table rtmdb.departemen_uraian: ~9 rows (approximately)
 /*!40000 ALTER TABLE `departemen_uraian` DISABLE KEYS */;
 INSERT INTO `departemen_uraian` (`departemen_id`, `uraian_id`) VALUES
 	(3, 2),
@@ -331,15 +331,16 @@ CREATE TABLE IF NOT EXISTS `rtm_uraian` (
   PRIMARY KEY (`rtm_id`,`uraian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.rtm_uraian: ~0 rows (approximately)
+-- Dumping data for table rtmdb.rtm_uraian: ~8 rows (approximately)
 /*!40000 ALTER TABLE `rtm_uraian` DISABLE KEYS */;
 INSERT INTO `rtm_uraian` (`rtm_id`, `uraian_id`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 1, 1, NULL, NULL),
+	(1, 1, 0, NULL, NULL),
 	(1, 2, 1, NULL, NULL),
 	(1, 3, 1, NULL, NULL),
 	(1, 4, 1, NULL, NULL),
 	(1, 5, 1, NULL, NULL),
 	(1, 6, 1, NULL, NULL),
+	(2, 1, 1, NULL, NULL),
 	(2, 7, 1, NULL, NULL),
 	(2, 8, 1, NULL, NULL),
 	(2, 9, 1, NULL, NULL);
@@ -352,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `statusn` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.statusn: ~0 rows (approximately)
+-- Dumping data for table rtmdb.statusn: ~3 rows (approximately)
 /*!40000 ALTER TABLE `statusn` DISABLE KEYS */;
 INSERT INTO `statusn` (`id`, `nama`) VALUES
 	(1, 'bahan'),
@@ -381,17 +382,17 @@ CREATE TABLE IF NOT EXISTS `uraian` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table rtmdb.uraian: ~0 rows (approximately)
+-- Dumping data for table rtmdb.uraian: ~8 rows (approximately)
 /*!40000 ALTER TABLE `uraian` DISABLE KEYS */;
 INSERT INTO `uraian` (`id`, `uraian`, `analisis`, `r_uraian`, `r_target`, `ket`, `tindak`, `p_rencana`, `p_realisasi`, `jenis_id`, `status`, `sbahan`, `srisalah`, `stindak`, `created_at`, `updated_at`) VALUES
-	(1, 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'Evaluasi Tindaklanjut RTM 1234<br>', '<p>  Evaluasi Tindaklanjut RTM 1234<br></p>', '<p>  Evaluasi Tindaklanjut RTM 1234<br></p>', 1, 1, 1, 1, 0, '2019-10-26 15:35:24', '2019-10-26 23:26:14'),
+	(1, 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'permasalahan PKSM 1<br>', 'Evaluasi Tindaklanjut RTM 1234<br>', '<p>  Evaluasi Tindaklanjut RTM 1234<br></p>', '<p>  Evaluasi Tindaklanjut RTM 1234<br></p>', 1, 1, 1, 1, 1, '2019-10-26 15:35:24', '2019-10-26 23:26:14'),
 	(2, 'permasalahan SDM 1', '<span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>permasalahan SDM 1</span><span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>&nbsp;</span>', '<span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>permasalahan SDM 1</span><span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>&nbsp;</span>', '<span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>permasalahan SDM 1</span><span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>&nbsp;</span>', '<span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>permasalahan SDM 1</span><span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>&nbsp;</span>', NULL, NULL, NULL, 1, 1, 1, 0, 0, '2019-10-26 15:37:41', '2019-10-26 15:37:41'),
 	(3, 'permasalahan PKSM 2', 'permasalahan PKSM 2', 'permasalahan PKSM 2', 'permasalahan PKSM 2', 'permasalahan PKSM 2', NULL, NULL, NULL, 2, 1, 1, 0, 0, '2019-10-26 16:31:59', '2019-10-26 16:31:59'),
 	(4, '<p>permasalahan sdm&nbsp; 2</p><p><br></p><p><br></p><table class="table table-bordered"><tbody><tr><td><span style="font-size: 13px;">permasalahan sdm&nbsp; 23</span><br></td><td><span style="font-size: 13px;">permasalahan sdm&nbsp; 23</span><br></td></tr><tr><td><span style="font-size: 13px;">permasalahan sdm&nbsp; 23</span><br></td><td><span style="font-size: 13px;">permasalahan sdm&nbsp; 23</span><br></td></tr><tr><td><span style="font-size: 13px;">permasalahan sdm&nbsp; 23</span><br></td><td><span style="font-size: 13px;">permasalahan sdm&nbsp; 23</span><br></td></tr></tbody></table><p> </p>', '<span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">permasalahan sdm&nbsp; 23</span>', '<span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">permasalahan sdm&nbsp; 23</span>', '<span style="display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;,sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">permasalahan sdm&nbsp; 23</span>', '<span style=\'display: inline !important; float: none; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: "Open Sans",sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\'>permasalahan sdm&nbsp; 2</span>', NULL, NULL, NULL, 3, 1, 1, 1, 0, '2019-10-26 16:32:24', '2019-10-26 18:05:36'),
 	(5, 'permasalahan SDASDL<br>', 'permasalahan SDASDL', 'permasalahan SDASDL', 'permasalahan SDASDL', 'permasalahan SDASDL', 'Tindak lanjut SDASDL<br>', '<p>  Tindak lanjut SDASDL<br></p>', '<p>  Tindak lanjut SDASDL<br></p>', 4, 1, 1, 1, 0, '2019-10-26 23:47:23', '2019-10-27 00:33:01'),
 	(6, '<span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Test Uraian bersama</span>', '<span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Test Uraian bersama</span>', '<span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Test Uraian bersama</span>', '<span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Test Uraian bersama</span>', '<span style="color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Test Uraian bersama</span>', NULL, NULL, NULL, 3, 1, 1, 0, 0, '2019-10-27 23:19:06', '2019-10-27 23:19:06'),
 	(7, 'Permasalahan RTM 72 dari PKSM', 'Permasalahan RTM 72 dari PKSM', 'Permasalahan RTM 72 dari PKSM', 'Permasalahan RTM 72 dari PKSM', 'Permasalahan RTM 72 dari PKSM', NULL, NULL, NULL, 2, 1, 1, 0, 0, '2019-10-28 10:20:02', '2019-10-28 10:20:02'),
-	(8, 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', NULL, NULL, NULL, 2, 1, 1, 0, 0, '2019-10-28 12:11:21', '2019-10-28 12:11:21'),
+	(8, 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', 'permasalahan RTM Ke 72 dari PKSM Bro', NULL, NULL, NULL, 2, 1, 1, 1, 0, '2019-10-28 12:11:21', '2019-10-28 12:11:21'),
 	(9, 'Permasalahan RTM Ke 72 dari Umum', 'Permasalahan RTM Ke 72 dari Umum', 'Permasalahan RTM Ke 72 dari Umum', 'Permasalahan RTM Ke 72 dari Umum', 'Permasalahan RTM Ke 72 dari Umum', NULL, NULL, NULL, 4, 1, 1, 0, 0, '2019-10-28 13:25:28', '2019-10-28 13:25:28');
 /*!40000 ALTER TABLE `uraian` ENABLE KEYS */;
 
@@ -411,7 +412,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`,`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table rtmdb.users: ~0 rows (approximately)
+-- Dumping data for table rtmdb.users: ~20 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `email_verified_at`, `password`, `remember_token`, `departemen_id`, `created_at`, `updated_at`) VALUES
 	(1, 'Divisi Inventarisasi dan Pengendalian Aset', 'ipa', 'ipa@gmail.com', '2019-07-29 16:42:00', '$2y$10$c57iAqV4J37/gx6AsUaOeuq2m/fzMM6Hgw2zPkW9W/noh6U5DYs8i', '', 1, '2019-07-29 16:42:00', '2019-07-29 16:42:00'),

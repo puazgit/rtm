@@ -21,18 +21,15 @@ class RtmController extends Controller
         return view('rtm/index');
     }
 
-    public function cek()
+    public function cek(Request $request)
     {
-
-        // $rtmuraian = Uraian::with('rtm')->whereDoesntHave('rtm', function ($query) {
-        //     $query->where('id', 2);
-        // })->get();
-        // return $rtmuraian;
-
         if (request()->ajax()) {
-            $model = Uraian::with(['rtm', 'departemen']);
-
-            $uraians =  DataTables::eloquent($model)
+            $srtm = $request->srtm;
+            $users = Uraian::StatusBahan();
+            if ($srtm) {
+                $users->hasRtm($srtm);
+            }
+            return datatables::of($users)
                 ->addColumn('rtm', function (Uraian $uraian) {
                     return $uraian->rtm->map(function ($rtm) {
                         return $rtm->rtm_ke;
@@ -43,8 +40,7 @@ class RtmController extends Controller
                         return $departemen->departemen;
                     })->implode(', ');
                 })
-                ->toJson();
-            return $uraians;
+                ->make(true);
         }
         return view('rtm/cek');
     }

@@ -43,6 +43,15 @@ class Uraian extends Model implements HasMedia
         return $query->where('sbahan', 1)->latest();
     }
 
+    public function scopeStatusOpen($query)
+    {
+        return $query->StatusBahan()->where('status', 1);
+    }
+
+    public function scopeStatusClose($query)
+    {
+        return $query->StatusBahan()->where('status', 0);
+    }
     public function scopeStatusRisalah($query)
     {
         return $query->StatusBahan()->where('srisalah', 1);
@@ -64,13 +73,6 @@ class Uraian extends Model implements HasMedia
         });
     }
 
-    public function scopehasDept2($query, $sdept2)
-    {
-        return $query->whereHas('departemen', function ($q) use ($sdept2) {
-            return $q->where('id', $sdept2);
-        });
-    }
-
     public function scopehasDept($query, $sdept)
     {
         return $query->whereHas('departemen', function ($q) use ($sdept) {
@@ -78,10 +80,17 @@ class Uraian extends Model implements HasMedia
         });
     }
 
-    public function scopehasRtm($query, $srtm2)
+    public function scopehasDept2($query, $sdept2)
     {
-        return $query->whereHas('departemen', function ($q) use ($srtm2) {
-            return $q->where('id', $srtm2);
+        return $query->whereHas('departemen', function ($q) use ($sdept2) {
+            return $q->where('id', $sdept2);
+        });
+    }
+
+    public function scopehasRtm($query, $srtm)
+    {
+        return $query->whereHas('rtm', function ($q) use ($srtm) {
+            return $q->where('id', $srtm);
         });
     }
 
