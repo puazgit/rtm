@@ -41,19 +41,22 @@ class Uraian extends Model implements HasMedia
     //sbahan = 1 , srisalah = 0, stindak = 0 => StatusBahan
     //sbahan = 1 , srisalah = 1, stindak = 0 => StatusRisalah
     //sbahan = 1 , srisalah = 1, stindak = 1 => StatusTindak
+    public function scopeBaru($query)
+    {
+        return $query->where('statusn', 0);
+    }
 
+    public function scopeLama($query)
+    {
+        return $query->where('statusn', 1);
+    }
     public function scopeStatusBahan($query)
     {
-        return $query->where('sbahan', 1)->StatusOpen()
-            // ->where('srisalah', 0)
-            // ->where('stindak', 0)
+        return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->StatusOpen()
             ->latest();
     }
 
-    // public function scopeStatusNoRisalah($query)
-    // {
-    //     return $query->StatusBahan()->where('srisalah', 0);
-    // }
+
 
     public function scopeStatusRisalah($query)
     {
@@ -69,10 +72,6 @@ class Uraian extends Model implements HasMedia
             ->where('stindak', 1)->latest();
     }
 
-    // public function scopeStatusNoTindak($query)
-    // {
-    //     return $query->StatusNoRisalah()->where('stindak', 0);
-    // }
     public function scopeStatusOpen($query)
     {
         return $query->where('status', 1);
@@ -82,8 +81,6 @@ class Uraian extends Model implements HasMedia
     {
         return $query->StatusBahan()->where('status', 0);
     }
-
-
 
     public function scopehasIdDeptbyLogin($query, $dept_id)
     {
@@ -126,6 +123,7 @@ class Uraian extends Model implements HasMedia
             return $q->where('id', $LastIdRtm);
         });
     }
+
     // public function activeOptions()
     // {
     //     return [

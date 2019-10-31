@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\DB;
 use App\Rtm;
 use App\Uraian;
 use App\Departemen;
@@ -22,12 +21,12 @@ class BahanController extends Controller
     public function index(Request $request)
     {
         $sdept = $request->sdept;
-        $LastIdRtm = Rtm::SelectedRtm()->first()->id;
+        // $LastIdRtm = Rtm::SelectedRtm()->first()->id;
         $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $json = $dept_id == 0 ? Uraian::StatusBahan() : Uraian::hasIdDeptbyLogin($dept_id)->StatusBahan();
-            $json->getInRtmId($LastIdRtm);
+            $json = $dept_id == 0 ? Uraian::Baru()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->Baru()->latest();
+            // $json->getInRtmId($LastIdRtm);
 
             if ($sdept) {
                 $json->hasDept($sdept);
@@ -57,8 +56,8 @@ class BahanController extends Controller
 
         if (request()->ajax()) {
             $json = $dept_id == 0 ?
-                Uraian::getIdRtmEx($LastIdRtm)->StatusRisalah()->StatusOpen()
-                : Uraian::getIdRtmEx($LastIdRtm)->hasIdDeptbyLogin($dept_id)->StatusRisalah()->StatusOpen();
+                Uraian::StatusRisalah()->Lama()->StatusOpen()->latest()
+                : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah()->Lama()->StatusOpen()->latest();
 
             if ($sdept2) {
                 $json->hasDept2($sdept2);

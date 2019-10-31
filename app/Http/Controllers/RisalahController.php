@@ -22,29 +22,20 @@ class RisalahController extends Controller
     {
         $sdept = $request->sdept;
         $srtm = $request->srtm;
+        $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $dept_id = Auth::user()->departemen_id;
-            $json = $dept_id == 0 ? Uraian::with(['rtm', 'departemen'])->StatusRisalah()->latest() : Uraian::with(['rtm', 'departemen'])
-                ->whereHas('departemen', function ($q) use ($dept_id) {
-                    return $q->where('id', $dept_id);
-                })->StatusRisalah()->latest();
+            $json = $dept_id == 0 ? Uraian::StatusRisalah()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah()->latest();
 
-            if ($sdept && $srtm) {
-                $json->whereHas('departemen', function ($q) use ($request) {
-                    return $q->where('id', $request->input('sdept'));
-                })->whereHas('rtm', function ($q) use ($request) {
-                    return $q->where('id', $request->input('srtm'));
-                });
-            } elseif ($sdept) {
-                $json->whereHas('departemen', function ($q) use ($request) {
-                    return $q->where('id', $request->input('sdept'));
-                });
+            if ($sdept) {
+                $json->hasDept($sdept);
+                if ($srtm) {
+                    $json->hasDept($sdept)->hasRtm($srtm);
+                }
             } elseif ($srtm) {
-                $json->whereHas('rtm', function ($q) use ($request) {
-                    return $q->where('id', $request->input('srtm'));
-                });
+                $json->hasRtm($srtm);
             }
+
             return datatables::of($json)->make(true);
         }
         return view('risalah.index');
