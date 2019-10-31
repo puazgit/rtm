@@ -38,33 +38,52 @@ class Uraian extends Model implements HasMedia
         return $this->belongsTo('App\Jenis');
     }
 
+    //sbahan = 1 , srisalah = 0, stindak = 0 => StatusBahan
+    //sbahan = 1 , srisalah = 1, stindak = 0 => StatusRisalah
+    //sbahan = 1 , srisalah = 1, stindak = 1 => StatusTindak
+
     public function scopeStatusBahan($query)
     {
-        return $query->where('sbahan', 1)->latest();
+        return $query->where('sbahan', 1)->StatusOpen()
+            // ->where('srisalah', 0)
+            // ->where('stindak', 0)
+            ->latest();
     }
 
+    // public function scopeStatusNoRisalah($query)
+    // {
+    //     return $query->StatusBahan()->where('srisalah', 0);
+    // }
+
+    public function scopeStatusRisalah($query)
+    {
+        return $query->where('sbahan', 1)
+            ->where('srisalah', 1)
+            ->latest();
+    }
+
+    public function scopeStatusTindak($query)
+    {
+        return $query->where('sbahan', 1)
+            ->where('srisalah', 1)
+            ->where('stindak', 1)->latest();
+    }
+
+    // public function scopeStatusNoTindak($query)
+    // {
+    //     return $query->StatusNoRisalah()->where('stindak', 0);
+    // }
     public function scopeStatusOpen($query)
     {
-        return $query->StatusBahan()->where('status', 1);
+        return $query->where('status', 1);
     }
 
     public function scopeStatusClose($query)
     {
         return $query->StatusBahan()->where('status', 0);
     }
-    public function scopeStatusRisalah($query)
-    {
-        return $query->StatusBahan()->where('srisalah', 1);
-    }
 
-    public function scopeStatusNoRisalah($query)
-    {
-        return $query->StatusBahan()->where('srisalah', 0);
-    }
-    public function scopeStatusTindak($query)
-    {
-        return $query->StatusRisalah()->where('stindak', 1);
-    }
+
 
     public function scopehasIdDeptbyLogin($query, $dept_id)
     {
