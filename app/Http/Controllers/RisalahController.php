@@ -25,7 +25,7 @@ class RisalahController extends Controller
         $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $json = $dept_id == 0 ? Uraian::StatusRisalah()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah()->latest();
+            $json = $dept_id == 0 ? Uraian::StatusRisalah()->StatusOpen()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah()->latest();
 
             if ($sdept) {
                 $json->hasDept($sdept);
@@ -36,7 +36,16 @@ class RisalahController extends Controller
                 $json->hasRtm($srtm);
             }
 
-            return datatables::of($json)->make(true);
+            return datatables::of($json)->addColumn('rtm', function (Uraian $uraian) {
+                return $uraian->rtm->map(function ($rtm) {
+                    return $rtm->rtm_ke;
+                })->implode(', ');
+            })
+                ->addColumn('departemen', function (Uraian $uraian) {
+                    return $uraian->departemen->map(function ($departemen) {
+                        return $departemen->departemen;
+                    })->implode(', ');
+                })->make(true);
         }
         return view('risalah.index');
     }

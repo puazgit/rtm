@@ -23,26 +23,28 @@ class RtmController extends Controller
 
     public function cek(Request $request)
     {
-        if (request()->ajax()) {
-            $srtm = $request->srtm;
-            $users = Uraian::StatusBahan();
-            if ($srtm) {
-                $users->hasRtm($srtm);
-            }
-            return datatables::of($users)
-                ->addColumn('rtm', function (Uraian $uraian) {
-                    return $uraian->rtm->map(function ($rtm) {
-                        return $rtm->rtm_ke;
-                    })->implode(', ');
-                })
-                ->addColumn('departemen', function (Uraian $uraian) {
-                    return $uraian->departemen->map(function ($departemen) {
-                        return $departemen->departemen;
-                    })->implode(', ');
-                })
-                ->make(true);
-        }
-        return view('rtm/cek');
+        $uraian = Uraian::StatusRisalah()->StatusOpen()->latest()->get();
+        return $uraian;
+        // if (request()->ajax()) {
+        //     $srtm = $request->srtm;
+        //     $users = Uraian::StatusBahan();
+        //     if ($srtm) {
+        //         $users->hasRtm($srtm);
+        //     }
+        //     return datatables::of($users)
+        //         ->addColumn('rtm', function (Uraian $uraian) {
+        //             return $uraian->rtm->map(function ($rtm) {
+        //                 return $rtm->rtm_ke;
+        //             })->implode(', ');
+        //         })
+        //         ->addColumn('departemen', function (Uraian $uraian) {
+        //             return $uraian->departemen->map(function ($departemen) {
+        //                 return $departemen->departemen;
+        //             })->implode(', ');
+        //         })
+        //         ->make(true);
+        // }
+        // return view('rtm/cek');
     }
 
     public function create()

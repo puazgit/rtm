@@ -1,19 +1,18 @@
 <div class="page-bar">
-        <ul class="page-breadcrumb">
-            <li>
-                <a href="{{route ('home')}}">Home</a>
+    <ul class="page-breadcrumb">
+        <li>
+            <a href="{{route ('home')}}">Home</a>
+        </li>
+        @for($i = 0; $i <= count(Request::segments()); $i++) <li>
+            <a href="{{ URL::to( implode( '/', array_slice(Request::segments(), 0 ,$i, true)))}}">
+                {{(Request::segment($i))}}
+            </a>
+            <i class="fa fa-circle"></i>
             </li>
-            @for($i = 0; $i <= count(Request::segments()); $i++)
-            <li>
-                <a href="{{ URL::to( implode( '/', array_slice(Request::segments(), 0 ,$i, true)))}}">
-                    {{(Request::segment($i))}}
-                </a>
-                <i class="fa fa-circle"></i>
-            </li>
-         @endfor
-        </ul>
-        <div class="page-toolbar">
-            {{-- <div class="btn-group pull-right">
+            @endfor
+    </ul>
+    <div class="page-toolbar">
+        {{-- <div class="btn-group pull-right">
                 <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
                     <i class="fa fa-angle-down"></i>
                 </button>
@@ -37,5 +36,5 @@
                     </li>
                 </ul>
             </div> --}}
-        </div>
     </div>
+</div>
