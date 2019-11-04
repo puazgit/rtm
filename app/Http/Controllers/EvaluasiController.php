@@ -19,8 +19,35 @@ class EvaluasiController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
+        $sdept = $request->sdept;
+        $srtm = $request->srtm;
+        $dept_id = Auth::user()->departemen_id;
+
+        if (request()->ajax()) {
+            $json = $dept_id == 0 ? Uraian::StatusEvaluasi()->StatusOpen()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->StatusEvaluasi()->latest();
+
+            if ($sdept) {
+                $json->hasDept($sdept);
+                if ($srtm) {
+                    $json->hasDept($sdept)->hasRtm($srtm);
+                }
+            } elseif ($srtm) {
+                $json->hasRtm($srtm);
+            }
+
+            return datatables::of($json)->addColumn('rtm', function (Uraian $uraian) {
+                return $uraian->rtm->map(function ($rtm) {
+                    return $rtm->rtm_ke;
+                })->implode(', ');
+            })
+                ->addColumn('departemen', function (Uraian $uraian) {
+                    return $uraian->departemen->map(function ($departemen) {
+                        return $departemen->departemen;
+                    })->implode(', ');
+                })->make(true);
+        }
         return view('evaluasi.index');
     }
     public function edit($evaluasi)

@@ -250,7 +250,16 @@ function load_data2(sdept2, srtm)
        url:'{{ route("bahan.rtmlama") }}',
        data:{sdept2:sdept2, srtm:srtm}
    },
-   dom: 'lfrtip',
+   @role('admin')
+   dom: 'Blfrtip',
+   @endrole
+   buttons: [
+                {
+					extend: "colvis",
+                    text: "Show",
+                    className: "btn btn-square green btn-success"
+				},  
+          ],
    columns: [
                    { data: 'uraian', name: 'uraian', render: function(data, column, row)
                        {

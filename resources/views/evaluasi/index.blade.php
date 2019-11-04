@@ -181,7 +181,7 @@
     serverSide: true,
     order:[[10,"desc"]],
     ajax: {
-        url:'{{ route("risalah.index") }}',
+        url:'{{ route("evaluasi.index") }}',
         data:{sdept:sdept, srtm:srtm}
     },
     dom: 'Blfrtip',
@@ -217,11 +217,7 @@
                             return ''+decodedText+''
                         }
                     }, //3
-                    { data: 'departemen[].departemen', name: 'departemen', orderable: false, render: function(data, column, row)
-                        {
-                            return ''+data+''
-                        }
-                    }, //4
+                    { data: 'departemen', name: 'departemen.departemen', orderable: false}, //4
                     { data: 'tindak', name: 'tindak', render: function(data, column, row)
                         {
                             var decodedText = $("<p/>").html(data).text(); 
@@ -241,12 +237,7 @@
                         }
                     }, //7
                     { data: 'status', name: 'status'}, //8
-                    { data: 'rtm[].rtm_ke', name: 'rtm', orderable: false, render: function(data, type, row)
-                        { 
-                            return ''+data+''
-                        }
-                    
-                    },//9
+                    { data: 'rtm', name: 'rtm.rtm_ke', orderable: false},//9
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[

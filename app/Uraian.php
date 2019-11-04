@@ -20,7 +20,17 @@ class Uraian extends Model implements HasMedia
 
     public function rtm()
     {
-        return $this->belongsToMany('App\Rtm')->withPivot('rtm_id', 'uraian_id');;
+        return $this->belongsToMany('App\Rtm')->withPivot('status');
+    }
+
+    // public function scopeRtmclose($query)
+    // {
+    //     return $query->wherePivot('status', 0);
+    // }
+
+    public function Rtmclose()
+    {
+        return $this->belongsToMany('App\Rtm')->wherePivot('status', 0);
     }
 
     public function progres()
@@ -43,20 +53,18 @@ class Uraian extends Model implements HasMedia
     //sbahan = 1 , srisalah = 1, stindak = 1 => StatusTindak
     public function scopeBaru($query)
     {
-        return $query->where('statusn', 0);
+        return $query->where('statusn', 1);
     }
 
     public function scopeLama($query)
     {
-        return $query->where('statusn', 1);
+        return $query->where('statusn', 0);
     }
     public function scopeStatusBahan($query)
     {
         return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->StatusOpen()
             ->latest();
     }
-
-
 
     public function scopeStatusRisalah($query)
     {
@@ -65,7 +73,7 @@ class Uraian extends Model implements HasMedia
             ->latest();
     }
 
-    public function scopeStatusTindak($query)
+    public function scopeStatusEvaluasi($query)
     {
         return $query->where('sbahan', 1)
             ->where('srisalah', 1)
@@ -75,6 +83,11 @@ class Uraian extends Model implements HasMedia
     public function scopeStatusOpen($query)
     {
         return $query->where('status', 1);
+    }
+
+    public function scopePivotstatusclose($query)
+    {
+        return $query->wherePivot('status', 0);
     }
 
     public function scopeStatusClose($query)
