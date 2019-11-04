@@ -181,9 +181,9 @@ class BahanController extends Controller
         $uraian->update($validatedData);
 
         // $uraian = Uraian::find($uraian->id);
-        // $uraian->rtm()->sync($request->srtm);
+        $uraian->rtm()->sync($request->srtm);
         $uraian->departemen()->sync($request->sdept);
-        // dd($uraian);
+        // dd($request->sdept);
         // if ($request->has('chk_grafik')) {
 
         //     $rules = array(

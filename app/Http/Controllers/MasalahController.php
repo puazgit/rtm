@@ -25,7 +25,7 @@ class MasalahController extends Controller
     public function test()
     {
         // $uraian = Uraian::whereHas('rtmclose')->get();
-        $uraian = Uraian::StatusRisalah()->Lama()->StatusOpen()->latest()->get();
+        $uraian = Uraian::StatusRisalah()->StatusOpen()->latest()->get();
         return $uraian;
         // dd($uraian);
     }
