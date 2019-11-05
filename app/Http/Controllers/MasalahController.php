@@ -12,6 +12,8 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Mail\CreateRtmEmail;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 
@@ -21,6 +23,11 @@ class MasalahController extends Controller
     {
         $this->middleware('auth');
     }
+    // public function webmail()
+    // {
+    //     Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
+    //     return "Email telah dikirim";
+    // }
 
     public function test()
     {

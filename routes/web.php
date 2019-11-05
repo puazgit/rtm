@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -36,6 +39,7 @@ Route::resource('bahan', 'BahanController');
 
 Route::resource('risalah', 'RisalahController');
 //RTM Routes
+// Route::get('/sendmail', 'MasalahController@webmail');
 Route::get('rtm/cek', 'RtmController@cek')->name('rtm.cek');
 Route::get('rtm/loadRtm', 'RtmController@loadRtm')->name('rtm.load');
 Route::post('rtm/media', 'RtmController@saveMedia')->name('rtm.saveMedia');

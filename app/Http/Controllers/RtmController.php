@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Mail\CreateRtmEmail;
+use Illuminate\Support\Facades\Mail;
 use App\Rtm;
 use App\Uraian;
 use App\Progres;
@@ -21,10 +23,14 @@ class RtmController extends Controller
         return view('rtm/index');
     }
 
+    public function sendmail(Type $var = null)
+    { }
+
     public function cek(Request $request)
     {
-        $uraian = Uraian::StatusRisalah()->StatusOpen()->latest()->get();
-        return $uraian;
+        return view('rtm/email');
+        // $uraian = Uraian::StatusRisalah()->StatusOpen()->latest()->get();
+        // return $uraian;
         // if (request()->ajax()) {
         //     $srtm = $request->srtm;
         //     $users = Uraian::StatusBahan();
@@ -81,7 +87,7 @@ class RtmController extends Controller
     {
         $validatedData = $request->validate([
             'rtm_ke' => 'required|digits_between:0,100', 'tingkat' => 'required', 'rkt' => 'required',
-            'tahun' => 'required', 'document' => 'required'
+            'tahun' => 'required'
         ], [
             'rtm_ke.required' => 'RTM harap diisi',
             'rtm_ke.digits_between' => 'RTM harus angka',
@@ -93,7 +99,10 @@ class RtmController extends Controller
         foreach ($request->input('document', []) as $file) {
             $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
         }
-        return redirect('rtm')->with('success', 'RTM berhasil dibuat');
+
+        Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
+
+        return redirect('rtm')->with('success', 'RTM berhasil dibuat dan dikirim ke email unit kerja');
     }
 
     public function store(Request $request)
