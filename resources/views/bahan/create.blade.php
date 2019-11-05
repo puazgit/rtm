@@ -16,6 +16,7 @@
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
 <div class="row">
+    @isset($selectedrtm->rtm_ke)
     <div class="col-md-12">
         <form class="form-horizontal form-row-seperated" action="{{route ('bahan.store')}}" method="post"
             spellcheck="false">
@@ -161,10 +162,12 @@
                                                 {{Auth::user()->name }}
                                                 </option>
                                                 @endrole
+                                                @role('admin')
                                                 @foreach ($alldepartemen as $item)
                                                 <option value="{{$item->id}}">{{$item->departemen}}
                                                 </option>
                                                 @endforeach
+                                                @endrole
                                             </select>
                                         </div>
                                     </div>
@@ -248,6 +251,7 @@
             </div>
         </form>
     </div>
+    @endisset
 </div>
 <style>
     #noEdit {

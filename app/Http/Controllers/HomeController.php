@@ -38,7 +38,11 @@ class HomeController extends Controller
         if ($rtmc != null && $userdept != 0) {
             $rtmcid = $rtmc->id;
             $rtmcUrl = $rtmc->getMedia('document');
-            $rtmcUrl = $rtmcUrl[0]->getFullUrl();
+            if (sizeof($rtmcUrl) != 0) {
+                $rtmcUrl = $rtmcUrl[0]->getFullUrl();
+            } else {
+                $rtmcUrl = null;
+            }
             $json = Departemen::Find($userdept);
             $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
                 $q->where('id', '=', $rtmcid);

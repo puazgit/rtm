@@ -37,3 +37,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 }
+//https://laravelguy.com/laravel-authenticate-with-username-or-email/

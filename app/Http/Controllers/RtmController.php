@@ -91,7 +91,7 @@ class RtmController extends Controller
         ], [
             'rtm_ke.required' => 'RTM harap diisi',
             'rtm_ke.digits_between' => 'RTM harus angka',
-            'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
+            // 'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
         ]);
 
         $rtm = Rtm::Create($validatedData);
@@ -102,7 +102,7 @@ class RtmController extends Controller
 
         Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
 
-        return redirect('rtm')->with('success', 'RTM berhasil dibuat dan dikirim ke email unit kerja');
+        return redirect('rtm')->with('success', 'RTM berhasil dibuat dan link pemberitahuan telah dikirim ke email unit kerja');
     }
 
     public function store(Request $request)

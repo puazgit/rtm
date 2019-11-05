@@ -52,7 +52,7 @@ class BahanController extends Controller
         $sdept2 = $request->sdept2;
         $srtm = $request->srtm;
         $dept_id = Auth::user()->departemen_id;
-        $LastIdRtm = Rtm::SelectedRtm()->first()->id;
+        // $LastIdRtm = Rtm::SelectedRtm()->first()->id;
 
         if (request()->ajax()) {
             $json = $dept_id == 0 ?
