@@ -16,7 +16,7 @@
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
 <div class="row">
-    @isset($selectedrtm->rtm_ke)
+    @if(isset($selectedrtm->rtm_ke) OR Auth::user()->name == 'Administrator')
     <div class="col-md-12">
         <form class="form-horizontal form-row-seperated" action="{{route ('bahan.store')}}" method="post"
             spellcheck="false">
@@ -251,7 +251,13 @@
             </div>
         </form>
     </div>
-    @endisset
+    @else
+    <div class="portlet light bordered">
+        <div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true"></button>
+            <strong>Tidak ada RTM yang harus diinput</strong></div>
+    </div>
+    @endif
 </div>
 <style>
     #noEdit {

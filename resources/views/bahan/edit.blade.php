@@ -53,7 +53,7 @@
                             <li>
                                 <a href="#tab_2" data-toggle="tab"> RENCANA PENYELESAIAN</a>
                             </li>
-                            @role('admin')
+                            @role('xxx')
                             <li>
                                 <a href="#tab_3" data-toggle="tab"> EVALUASI PROGRES TINDAKLANJUT </a>
                             </li>

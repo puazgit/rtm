@@ -67,7 +67,7 @@ class EvaluasiController extends Controller
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
             'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => '',
-            'lampiran' => 'required'
+            // 'lampiran' => 'required'
         ], [
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',
             'uraian.required' => 'Uraian Permasalahan harap diisi',
@@ -80,8 +80,10 @@ class EvaluasiController extends Controller
         // $uraian = Uraian::find($uraian->id);
         // $uraian->rtm()->sync($request->srtm);
         $uraian->departemen()->sync($request->sdept);
-        foreach ($request->input('lampiran', []) as $file) {
-            $uraian->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('lampiran');
+        if ($request->has('lampiran')) {
+            foreach ($request->input('lampiran', []) as $file) {
+                $uraian->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('lampiran');
+            }
         }
 
         if ($request->has('chk_grafik')) {
