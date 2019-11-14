@@ -132,11 +132,13 @@
                         window.location = '{{route ('bahan.create')}}';
                     }
                 },
+                @role('admin')
                 {
 					extend: "colvis",
                     text: "Show",
                     className: "btn btn-square green btn-success"
-				},  
+				},
+                @endrole  
                 // {
                 //     extend:"pdf",
                 //     className:"btn btn-square green btn-success"
@@ -192,7 +194,7 @@
 	            ],
                 columnDefs:[
                     @role('unit')
-                    {targets:[4,5,6,7], visible:false, className: 'noVis'},
+                    {targets:[4,5,6,7,8], visible:false, className: 'noVis'},
                     @else
                     {targets:[5,6,7], visible:false, className: 'noVis'},
                     @endrole

@@ -219,8 +219,8 @@
                             };
 
                             var n={
-                                0:{title:"belum",class:"label-warning"},
-                                1:{title:"ditindaklanjuti",class:"label-success"},
+                                0:{title:"belum dieavluasi",class:"label-warning"},
+                                1:{title:"sudah dievaluasi",class:"label-success"},
                             };
                             return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><span class='label label-sm "+n[t.stindak].class+"'>"+n[t.stindak].title+"</span>"
                         }

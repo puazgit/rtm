@@ -253,7 +253,11 @@
                                 1:{title:"open",class:"label-danger"},
                                 0:{title:"close",class:"label-success"},
                             };
-                            return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+                            var n={
+                                0:{title:"belum dieavluasi",class:"label-warning"},
+                                1:{title:"sudah dievaluasi",class:"label-success"},
+                            };
+                            return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><span class='label label-sm "+n[t.stindak].class+"'>"+n[t.stindak].title+"</span>"
                         }
                     },
                     {
