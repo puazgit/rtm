@@ -23,14 +23,9 @@ class Uraian extends Model implements HasMedia
         return $this->belongsToMany('App\Rtm')->withPivot('status');
     }
 
-    // public function scopeRtmclose($query)
-    // {
-    //     return $query->wherePivot('status', 0);
-    // }
-
-    public function Rtmclose()
+    public function departemen()
     {
-        return $this->belongsToMany('App\Rtm')->wherePivot('status', 0);
+        return $this->belongsToMany('App\Departemen');
     }
 
     public function progres()
@@ -38,32 +33,38 @@ class Uraian extends Model implements HasMedia
         return $this->hasMany('App\Progres');
     }
 
-    public function departemen()
-    {
-        return $this->belongsToMany('App\Departemen');
-    }
-
     public function jenis()
     {
         return $this->belongsTo('App\Jenis');
     }
 
+    public function statusOpen()
+    {
+        return $this->belongsToMany('App\Rtm')->wherePivot('status', 1);
+    }
+
+    public function statusClose()
+    {
+        return $this->belongsToMany('App\Rtm')->wherePivot('status', 0);
+    }
+
+
     //sbahan = 1 , srisalah = 0, stindak = 0 => StatusBahan
     //sbahan = 1 , srisalah = 1, stindak = 0 => StatusRisalah
     //sbahan = 1 , srisalah = 1, stindak = 1 => StatusTindak
-    public function scopeBaru($query)
+    public function scopeinputanBaru($query)
     {
         return $query->where('statusn', 1);
     }
 
-    public function scopeLama($query)
+    public function scopeinputanLama($query)
     {
-        return $query->where('statusn', 0);
+        return $query->where('statusn', 0)->whereHas('statusOpen');
     }
+
     public function scopeStatusBahan($query)
     {
-        return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->StatusOpen()
-            ->latest();
+        return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->StatusOpen();
     }
 
     public function scopeStatusRisalah($query)
@@ -80,9 +81,16 @@ class Uraian extends Model implements HasMedia
             ->where('stindak', 1)->latest();
     }
 
-    public function scopeStatusOpen($query)
+    // public function scopeStatusOpen($query)
+    // {
+    //     return $query->where('status', 1);
+    // }
+
+    public function scopePivotstatusopen($query)
     {
-        return $query->where('status', 1);
+        return $query->whereHas('rtm', function ($q) {
+            return $q->wherePivot('status', 1);
+        });
     }
 
     public function scopePivotstatusclose($query)

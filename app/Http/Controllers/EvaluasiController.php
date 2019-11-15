@@ -26,7 +26,7 @@ class EvaluasiController extends Controller
         $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $json = $dept_id == 0 ? Uraian::StatusEvaluasi()->StatusOpen()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->StatusEvaluasi()->latest();
+            $json = $dept_id == 0 ? Uraian::StatusEvaluasi()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->StatusEvaluasi()->latest();
 
             if ($sdept) {
                 $json->hasDept($sdept);

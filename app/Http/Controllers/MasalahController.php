@@ -32,7 +32,12 @@ class MasalahController extends Controller
     public function test()
     {
         // $uraian = Uraian::whereHas('rtmclose')->get();
-        $uraian = Uraian::StatusRisalah()->StatusOpen()->latest()->get();
+        // $posts = App\Post::whereHas('comments', function (Builder $query) {
+        //     $query->where('content', 'like', 'foo%');
+        // })->get();
+
+        $uraian = Uraian::inputanBaru()->get();
+
         return $uraian;
         // dd($uraian);
     }

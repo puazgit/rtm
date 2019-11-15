@@ -169,7 +169,7 @@
                             return ''+d+''
                         }
                     }, //3
-                    { data: 'departemen', name: 'departemen.departemen', orderable: false}, //4
+                    { data: 'departemen', name: 'departemen', orderable: false}, //4
                     { data: 'tindak', name: 'tindak', render: function(data, column, row)
                         {
                             var d = $("<p/>").html(data).text(); 
@@ -188,8 +188,8 @@
                             return ''+d+''
                         }
                     }, //7
-                    { data: 'status', name: 'status'}, //8
-                    { data: 'rtm', name: 'rtm.rtm_ke', orderable: false},//9
+                    { data: 'status_1', name: 'status_1'}, //8
+                    { data: 'rtm', name: 'rtm', orderable: false},//9
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[

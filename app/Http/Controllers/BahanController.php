@@ -21,12 +21,10 @@ class BahanController extends Controller
     public function index(Request $request)
     {
         $sdept = $request->sdept;
-        // $LastIdRtm = Rtm::SelectedRtm()->first()->id;
         $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $json = $dept_id == 0 ? Uraian::Baru()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->Baru()->latest();
-            // $json->getInRtmId($LastIdRtm);
+            $json = $dept_id == 0 ? Uraian::inputanBaru()->latest() : Uraian::hasIdDeptbyLogin($dept_id)->inputanBaru()->latest();
 
             if ($sdept) {
                 $json->hasDept($sdept);
@@ -42,7 +40,13 @@ class BahanController extends Controller
                     return $uraian->departemen->map(function ($departemen) {
                         return $departemen->departemen;
                     })->implode(', ');
-                })->make(true);
+                })
+                ->addColumn('status_1', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->pivot->status;
+                    })->implode('');
+                })
+                ->make(true);
         }
         return view('bahan.index');
     }
@@ -52,12 +56,11 @@ class BahanController extends Controller
         $sdept2 = $request->sdept2;
         $srtm = $request->srtm;
         $dept_id = Auth::user()->departemen_id;
-        // $LastIdRtm = Rtm::SelectedRtm()->first()->id;
 
         if (request()->ajax()) {
             $json = $dept_id == 0 ?
-                Uraian::StatusRisalah()->Lama()->StatusOpen()->latest()
-                : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah()->Lama()->StatusOpen()->latest();
+                Uraian::inputanLama()
+                : Uraian::hasIdDeptbyLogin($dept_id)->inputanLama();
 
             if ($sdept2) {
                 $json->hasDept2($sdept2);
@@ -78,7 +81,13 @@ class BahanController extends Controller
                     return $uraian->departemen->map(function ($departemen) {
                         return $departemen->departemen;
                     })->implode(', ');
-                })->make(true);
+                })
+                ->addColumn('status_1', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->pivot->status;
+                    })->implode('');
+                })
+                ->make(true);
         }
         return view('bahan.index');
     }
