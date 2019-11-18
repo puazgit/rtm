@@ -236,7 +236,7 @@
                             return ''+decodedText+''
                         }
                     }, //7
-                    { data: 'status', name: 'status'}, //8
+                    { data: 'status_1', name: 'status_1'}, //8
                     { data: 'rtm', name: 'rtm.rtm_ke', orderable: false},//9
                     { data: 'id', name: 'id'}//10
 	            ],

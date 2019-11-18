@@ -46,7 +46,13 @@ class EvaluasiController extends Controller
                     return $uraian->departemen->map(function ($departemen) {
                         return $departemen->departemen;
                     })->implode(', ');
-                })->make(true);
+                })
+                ->addColumn('status_1', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->pivot->status;
+                    })->implode('');
+                })
+                ->make(true);
         }
         return view('evaluasi.index');
     }
