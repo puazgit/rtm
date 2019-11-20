@@ -59,8 +59,8 @@ class BahanController extends Controller
 
         if (request()->ajax()) {
             $json = $dept_id == 0 ?
-                Uraian::inputanLama()
-                : Uraian::hasIdDeptbyLogin($dept_id)->inputanLama();
+                Uraian::StatusRisalah()->inputanLama()
+                : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah()->inputanLama();
 
             if ($sdept2) {
                 $json->hasDept2($sdept2);

@@ -28,7 +28,7 @@
     <div class="portlet-title">
         <div class="caption font-red-sunglo">
             <i class="icon-settings font-red-sunglo"></i>
-            <span class="caption-subject bold uppercase">PERMASALAHAN YANG MASIH OPEN
+            <span class="caption-subject bold uppercase">PERMASALAHAN YANG MASIH OPEN DI RTM SEBELUMNYA
             </span>
         </div>
         <div class="tools">
