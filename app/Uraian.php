@@ -20,7 +20,7 @@ class Uraian extends Model implements HasMedia
 
     public function rtm()
     {
-        return $this->belongsToMany('App\Rtm')->withPivot('status');
+        return $this->belongsToMany('App\Rtm')->withPivot('status')->withTimestamps();
     }
 
     public function departemen()
@@ -48,6 +48,10 @@ class Uraian extends Model implements HasMedia
         return $this->belongsToMany('App\Rtm')->wherePivot('status', 0);
     }
 
+    public function scopeBetweenDate($query)
+    {
+        return $query->where('updated_at', '=', '2019-11-16 23:40:20');
+    }
 
     //sbahan = 1 , srisalah = 0, stindak = 0 => StatusBahan
     //sbahan = 1 , srisalah = 1, stindak = 0 => StatusRisalah
@@ -64,7 +68,12 @@ class Uraian extends Model implements HasMedia
 
     public function scopeStatusBahan($query)
     {
-        return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->StatusOpen();
+        return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->whereHas('statusOpen');
+    }
+
+    public function scopeStatusBahanReject($query)
+    {
+        return $query->where('sbahan', 1)->where('srisalah', 0)->where('stindak', 0)->where('statusn', 0);
     }
 
     public function scopeStatusRisalah($query)
@@ -98,10 +107,10 @@ class Uraian extends Model implements HasMedia
         return $query->wherePivot('status', 0);
     }
 
-    public function scopeStatusClose($query)
-    {
-        return $query->StatusBahan()->where('status', 0);
-    }
+    // public function scopeStatusClose($query)
+    // {
+    //     return $query->StatusBahan()->where('status', 0);
+    // }
 
     public function scopehasIdDeptbyLogin($query, $dept_id)
     {
@@ -124,10 +133,24 @@ class Uraian extends Model implements HasMedia
         });
     }
 
+    public function scopehasDept3($query, $sdept3)
+    {
+        return $query->whereHas('departemen', function ($q) use ($sdept3) {
+            return $q->where('id', $sdept3);
+        });
+    }
+
     public function scopehasRtm($query, $srtm)
     {
         return $query->whereHas('rtm', function ($q) use ($srtm) {
             return $q->where('id', $srtm);
+        });
+    }
+
+    public function scopehasRtm3($query, $srtm3)
+    {
+        return $query->whereHas('rtm', function ($q) use ($srtm3) {
+            return $q->where('id', $srtm3);
         });
     }
 

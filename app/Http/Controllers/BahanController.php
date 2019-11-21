@@ -92,6 +92,47 @@ class BahanController extends Controller
         return view('bahan.index');
     }
 
+    public function bahanoff(Request $request)
+    {
+        $sdept3 = $request->sdept3;
+        $srtm3 = $request->srtm3;
+        $dept_id = Auth::user()->departemen_id;
+
+        if (request()->ajax()) {
+            $json = $dept_id == 0 ?
+                Uraian::StatusBahanReject()
+                : Uraian::hasIdDeptbyLogin($dept_id)->StatusBahanReject();
+
+            if ($sdept3) {
+                $json->hasDept3($sdept3);
+                if ($srtm3) {
+                    $json->hasDept3($sdept3)->hasRtm3($srtm3);
+                }
+            } elseif ($srtm3) {
+                $json->hasRtm3($srtm3);
+            }
+
+            return datatables::of($json)
+                ->addColumn('rtm', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->rtm_ke;
+                    })->implode(', ');
+                })
+                ->addColumn('departemen', function (Uraian $uraian) {
+                    return $uraian->departemen->map(function ($departemen) {
+                        return $departemen->departemen;
+                    })->implode(', ');
+                })
+                ->addColumn('status_1', function (Uraian $uraian) {
+                    return $uraian->rtm->map(function ($rtm) {
+                        return $rtm->pivot->status;
+                    })->implode('');
+                })
+                ->make(true);
+        }
+        return view('bahan.index');
+    }
+
     public function create()
     {
         $jenis = Jenis::all();

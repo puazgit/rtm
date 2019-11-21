@@ -71,9 +71,13 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         @include('evaluasi/open')
     </div>
+    <div class="col-md-6">
+        @include('bahan/off')
+    </div>
+</div>
 </div>
 @endsection
 
@@ -90,11 +94,14 @@
 @section('script')
 <script>
     $(document).ready(function(){
-        
+    //table-bahan1    
     $('#sdept').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
-
+    //table-bahan2
     $('#sdept2').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
     $('#srtm').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
+    //table-bahan3
+    $('#sdept3').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
+    $('#srtm3').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
 
     $.ajaxSetup({
           headers: {
@@ -103,16 +110,14 @@
     });
 
  load_data();
-
  $('#sdept').change(function(){
     var	sdept = $(this).val();
 
     $('#table-bahan1').DataTable().destroy();
     load_data(sdept);
  })
-
  function load_data(sdept)
- {
+{
     var	sdept = $('#sdept').val();
     
     $('#table-bahan1').DataTable({
@@ -219,10 +224,10 @@
                     }
                 ],
     });
-    }
+
+}
 
 load_data2();
-
 $('#sdept2').change(function(){
    var	sdept2 = $(this).val();
    var	srtm2 = $(srtm2).val();
@@ -230,7 +235,6 @@ $('#sdept2').change(function(){
    $('#table-bahan2').DataTable().destroy();
    load_data2(sdept2 ,srtm2);
 })
-
 $('#srtm').change(function(){
    var	srtm = $(this).val();
    var	sdept2 = $(sdept2).val();
@@ -238,7 +242,6 @@ $('#srtm').change(function(){
    $('#table-bahan2').DataTable().destroy();
    load_data2(sdept2, srtm);
 })
-
 function load_data2(sdept2, srtm)
 {
    var	sdept2 = $('#sdept2').val();
@@ -337,7 +340,124 @@ function load_data2(sdept2, srtm)
                    }
                ],
    });
-   }
+}
+
+load_data3();
+$('#sdept3').change(function(){
+   var	sdept3 = $(this).val();
+   var	srtm3 = $(srtm3).val();
+
+   $('#table-bahan3').DataTable().destroy();
+   load_data3(sdept3 ,srtm3);
+})
+$('#srtm3').change(function(){
+   var	srtm3 = $(this).val();
+   var	sdept3 = $(sdept3).val();
+
+   $('#table-bahan3').DataTable().destroy();
+   load_data3(sdept3, srtm3);
+})
+
+function load_data3(sdept3, srtm3)
+{
+   var	sdept3 = $('#sdept3').val();
+   var	srtm3 = $('#srtm3').val();
+   
+   $('#table-bahan3').DataTable({
+   processing: true,
+   serverSide: true,
+   order:[[10,"desc"]],
+   ajax: {
+       url:'{{ route("bahan.bahanoff") }}',
+       data:{sdept3:sdept3, srtm3:srtm3}
+   },
+   @role('admin')
+   dom: 'Blfrtip',
+   @endrole
+   buttons: [
+                {
+					extend: "colvis",
+                    text: "Show",
+                    className: "btn btn-square green btn-success"
+				},  
+          ],
+   columns: [
+                   { data: 'uraian', name: 'uraian', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //0
+                   { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //1
+                   { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //
+                   { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //3
+                   { data: 'departemen', name: 'departemen.departemen', orderable: false}, //4
+                   { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //5
+                   { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //6
+                   { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                       {
+                           var d = $("<p/>").html(data).text(); 
+                           return ''+d+''
+                       }
+                   }, //7
+                   { data: 'status', name: 'status'}, //8
+                   { data: 'rtm', name: 'rtm.rtm_ke', orderable: false},//9
+                   { data: 'id', name: 'id'}//10
+               ],
+               columnDefs:[
+                   @role('unit')
+                   {targets:[4,5,6,7,8,9,10], visible:false, className: 'noVis'},
+                   @else
+                   {targets:[5,6,7,8,9,10], visible:false, className: 'noVis'},
+                   @endrole
+                   {
+                       targets:8,
+                       render:function(a,e,t,n){
+                           var s={
+                               1:{title:"open",class:"label-danger"},
+                               0:{title:"close",class:"label-success"},
+                           };
+                           return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
+                       }
+                   },
+                   {
+                           targets:10,
+                           orderable:!1,
+                           title:"aksi",
+                           render:function(data, type, row){
+                           return '<a href=\"{{route ('evaluasi.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('evaluasi.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
+                           "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                           }
+                   }
+               ],
+   });
+}
+
     });
 </script>
 @endsection
