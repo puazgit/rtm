@@ -36,7 +36,9 @@ class MasalahController extends Controller
         //     $query->where('content', 'like', 'foo%');
         // })->get();
 
-        $uraian = Uraian::inputanBaru()->get();
+        $uraian = Uraian::whereHas('rtm', function (Builder $query) {
+            $query->wherePivot('updated_at', '=', '2019-11-16 23:40:20');
+        })->get();
 
         return $uraian;
         // dd($uraian);
