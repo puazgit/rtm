@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\CreateRtmEmail;
 use Illuminate\Support\Facades\Mail;
 use Validator;
+use Illuminate\Support\Carbon;
 
 
 class MasalahController extends Controller
@@ -36,11 +37,9 @@ class MasalahController extends Controller
         //     $query->where('content', 'like', 'foo%');
         // })->get();
 
-        $uraian = Uraian::whereHas('rtm', function (Builder $query) {
-            $query->wherePivot('updated_at', '=', '2019-11-16 23:40:20');
-        })->get();
-
-        return $uraian;
+        $uraianclose = Uraian::has('statusClose')->get();
+        $rtm1_date = $uraianclose->pluck('rtm.*.pivot.created_at')->first();
+        return $rtm1_date;
         // dd($uraian);
     }
     public function index()

@@ -45,13 +45,16 @@ class Uraian extends Model implements HasMedia
 
     public function statusClose()
     {
-        return $this->belongsToMany('App\Rtm')->wherePivot('status', 0)->wherePivot('updated_at', '2019-11-16 23:40:20');
+        return $this->belongsToMany('App\Rtm')->wherePivot('status', 0)
+            // ->wherePivot('updated_at', '>', '2019-01-01 23:40:20')
+            // ->wherePivot('updated_at', '<', '2019-11-17 23:40:20')
+        ;
     }
 
-    public function dateOpen($query)
-    {
-        return $query->wherePivot('updated_at', '2019-11-16 23:40:20');
-    }
+    // public function dateOpen($query)
+    // {
+    //     return $query->wherePivot('updated_at', '2019-11-16 23:40:20');
+    // }
 
     //sbahan = 1 , srisalah = 0, stindak = 0 => StatusBahan
     //sbahan = 1 , srisalah = 1, stindak = 0 => StatusRisalah
