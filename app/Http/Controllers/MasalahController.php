@@ -37,10 +37,20 @@ class MasalahController extends Controller
         //     $query->where('content', 'like', 'foo%');
         // })->get();
 
-        $uraianclose = Uraian::has('statusClose')->get();
-        $rtm1_date = $uraianclose->pluck('rtm.*.pivot.created_at')->first();
-        return $rtm1_date;
+        // $uraianclose = Uraian::has('statusClose')->get();
+        // $rtm1_date = $uraianclose->pluck('rtm.*.pivot.created_at')->first();
+        // return $rtm1_date;
         // dd($uraian);
+
+        $json = Uraian::StatusRisalah();
+
+        return datatables::of($json)
+            ->addColumn('status_1', function (Uraian $uraian) {
+                return $uraian->rtm->map(function ($rtm) {
+                    return $rtm->pivot->status;
+                })->last();
+            })
+            ->make(true);
     }
     public function index()
     {
