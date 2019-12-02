@@ -26,6 +26,11 @@ class RtmController extends Controller
     public function sendmail(Type $var = null)
     { }
 
+    public function test()
+    {
+        return view('rtm/test');
+    }
+
     public function cek(Request $request)
     {
         return view('rtm/email');
