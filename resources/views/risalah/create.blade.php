@@ -1,192 +1,226 @@
 @extends('layouts/wrapper')
+
 @section('css')
-<link href="{{asset ('assets/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset ('assets/css/datatables.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<link href="{{asset ('assets/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset ('assets/css/bootstrap-switch.min.css')}}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    select[readonly].select2-hidden-accessible+.select2-container {
+        pointer-events: none;
+        touch-action: none;
+    }
+
+    select[readonly].select2-hidden-accessible+.select2-container .select2-selection {
+        background: #eee;
+        box-shadow: none;
+    }
+
+    select[readonly].select2-hidden-accessible+.select2-container .select2-selection__arrow,
+    select[readonly].select2-hidden-accessible+.select2-container .select2-selection__clear {
+        display: none;
+    }
+</style>
 @endsection
+
 @section('content')
 <h3 class="page-title">
 </h3>
 <div class="row">
     <div class="col-md-12">
-        <div class="m-portlet__body">
-            <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
-                @role('admin')
-                <div class="col-lg-4">
-                    <select id="sdept" class="form-control select2" name="sdept">
-                        <option value=""></option>
-                        @foreach (App\Departemen::get() as $departemen)
+        <form class="form-horizontal" action="{{route ('rtm.store')}}" method="post" spellcheck="false">
+            @csrf
+            <div class="portlet light bordered">
+                <div class="portlet-title">
+                    <div class="caption font-red-sunglo">
+                        <div class="col-lg-8">
+                            <select id="sdept" class="form-control select2" name="sdept">
+                                <option value=""></option>
+                                @foreach (App\Departemen::get() as $departemen)
 
-                        <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
-                        </option>
-                        @endforeach
-                    </select>
+                                <option value="{{ $departemen->id }}">{{ $departemen->departemen }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <span class="caption-subject bold uppercase"></span>
+                    </div>
+                    <div class="tools">
+                        <button type="submit" class="btn btn-circle green">Submit</button>
+                        <button type="button" class="btn btn-circle grey-salsa btn-outline">Cancel</button>
+                    </div>
+
                 </div>
-                @endrole
-                <div class="col-lg-4">
-                    <select id="srtm" class="form-control select2" name="srtm">
-                        <option value=""></option>
-                        @foreach (App\Rtm::get() as $rtm)
-                        <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
-                        </option>
-                        @endforeach
-                    </select>
+                <div class="portlet-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li><b>{{ $error }}</b></li>
+                            @endforeach
+                        </ul>
+                    </div><br />
+                    @endif
+                    <input type="hidden" id="h_uraian" name="h_uraian[]" />
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">Pilih Uraian Permasalahan
+                                <i class="fa fa-gift"></i> </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="collapse"> </a>
+                                <a href="#portlet-config" data-toggle="modal" class="config"> </a>
+                                <a href="javascript:;" class="reload"> </a>
+                                <a href="javascript:;" class="remove"> </a>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <!-- BEGIN FORM-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-body">
+                                            <div class="table-responsive m-t-10">
+                                                <table
+                                                    class="table table-striped table-bordered table-hover dt-responsive"
+                                                    width="100%" id="headrtm-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th rowspan="2" style="text-align: center;">ID
+                                                            </th>
+                                                            <th rowspan="2">Uraian Permasalahan Bidang</th>
+                                                            <th rowspan="2">Analisis /Penyebab</th>
+                                                            <th colspan="3" style="text-align: center;">
+                                                                Rencana
+                                                                Penyelesaian
+                                                            </th>
+                                                            <th rowspan="2">Tindaklanjut</th>
+                                                            <th colspan="2" style="text-align: center;">
+                                                                Rencana
+                                                                Penyelesaian
+                                                            </th>
+                                                            <th rowspan="2">Status</th>
+                                                            <th rowspan="2">RTM Ke</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Uraian</th>
+                                                            <th>Target Waktu</th>
+                                                            <th>Penanggung Jawab (PIC)</th>
+                                                            <th>Rencana</th>
+                                                            <th>Realisasi</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <label class="control-label">Uraian Permasalahan Terpilih
+                                                :</label>
+                                            <select id="c_uraian" class="form-control select2-multiple"
+                                                name="c_uraian[]" multiple="multiple" disabled />
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- END EXAMPLE TABLE PORTLET-->
+                                </div>
+                            </div>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-        </div>
-        @endif
-    </div>
-    <div class="col-md-12">
-        <div class="portlet light bordered">
-            <div class="portlet-body">
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%"
-                    id="table-risalah">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">Uraian Permasalahan Bidang</th>
-                            <th rowspan="2">Analisis /Penyebab</th>
-                            <th colspan="3" style="text-align: center;">Rencana Penyelesaian</th>
-                            <th rowspan="2">Tindaklanjut</th>
-                            <th colspan="2" style="text-align: center;">Rencana Penyelesaian</th>
-                            <th rowspan="2">Status</th>
-                            <th rowspan="2">RTM Ke</th>
-                            <th rowspan="2" style="text-align: center;">Aksi</th>
-                        </tr>
-                        <tr>
-                            <th>Uraian</th>
-                            <th>Target Waktu</th>
-                            <th>Penanggung Jawab (PIC)</th>
-                            <th>Rencana</th>
-                            <th>Realisasi</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection
 
 @section('js')
-<!-- BEGIN: Page Vendor JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script src="{{asset ('assets/js/datatable.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.min.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/datatables.bootstrap.js')}}" type="text/javascript"></script>
 <script src="{{asset ('assets/js/table-datatables-responsive.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/select2.full.min.js')}}" type="text/javascript"></script>
-<script src="{{asset ('assets/js/components-select2.min.js')}}" type="text/javascript"></script>
-</script>
 @endsection
+
 @section('script')
 <script>
-    $(document).ready(function(){
-        
-    $('#sdept').select2({placeholder: "--- Pilih Departemen ---",allowClear: true, width : '100%'});
-    $('#srtm').select2({placeholder: "--- Pilih Rtm ---",allowClear: true, width : '100%'});
-
-    $.ajaxSetup({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          }
-    });
-
- load_data();
-
- $('#sdept').change(function(){
-    var	sdept = $(this).val();
-    var	srtm = $(srtm).val();
-
-    $('#table-risalah').DataTable().destroy();
-    load_data(sdept ,srtm);
- })
-
- $('#srtm').change(function(){
-    var	srtm = $(this).val();
-    var	sdept = $(sdept).val();
-
-    $('#table-risalah').DataTable().destroy();
-    load_data(sdept, srtm);
- })
-
- function load_data(sdept, srtm)
- {
-    var	sdept = $('#sdept').val();
-    var	srtm = $('#srtm').val();
-    
-    $('#table-risalah').DataTable({
-    processing: true,
-    serverSide: true,
-    order:[[10,"desc"]],
-    ajax: {
-        url:'{{ route("risalah.create") }}',
-        data:{sdept:sdept, srtm:srtm}
-    },
-    columns: [
-                    { data: 'uraian', name: 'uraian', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //0
-                    { data: 'analisis', name: 'analisis', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //1
-                    { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //2
-                    { data: 'r_target', name: 'r_target', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //3
-                    { data: 'departemen[].departemen', name: 'departemen', orderable: false, render: function(data, column, row)
-                        {
-                            return ''+data+''
-                        }
-                    }, //4
-                    { data: 'tindak', name: 'tindak', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //5
-                    { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //6
-                    { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
-                        {
-                            var decodedText = $("<p/>").html(data).text(); 
-                            return ''+decodedText+''
-                        }
-                    }, //7
-                    { data: 'status', name: 'status'}, //8
-                    { data: 'rtm[].rtm_ke', name: 'rtm', orderable: false, render: function(data, type, row)
-                        { 
-                            return ''+data+''
-                        }
-                    
-                    },//9
-                    { data: 'id', name: 'id'}//10
-	            ],
-                columnDefs:[
-                    {targets:[4,5,6,7], visible:false, className: 'noVis'},
+    $(document).ready(function() {
+        data_permasalahan();
+        function data_permasalahan() {
+            var tablekuw = $('#headrtm-table').DataTable({
+            tabIndex : -1,
+            dom: 'Blfrtip',
+            pageLength: 10,
+            responsive:!0,
+            buttons: [
+            ],
+            order:[[0,"desc"]],    
+            ajax: {
+                url: "{{route ('masalah.index')}}",
+                type : 'GET',
+            },
+            columns: [
+                { data: 'id', name: 'id'},//0
+                { data: 'uraian', name: 'uraian', render: function(data, column, row)
                     {
-                        targets:8,
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //1
+                { data: 'analisis', name: 'analisis', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //2
+                { data: 'r_uraian', name: 'r_uraian', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //3
+                { data: 'r_target', name: 'r_target', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //4
+                { data: 'r_pic', name: 'r_pic', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //5
+                { data: 'tindak', name: 'tindak', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //6
+                { data: 'p_rencana', name: 'p_rencana', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //7
+                { data: 'p_realisasi', name: 'p_realisasi', render: function(data, column, row)
+                    {
+                        var decodedText = $("<p/>").html(data).text(); 
+                        return ''+decodedText+''
+                    }
+                }, //8
+                { data: 'status', name: 'status'}, //9
+                { data: 'rtm[].rtm_ke', name: 'rtm', render: function(data, type, row)
+                    { 
+                        return ''+data+''
+                    }
+                }//10
+            ],
+            columnDefs:[
+                    {targets:[3,4,5,6,7,8,10], visible:false, className: 'noVis'},
+                    {
+                        targets:9,
                         render:function(a,e,t,n){
                             var s={
                                 1:{title:"open",class:"label-danger"},
@@ -195,23 +229,26 @@
                             return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span>"
                         }
                     },
-                    {
-                            targets:10,
-                            orderable:!1,
-                            title:"aksi",
-                            render:function(data, type, row){
-                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('risalah.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('risalah.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
-                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
-                            }
-                    }
                 ],
-    });
-    }
+                    select: {
+                        style : 'multi',
+                    },
+            });
 
-        var tablerisalah = $('#table-risalah').DataTable();
-            @role('unit')
-            tablerisalah.buttons(0).disable();
-            @endrole
-    });
+            $('#headrtm-table tbody').on('click', 'tr', function () {
+            var ids = $.map(tablekuw.rows('.selected').data(), function (item){
+					return item.id;
+				});
+                var uraians = $.map(tablekuw.rows('.selected').data(), function (item){
+					return '<option value="'+item.id+'" selected>'+item.id+'</option>';
+				});
+                $('#h_uraian').val(ids);
+                $('#c_uraian').html(uraians).trigger('change');
+			});
+        }
+
+        $('#sdept').select2({placeholder: "--- Pilih Departemen ---",allowClear: true});
+        $('#c_uraian').select2({placeholder: "Uraian ...", allowClear: false});
+      });
 </script>
 @endsection

@@ -78,6 +78,34 @@
         @include('bahan/off')
     </div>
 </div>
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" action="{{route ('bahan.store')}}">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ID</label>
+                            <input type="text" class="form-control" name="user_id" placeholder="User ID">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn green">Save changes</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 </div>
 @endsection
 
@@ -219,7 +247,7 @@
                             title:"aksi",
                             render:function(data, type, row){
                             return '<a href=\"{{route ('bahan.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('bahan.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
-                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" data-toggle=\"modal\" href=\"#basic\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-flag\"></i></button><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                             }
                     }
                 ],

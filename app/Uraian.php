@@ -98,17 +98,17 @@ class Uraian extends Model implements HasMedia
     //     return $query->where('status', 1);
     // }
 
-    public function scopePivotstatusopen($query)
-    {
-        return $query->whereHas('rtm', function ($q) {
-            return $q->wherePivot('status', 1);
-        });
-    }
+    // public function scopePivotstatusopen($query)
+    // {
+    //     return $query->whereHas('rtm', function ($q) {
+    //         return $q->wherePivot('status', 1);
+    //     });
+    // }
 
-    public function scopePivotstatusclose($query)
-    {
-        return $query->wherePivot('status', 0);
-    }
+    // public function scopePivotstatusclose($query)
+    // {
+    //     return $query->wherePivot('status', 0);
+    // }
 
     // public function scopeStatusClose($query)
     // {
@@ -147,6 +147,7 @@ class Uraian extends Model implements HasMedia
     {
         return $query->whereHas('rtm', function ($q) use ($srtm) {
             return $q->where('id', $srtm);
+            // return $q->where('rtm.*.pivot.rtm_id', $srtm);
         });
     }
 

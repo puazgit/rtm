@@ -50,7 +50,7 @@ class RisalahController extends Controller
                 ->addColumn('status_1', function (Uraian $uraian) {
                     return $uraian->rtm->map(function ($rtm) {
                         return $rtm->pivot->status;
-                    })->last();
+                    })->implode(', ');
                 })
                 ->make(true);
         }
