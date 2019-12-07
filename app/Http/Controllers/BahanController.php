@@ -271,4 +271,12 @@ class BahanController extends Controller
     {
         //
     }
+
+    public function torisalah(Request $request)
+    {
+        $id = $request->iduraian;
+        $uraian = Uraian::where('id', $id)
+        ->update(['srisalah' => 1]);
+        return redirect('bahan')->with('success', 'bahan RTM berhasil dimasukan ke dalam risalah');
+     }
 }

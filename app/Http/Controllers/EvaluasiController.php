@@ -82,6 +82,7 @@ class EvaluasiController extends Controller
             'r_target.required' => 'Target waktu harap diisi',
         ]);
         $uraian = Uraian::find($id);
+        $uraian->stindak = '1';
         $uraian->update($validatedData);
         // $uraian = Uraian::find($uraian->id);
         // $uraian->rtm()->sync($request->srtm);

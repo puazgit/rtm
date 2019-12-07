@@ -78,7 +78,7 @@
         @include('bahan/off')
     </div>
 </div>
-<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="ubahRisalah" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -86,17 +86,18 @@
                 <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body">
-                <form role="form" action="{{route ('bahan.store')}}">
+                <form role="form" action="{{route ('bahan.torisalah')}}">
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">ID</label>
-                            <input type="text" class="form-control" name="user_id" placeholder="User ID">
+                            <label>Masukkan kedalam Risalah ?</label>
+                            <input type="text" class="form-control" id="iduraian" name="iduraian"
+                                placeholder="Uraian ID">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn green">Save changes</button>
+                        <button type="button" class="btn dark btn-outline" data-dismiss="modal">Tidak</button>
+                        <button type="submit" class="btn green">Ya</button>
                     </div>
                 </form>
             </div>
@@ -247,7 +248,7 @@
                             title:"aksi",
                             render:function(data, type, row){
                             return '<a href=\"{{route ('bahan.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('bahan.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
-                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" data-toggle=\"modal\" href=\"#basic\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-flag\"></i></button><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" data-myuraian=\"'+data+'\" data-toggle=\"modal\" href=\"#ubahRisalah\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-flag\"></i></button><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
                             }
                     }
                 ],
@@ -486,6 +487,16 @@ function load_data3(sdept3, srtm3)
    });
 }
 
+$('#ubahRisalah').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget);
+  var IdUraian = button.data('myuraian');
+  
+  var modal = $(this);
+  modal.find('.modal-body input').val(IdUraian);
+});
+
     });
+
+
 </script>
 @endsection

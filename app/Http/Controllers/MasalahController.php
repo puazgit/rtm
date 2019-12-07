@@ -32,6 +32,13 @@ class MasalahController extends Controller
 
     public function test()
     {
+        $rtmcid = 1;
+        $userdept = 6;
+        $json = Departemen::Find($userdept);
+        $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
+            $q->where('id', '=', $rtmcid);
+        })->get();
+        return $json1;
         // $uraian = Uraian::whereHas('rtmclose')->get();
         // $posts = App\Post::whereHas('comments', function (Builder $query) {
         //     $query->where('content', 'like', 'foo%');
@@ -42,7 +49,7 @@ class MasalahController extends Controller
         // return $rtm1_date;
         // dd($uraian);
 
-        $json = Uraian::StatusRisalah();
+        // $json = Uraian::StatusRisalah();
 
         return datatables::of($json)
             ->addColumn('status_1', function (Uraian $uraian) {

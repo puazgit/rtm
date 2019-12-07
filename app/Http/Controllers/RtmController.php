@@ -101,11 +101,11 @@ class RtmController extends Controller
 
         $rtm = Rtm::Create($validatedData);
 
+        Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
+
         foreach ($request->input('document', []) as $file) {
             $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
         }
-
-        Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
 
         return redirect('rtm')->with('success', 'RTM berhasil dibuat dan link pemberitahuan telah dikirim ke email unit kerja');
     }

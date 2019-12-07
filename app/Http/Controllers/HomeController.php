@@ -46,7 +46,7 @@ class HomeController extends Controller
             $json = Departemen::Find($userdept);
             $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
                 $q->where('id', '=', $rtmcid);
-            })->StatusBahan()->get();
+            })->get();
 
             if (sizeof($json1) > 0) {
                 $message = null;

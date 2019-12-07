@@ -219,10 +219,10 @@
                             };
 
                             var n={
-                                0:{title:"belum dieavluasi",class:"label-warning"},
+                                0:{title:"belum dievaluasi",class:"label-warning"},
                                 1:{title:"sudah dievaluasi",class:"label-success"},
                             };
-                            return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><span class='label label-sm "+n[t.stindak].class+"'>"+n[t.stindak].title+"</span>"
+                            return void 0===s[a]?a:'<span class="label label-sm '+s[a].class+'">'+s[a].title+"</span><a style='text-decoration:none' href='{{route ('evaluasi.index')}}"+'/'+t.id+'/edit#tab_3'+"'><span class='label label-sm "+n[t.stindak].class+"'>"+n[t.stindak].title+"</span></a>"
                         }
                     },
                     {
