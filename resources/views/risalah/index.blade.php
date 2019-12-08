@@ -206,9 +206,9 @@
 	            ],
                 columnDefs:[
                     @role('unit')
-                    {targets:[4,5,6,7,9,10], visible:false, className: 'noVis'},
+                    {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
                     @else
-                    {targets:[5,6,7,9,10], visible:false, className: 'noVis'},
+                    {targets:[5,6,7,9], visible:false, className: 'noVis'},
                     @endrole
                     {
                         targets:8,
@@ -230,8 +230,7 @@
                             orderable:!1,
                             title:"aksi",
                             render:function(data, type, row){
-                            return '<a href=\"\" data-target=\"#draggable\" data-idb=\"'+data+'\" data-toggle=\"modal\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-area-chart\"></i></button></a><a href=\"{{route ('risalah.index')}}'+'/'+data+'\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>@hasanyrole('unit|admin')<a href=\"{{route ('risalah.index')}}'+'/'+data+'/edit\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-pencil-square-o\
-                            "></i></button></a>@endhasanyrole @hasanyrole('admin')<button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"fa fa-trash-o\"></i></button>@endrole'
+                            return '<a href=\"{{route ('bahan.index')}}'+'/'+data+'\" target=\"_blank\"><button type=\"button\" class=\"btn btn-circle btn-icon-only green\"><i class=\"feather icon-eye\"></i></button></a>'
                             }
                     }
                 ],

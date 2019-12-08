@@ -84,6 +84,8 @@ class EvaluasiController extends Controller
         $uraian = Uraian::find($id);
         $uraian->stindak = '1';
         $uraian->update($validatedData);
+        $uraian->rtm()->updateExistingPivot([1],['status' => $request['status']]);
+        // $uraian->rtm()->updateExistingPivot($roleId, $attributes);
         // $uraian = Uraian::find($uraian->id);
         // $uraian->rtm()->sync($request->srtm);
         $uraian->departemen()->sync($request->sdept);

@@ -192,7 +192,7 @@
                             </div>
                         </div>
                         <div class="item-body">
-                            @if( $bahan->status == 1)
+                            @if( $rtm->pivot->status == 1)
                             <span class="label label-sm label-danger">open</span>
                             @else
                             <span class="label label-sm label-success">close</span>

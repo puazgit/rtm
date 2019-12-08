@@ -65,8 +65,9 @@
                                         <label class="col-md-2 control-label">Status</label>
                                         <div class="col-md-10">
                                             <input @role('unit') readonly @endrole type="checkbox"
-                                                {{ $evaluasi->status == 0 ? '' : ' checked=checked' }} id="status"
-                                                name="status" class="make-switch" value="{{$evaluasi->status}}"
+                                                {{ $evaluasi->rtm->pluck('pivot.status')->first() == 0 ? '' : ' checked=checked' }}
+                                                id="status" name="status" class="make-switch"
+                                                value="{{$evaluasi->rtm->pluck('pivot.status')->first() }}"
                                                 data-on-text="Open" data-off-text="Close">
                                         </div>
                                     </div>
@@ -172,8 +173,9 @@
                                         aria-hidden="true"></button>
                                     <i class="fa fa-warning fa-lg"></i> <b>EVALUASI PROGRES TINDAKLANJUT</b>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input
+                                <div class="form-group" @role('unit') {{$rtm->pivot->status == 1 ? '' : ' id=noEdit'}}
+                                    @endrole>
+                                    <label class="col-md-2 control-label">Tambah Grafik ?</br>jika ada<input tabIndex=-1
                                             type="checkbox" name="chk_grafik" value="1" id="chk_grafik"
                                             {{-- {{ count($evaluasi->progres) > 0 ? ' checked' : ''}} --}} /></label>
                                     <div class="col-md-10">
@@ -193,15 +195,15 @@
                                                         <tbody id="bodyprogres1">
                                                             @foreach($evaluasi->progres as $progres)
                                                             <tr>
-                                                                <td><input type="text" disabled name="target[]"
-                                                                        class="form-control"
+                                                                <td><input tabIndex=-1 type="text" disabled
+                                                                        name="target[]" class="form-control"
                                                                         value="{{$progres->target}}" />
                                                                 </td>
-                                                                <td><input type="text" disabled name="realisasi[]"
-                                                                        class="form-control"
+                                                                <td><input tabIndex=-1 type="text" disabled
+                                                                        name="realisasi[]" class="form-control"
                                                                         value="{{$progres->realisasi}}" /></td>
-                                                                <td><input type="text" disabled name="competitor[]"
-                                                                        class="form-control"
+                                                                <td><input tabIndex=-1 type="text" disabled
+                                                                        name="competitor[]" class="form-control"
                                                                         value="{{$progres->competitor}}" /></td>
                                                                 <td><select name="year[]" disabled class="form-control">
                                                                         <option>{{$progres->year}}</option>
@@ -220,22 +222,25 @@
                                 <div class="form-body">
                                     <div class="form-group">
                                         <label class="col-md-2 control-label">Tindak Lanjut</label>
-                                        <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="tindak"
+                                        <div @role('unit') {{$rtm->pivot->status == 1 ? '' : ' id=noEdit'}} @endrole
+                                            class="col-md-10">
+                                            <textarea tabIndex="-1" class="form-control summernote" name="tindak"
                                                 id="tindak">{{ old('tindak') ?? $evaluasi->tindak }} </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div @role('unit') {{$rtm->pivot->status == 1 ? '' : ' id=noEdit'}} @endrole
+                                        class="form-group">
                                         <label class="col-md-2 control-label">Rencana Penyelesaian</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="p_rencana"
+                                            <textarea tabIndex="-1" class="form-control summernote" name="p_rencana"
                                                 id="p_rencana">{{ old('p_rencana') ?? $evaluasi->p_rencana }} </textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div @role('unit') {{$rtm->pivot->status == 1 ? '' : ' id=noEdit'}} @endrole
+                                        class="form-group">
                                         <label class="col-md-2 control-label">Realisasi Penyelesaian</label>
                                         <div class="col-md-10">
-                                            <textarea class="form-control summernote" name="p_realisasi"
+                                            <textarea tabIndex="-1" class="form-control summernote" name="p_realisasi"
                                                 id="p_realisasi">{{ old('p_realisasi') ?? $evaluasi->p_realisasi }} </textarea>
                                         </div>
                                     </div>
@@ -375,16 +380,16 @@
     
             function dynamic_field(number) {
                 html = '<tr>';
-                html += '<td><input type="text" name="target[]" class="form-control" /></td>';
-                html += '<td><input type="text" name="realisasi[]" class="form-control" /></td>';
-                html += '<td><input type="text" name="competitor[]" class="form-control" /></td>';
-                html += '<td><select name="year[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
+                html += '<td><input tabIndex="-1" type="text" name="target[]" class="form-control" /></td>';
+                html += '<td><input tabIndex="-1" type="text" name="realisasi[]" class="form-control" /></td>';
+                html += '<td><input tabIndex="-1" type="text" name="competitor[]" class="form-control" /></td>';
+                html += '<td><select tabIndex="-1" name="year[]" class="form-control"><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option><option>2019</option><option>2020</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></td>';
                 if (number > 1) {
-                    html += '<td><button type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
+                    html += '<td><button tabIndex="-1" type="button" name="remove" id="" class="btn btn-danger remove">hapus</button></td></tr>';
                     $('tbody#bodyprogres').append(html);
                 }
                 else {
-                    html += '<td><button type="button" name="add" id="add" class="btn btn-success">tambah</button></td></tr>';
+                    html += '<td><button tabIndex="-1" type="button" name="add" id="add" class="btn btn-success">tambah</button></td></tr>';
                     $('tbody#bodyprogres').html(html);
                 }
             }
