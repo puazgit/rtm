@@ -82,12 +82,11 @@ class EvaluasiController extends Controller
             'r_target.required' => 'Target waktu harap diisi',
         ]);
         $uraian = Uraian::find($id);
+        $rtmid = $uraian->rtm()->get()->pluck('pivot.rtm_id')->last();
         $uraian->stindak = '1';
         $uraian->update($validatedData);
-        $uraian->rtm()->updateExistingPivot([1],['status' => $request['status']]);
-        // $uraian->rtm()->updateExistingPivot($roleId, $attributes);
-        // $uraian = Uraian::find($uraian->id);
-        // $uraian->rtm()->sync($request->srtm);
+        $uraian->rtm()->updateExistingPivot([$rtmid], ['status' => $request['status']]);
+        $uraian->rtm()->sync($request->srtm);
         $uraian->departemen()->sync($request->sdept);
         if ($request->has('lampiran')) {
             foreach ($request->input('lampiran', []) as $file) {

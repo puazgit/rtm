@@ -66,8 +66,7 @@
                                         <div class="col-md-10">
                                             <input @role('unit') readonly @endrole type="checkbox"
                                                 {{ $evaluasi->rtm->pluck('pivot.status')->first() == 0 ? '' : ' checked=checked' }}
-                                                id="status" name="status" class="make-switch"
-                                                value="{{$evaluasi->rtm->pluck('pivot.status')->first() }}"
+                                                id="status" name="status" class="make-switch" value=""
                                                 data-on-text="Open" data-off-text="Close">
                                         </div>
                                     </div>

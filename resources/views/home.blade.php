@@ -98,15 +98,18 @@
 </div>
 <div class="portlet light bordered">
     <div class="portlet-body">
+        @role('admin')
+        <a href="{{route ('rtm.add')}}" class="icon-btn">
+            <i class="fa fa-barcode"></i>
+            <div> + RTM </div>
+            <span class="badge badge-success"></span>
+        </a>
+        @endrole
         <a href="{{route ('bahan.create')}}" class="icon-btn">
             <i class="fa fa-file-o"></i>
             <div> + Bahan</div>
         </a>
-        <a href="javascript:;" class="icon-btn">
-            <i class="fa fa-barcode"></i>
-            <div> Products </div>
-            <span class="badge badge-success"> 4 </span>
-        </a>
+
     </div>
 </div>
 <div class="row">
