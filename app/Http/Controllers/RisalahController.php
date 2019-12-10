@@ -25,34 +25,39 @@ class RisalahController extends Controller
         $dept_id = Auth::user()->departemen_id;
 
         if (request()->ajax()) {
-            $json = $dept_id == 0 ? Uraian::StatusRisalah() : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah();
+        $json = $dept_id == 0 ? Uraian::StatusRisalah() : Uraian::hasIdDeptbyLogin($dept_id)->StatusRisalah();
 
-            if ($sdept) {
-                $json->hasDept($sdept);
-                if ($srtm) {
-                    $json->hasDept($sdept)->hasRtm($srtm);
-                }
-            } elseif ($srtm) {
-                $json->hasRtm($srtm);
+        if ($sdept) {
+            $json->hasDept($sdept);
+            if ($srtm) {
+                $json->hasDept($sdept)->hasRtm($srtm);
             }
+        } elseif ($srtm) {
+            $json->hasRtm($srtm);
+        }
+        return datatables::of($json)
+            ->addColumn('rtm', function (Uraian $uraian) {
+                return $uraian->rtm->map(function ($rtm) {
+                    return $rtm->rtm_ke;
+                })->implode(', ');
+            })
+            ->addColumn('departemen', function (Uraian $uraian) {
+                return $uraian->departemen->map(function ($departemen) {
+                    return $departemen->departemen;
+                })->implode(', ');
+            })
+            ->addColumn('status_1', function (Uraian $uraian) use ($srtm){
+                return $uraian->rtm->map(function ($rtm) use ($srtm) {
+                    $rtm_1 = $rtm->pivot->rtm_id;
+                    $uraian_1 = $rtm->pivot->uraian_id;
 
-            return datatables::of($json)
-                ->addColumn('rtm', function (Uraian $uraian) {
-                    return $uraian->rtm->map(function ($rtm) {
-                        return $rtm->rtm_ke;
-                    })->implode(', ');
-                })
-                ->addColumn('departemen', function (Uraian $uraian) {
-                    return $uraian->departemen->map(function ($departemen) {
-                        return $departemen->departemen;
-                    })->implode(', ');
-                })
-                ->addColumn('status_1', function (Uraian $uraian) {
-                    return $uraian->rtm->map(function ($rtm) {
+                    if($rtm_1 == $srtm && $uraian_1){
                         return $rtm->pivot->status;
-                    })->implode(', ');
+                    }
+                    })->implode('');
                 })
-                ->make(true);
+            ->make(true);
+
         }
         return view('risalah.index');
     }
