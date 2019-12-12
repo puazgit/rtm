@@ -105,11 +105,17 @@
                                         <label for="jenis" class="col-md-2 control-label">Jenis Permasalahan</label>
                                         <div class="col-md-10">
                                             <select id="jenis_id" class="form-control select2" name="jenis_id">
-                                                <option value="{{old('jenis_id')}}">{{old('jenis_id')}}</option>
-                                                @foreach ($jenis as $jenis)
-                                                <option value="{{ $jenis->id }}">{{ $jenis->jenis_masalah }}
-                                                </option>
-                                                @endforeach
+                                                {{-- @foreach($jenis as $id => $text)
+                                                <option {{ old('jenis_id') != $id ?: 'selected' }} value="{{ $id }}">
+                                                {{$text->jenis_masalah}}</option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="jenis" class="col-md-2 control-label">Sub Permasalahan</label>
+                                        <div class="col-md-10">
+                                            <select id="sub_jenis" class="form-control select2" name="sub_jenis">
                                             </select>
                                         </div>
                                     </div>
@@ -163,9 +169,10 @@
                                                 </option>
                                                 @endrole
                                                 @role('admin')
-                                                @foreach ($alldepartemen as $item)
-                                                <option value="{{$item->id}}">{{$item->departemen}}
-                                                </option>
+                                                @foreach($alldepartemen as $tag)
+                                                <option value="{{$tag->id}}"
+                                                    {{in_array($tag->id, old('sdept') ?: []) ? 'selected': ''}}>
+                                                    {{$tag->departemen}}</option>
                                                 @endforeach
                                                 @endrole
                                             </select>
@@ -311,7 +318,42 @@
     });
     
     $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
-    $('#jenis_id').select2({placeholder: "Pilih Jenis Permasalahan ...",allowClear: true, width : '100%'});
+    
+    $('#jenis_id').select2({
+        allowClear: true, width : '100%',
+        ajax: {
+            url: '{{route ('bahan.cari')}}',
+            dataType: 'json',
+            delay: 250,
+                processResults: function (data) {
+                    return {
+                    results:  $.map(data, function (item) {
+                        return {
+                            text: item.jenis_masalah,
+                            id: item.id
+                        }
+                    })
+                    };
+                },
+            cache: true
+        }
+        }).on('change', function (){
+            getJenis($(this).val());
+        });
+    
+    function getJenis (sub_jenis_id){
+        $.get("{{url('bahan/get-jenis')}}/" + sub_jenis_id, function (data) {
+                $("#sub_jenis").html(data);
+            });
+    }
+
+    $(document).ready(function () {
+            getJenis($('#jenis_id').val());
+        });
+
+    $('#sub_jenis').select2({
+        allowClear: true, width : '100%'
+    });
     
     $('#srtm').select2({
 			placeholder: 'Pilih RTM Ke ...',

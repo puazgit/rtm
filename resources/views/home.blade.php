@@ -71,7 +71,7 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="{{ $masalah_close }}">0</span>
+                    {{-- <span data-counter="counterup" data-value="{{ $masalah_close }}">0</span> --}}
                 </div>
                 <div class="desc"> Permasalahan Close </div>
             </div>
@@ -87,7 +87,8 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="{{ $masalah_open }}">0</span></div>
+                    {{-- <span data-counter="counterup" data-value="{{ $masalah_open }}">0</span> --}}
+                </div>
                 <div class="desc"> Permasalahan Open</div>
             </div>
             <a class="more" href="javascript:;"> View more

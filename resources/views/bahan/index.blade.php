@@ -338,7 +338,7 @@ function load_data2(sdept2, srtm)
                            return ''+d+''
                        }
                    }, //7
-                   { data: 'status', name: 'status'}, //8
+                   { data: 'status_1', name: 'status_1'}, //8
                    { data: 'rtm', name: 'rtm.rtm_ke', orderable: false},//9
                    { data: 'id', name: 'id'}//10
                ],
@@ -454,7 +454,7 @@ function load_data3(sdept3, srtm3)
                            return ''+d+''
                        }
                    }, //7
-                   { data: 'status', name: 'status'}, //8
+                   { data: 'status_1', name: 'status_1'}, //8
                    { data: 'rtm', name: 'rtm.rtm_ke', orderable: false},//9
                    { data: 'id', name: 'id'}//10
                ],

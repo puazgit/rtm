@@ -99,15 +99,19 @@ class RtmController extends Controller
             // 'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
         ]);
 
-        $rtm = Rtm::Create($validatedData);
-
         Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
+        $rtm = Rtm::where('enabled', 1)
+        ->update(['enabled' => 0]);
+        $uraian = Uraian::where('statusn', 1)
+        ->update(['statusn' => 0]);
+        
+        $rtm = Rtm::Create($validatedData);
 
         foreach ($request->input('document', []) as $file) {
             $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
         }
 
-        return redirect('rtm')->with('success', 'RTM berhasil dibuat dan link pemberitahuan telah dikirim ke email unit kerja');
+        return redirect('rtm/add')->with('success', 'RTM berhasil dibuat dan link pemberitahuan telah dikirim ke email unit kerja');
     }
 
     public function store(Request $request)

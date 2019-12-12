@@ -59,8 +59,8 @@ class HomeController extends Controller
         }
         $total_rtm = DB::table('rtm')->get()->count();
         $total_uraian = DB::table('uraian')->get()->count();
-        $masalah_open = DB::table('uraian')->where('status', '1')->count();
-        $masalah_close = DB::table('uraian')->where('status', '0')->count();
-        return view('home', compact('total_rtm', 'total_uraian', 'masalah_open', 'masalah_close', 'message'));
+        // $masalah_open = DB::table('uraian')->where('status', '1')->count();
+        // $masalah_close = DB::table('uraian')->where('status', '0')->count();
+        return view('home', compact('total_rtm', 'total_uraian', 'message'));
     }
 }

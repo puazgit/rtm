@@ -72,7 +72,7 @@ class EvaluasiController extends Controller
             'sdept' => 'required', 'srtm' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
-            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => '',
+            'tindak' => '', 'p_rencana' => '', 'p_realisasi' => '',
             // 'lampiran' => 'required'
         ], [
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',
@@ -124,7 +124,7 @@ class EvaluasiController extends Controller
             }
             $uraian->progres()->saveMany($container);
         }
-        return redirect('evaluasi')->with('success', 'Evaluasi RTM berhasil diupdate');
+        return redirect('risalah')->with('success', 'Evaluasi RTM berhasil diupdate');
     }
 
     public function saveMedia(Request $request)

@@ -10,6 +10,7 @@ use App\Departemen;
 use App\Jenis;
 use App\Progres;
 use DataTables;
+use DB;
 
 class BahanController extends Controller
 {
@@ -135,7 +136,7 @@ class BahanController extends Controller
 
     public function create()
     {
-        $jenis = Jenis::all();
+        $jenis = Jenis::all()->where('parent_id', 0);
         $selectedrtm = Rtm::SelectedRtm()->first();
         $alldepartemen = Departemen::all();
         return view('bahan.create', compact('jenis', 'selectedrtm', 'alldepartemen'));
@@ -146,9 +147,8 @@ class BahanController extends Controller
         $request['status'] = $request->has('status');
 
         $validatedData = $request->validate([
-            'sdept' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
-            'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
+            'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required', 'sdept' => 'required', 
             'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
         ], [
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',
@@ -156,6 +156,7 @@ class BahanController extends Controller
             'analisis.required' => 'Analisis / Penyebab harap diisi',
             'r_uraian.required' => 'Uraian Rencana penyelesaian  harap diisi',
             'r_target.required' => 'Target waktu harap diisi',
+            'sdept.required' => 'Unit Kerja harap diisi',
         ]);
 
         $uraian = Uraian::create($validatedData);
@@ -278,5 +279,24 @@ class BahanController extends Controller
         $uraian = Uraian::where('id', $id)
         ->update(['srisalah' => 1]);
         return redirect('bahan')->with('success', 'bahan RTM berhasil dimasukan ke dalam risalah');
+     }
+
+     public function loadData(Request $request)
+     {
+         if ($request->has('q')) {
+             $cari = $request->q;
+             $data = DB::table('jenis')->select('id', 'jenis_masalah')->where('jenis_masalah', 'LIKE', '%$cari%')->get();
+             return response()->json($data);
+         }
+     }
+
+     public function getJenis($sub_jenis_id)
+     {
+         $subjenis = Jenis::where('parent_id', $sub_jenis_id)->pluck('jenis_masalah', 'id');
+         $list = "<option value=''>--- Pilih Sub Jenis Permasalahan ---</option>";
+         foreach ($subjenis as $key => $value) {
+             $list .= "<option value='" . $key . "'>" . $value . "</option>";
+         }
+         return $list;
      }
 }
