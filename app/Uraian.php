@@ -14,7 +14,7 @@ class Uraian extends Model implements HasMedia
     protected $primaryKey = 'id';
     protected $fillable = [
         'id', 'ket', 'uraian', 'analisis', 'r_uraian', 'r_target', 'tindak', 'p_rencana', 'p_realisasi',
-        'status', 'target', 'realisasi', 'competitor', 'jenis_id'
+        'target', 'realisasi', 'competitor', 'jenis_id', 'subjenis'
     ];
     protected $guarded = ['srtm', 'sdept'];
 

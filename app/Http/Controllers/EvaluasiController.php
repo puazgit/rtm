@@ -62,7 +62,18 @@ class EvaluasiController extends Controller
         $alldepartemen = Departemen::all();
         $allrtm = Rtm::all();
         $evaluasi = Uraian::findOrfail($evaluasi);
-        return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi'));
+        if($evaluasi->getMedia('lampiran')){
+            $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
+        }
+        // $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
+        // if (sizeof($evaluasiAttchUrl) != null) {
+        //     $evaluasiFullUrl = $evaluasiAttchUrl[0]->getFullUrl();
+        //     $evaluasiGetName = $evaluasiAttchUrl[0]->name;
+        // }else{
+        //     $evaluasiFullUrl =null;
+        //     $evaluasiGetName =null;
+        // }
+        return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi', 'evaluasiAttchUrl'));
     }
 
     public function update(Request $request, $id)

@@ -144,13 +144,14 @@ class BahanController extends Controller
 
     public function store(Request $request)
     {
-        $request['status'] = $request->has('status');
+        // $request['status'] = $request->has('status');
 
         $validatedData = $request->validate([
-            'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
+            'srtm' => 'required', 'jenis_id' => 'required', 'subjenis' => '', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required', 'sdept' => 'required', 
-            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
+            'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
         ], [
+            'srtm.required' => 'RTM Ke harap diisi',
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',
             'uraian.required' => 'Uraian Permasalahan harap diisi',
             'analisis.required' => 'Analisis / Penyebab harap diisi',
@@ -220,7 +221,7 @@ class BahanController extends Controller
             'sdept' => 'required', 'srtm' => 'required',
             'jenis_id' => 'required', 'ket' => '', 'uraian' => 'required',
             'analisis' => 'required', 'r_uraian' => 'required', 'r_target' => 'required',
-            'status' => 'required', 'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
+            'tindak' => '', 'p_rencana' => '', 'p_realisasi' => ''
         ], [
             'jenis_id.required' => 'Jenis Permasalahan harap diisi',
             'uraian.required' => 'Uraian Permasalahan harap diisi',
@@ -281,13 +282,18 @@ class BahanController extends Controller
         return redirect('bahan')->with('success', 'bahan RTM berhasil dimasukan ke dalam risalah');
      }
 
-     public function loadData(Request $request)
+     public function loaddata(Request $request)
      {
-         if ($request->has('q')) {
-             $cari = $request->q;
-             $data = DB::table('jenis')->select('id', 'jenis_masalah')->where('jenis_masalah', 'LIKE', '%$cari%')->get();
-             return response()->json($data);
-         }
+        $term = trim($request->q);
+        if (empty($term)) {
+            return \Response::json([]);
+        }
+        $jenis = DB::table('jenis')->select('id', 'jenis_masalah')->where('parent_id', 0)->where('jenis_masalah', 'LIKE', '%'.$term.'%')->get();
+        $formatted_jenis = [];
+        foreach ($jenis as $jenis) {
+            $formatted_jenis[] = ['id' => $jenis->id, 'text' => $jenis->jenis_masalah];
+        }
+        return \Response::json($formatted_jenis);
      }
 
      public function getJenis($sub_jenis_id)

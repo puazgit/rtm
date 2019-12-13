@@ -34,7 +34,7 @@ Route::resource('masalah', 'MasalahController');
 Route::post('evaluasi/media', 'EvaluasiController@saveMedia')->name('evaluasi.saveMedia');
 Route::resource('evaluasi', 'EvaluasiController');
 
-Route::get('bahan/cari', 'BahanController@loadData')->name('bahan.cari');
+Route::get('bahan/loaddata', 'BahanController@loaddata')->name('bahan.cari');
 Route::get('bahan/get-jenis/{sub_jenis_id}', 'BahanController@getJenis')->name('bahan.getjenis');
 Route::get('bahan/torisalah', 'BahanController@toRisalah')->name('bahan.torisalah');
 Route::get('bahan/bahanoff', 'BahanController@bahanoff')->name('bahan.bahanoff');

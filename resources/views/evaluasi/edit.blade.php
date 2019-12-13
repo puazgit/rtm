@@ -244,7 +244,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label">Attachment</label>
+                                        <label class="col-md-2 control-label">+ Attachment</label>
                                         <div class="col-md-10">
                                             <div class="dropzone dropzone-file-area" id="document-dropzone"
                                                 style="width: 800px; margin-top: 10px;">
@@ -254,12 +254,23 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
+                                    @if($evaluasiAttchUrl != 0)
+                                    {{ $evaluasiAttchUrl }}
+                                    {{-- <div class="form-group">
+                                        <label class="col-md-2 control-label"> </label>
+                                        <div class="col-md-10">
+                                            <div class="fa-item col-md-3 col-sm-4"><a href="xxx">xxx
+                                                </a>&nbsp;<a href="xxx"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </form>

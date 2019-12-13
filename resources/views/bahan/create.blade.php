@@ -115,7 +115,7 @@
                                     <div class="form-group">
                                         <label for="jenis" class="col-md-2 control-label">Sub Permasalahan</label>
                                         <div class="col-md-10">
-                                            <select id="sub_jenis" class="form-control select2" name="sub_jenis">
+                                            <select id="subjenis" class="form-control select2" name="subjenis">
                                             </select>
                                         </div>
                                     </div>
@@ -320,22 +320,26 @@
     $('#sdept').select2({placeholder: "Pilih PIC ...",allowClear: true, width : '100%'});
     
     $('#jenis_id').select2({
-        allowClear: true, width : '100%',
+        placeholder: '--- Pilih Jenis Permasalahan ---',
+        minimumInputLength: 0,
+		allowClear: true,
+		dropdownAutoWidth: true,
         ajax: {
-            url: '{{route ('bahan.cari')}}',
+            url: '{{ route("bahan.cari") }}',
             dataType: 'json',
             delay: 250,
-                processResults: function (data) {
+                data: function (params) {
                     return {
-                    results:  $.map(data, function (item) {
-                        return {
-                            text: item.jenis_masalah,
-                            id: item.id
-                        }
-                    })
+                        q: $.trim(params.term)
                     };
                 },
-            cache: true
+                
+                processResults: function (data) {
+                    return {
+                        results: data
+                    };
+                },
+                    cache: true
         }
         }).on('change', function (){
             getJenis($(this).val());
@@ -343,7 +347,7 @@
     
     function getJenis (sub_jenis_id){
         $.get("{{url('bahan/get-jenis')}}/" + sub_jenis_id, function (data) {
-                $("#sub_jenis").html(data);
+                $("#subjenis").html(data);
             });
     }
 
@@ -351,7 +355,7 @@
             getJenis($('#jenis_id').val());
         });
 
-    $('#sub_jenis').select2({
+    $('#subjenis').select2({
         allowClear: true, width : '100%'
     });
     

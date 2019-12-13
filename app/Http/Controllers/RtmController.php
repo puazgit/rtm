@@ -23,41 +23,6 @@ class RtmController extends Controller
         return view('rtm/index');
     }
 
-    public function sendmail(Type $var = null)
-    { }
-
-    public function test()
-    {
-        return view('rtm/test');
-    }
-
-    public function cek(Request $request)
-    {
-        return view('rtm/email');
-        // $uraian = Uraian::StatusRisalah()->StatusOpen()->latest()->get();
-        // return $uraian;
-        // if (request()->ajax()) {
-        //     $srtm = $request->srtm;
-        //     $users = Uraian::StatusBahan();
-        //     if ($srtm) {
-        //         $users->hasRtm($srtm);
-        //     }
-        //     return datatables::of($users)
-        //         ->addColumn('rtm', function (Uraian $uraian) {
-        //             return $uraian->rtm->map(function ($rtm) {
-        //                 return $rtm->rtm_ke;
-        //             })->implode(', ');
-        //         })
-        //         ->addColumn('departemen', function (Uraian $uraian) {
-        //             return $uraian->departemen->map(function ($departemen) {
-        //                 return $departemen->departemen;
-        //             })->implode(', ');
-        //         })
-        //         ->make(true);
-        // }
-        // return view('rtm/cek');
-    }
-
     public function create()
     {
         return view('rtm/create', compact('rtm'));
