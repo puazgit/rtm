@@ -64,6 +64,9 @@ class EvaluasiController extends Controller
         $evaluasi = Uraian::findOrfail($evaluasi);
         if($evaluasi->getMedia('lampiran')){
             $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
+                $evaluasiFullUrl = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->getFullUrl() : '';
+                $evaluasiGetName = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->name : '';
+            
         }
         // $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
         // if (sizeof($evaluasiAttchUrl) != null) {
@@ -73,7 +76,7 @@ class EvaluasiController extends Controller
         //     $evaluasiFullUrl =null;
         //     $evaluasiGetName =null;
         // }
-        return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi', 'evaluasiAttchUrl'));
+        return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi', 'evaluasiAttchUrl', 'evaluasiGetName', 'evaluasiFullUrl'));
     }
 
     public function update(Request $request, $id)
@@ -156,5 +159,12 @@ class EvaluasiController extends Controller
             'name'          => $name,
             'original_name' => $file->getClientOriginalName(),
         ]);
+    }
+
+    public function deleteLampiran($id){
+        $evaluasi = Uraian::findOrfail($id);
+        if($evaluasiAttchUrl = $evaluasi->getMedia('lampiran')){
+            $evaluasiAttchUrl[0]->delete();
+        }
     }
 }

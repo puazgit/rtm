@@ -256,16 +256,16 @@
                                         </div>
 
                                     </div>
-                                    @if($evaluasiAttchUrl != 0)
-                                    {{ $evaluasiAttchUrl }}
-                                    {{-- <div class="form-group">
+                                    @if(sizeof ($evaluasiAttchUrl) > 0)
+                                    <div class="row">
                                         <label class="col-md-2 control-label"> </label>
-                                        <div class="col-md-10">
-                                            <div class="fa-item col-md-3 col-sm-4"><a href="xxx">xxx
-                                                </a>&nbsp;<a href="xxx"><i class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                        <div class="col-md-8"><a href="{{$evaluasiFullUrl}}"
+                                                target="_blank">{{$evaluasiGetName}}</a></div>
+                                        <div class="col-md-2"><i class="fa fa-trash" data-id="{{ $evaluasi->id }}"
+                                                data-token="{{ csrf_token() }}"></i></div>
+                                    </div>
+                                    @else
+                                    {{ $evaluasiAttchUrl =""}}
                                     @endif
                                 </div>
                             </div>
