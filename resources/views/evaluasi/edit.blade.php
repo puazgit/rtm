@@ -257,13 +257,14 @@
 
                                     </div>
                                     @if(sizeof ($evaluasiAttchUrl) > 0)
+                                    @foreach ($evaluasiAttchUrl as $evaluasiAttchUrl)
                                     <div class="row">
                                         <label class="col-md-2 control-label"> </label>
-                                        <div class="col-md-8"><a href="{{$evaluasiFullUrl}}"
-                                                target="_blank">{{$evaluasiGetName}}</a></div>
-                                        <div class="col-md-2"><i class="fa fa-trash" data-id="{{ $evaluasi->id }}"
-                                                data-token="{{ csrf_token() }}"></i></div>
+                                        <div class="col-md-8"><a href="{{$evaluasiAttchUrl->getFullUrl()}}"
+                                                target="_blank">{{$evaluasiAttchUrl->name}}</a></div>
+                                        <div class="col-md-2"><a hef=""><i class="fa fa-trash"></i></a></div>
                                     </div>
+                                    @endforeach
                                     @else
                                     {{ $evaluasiAttchUrl =""}}
                                     @endif
@@ -296,7 +297,7 @@
     var uploadedDocumentMap = {}
     Dropzone.options.documentDropzone = {
     url: '{{ route('evaluasi.saveMedia') }}',
-    maxFilesize: 2, // MB
+    maxFilesize: 50, // MB
     addRemoveLinks: true,
     headers: {
     'X-CSRF-TOKEN': "{{ csrf_token() }}"

@@ -66,8 +66,8 @@
                                         <label class="col-md-2 control-label">Status</label>
                                         <div class="col-md-10">
                                             <input @role('unit') readonly @endrole type="checkbox"
-                                                {{ $bahan->status == 0 ? '' : ' checked=checked' }} id="status"
-                                                name="status" class="make-switch" value="{{$bahan->status}}"
+                                                {{ $bahan->rtm->pluck('pivot.status')->first() == 0 ? '' : ' checked=checked' }}
+                                                id="status" name="status" class="make-switch" value=""
                                                 data-on-text="Open" data-off-text="Close">
                                         </div>
                                     </div>

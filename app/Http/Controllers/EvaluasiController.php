@@ -64,8 +64,8 @@ class EvaluasiController extends Controller
         $evaluasi = Uraian::findOrfail($evaluasi);
         if($evaluasi->getMedia('lampiran')){
             $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
-                $evaluasiFullUrl = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->getFullUrl() : '';
-                $evaluasiGetName = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->name : '';
+                // $evaluasiFullUrl = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->getFullUrl() : '';
+                // $evaluasiGetName = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->name : '';
             
         }
         // $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
