@@ -82,8 +82,7 @@ class Uraian extends Model implements HasMedia
     public function scopeStatusRisalah($query)
     {
         return $query->where('sbahan', 1)
-            ->where('srisalah', 1)
-            ->latest();
+            ->where('srisalah', 1);
     }
 
     public function scopeStatusEvaluasi($query)

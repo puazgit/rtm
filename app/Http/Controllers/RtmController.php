@@ -63,14 +63,25 @@ class RtmController extends Controller
             'rtm_ke.digits_between' => 'RTM harus angka',
             // 'document.required' => 'Attachment Surat Permintaan Bahan harap diisi'
         ]);
-
+        
+        //kirim email ke unit kerja
         Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
+
+        //deactive RTM sebelumnya
         $rtm = Rtm::where('enabled', 1)
         ->update(['enabled' => 0]);
+
+        //ubah status uraian permasalahan menjadi status lama 
         $uraian = Uraian::where('statusn', 1)
         ->update(['statusn' => 0]);
         
+        //tambah data RTM baru
         $rtm = Rtm::Create($validatedData);
+
+        //masukan uraian permasalahan sebelumnya yang masih open
+        $uraianstatusopen = Uraian::StatusRisalah()->Has('statusOpen')->get();
+        $iduraianstatusopen = $uraianstatusopen->pluck('id');
+        $rtm->uraian()->attach($iduraianstatusopen);
 
         foreach ($request->input('document', []) as $file) {
             $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');

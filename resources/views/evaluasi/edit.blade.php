@@ -319,7 +319,7 @@
     init: function () {
     @if(isset($uraian) && $uraian->lampiran)
     var files =
-    {!! json_encode($uraian->document) !!}
+    {!! json_encode($uraian->lampiran) !!}
     for (var i in files) {
     var file = files[i]
     this.options.addedfile.call(this, file)

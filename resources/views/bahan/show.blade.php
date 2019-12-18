@@ -63,8 +63,10 @@
                                                         <span class="label label-sm label-danger">open</span>
                                                         @else
                                                         <span class="label label-sm label-success">close</span>
+                                                        <span
+                                                            class="label label-sm label-warning">{{$rtm->pivot->updated_at}}</span>
                                                         @endif
-                                                        <span class="label label-sm label-warning">detail</span>
+
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -89,6 +91,19 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <div id="detchart_2" class="chart" style="height: 250px;"> </div>
+                        Attachment : <p></p>
+                        @if(sizeof ($bahanAttchUrl) > 0)
+                        @foreach ($bahanAttchUrl as $bahanAttchUrl)
+                        <div class="row">
+                            <label class="col-md-2 control-label"> </label>
+                            <div class="col-md-11"><a href="{{$bahanAttchUrl->getFullUrl()}}"
+                                    target="_blank">{{$bahanAttchUrl->name}}</a></div>
+                            <div class="col-md-1"><a hef=""><i class="fa fa-trash"></i></a></div>
+                        </div>
+                        @endforeach
+                        @else
+                        {{ $bahanAttchUrl =""}}
+                        @endif
                     </div>
                 </div>
                 <!-- END CHART PORTLET-->

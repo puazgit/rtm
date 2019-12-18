@@ -63,19 +63,8 @@ class EvaluasiController extends Controller
         $allrtm = Rtm::all();
         $evaluasi = Uraian::findOrfail($evaluasi);
         if($evaluasi->getMedia('lampiran')){
-            $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
-                // $evaluasiFullUrl = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->getFullUrl() : '';
-                // $evaluasiGetName = sizeof($evaluasiAttchUrl) > 0 ? $evaluasiAttchUrl[0]->name : '';
-            
+            $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');           
         }
-        // $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');
-        // if (sizeof($evaluasiAttchUrl) != null) {
-        //     $evaluasiFullUrl = $evaluasiAttchUrl[0]->getFullUrl();
-        //     $evaluasiGetName = $evaluasiAttchUrl[0]->name;
-        // }else{
-        //     $evaluasiFullUrl =null;
-        //     $evaluasiGetName =null;
-        // }
         return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi', 'evaluasiAttchUrl', 'evaluasiGetName', 'evaluasiFullUrl'));
     }
 
@@ -111,14 +100,22 @@ class EvaluasiController extends Controller
         if ($request->has('chk_grafik')) {
 
             $rules = array(
-                'target.*' => 'required',
-                'realisasi.*' => 'required',
-                'competitor.*' => 'required',
+                'target.*' => 'required|numeric',
+                'realisasi.*' => 'required|numeric',
+                'competitor.*' => 'required|numeric',
                 'year.*' => 'required',
             );
-            $error = Validator::make($request->all(), $rules);
+            $pesan = array(
+                'target.*.required' => 'Target Harap diisi!',
+                'realisasi.*.required' => 'Realisasi Harap diisi!',
+                'competitor.*.required' => 'Kompetitor Harap diisi!',   
+                'target.*.numeric' => 'Target Harap diisi dengan Angka!',
+                'realisasi.*.numeric' => 'Realisasi Harap diisi dengan Angka!',
+                'competitor.*.numeric' => 'Kompetitor Harap diisi dengan Angka!',
+            );
+            $error = Validator::make($request->all(), $rules, $pesan);
             if ($error->fails()) {
-                return redirect('evaluasi.create')
+                return redirect()->route('evaluasi.edit',[$id])
                     ->withErrors($error)
                     ->withInput();
             }

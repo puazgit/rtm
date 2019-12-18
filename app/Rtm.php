@@ -18,7 +18,7 @@ class Rtm extends Model implements HasMedia
 
     public function uraian()
     {
-        return $this->belongsToMany('App\Uraian');
+        return $this->belongsToMany('App\Uraian')->withPivot('status')->withTimestamps();
     }
 
     public function scopeSelectedRtm($query)

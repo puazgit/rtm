@@ -250,21 +250,48 @@
                                                 id="p_realisasi">{{ old('p_realisasi') }} </textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">+ Attachment</label>
+                                        <div class="col-md-10">
+                                            <div class="dropzone dropzone-file-area" id="document-dropzone"
+                                                style="width: 800px; margin-top: 10px;">
+                                                <div class="dz-message" data-dz-message><span>
+                                                        <h4 class="sbold">Unggah File Pendukung</h4>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    {{-- @if(sizeof ($evaluasiAttchUrl) > 0)
+                                    @foreach ($evaluasiAttchUrl as $evaluasiAttchUrl)
+                                    <div class="row">
+                                        <label class="col-md-2 control-label"> </label>
+                                        <div class="col-md-8"><a href="{{$evaluasiAttchUrl->getFullUrl()}}"
+                                    target="_blank">{{$evaluasiAttchUrl->name}}</a>
                                 </div>
+                                <div class="col-md-2"><a hef=""><i class="fa fa-trash"></i></a></div>
                             </div>
+                            @endforeach
+                            @else
+                            {{ $evaluasiAttchUrl =""}}
+                            @endif --}}
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
     </div>
-    @else
-    <div class="portlet light bordered">
-        <div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert"
-                aria-hidden="true"></button>
-            <strong>Tidak ada RTM yang harus diinput</strong></div>
-    </div>
-    @endif
+</div>
+</div>
+</form>
+</div>
+@else
+<div class="portlet light bordered">
+    <div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true"></button>
+        <strong>Tidak ada RTM yang harus diinput</strong></div>
+</div>
+@endif
 </div>
 <style>
     #noEdit {
@@ -283,6 +310,42 @@
 
 @section('script')
 <script>
+    var uploadedDocumentMap = {}
+    Dropzone.options.documentDropzone = {
+    url: '{{ route('evaluasi.saveMedia') }}',
+    maxFilesize: 50, // MB
+    addRemoveLinks: true,
+    headers: {
+    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    success: function (file, response) {
+    $('form').append('<input type="hidden" name="lampiran[]" value="' + response.name + '">')
+    uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+    file.previewElement.remove()
+    var name = ''
+    if (typeof file.file_name !== 'undefined') {
+    name = file.file_name
+    } else {
+    name = uploadedDocumentMap[file.name]
+    }
+    $('form').find('input[name="lampiran[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+    @if(isset($uraian) && $uraian->lampiran)
+    var files =
+    {!! json_encode($uraian->lampiran) !!}
+    for (var i in files) {
+    var file = files[i]
+    this.options.addedfile.call(this, file)
+    file.previewElement.classList.add('dz-complete')
+    $('form').append('<input type="hidden" name="lampiran[]" value="' + file.file_name + '">')
+    }
+    @endif
+    }
+    }
+
     var ComponentsEditors=function()
     {
     var s=function(){

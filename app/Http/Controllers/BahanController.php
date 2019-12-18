@@ -139,6 +139,7 @@ class BahanController extends Controller
         $jenis = Jenis::all()->where('parent_id', 0);
         $selectedrtm = Rtm::SelectedRtm()->first();
         $alldepartemen = Departemen::all();
+        
         return view('bahan.create', compact('jenis', 'selectedrtm', 'alldepartemen'));
     }
 
@@ -165,6 +166,11 @@ class BahanController extends Controller
         $uraian->rtm()->attach($request->srtm);
         $uraian->departemen()->attach($request->sdept);
 
+        if ($request->has('lampiran')) {
+            foreach ($request->input('lampiran', []) as $file) {
+                $uraian->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('lampiran');
+            }
+        }
         if ($request->has('chk_grafik')) {
 
             $rules = array(
@@ -201,8 +207,10 @@ class BahanController extends Controller
     public function show($bahan)
     {
         $bahan = Uraian::findOrfail($bahan);
-        // return $bahan;
-        return view('bahan.show', compact('bahan'));
+        if($bahan->getMedia('lampiran')){
+            $bahanAttchUrl = $bahan->getMedia('lampiran');           
+        }
+        return view('bahan.show', compact('bahan','bahanAttchUrl'));
     }
 
     public function edit($bahan)
