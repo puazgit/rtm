@@ -34,6 +34,8 @@
                     {{$departemen->departemen}},&nbsp;
                     @endforeach
                 </div>
+                {{-- <b>({{$bahan->ket}})</b> --}}
+                <textarea class="form-control summernote" name="det_ket" id="det_ket"><b>{{$bahan->ket}}</b></textarea>
             </div>
             <div class="portlet-body">
                 <div class="general-item-list">
@@ -238,6 +240,7 @@
     var ComponentsEditors=function()
                 {
                     var s=function(){
+                        $("#det_ket").summernote({toolbar: [],disableDragAndDrop: true}).next().find(".note-editable").attr("contenteditable", false);
                         $("#det_uraian").summernote({toolbar: [],disableDragAndDrop: true}).next().find(".note-editable").attr("contenteditable", false);
                         $("#det_analisis").summernote({toolbar: [],disableDragAndDrop: true}).next().find(".note-editable").attr("contenteditable", false);
                         $("#det_ruraian").summernote({toolbar: [],disableDragAndDrop: true}).next().find(".note-editable").attr("contenteditable", false);

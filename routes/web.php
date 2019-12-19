@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('home/chartDash', 'HomeController@chartDash')->name('home.chart');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/cekcok', 'HomeController@cekcok');
 Route::get('/user', 'UserController@index');

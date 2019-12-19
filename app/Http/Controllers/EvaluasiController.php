@@ -65,7 +65,7 @@ class EvaluasiController extends Controller
         if($evaluasi->getMedia('lampiran')){
             $evaluasiAttchUrl = $evaluasi->getMedia('lampiran');           
         }
-        return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi', 'evaluasiAttchUrl', 'evaluasiGetName', 'evaluasiFullUrl'));
+        return view('evaluasi.edit', compact('dept_id', 'alldepartemen', 'allrtm', 'evaluasi', 'evaluasiAttchUrl'));
     }
 
     public function update(Request $request, $id)

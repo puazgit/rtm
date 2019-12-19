@@ -1,5 +1,4 @@
 @extends('layouts/wrapper')
-{{-- @extends('layouts.app') --}}
 @section('css')
 <style>
     #chartdiv {
@@ -13,17 +12,10 @@
 <h3 class="page-title">
     <small></small>
 </h3>
-<!-- END PAGE TITLE-->
-<!-- END PAGE HEADER-->
-<!-- BEGIN DASHBOARD STATS 1-->
-<div class="row">
-    {{-- @if ($message = Session::get('success'))
-    <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
-</div>
-@endif --}}
-</div>
+
+{{-- <div class="row">
+</div> --}}
+
 <div class="row">
     <div class="col-md-12 col-sm-6">
         <div class="portlet-body">
@@ -32,71 +24,15 @@
             @endif
         </div>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat purple">
-            <div class="visual">
-                <i class="fa fa-globe"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    <span data-counter="counterup" data-value="{{ $total_rtm }}"></span>
-                </div>
-                <div class="desc"> Total RTM</div>
-            </div>
-            <a class="more" href="javascript:;"> View more
-                <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat green">
-            <div class="visual">
-                <i class="fa fa-shopping-cart"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    <span data-counter="counterup" data-value="{{ $total_uraian }}">0</span>
-                </div>
-                <div class="desc"> Total Permasalahan </div>
-            </div>
-            <a class="more" href="javascript:;"> View more
-                <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat blue">
-            <div class="visual">
-                <i class="fa fa-bar-chart-o"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    {{-- <span data-counter="counterup" data-value="{{ $masalah_close }}">0</span> --}}
-                </div>
-                <div class="desc"> Permasalahan Close </div>
-            </div>
-            <a class="more" href="javascript:;"> View more
-                <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="dashboard-stat red">
-            <div class="visual">
-                <i class="fa fa-bar-chart-o"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    {{-- <span data-counter="counterup" data-value="{{ $masalah_open }}">0</span> --}}
-                </div>
-                <div class="desc"> Permasalahan Open</div>
-            </div>
-            <a class="more" href="javascript:;"> View more
-                <i class="m-icon-swapright m-icon-white"></i>
-            </a>
-        </div>
-    </div>
+
+    @role('admin')
+    @include('dashboard.admin')
+    @endrole
+    @role('unit')
+    @include('dashboard.unit')
+    @endrole
 </div>
+
 <div class="portlet light bordered">
     <div class="portlet-body">
         @role('admin')
@@ -110,7 +46,6 @@
             <i class="fa fa-file-o"></i>
             <div> + Bahan</div>
         </a>
-
     </div>
 </div>
 <div class="row">
@@ -119,17 +54,17 @@
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-bar-chart font-green"></i>
-                    <span class="caption-subject font-green bold">Evaluasi Progres RTM sebelumnya</span>
+                    <span class="caption-subject font-green bold">Evaluasi Progres RTM</span>
                     <span class="caption-helper"></span>
                 </div>
-                <div class="actions">
+                {{-- <div class="actions">
                     <div class="btn-group btn-group-devided" data-toggle="buttons">
                         <label class="btn red btn-outline btn-circle btn-sm active">
                             <input type="radio" name="options" class="toggle" id="option1">New</label>
                         <label class="btn red btn-outline btn-circle btn-sm">
                             <input type="radio" name="options" class="toggle" id="option2">Returning</label>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="portlet-body">
                 <div id="chartdiv"></div>
@@ -164,13 +99,13 @@
     chart.numberFormatter.numberFormat = "#";
     
     // Add data
-    chart.data = [
-        {"rtm": "RTM 73","s_open": 15,"s_close": 20},
-        {"rtm": "RTM 72","s_open": 35,"s_close": 20},
-        {"rtm": "RTM 71","s_open": 12,"s_close": 18},
-        {"rtm": "RTM 70","s_open": 13,"s_close": 20},
-        {"rtm": "RTM 69","s_open": 23,"s_close": 15}];
-    
+    // chart.data = [
+    //     {"rtm": "RTM 73","s_open": 15,"s_close": 20},
+    //     {"rtm": "RTM 72","s_open": 35,"s_close": 20},
+    //     {"rtm": "RTM 71","s_open": 12,"s_close": 18},
+    //     {"rtm": "RTM 70","s_open": 13,"s_close": 20},
+    //     {"rtm": "RTM 69","s_open": 23,"s_close": 15}];
+    chart.dataSource.url = "/home/chartDash";
     // Create axes
     var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
     categoryAxis.dataFields.category = "rtm";

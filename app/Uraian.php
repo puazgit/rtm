@@ -46,19 +46,9 @@ class Uraian extends Model implements HasMedia
     public function statusClose()
     {
         return $this->belongsToMany('App\Rtm')->wherePivot('status', 0)
-            // ->wherePivot('updated_at', '>', '2019-01-01 23:40:20')
-            // ->wherePivot('updated_at', '<', '2019-11-17 23:40:20')
         ;
     }
 
-    // public function dateOpen($query)
-    // {
-    //     return $query->wherePivot('updated_at', '2019-11-16 23:40:20');
-    // }
-
-    //sbahan = 1 , srisalah = 0, stindak = 0 => StatusBahan
-    //sbahan = 1 , srisalah = 1, stindak = 0 => StatusRisalah
-    //sbahan = 1 , srisalah = 1, stindak = 1 => StatusTindak
     public function scopeinputanBaru($query)
     {
         return $query->where('statusn', 1);
@@ -92,28 +82,6 @@ class Uraian extends Model implements HasMedia
             ->where('stindak', 1)->latest();
     }
 
-    // public function scopeStatusOpen($query)
-    // {
-    //     return $query->where('status', 1);
-    // }
-
-    // public function scopePivotstatusopen($query)
-    // {
-    //     return $query->whereHas('rtm', function ($q) {
-    //         return $q->wherePivot('status', 1);
-    //     });
-    // }
-
-    // public function scopePivotstatusclose($query)
-    // {
-    //     return $query->wherePivot('status', 0);
-    // }
-
-    // public function scopeStatusClose($query)
-    // {
-    //     return $query->StatusBahan()->where('status', 0);
-    // }
-
     public function scopehasIdDeptbyLogin($query, $dept_id)
     {
         return $query->whereHas('departemen', function ($q) use ($dept_id) {
@@ -146,7 +114,6 @@ class Uraian extends Model implements HasMedia
     {
         return $query->whereHas('rtm', function ($q) use ($srtm) {
             return $q->where('id', $srtm);
-            // return $q->where('rtm.*.pivot.rtm_id', $srtm);
         });
     }
 
@@ -170,18 +137,4 @@ class Uraian extends Model implements HasMedia
             return $q->where('id', $LastIdRtm);
         });
     }
-
-    // public function activeOptions()
-    // {
-    //     return [
-    //         0  => 'Close',
-    //         1  => 'Open',
-    //         2  => 'In-Progress',
-    //     ];
-    // }
-
-    // public function scopeActiveDesc($query)
-    // {
-    //     return $query->where('status', 0)->orderBy('created_at', 'DESC');
-    // }
 }

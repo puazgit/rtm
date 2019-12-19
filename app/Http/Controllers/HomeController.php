@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use App\Uraian;
 use App\Rtm;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,10 +58,37 @@ class HomeController extends Controller
                      Klik <a href=\"bahan/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
             }
         }
-        $total_rtm = DB::table('rtm')->get()->count();
-        $total_uraian = DB::table('uraian')->get()->count();
-        // $masalah_open = DB::table('uraian')->where('status', '1')->count();
-        // $masalah_close = DB::table('uraian')->where('status', '0')->count();
-        return view('home', compact('total_rtm', 'total_uraian', 'message'));
+        $total_rtm = Rtm::pluck('id')->count();
+        $total_uraian = Uraian::StatusRisalah()->pluck('id')->count();
+        $total_masalah_open = Uraian::StatusRisalah()->Has('statusOpen')->pluck('id')->count();
+        $total_masalah_close = Uraian::StatusRisalah()->Has('statusClose')->pluck('id')->count();
+
+        $total_uraian_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->pluck('id')->count();
+        $total_masalah_open_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->Has('statusOpen')->pluck('id')->count();
+        $total_masalah_close_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->Has('statusClose')->pluck('id')->count();
+
+        return view('home', compact(
+                            'total_rtm', 'total_uraian', 'total_masalah_open', 
+                            'total_masalah_close', 'total_uraian_dept', 'total_masalah_open_dept',
+                            'total_masalah_close_dept', 'message'
+                        ));
+    }
+
+    public function chartDash(){
+        $rtm = Rtm::all();
+        // $rtm = $total_rtm->rtm_ke;
+        $total_masalah_open = Uraian::StatusRisalah()->Has('statusOpen')->pluck('id')->count();
+        $total_masalah_close = Uraian::StatusRisalah()->Has('statusClose')->pluck('id')->count();
+
+        // $data2 = [];
+            foreach ($rtm as $rtm)
+            {
+                $data2[] = [
+                    'rtm' => 'RTM Ke '.$rtm->rtm_ke,
+                    's_open' => $total_masalah_open,
+                    's_close' => $total_masalah_close
+                ];
+            }
+        return response()->json($data2);
     }
 }
