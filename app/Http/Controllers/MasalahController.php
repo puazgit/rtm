@@ -32,13 +32,57 @@ class MasalahController extends Controller
 
     public function test()
     {
-        $rtmcid = 1;
-        $userdept = 6;
-        $json = Departemen::Find($userdept);
-        $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
-            $q->where('id', '=', $rtmcid);
-        })->get();
-        return $json1;
+        $rtmid = Rtm::latest()->pluck('id')->first();
+        $uraian = Uraian::whereHas('rtm', function($query) use ($rtmid){
+            $query->where('rtm_id', $rtmid)
+            ->where('status', 1);
+        })->StatusRisalah()
+        ->count();
+        return $uraian;
+        // $sdept = $request->sdept;
+        // $srtm = $request->srtm;
+        // $dept_id = Auth::user()->departemen_id;
+
+        // if (request()->ajax()) {
+            // $json = Uraian::without('rtm','departemen')->StatusRisalah()->get(['id','uraian']);
+
+            // if ($sdept) {
+            //     $json->hasDept($sdept);
+            //     if ($srtm) {
+            //         $json->hasDept($sdept)->hasRtm($srtm);
+            //     }
+            // } elseif ($srtm) {
+            //     $json->hasRtm($srtm);
+            // }
+                // return response()->json($json);
+            // return datatables::of($json)
+                // ->addColumn('rtm', function (Uraian $uraian) {
+                // return $uraian->rtm->map(function ($rtm) {
+                //     return $rtm->rtm_ke;
+                // })->implode(', ');
+                // })
+                // ->addColumn('departemen', function (Uraian $uraian) {
+                //     return $uraian->departemen->map(function ($departemen) {
+                //         return $departemen->departemen;
+                //     })->implode(', ');
+                // })
+                // ->addColumn('status_1', function (Uraian $uraian) {
+                //     return $uraian->rtm->map(function ($rtm) {
+                //         return $rtm->pivot->status;
+                //     })->last();
+                // })
+                // ->make(true);
+        // }
+        // return view('evaluasi.index');
+
+
+        // $rtmcid = 1;
+        // $userdept = 6;
+        // $json = Departemen::Find($userdept);
+        // $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
+        //     $q->where('id', '=', $rtmcid);
+        // })->get();
+        // return $json1;
         // $uraian = Uraian::whereHas('rtmclose')->get();
         // $posts = App\Post::whereHas('comments', function (Builder $query) {
         //     $query->where('content', 'like', 'foo%');
@@ -51,13 +95,13 @@ class MasalahController extends Controller
 
         // $json = Uraian::StatusRisalah();
 
-        return datatables::of($json)
-            ->addColumn('status_1', function (Uraian $uraian) {
-                return $uraian->rtm->map(function ($rtm) {
-                    return $rtm->pivot->status;
-                })->last();
-            })
-            ->make(true);
+        // return datatables::of($json)
+        //     ->addColumn('status_1', function (Uraian $uraian) {
+        //         return $uraian->rtm->map(function ($rtm) {
+        //             return $rtm->pivot->status;
+        //         })->last();
+        //     })
+        //     ->make(true);
     }
     public function index()
     {

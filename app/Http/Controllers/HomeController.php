@@ -58,14 +58,18 @@ class HomeController extends Controller
                      Klik <a href=\"bahan/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
             }
         }
+        $lastrtmid = Rtm::latest()->pluck('id')->first();
         $total_rtm = Rtm::pluck('id')->count();
-        $total_uraian = Uraian::StatusRisalah()->pluck('id')->count();
-        $total_masalah_open = Uraian::StatusRisalah()->Has('statusOpen')->pluck('id')->count();
-        $total_masalah_close = Uraian::StatusRisalah()->Has('statusClose')->pluck('id')->count();
 
+        //admin & user
+        $total_uraian = Uraian::StatusRisalah()->pluck('id')->count();
+        $total_masalah_open = Uraian::StatusOpenbyRtmId($lastrtmid)->count();
+        $total_masalah_close = Uraian::StatusClosebyRtmId($lastrtmid)->count();
+
+        //only user
         $total_uraian_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->pluck('id')->count();
-        $total_masalah_open_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->Has('statusOpen')->pluck('id')->count();
-        $total_masalah_close_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->Has('statusClose')->pluck('id')->count();
+        $total_masalah_open_dept = Uraian::StatusOpenbyRtmId($lastrtmid)->hasIdDeptbyLogin($userdept)->count();
+        $total_masalah_close_dept = Uraian::StatusClosebyRtmId($lastrtmid)->hasIdDeptbyLogin($userdept)->count();
 
         return view('home', compact(
                             'total_rtm', 'total_uraian', 'total_masalah_open', 
@@ -75,20 +79,18 @@ class HomeController extends Controller
     }
 
     public function chartDash(){
-        $rtm = Rtm::all();
-        // $rtm = $total_rtm->rtm_ke;
-        $total_masalah_open = Uraian::StatusRisalah()->Has('statusOpen')->pluck('id')->count();
-        $total_masalah_close = Uraian::StatusRisalah()->Has('statusClose')->pluck('id')->count();
+        $rtm = Rtm::latest()->get();
+        foreach ($rtm as $rtm)
+        {
+            $total_masalah_open = Uraian::StatusOpenbyRtmId($rtm->id)->count();
+            $total_masalah_close = Uraian::StatusClosebyRtmId($rtm->id)->count();
 
-        // $data2 = [];
-            foreach ($rtm as $rtm)
-            {
-                $data2[] = [
+                $data[] = [
                     'rtm' => 'RTM Ke '.$rtm->rtm_ke,
                     's_open' => $total_masalah_open,
                     's_close' => $total_masalah_close
                 ];
             }
-        return response()->json($data2);
+        return response()->json($data);
     }
 }

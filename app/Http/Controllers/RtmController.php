@@ -82,7 +82,8 @@ class RtmController extends Controller
         $uraianstatusopen = Uraian::StatusRisalah()->Has('statusOpen')->get();
         $iduraianstatusopen = $uraianstatusopen->pluck('id');
         $rtm->uraian()->attach($iduraianstatusopen);
-
+        
+        //upload file berkas lampiran RTM
         foreach ($request->input('document', []) as $file) {
             $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
         }

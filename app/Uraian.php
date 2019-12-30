@@ -49,6 +49,12 @@ class Uraian extends Model implements HasMedia
         ;
     }
 
+    public function lastStatusClose()
+    {
+        return $this->belongsToMany('App\Rtm')->as('subscription')->wherePivot('status', 0)->withTimestamps()
+        ;
+    }
+
     public function scopeinputanBaru($query)
     {
         return $query->where('statusn', 1);
@@ -115,6 +121,20 @@ class Uraian extends Model implements HasMedia
         return $query->whereHas('rtm', function ($q) use ($srtm) {
             return $q->where('id', $srtm);
         });
+    }
+
+    public function scopeStatusClosebyRtmId($query, $idrtm)
+    {
+        return $query->whereHas('rtm', function ($q) use ($idrtm) {
+            return $q->where('rtm_id', $idrtm)->where('status', 0);
+        })->StatusRisalah();
+    }
+
+    public function scopeStatusOpenbyRtmId($query, $idrtm)
+    {
+        return $query->whereHas('rtm', function ($q) use ($idrtm) {
+            return $q->where('rtm_id', $idrtm)->where('status', 1);
+        })->StatusRisalah();
     }
 
     public function scopehasRtm3($query, $srtm3)
