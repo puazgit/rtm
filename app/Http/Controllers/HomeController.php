@@ -90,7 +90,7 @@ class HomeController extends Controller
                     's_open' => $total_masalah_open,
                     's_close' => $total_masalah_close
                 ];
-            }
+        }
         return response()->json($data);
     }
 }
