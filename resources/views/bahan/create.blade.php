@@ -387,23 +387,17 @@
         minimumInputLength: 0,
 		allowClear: true,
 		dropdownAutoWidth: true,
-        ajax: {
-            url: '{{ route("bahan.cari") }}',
-            dataType: 'json',
-            delay: 250,
-                data: function (params) {
-                    return {
-                        q: $.trim(params.term)
-                    };
-                },
-                
-                processResults: function (data) {
-                    return {
-                        results: data
-                    };
-                },
-                    cache: true
-        }
+		ajax: {
+			url: '{{route('bahan.cari')}}'+'?q=a',
+			dataType: 'json',
+			delay: 250,
+			processResults: function (data) {
+				return {
+					results: data
+				};
+			},
+			cache: true
+		}
         }).on('change', function (){
             getJenis($(this).val());
         });

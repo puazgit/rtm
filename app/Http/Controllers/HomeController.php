@@ -44,18 +44,19 @@ class HomeController extends Controller
             } else {
                 $rtmcUrl = null;
             }
-            $json = Departemen::Find($userdept);
-            $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
-                $q->where('id', '=', $rtmcid);
-            })->get();
+            $dept_terpilih = Departemen::Find($userdept);
+            // $json1 = $json->uraian()->whereHas('rtm', function ($q) use ($rtmcid) {
+            //     $q->where('id', '=', $rtmcid);
+            $uraian_baru = $dept_terpilih->uraian()->where('statusn',1)->count();
 
-            if (sizeof($json1) > 0) {
-                $message = null;
-            } else {
+            //jika uraian terbaru masih kosong (belum melakukan input baru)
+            if ($uraian_baru == 0) {
                 $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
-                    <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
-                    href=\"" . $rtmcUrl . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "
-                     Klik <a href=\"bahan/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
+                <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
+                href=\"" . $rtmcUrl . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "
+                 Klik <a href=\"bahan/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
+            } else {
+                $message = null;
             }
         }
         $lastrtmid = Rtm::latest()->pluck('id')->first();
@@ -64,12 +65,14 @@ class HomeController extends Controller
         //admin & user
         $total_uraian = Uraian::StatusRisalah()->pluck('id')->count();
         $total_masalah_open = Uraian::StatusOpenbyRtmId($lastrtmid)->count();
-        $total_masalah_close = Uraian::StatusClosebyRtmId($lastrtmid)->count();
+        // $total_masalah_close = Uraian::StatusClosebyRtmId($lastrtmid)->count();
+        $total_masalah_close = Uraian::has('statusClose')->count();
 
         //only user
         $total_uraian_dept = Uraian::StatusRisalah()->hasIdDeptbyLogin($userdept)->pluck('id')->count();
         $total_masalah_open_dept = Uraian::StatusOpenbyRtmId($lastrtmid)->hasIdDeptbyLogin($userdept)->count();
-        $total_masalah_close_dept = Uraian::StatusClosebyRtmId($lastrtmid)->hasIdDeptbyLogin($userdept)->count();
+        // $total_masalah_close_dept = Uraian::StatusClosebyRtmId($lastrtmid)->hasIdDeptbyLogin($userdept)->count();
+        $total_masalah_close_dept = Uraian::has('statusClose')->hasIdDeptbyLogin($userdept)->count();
 
         return view('home', compact(
                             'total_rtm', 'total_uraian', 'total_masalah_open', 

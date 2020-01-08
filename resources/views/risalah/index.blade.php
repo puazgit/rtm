@@ -139,13 +139,13 @@
     dom: 'Blfrtip',
     @endrole
     buttons: [
-              {
-                text: '+ risalah',
-                className:"btn btn-square green btn-success",
-                    action: function ( e, dt, node, config ) {
-                        window.location = '{{route ('risalah.create')}}';
-                    }
-                },
+            //   {
+            //     text: '+ risalah',
+            //     className:"btn btn-square green btn-success",
+            //         action: function ( e, dt, node, config ) {
+            //             window.location = '{{route ('risalah.create')}}';
+            //         }
+            //     },
                 {
 					extend: "colvis",
                     text: "Show",

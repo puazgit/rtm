@@ -137,11 +137,11 @@
                                         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                                Hi there,</p>
+                                                Pemberitahuan,</p>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                                Sometimes you just want to send a simple HTML email with a simple design
-                                                and clear call to action. This is it.</p>
+                                                Anda belum memasukkan bahan untuk RTM Ke 77. Klik dibawah untuk mulai
+                                                menginput</p>
                                             <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"
                                                 style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
                                                 <tbody>
@@ -154,10 +154,10 @@
                                                                     <tr>
                                                                         <td
                                                                             style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #3498db; border-radius: 5px; text-align: center;">
-                                                                            <a href="http://htmlemail.io"
+                                                                            <a href="http://rtm.jasatirta2.co.id/bahan/create"
                                                                                 target="_blank"
-                                                                                style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">Call
-                                                                                To Action</a> </td>
+                                                                                style="display: inline-block; color: #ffffff; background-color: #3498db; border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #3498db;">KLIK
+                                                                                DI SINI</a> </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
@@ -167,11 +167,10 @@
                                             </table>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                                This is a really simple email template. Its sole purpose is to get the
-                                                recipient to click the button with no distractions.</p>
+                                            </p>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                                Good luck! Hope it works.</p>
+                                                Selamat bekerja !!</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -189,28 +188,29 @@
                                 <td class="content-block"
                                     style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
                                     <span class="apple-link"
-                                        style="color: #999999; font-size: 12px; text-align: center;">Company Inc, 3
-                                        Abbey Road, San Francisco CA 94102</span>
-                                    <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif"
-                                        style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">Unsubscribe</a>.
+                                        style="color: #999999; font-size: 12px; text-align: center;">PERUM JASA TIRTA II
+                                    </span>
+                                    , Kantor Pusat : Jalan Lurah Kawi No. 1, Jatiluhur Purwakarta Jawa Barat
+                                    <br>Telp. (0264) 201 972
+                                    , Fax. (0264) 201 971
                                 </td>
-                            </tr>
                             <tr>
-                                <td class="content-block powered-by"
+                                <td class="content-block"
                                     style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; font-size: 12px; color: #999999; text-align: center;">
-                                    Powered by <a href="http://htmlemail.io"
-                                        style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">HTMLemail</a>.
+                                    <br><a href="http://www.jasatirta2.co.id" target="_blank"
+                                        style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">www.jasatirta2.co.id</a>.
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!-- END FOOTER -->
-
-                    <!-- END CENTERED WHITE CONTAINER -->
-                </div>
-            </td>
-            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>
         </tr>
+    </table>
+    </div>
+    <!-- END FOOTER -->
+
+    <!-- END CENTERED WHITE CONTAINER -->
+    </div>
+    </td>
+    <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>
+    </tr>
     </table>
 </body>
 
