@@ -71,10 +71,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         @include('evaluasi/open')
     </div>
-    <div class="col-md-6">
+</div>
+<div class="row">
+    <div class="col-md-12">
         @include('bahan/off')
     </div>
 </div>

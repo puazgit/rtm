@@ -83,11 +83,19 @@ class BahanController extends Controller
                         return $departemen->departemen;
                     })->implode(', ');
                 })
-                ->addColumn('status_1', function (Uraian $uraian) {
-                    return $uraian->rtm->map(function ($rtm) {
-                        return $rtm->pivot->status;
-                    })->implode('');
-                })
+                ->addColumn('status_1', function (Uraian $uraian) use ($srtm){
+                    if($srtm != null){
+                        return $uraian->rtm->map(function ($rtm) use ($srtm) {
+                            $rtm_1 = $rtm->pivot->rtm_id;
+                            $uraian_1 = $rtm->pivot->uraian_id;
+                                if($rtm_1 == $srtm && $uraian_1 != null){
+                                    return $rtm->pivot->status;
+                                }
+                            })->implode('');
+                    }else{
+                        return $uraian->rtm->pluck('pivot.status')->last();
+                }
+            })
                 ->make(true);
         }
         return view('bahan.index');
