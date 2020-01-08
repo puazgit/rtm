@@ -65,7 +65,8 @@ class RtmController extends Controller
         ]);
         
         //kirim email ke unit kerja
-        Mail::to("puas.apriyampon@jasatirta2.co.id")->send(new CreateRtmEmail());
+        $emails = ['puas.apriyampon@jasatirta2.co.id', 'apriyampon@gmail.com'];
+        Mail::to($emails)->send(new CreateRtmEmail());
 
         //deactive RTM sebelumnya
         $rtm = Rtm::where('enabled', 1)

@@ -28,11 +28,11 @@ class CreateRtmEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('i.apriyampon@gmail.com')
+        return $this->from('rtm.pjt2@gmail.com')
             ->view('rtm/email')
             ->with(
                 [
-                    'nama' => 'Puas Apriyampon',
+                    'nama' => 'Pengisian Bahan RTM',
                     'website' => 'www.jasatirta2.co.id',
                 ]
             );
