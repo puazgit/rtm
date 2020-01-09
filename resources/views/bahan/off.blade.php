@@ -24,7 +24,7 @@
     </div>
 
 </div>
-<div class="portlet light bordered">
+<div class="portlet light bg-inverse">
     <div class="portlet-title">
         <div class="caption font-red-sunglo">
             <i class="icon-settings font-red-sunglo"></i>

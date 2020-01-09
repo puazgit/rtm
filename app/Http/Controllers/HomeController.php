@@ -52,7 +52,7 @@ class HomeController extends Controller
             //jika uraian terbaru masih kosong (belum melakukan input baru)
             if ($uraian_baru == 0) {
                 $message = "<div class=\"alert alert-warning alert-dismissable\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\"></button>
-                <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan untuk RTM Ke " . $rtmc->rtm_ke . " .<a
+                <strong>Pemberitahuan !</strong> Anda belum memasukkan bahan baru untuk RTM Ke " . $rtmc->rtm_ke . " .<a
                 href=\"" . $rtmcUrl . "\"><b>download</b></a> surat permohonan bahan RTM Ke " . $rtmc->rtm_ke . "
                  Klik <a href=\"bahan/create\"><b>disini</b></a> untuk mulai menginput bahan</div>";
             } else {

@@ -124,6 +124,19 @@
 
  function load_data(sdept, srtm)
  {
+
+    var buttonCommon = {
+        exportOptions: {
+            columns: ':visible',
+            format: {
+                body: function ( data, column,row ) {
+                    data = $("<p/>").html(data).text();
+                    return $.trim(data);
+                }
+            }
+        }
+    };
+
     var	sdept = $('#sdept').val();
     var	srtm = $('#srtm').val();
     
@@ -139,6 +152,27 @@
     dom: 'Blfrtip',
     @endrole
     buttons: [
+                {
+                extend: "colvis",
+                    text: "Show",
+                    className: "btn btn-square green btn-success"
+                },
+                {
+                extend: "print",
+                    text: "Print",
+                    className: "btn btn-square green btn-success"
+                },
+                $.extend( true, {}, buttonCommon, {
+                    extend: 'excelHtml5',
+                    className: "btn btn-square green btn-success"
+                } ),
+                $.extend( true, {}, buttonCommon, {
+                    extend: 'pdfHtml5',
+                    className: "btn btn-square green btn-success",
+                    orientation: 'landscape',
+                } )
+            ],
+    // buttons: [
             //   {
             //     text: '+ risalah',
             //     className:"btn btn-square green btn-success",
@@ -146,16 +180,23 @@
             //             window.location = '{{route ('risalah.create')}}';
             //         }
             //     },
-                {
-					extend: "colvis",
-                    text: "Show",
-                    className: "btn btn-square green btn-success"
-				},  
-                {
-                    extend:"pdf",
-                    className:"btn btn-square green btn-success"
-                }
-          ],
+        //         {
+		// 			extend: "colvis",
+        //             text: "Show",
+        //             className: "btn btn-square green btn-success"
+		// 		},  
+        //         {
+        //             extend:"pdf",
+        //             orientation: 'landscape',
+        //             className:"btn btn-square green btn-success"
+        //             format: {
+        //             body: function(data, row, column, node) {              
+        //                 return data.replace( /[$,.]/g, '' );
+ 
+        //             }
+        //         }
+        //   ],
+          
     columns: [
                     { data: 'uraian', name: 'uraian', render: function(data, column, row)
                         {
@@ -205,10 +246,11 @@
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[
+                    {targets:0,"width": "30%"},
                     @role('unit')
                     {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
                     @else
-                    {targets:[5,6,7,9], visible:false, className: 'noVis'},
+                    {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
                     @endrole
                     {
                         targets:8,

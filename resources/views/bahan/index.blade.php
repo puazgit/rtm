@@ -8,6 +8,16 @@
 <h3 class="page-title">
 </h3>
 <div class="row">
+    <div class="portlet-body">
+        <div class="note note-danger">
+            <h4 class="block">Danger! Some Header Goes Here</h4>
+            <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit mattis
+                consectetur purus sit amet.\ Cras mattis consectetur purus sit amet fermentum. </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="m-portlet__body">
             <div class="form-group m-form__group row" style="padding-top: 5px; padding-bottom: 0px;">
@@ -33,7 +43,7 @@
         @endif
     </div>
     <div class="col-md-12">
-        <div class="portlet light bordered">
+        <div class="portlet light bg-inverse">
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
@@ -70,6 +80,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         @include('evaluasi/open')
@@ -275,6 +286,19 @@ $('#srtm').change(function(){
 })
 function load_data2(sdept2, srtm)
 {
+
+    var buttonCommon = {
+        exportOptions: {
+            columns: ':visible',
+            format: {
+                body: function ( data, column,row ) {
+                    data = $("<p/>").html(data).text();
+                    return $.trim(data);
+                }
+            }
+        }
+    };
+
    var	sdept2 = $('#sdept2').val();
    var	srtm = $('#srtm').val();
    
@@ -286,16 +310,31 @@ function load_data2(sdept2, srtm)
        url:'{{ route("bahan.rtmlama") }}',
        data:{sdept2:sdept2, srtm:srtm}
    },
-   @role('admin')
    dom: 'Blfrtip',
-   @endrole
-   buttons: [
+    buttons: [
                 {
-					extend: "colvis",
+                extend: "colvis",
                     text: "Show",
                     className: "btn btn-square green btn-success"
-				},  
-          ],
+                },
+                {
+                extend: "print",
+                    text: "Print",
+                    className: "btn btn-square green btn-success",
+                    title: 'Pada Rtm Ke'+' '+ $('#srtm option:selected').text(),
+                },
+                $.extend( true, {}, buttonCommon, {
+                    extend: 'excelHtml5',
+                    className: "btn btn-square green btn-success",
+                    title: 'Pada Rtm Ke'+' '+ $('#srtm option:selected').text(),
+                } ),
+                $.extend( true, {}, buttonCommon, {
+                    extend: 'pdfHtml5',
+                    className: "btn btn-square green btn-success",
+                    orientation: 'landscape',
+                    title: 'Pada Rtm Ke'+' '+ $('#srtm option:selected').text(),
+                } )
+            ],
    columns: [
                    { data: 'uraian', name: 'uraian', render: function(data, column, row)
                        {
@@ -346,9 +385,9 @@ function load_data2(sdept2, srtm)
                ],
                columnDefs:[
                    @role('unit')
-                   {targets:[4,5,6,7,9,10], visible:false, className: 'noVis'},
+                   {targets:[4,5,6,7,8,9], visible:false, className: 'noVis'},
                    @else
-                   {targets:[5,6,7,9,10], visible:false, className: 'noVis'},
+                   {targets:[4,5,6,7,8,9], visible:false, className: 'noVis'},
                    @endrole
                    {
                        targets:8,
