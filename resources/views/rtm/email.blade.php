@@ -122,8 +122,7 @@
 
                     <!-- START CENTERED WHITE CONTAINER -->
                     <span class="preheader"
-                        style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This
-                        is preheader text. Some clients will show this text as a preview.</span>
+                        style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">{{$judul}}</span>
                     <table class="main"
                         style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background: #ffffff; border-radius: 3px;">
 
@@ -140,7 +139,9 @@
                                                 Pemberitahuan,</p>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
-                                                Anda belum memasukkan bahan untuk RTM Ke 77. Klik dibawah untuk mulai
+                                                Jika Anda belum memasukkan bahan untuk RTM {{$rtmke}}. Klik dibawah
+                                                untuk
+                                                mulai
                                                 menginput</p>
                                             <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary"
                                                 style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">

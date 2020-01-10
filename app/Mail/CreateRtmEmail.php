@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -16,9 +17,11 @@ class CreateRtmEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
-        //
+        $this->request = $request;
     }
 
     /**
@@ -29,11 +32,13 @@ class CreateRtmEmail extends Mailable
     public function build()
     {
         return $this->from('rtm.pjt2@gmail.com')
+            ->subject('Pembertahuan untuk melakukan input bahan RTM')
             ->view('rtm/email')
             ->with(
                 [
-                    'nama' => 'Pengisian Bahan RTM',
-                    'website' => 'www.jasatirta2.co.id',
+                    'judul' => ' Input Bahan RTM',
+                    // 'rtmke' => $rtmke,
+                    'request' => $this->request
                 ]
             );
     }

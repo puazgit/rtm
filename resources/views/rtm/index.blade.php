@@ -63,7 +63,6 @@
                         // alert( 'Button activated' );
                     }
                 },
-                'excelHtml5'
           ],
           serverSide: true,
           order:[[4,"desc"]],    

@@ -7,15 +7,6 @@
 @section('content')
 <h3 class="page-title">
 </h3>
-<div class="row">
-    <div class="portlet-body">
-        <div class="note note-danger">
-            <h4 class="block">Danger! Some Header Goes Here</h4>
-            <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit mattis
-                consectetur purus sit amet.\ Cras mattis consectetur purus sit amet fermentum. </p>
-        </div>
-    </div>
-</div>
 
 <div class="row">
     <div class="col-md-12">
