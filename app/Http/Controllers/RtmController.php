@@ -66,6 +66,7 @@ class RtmController extends Controller
         
         //tambah data RTM baru
         $rtm = Rtm::Create($validatedData);
+        
         //kirim email ke unit kerja
         // $emails = User::all()->whereNotIn('departemen_id',0)->pluck('email');
         $emails = ['apriyampon@gmail.com'];

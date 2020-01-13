@@ -151,6 +151,19 @@
  })
  function load_data(sdept)
 {
+
+    var buttonCommon1 = {
+        exportOptions: {
+            columns: ':visible',
+            format: {
+                body: function ( data, column,row ) {
+                    data = $("<p/>").html(data).text();
+                    return $.trim(data);
+                }
+            }
+        }
+    };
+
     var	sdept = $('#sdept').val();
     
     $('#table-bahan1').DataTable({
@@ -170,6 +183,23 @@
                         window.location = '{{route ('bahan.create')}}';
                     }
                 },
+                {
+                extend: "print",
+                    text: "Print",
+                    className: "btn btn-square green btn-success",
+                    // title: 'Pada Rtm Ke'+' '+ $('#srtm option:selected').text(),
+                },
+                $.extend( true, {}, buttonCommon1, {
+                    extend: 'excelHtml5',
+                    className: "btn btn-square green btn-success",
+                    // title: 'Pada Rtm Ke'+' '+ $('#srtm option:selected').text(),
+                } ),
+                $.extend( true, {}, buttonCommon1, {
+                    extend: 'pdfHtml5',
+                    className: "btn btn-square green btn-success",
+                    orientation: 'landscape',
+                    // title: 'Pada Rtm Ke'+' '+ $('#srtm option:selected').text(),
+                } ),
                 @role('admin')
                 {
 					extend: "colvis",
