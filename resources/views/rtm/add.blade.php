@@ -106,7 +106,7 @@
                                         <div class="form-group">
                                             {{-- <label class="col-md-3 control-label">Attach Surat</label> --}}
                                             <div class="col-md-10">
-                                                <div class="dropzone dropzone-file-area" id="document-dropzone"
+                                                <div class="dropzone dropzone-file-area" name="document-dropzone" id="document-dropzone"
                                                     style="width: 600px; margin-top: 10px;">
                                                     <div class="dz-message" data-dz-message><span>
                                                             <h4 class="sbold">Unggah Surat Permohonan Bahan RTM</h4>

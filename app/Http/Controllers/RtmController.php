@@ -58,41 +58,41 @@ class RtmController extends Controller
     {
         $validatedData = $request->validate([
             'rtm_ke' => 'required|digits_between:0,100', 'tingkat' => 'required', 'rkt' => 'required',
-            'tahun' => 'required'
+            'tahun' => 'required','document' => ''
         ], [
             'rtm_ke.required' => 'RTM harap diisi',
             'rtm_ke.digits_between' => 'RTM harus angka',
-        ]);
-        
+            ]);
+            
         //tambah data RTM baru
         $rtm = Rtm::Create($validatedData);
         
         //kirim email ke unit kerja
-        // $emails = User::all()->whereNotIn('departemen_id',0)->pluck('email');
-        $emails = ['apriyampon@gmail.com'];
+        $emails = User::all()->whereNotIn('departemen_id',0)->pluck('email');
+        // $emails = ['puas.apriyampon@jasatirta2.co.id'];
         Mail::to($emails)->send(new CreateRtmEmail($request));
 
         //deactive RTM sebelumnya
-        // $rtm = Rtm::where('enabled', 1)
-        // ->update(['enabled' => 0]);
+        $rtm = Rtm::where('enabled', 1)
+        ->update(['enabled' => 0]);
 
         //ubah status uraian permasalahan menjadi status lama 
-        // $uraian = Uraian::where('statusn', 1)
-        // ->update(['statusn' => 0]);
+        $uraian = Uraian::where('statusn', 1)
+        ->update(['statusn' => 0]);
         
 
 
         //masukan uraian permasalahan sebelumnya yang masih open
-        // $uraianstatusopen = Uraian::StatusRisalah()->Has('statusOpen')->get();
-        // $iduraianstatusopen = $uraianstatusopen->pluck('id');
-        // $rtm->uraian()->attach($iduraianstatusopen);
-        
-        //upload file berkas lampiran RTM
-        // foreach ($request->input('document', []) as $file) {
-        //     $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
-        // }
+        $uraianstatusopen = Uraian::StatusRisalah()->Has('statusOpen')->get();
+        $iduraianstatusopen = $uraianstatusopen->pluck('id');
+        $rtm->uraian()->attach($iduraianstatusopen);
 
+        //upload file berkas lampiran RTM
+        foreach ($request->input('document', []) as $file) {
+            $rtm->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
+        }
         return redirect('rtm/add')->with('success', 'RTM berhasil dibuat dan link pemberitahuan telah dikirim ke email unit kerja');
+        // dd($validatedData);
     }
 
     public function store(Request $request)
