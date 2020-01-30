@@ -23,20 +23,13 @@
                     </select>
                 </div>
                 @endrole
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <select id="srtm" class="form-control select2" name="srtm">
                         <option value=""></option>
                         @foreach (App\Rtm::get() as $rtm)
                         <option value="{{ $rtm->id }}">{{ $rtm->rtm_ke }}
                         </option>
                         @endforeach
-                    </select>
-                </div>
-                <div class="col-lg-2">
-                    <select id="statuse" class="form-control select2" name="statuse">
-                        <option value="">--- Status ---</option>
-                        <option value="1">Open</option>
-                        <option value="0">Close</option>
                     </select>
                 </div>
             </div>
@@ -155,7 +148,9 @@
         url:'{{ route("risalah.index") }}',
         data:{sdept:sdept, srtm:srtm}
     },
+    @role('admin')
     dom: 'Blfrtip',
+    @endrole
     buttons: [
                 {
                 extend: "colvis",
@@ -251,7 +246,7 @@
                     { data: 'id', name: 'id'}//10
 	            ],
                 columnDefs:[
-                    {targets:[0,1,2],"width": "30%"},
+                    {targets:0,"width": "30%"},
                     @role('unit')
                     {targets:[4,5,6,7,9], visible:false, className: 'noVis'},
                     @else
